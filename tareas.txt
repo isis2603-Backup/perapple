@@ -1,6 +1,6 @@
 Tareas para semana 2: 
 
-- Subir selfie del grupo en Home de wiki.
+[- Subir selfie del grupo en Home de wiki.]
 - Hacer cada clase del UML en GenMyModel (foto esta cada quien)
 - Subir el UML en la wiki de GitHub (el ultimo que edite el UML)
 - Hacer cada caso de uso (hay que seleccionar cada uno cual quiere) 
