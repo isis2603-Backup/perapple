@@ -21,12 +21,12 @@
   - Crear Usuario (Esteban)
   - Agregar ciudad a itinerario (Nicolas)
   - Definir itinerario (Harold González) 
-  - Agregar sitio de interés a itinerario (Camilo)
+  [- Agregar sitio de interés a itinerario (Camilo)]
   [- Agregar evento a itinerario (Maria Camila)]
 - Subi a la wiki cada caso de uso:
  [- Calificar Evento o Sitio de Interés (Daniel)] 
   - Crear Usuario (Esteban)
   - Agregar ciudad a itinerario (Nicolas)
   - Definir itinerario (Harold González) 
-  - Agregar sitio de interés a itinerario (Camilo)
+  [- Agregar sitio de interés a itinerario (Camilo)]
   [- Agregar evento a itinerario (Maria Camila)]
