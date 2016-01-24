@@ -6,7 +6,7 @@
   [- Viajero (Harold)]
   - Itinerario (Esteban)
   [- Ciudad (Daniel)]
-  - Evento (Nicolas)
+  [- Evento (Nicolas)]
   [- SitioDeInteres (Maria Camila)]
 - Subir el UML en la wiki de GitHub (el ultimo que edite el UML)
 - Hacer tabla de cada caso de uso:
