@@ -1,8 +1,8 @@
-Tareas para semana 2: 
+﻿Tareas para semana 2: 
 
 [- Subir selfie del grupo en Home de wiki (Esteban)]
 - Hacer cada clase del UML en GenMyModel:
-  - MisVacaciones (Camilo)
+  [- MisVacaciones (Camilo)]
   [- Viajero (Harold)]
   - Itinerario (Esteban)
   - Ciudad (Daniel)
@@ -14,7 +14,7 @@ Tareas para semana 2:
   - Crear Usuario (Esteban)
   - Agregar ciudad a itinerario (Nicolas)
   [- Definir itinerario (Harold González)]
-  - Agregar sitio de interés a itinerario (Camilo)
+  [- Agregar sitio de interés a itinerario (Camilo)]
   - Agregar evento a itinerario (Maria Camila)
 - Hacer diagrama de cada caso de uso:
   - Calificar Evento o Sitio de Interés (Daniel) 
