@@ -8,7 +8,7 @@ Integrantes
 1. Althviz, Daniel
 2. Dalel, Esteban (Líder)
 3. Galvis, Nicolás
-4. Gonzáles, Harold
+4. González, Harold
 5. Mendoza, Camilo
 6. Remolina, Maria Camila
 
