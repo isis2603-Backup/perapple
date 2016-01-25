@@ -1,5 +1,5 @@
 ﻿Tareas para semana 2: 
-
+- Definir y agregar objetivos
 [- Subir selfie del grupo en Home de wiki (Esteban)]
 - Hacer cada clase del UML en GenMyModel:
   [- MisVacaciones (Camilo)]
