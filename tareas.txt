@@ -4,7 +4,7 @@
 - Hacer cada clase del UML en GenMyModel:
   [- MisVacaciones (Camilo)]
   [- Viajero (Harold)]
-  - Itinerario (Esteban)
+  [- Itinerario (Esteban)]
   [- Ciudad (Daniel)]
   [- Evento (Nicolas)]
   [- SitioDeInteres (Maria Camila)]
