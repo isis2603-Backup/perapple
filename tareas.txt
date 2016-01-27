@@ -18,7 +18,7 @@
   [- Agregar evento a itinerario (Maria Camila)]
 - Hacer diagrama de cada caso de uso:
   [- Calificar Evento o Sitio de Interés (Daniel)] 
-  - Crear Usuario (Esteban)
+  [- Crear Usuario (Esteban)]
   - Agregar ciudad a itinerario (Nicolas)
   [- Definir itinerario (Harold González)] 
   [- Agregar sitio de interés a itinerario (Camilo)]
