@@ -1,7 +1,7 @@
 # perapple
 Repositorio de documentación
 
-Mantra:
+Mantra: éxito a través de diseño
 
 Integrantes
 
