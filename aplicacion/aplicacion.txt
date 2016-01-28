@@ -1,2 +1,3 @@
-Importar proyecto de ejemplo con netbeans.
-Comenzar elaboración de pantallas en html.
+-[Importar proyecto de ejemplo con netbeans.]
+-Conexion desde maq virtuales al repositorio con netbeans
+-Comenzar elaboraciÃ³n de pantallas en html.
