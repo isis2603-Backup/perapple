@@ -13,6 +13,9 @@
                         url: '/evento',
                         templateUrl: "src/modules/evento/evento.tpl.html"
                     })
-                    ;
+                    .state('home', {
+                        url: '/home',
+                        templateUrl: "src/modules/evento/home.tpl.html"
+                    });
         }]);
 })(window.angular);
