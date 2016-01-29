@@ -15,7 +15,7 @@
                     })
                     .state('home', {
                         url: '/home',
-                        templateUrl: "src/modules/evento/home.tpl.html"
+                        templateUrl: "src/modules/home/home.tpl.html"
                     });
         }]);
 })(window.angular);
