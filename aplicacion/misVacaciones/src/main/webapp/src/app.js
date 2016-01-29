@@ -7,15 +7,12 @@
         }]);
 
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/book");
+            $urlRouterProvider.otherwise("/evento");
             $stateProvider
-                    .state('book', {
-                        url: '/book',
-                        templateUrl: "src/modules/book/book.tpl.html"
+                    .state('evento', {
+                        url: '/evento',
+                        templateUrl: "src/modules/evento/evento.tpl.html"
                     })
-                    .state('editorial', {
-                        url: '/editorial',
-                        templateUrl: "src/modules/editorial/editorial.tpl.html"
-                    });
+                    ;
         }]);
 })(window.angular);
