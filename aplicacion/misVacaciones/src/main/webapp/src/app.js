@@ -19,7 +19,7 @@
                     })
                     .state('login', {
                         url: '/login',
-                        templateUrl: "src/modules/loginPage.html"
+                        templateUrl: "src/loginPage.html"
                     });
         }]);
 })(window.angular);
