@@ -7,7 +7,7 @@
         }]);
 
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/evento");
+            $urlRouterProvider.otherwise("/login");
             $stateProvider
                     .state('itinerario', {
                         url: '/itinerario',
@@ -16,6 +16,10 @@
                     .state('home', {
                         url: '/home',
                         templateUrl: "src/modules/home/home.html"
+                    })
+                    .state('login', {
+                        url: '/login',
+                        templateUrl: "src/modules/loginPage.html"
                     });
         }]);
 })(window.angular);
