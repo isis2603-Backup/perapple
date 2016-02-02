@@ -1,6 +1,66 @@
 /* Styles go here */
 
-#map {  
-    width: 700px;
-    height: 400px;
+html {
+    font-family: "Arial", Sans-serif;
+    color: black;
+}
+
+body{
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+#fechas{
+    text-align: center;
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+  text-align: center;
+}
+
+#agregar_ciudad{
+  float: left;
+  width: 50%;
+  text-align: left;
+  margin:auto;
+}
+
+#textbox{
+    width: 70%;
+    padding:10px;
+    border: 1px solid black;
+}
+
+#button_agregar_nueva_ciudad{
+  width: 25%;
+  padding: 10px;
+}
+
+#calendario{
+  float: right;
+  width: 50%;
+  margin:auto;
+}
+
+#calend{
+   width: 90%; 
+   height: 400px;
+   text-align: center;
 }

@@ -2,6 +2,7 @@
 <html>
 
   <head>
+    <title> Itinerario </title>
     <script data-require="angular.js@1.4.8" data-semver="1.4.8" src="https://code.angularjs.org/1.4.8/angular.js"></script>
     <link rel="stylesheet" href="itinerarioCSS.css" />
     <script src="script.js"></script>
@@ -23,7 +24,7 @@
           }
           
           $scope.detalles = function(nc){
-            window.alert("se muestran abajo en la parte que esta ahciendo nicolas")
+            window.alert("se muestran abajo en la parte que esta haciendo nicolas")
           }
           
         });
@@ -32,8 +33,9 @@
     
     <h1>Itinerario 1</h1>
     
-    <p> FECHA INICIO: 01/02/2016 </p>
-    <p> FECHA FIN:    15/03/2016 </p>
+    <div id="fechas">
+    <p> FECHA INICIO: 01/02/2016   -   FECHA FIN:    15/03/2016 </p>
+    </div>
     
     <h2>Mapa</h2>
     <div id="map"></div>
@@ -49,13 +51,13 @@
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 
     
-    <div ng-app="agregar_ciudad" ng-controller="ctrl">
+    <div id="agregar_ciudad" ng-app="agregar_ciudad" ng-controller="ctrl">
       
       <h2>Ciudades</h2>
       
       <p>
-      <input type='text' ng-model="nueva_ciudad" /> 
-      <button ng-click="agregar(nueva_ciudad)"> agregar nueva ciudad </button>
+      <input id="textbox" type='text' ng-model="nueva_ciudad" /> 
+      <button id="button_agregar_nueva_ciudad" ng-click="agregar(nueva_ciudad)"> agregar nueva ciudad </button>
       </p>
       
       <table border="1" class="mytable">
@@ -73,8 +75,8 @@
     
     <div id="calendario">
       
-      <h2>Ciudades</h2>
-      <iframe src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=400&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0" width="500" height="400" frameborder="0" scrolling="no"></iframe>
+      <h2>Calendario</h2>
+      <iframe id="calend" src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=400&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0" frameborder="0" scrolling="no"></iframe>
       
     </div>
     
