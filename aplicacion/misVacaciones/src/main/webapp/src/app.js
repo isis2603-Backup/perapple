@@ -9,13 +9,13 @@
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise("/evento");
             $stateProvider
-                    .state('evento', {
-                        url: '/evento',
-                        templateUrl: "src/modules/evento/evento.tpl.html"
+                    .state('itinerario', {
+                        url: '/itinerario',
+                        templateUrl: "src/modules/itinerario/itinerario.html"
                     })
                     .state('home', {
                         url: '/home',
-                        templateUrl: "src/modules/home/home.tpl.html"
+                        templateUrl: "src/modules/home/home.html"
                     });
         }]);
 })(window.angular);
@@ -24,7 +24,7 @@ var app= angular.module("myApp",[]);
 
 
 app.controller('MainController', ['$scope', function($scope){
-        
-        
+
+
 }]);
 
