@@ -1,9 +1,20 @@
 body {
-    background: url('http://i.imgur.com/Eor57Ae.jpg') no-repeat fixed center center;
+    background: url('http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg') no-repeat fixed center center;
+    -webkit-background-size: cover;
     background-size: cover;
     font-family: Montserrat;
 }
-
+form,
+input,
+button{
+    margin: 10px;
+}
+#login{
+    
+    background-color: rgba(0,0,0,0.5);
+    margin-top: 100px;
+    border-radius: 10px;
+}
 .logo {
     width: 213px;
     height: 36px;
@@ -83,6 +94,6 @@ body {
 }
 
 .login-block button:hover {
-    background: #ff7b81;
+    background: #7b81ff;
 }
 
