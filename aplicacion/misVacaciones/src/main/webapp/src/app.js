@@ -26,10 +26,10 @@
                         url: '/home',
                         templateUrl: "src/modules/home/home.html"
                     })
-                    .state('login', {
+                    /*.state('login', {
                         url: '/login',
                         templateUrl: "src/loginPage.html"
-                    });
+                    })*/;
         }]);
 
 
