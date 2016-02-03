@@ -1,20 +1,98 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div><h1></h1>
+<div ng-controller="controlador" ng-init="list = true"
+     style="
+     background: url(http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg) center center cover no-repeat fixed;">
+    <div id="navbar">
+        <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid" style="text-align: right">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" style="text-align:right">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#book-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">Hola, {{usuario}} </a>
+                <a class="navbar-brand text-right" ui-sref="login">Cerrar Sesión</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+        </div>
+    </nav>
+    </div>
+    <!--si list es verdadero-->
+    <div class="conteiner-fluid" >
+    <div class="col-sm-24" ng-if="list">
+        <div class="col-md-4 col-sm-8 col-lg-3 well" style="margin:5px">
+            <div class="col-md-10">
+                <div class="img-circle" id="image">
+                    <p> <img class="img-responsive" style="height: 200px; width: 200px" src="http://files.melodiasalvatge.webnode.es/200000767-657786675e/buen-viajero-namibia.jpg" alt="">
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="caption" >
+                <p class="dl-horizontal"><strong>Nombre</strong>: {{usuario}} </p>
+                <p class="dl-horizontal"><strong>Correo:</strong> {{correo}}</p>
+            </div>
+        </div>
+
+        <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:2px">
+            <h1 class="text-center" ><strong>Creación de itinerarios</strong></h1>
+
+            <!--formulario y creacion de itnerarios-->
+
+    <!--si list es falso se oprimio boton create-->
+
+            <div ng-if="!list" class="well" style="background:rgb(117, 139, 198)" >
+        <form novalidate name="form" id="itinerario-form" role="form" >
+            <fieldset>
+                <input id="id" class="form-control" type="hidden"/>
+                <div class="form-group col-md-12">
+                    <label for="name" class="col-md-2 control-label">Nombre</label>
+                    <div class="col-md-10">
+                        <input id="name" name="name" class="form-control" type="text" required />
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="date" class="col-md-2 control-label">Fechas de inicio y fin</label>
+                    <div class="col-md-10">
+
+                       <input type ="date" name="date-ini" id="date-ini" class="form-control" required/>
+                       <input type="date" name="date-fin"  id="date-fin" class="form-control" required/>
+
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+
+
+            <div class="collapse navbar-collapse" id="itinerario-buttons">
+                <!--en false list-->
+                <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false"><span class="glyphicon glyphicon-plus"></span> Create</button>
+                <!--en true list-->
+                <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true"><span class="glyphicon glyphicon-save"></span> Save</button>
+                <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
 
         </div>
 
-        <div><img src="http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg"/></div>
-    </body>
-</html>
+        <div class="col-md-4 col-sm-8 col-lg-3 well" style="margin:5px">
+            <div class="col-md-10">
+                 <h1 class="text-center" ><strong>Sus itinerarios</strong></h1>
+            </div>
+            <br>
+            <div class="caption" >
+                <p class="dl-horizontal"><strong>Nombre</strong>: {{usuario}} </p>
+                <p class="dl-horizontal"><strong>Correo:</strong> {{correo}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+</div>
