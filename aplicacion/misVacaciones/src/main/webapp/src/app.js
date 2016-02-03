@@ -2,6 +2,14 @@
 
     var mod = ng.module("mainApp", ["ui.router"]);
 
+
+        mod.controller("controlador", function($scope){
+
+            $scope.usuario= "Daniel";
+            $scope.correo = "correo@gmail.com";
+
+        });
+
     mod.config(['$logProvider', function ($logProvider) {
             $logProvider.debugEnabled(true);
         }]);
@@ -22,7 +30,11 @@
                         templateUrl: "src/loginPage.html"
                     });
         }]);
+
+
+
 })(window.angular);
+
 
 var app= angular.module("myApp",[]);
 
