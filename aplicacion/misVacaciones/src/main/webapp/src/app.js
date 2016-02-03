@@ -7,6 +7,7 @@
 
             $scope.usuario= "Daniel";
             $scope.correo = "correo@gmail.com";
+            $scope.nameItinerario = "Itinerario 1";
 
         });
 
