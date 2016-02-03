@@ -1,4 +1,4 @@
-<div ng-controller="controlador" ng-init="list = true"
+<div ng-controller="controlador" ng-init="list = true; itinerarios = false;"
      style="
      background: url(http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg) center center cover no-repeat fixed;">
     <div id="navbar">
@@ -51,7 +51,7 @@
                 <div class="form-group col-md-12">
                     <label for="name" class="col-md-2 control-label">Nombre</label>
                     <div class="col-md-10">
-                        <input id="name" name="name" class="form-control" type="text" required />
+                        <input id="name" name="name" ng-model="nameItinerario" class="form-control" type="text" required />
                     </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -64,6 +64,8 @@
                     </div>
                 </div>
             </fieldset>
+
+
         </form>
 
     </div>
@@ -72,10 +74,11 @@
             <div class="collapse navbar-collapse" id="itinerario-buttons">
                 <!--en false list-->
                 <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false"><span class="glyphicon glyphicon-plus"></span> Create</button>
-                <!--en true list-->
-                <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true"><span class="glyphicon glyphicon-save"></span> Save</button>
+            <!--en true list-->
+                <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; itinerarios = true"><span class="glyphicon glyphicon-save"></span> Save</button>
                 <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-            </div>
+
+           </div>
 
         </div>
 
@@ -84,8 +87,9 @@
                  <h1 class="text-center" ><strong>Sus itinerarios</strong></h1>
             </div>
             <br>
-            <div class="caption" >
-                <a class="dl-horizontal" ui-sref="/itinerario" ><strong>Itinerario 1</strong></a>
+
+            <div class="list-group" ng-show="itinerarios" >
+                <a class="list-group-item" ui-sref="itinerario" ><strong>{{nameItinerario}}</strong></a>
 
             </div>
         </div>
