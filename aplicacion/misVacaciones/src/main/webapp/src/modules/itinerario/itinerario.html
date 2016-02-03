@@ -9,34 +9,40 @@
   </head>
 
   <body>
-    
+
      <script>
-     
+
       angular.module("agregar_ciudad", []);
       angular.module("agregar_ciudad")
         .controller("ctrl", function($scope){
           $scope.nueva_ciudad = "";
           $scope.ciudades = [];
-          
+          $scope.nuevo_evento="";
+          $scope.eventos=[];
+
           $scope.agregar = function(nueva_ciudad){
             $scope.ciudades.push(nueva_ciudad);
             $scope.nueva_ciudad = "";
           }
-          
+          $scope.add= function(nuevo_evento){
+              $scope.eventos.push(nuevo_evento);
+              $scope.nuevo_evento="";
+          }
+
           $scope.detalles = function(nc){
             window.alert("se muestran abajo en la parte que esta haciendo nicolas")
           }
-          
+
         });
-      
+
     </script>
-    
+
     <h1>Itinerario 1</h1>
-    
+
     <div id="fechas">
     <p> FECHA INICIO: 01/02/2016   -   FECHA FIN:    15/03/2016 </p>
     </div>
-    
+
     <h2>Mapa</h2>
     <div id="map"></div>
     <script>
@@ -50,17 +56,18 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 
-    
+    <br>
+
     <div id="agregar_ciudad" ng-app="agregar_ciudad" ng-controller="ctrl">
-      
+
       <h2>Ciudades</h2>
-      
+
       <p>
-      <input id="textbox" type='text' ng-model="nueva_ciudad" /> 
+      <input id="textbox" type='text' ng-model="nueva_ciudad" />
       <button id="button_agregar_nueva_ciudad" ng-click="agregar(nueva_ciudad)"> agregar nueva ciudad </button>
       </p>
-      
-      <table border="1" class="mytable">
+
+      <table id="tabla" border="1" class="mytable">
         <tr>
           <td>Detalles</td>
           <td>Ciudades</td>
@@ -70,26 +77,107 @@
           <td>{{nc}}</td>
         </tr>
       </table>
-       
+      <br>
+
     </div>
-    
+
     <div id="calendario">
-      
+
       <h2>Calendario</h2>
-      <iframe id="calend" src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=400&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0" frameborder="0" scrolling="no"></iframe>
-      
+      <iframe id="calend" src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0" frameborder="0" scrolling="no"></iframe>
+
     </div>
-    
+    </br>
+    <div id="grilla">
+    <div id= "evento" ng-app="agregar_evento" ng-controller="ctrl">
+        <br>
+
+       <h2>Eventos </h2>
+       <div id="opciones">
+           <form>
+       <select name="OpcionEventos" ng-model="nuevo_evento" >
+        <option>Seleccione una opcion</option>
+        <option value="1" name="COLDPLAY">COLDPLAY</option>
+        <option value="2">Millonarios - Nacional</option>
+        <option value="3">COLDPLAY</option>
+        <option value="4">Fiesta Andres</option>
+        <option>COLDPLAY</option>
+        <option>Show Pirotecnicos Monserrtate</option>
+        <option>COLDPLAY</option>
+        <option>Universidad de los Andes</option>
+        </select>
+
+        <button id="button_agregar_evento" ng-click="add(nuevo_e)" > Agregar Evento </button>
+        </form>
+
+        </div>
+       <br>
+       <br>
+      <table border="1" class= "mytable">
+        <tr>
+
+        <td><b>Mis Eventos</b></td>
+
+        </tr>
+
+            <tr ng-repeat="nc in eventos">
+
+          <td>{{nc}}</td>
+        </tr>
+        <tr>
+
+          <td>Festival Estereo Picnic  </td>
+
+        </tr>
+        <tr><td>Festival Internacional de Teatro </td></tr>
+        <tr><td>Rolling Stones en concierto  </td></tr>
+
+      </table>
+          </div>
+        <div id="sitio">
+      <h2>Sitios de interes</h2>
+      <div id="opciones">
+      <select name=sitio>
+        <option>Seleccione una opcion</option>
+        <option>          </option>
+        <option>Museo del oro</option>
+        <option>Parque Simon Bolivar</option>
+        <option>Estadio el campin</option>
+        <option>Centro Andino</option>
+        <option>Universidad de los Andes</option>
+        </select>
+        <input type="date" name="bday" max="1979-12-31">
+         <button id="button_agregar_sitio" > Agregar sitio</button>
+         <br>
+         </div>
+      <br>
+      <br>
+         <table border="1" class= "mytable">
+        <tr>
+
+        <td><b>Mis Sitios</b></td>
+
+        </tr>
+        <tr>
+          <td>Andres Carne de Res </td>
+
+        </tr>
+           </table>
+
+        </div>
+</div>
+
+
+
   </body>
-  
 <!--
   172.24.99.228
   2e4l7f9g
-  
+
   version 1.48
-  
+
   agular-gmaps
-  
+
   http://expo.getbootstrap.com/
   http://bootsnipp.com/
   http://ngmodules.org/

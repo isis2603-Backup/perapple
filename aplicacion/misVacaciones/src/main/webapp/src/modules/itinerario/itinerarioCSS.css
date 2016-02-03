@@ -10,7 +10,7 @@ body{
 }
 
 table {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
     border: 1px solid black;
     text-align: center;
@@ -31,14 +31,15 @@ h2{
 
 #map {
   width: 100%;
-  height: 400px;
+  height: 270px;
   text-align: center;
 }
 
 #agregar_ciudad{
+     height: 490px;
   float: left;
   width: 50%;
-  text-align: left;
+  text-align: center;
   margin:auto;
 }
 
@@ -57,10 +58,38 @@ h2{
   float: right;
   width: 50%;
   margin:auto;
+  text-align: center;
 }
 
 #calend{
-   width: 90%; 
+   width: 90%;
    height: 400px;
    text-align: center;
+}
+#grilla{
+    display: grid;
+    grid-template-columns: minmax(min-content, 1fr);
+}
+
+#sitio{
+
+    grid-column:1;
+      float: left;
+  width: 50%;
+  text-align: center;
+  margin:auto;
+}
+#evento{
+
+    grid-column:2;
+    float: right;
+  width: 50%;
+  text-align: center;
+  margin:auto;
+}
+#opciones{
+    text-align: center;
+}
+#tabla{
+    width: 100%;
 }
