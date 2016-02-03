@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html ng-app="mainApp">
+<html ng-app="mainApp"  >
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,8 +19,8 @@
         <script src="src/app.js" type="text/javascript"></script>
 
     </head>
-    <body style="padding-top: 60px;">
-        <div class="container-fluid">
+    <body style="padding-top: 60px">
+        <div class="container-fluid" >
             <div class="col-md-12">
                 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div class="container-fluid">
@@ -38,8 +39,11 @@
                         <div class="collapse navbar-collapse" id="main-bar">
                             <ul class="nav navbar-nav">
                                 <!--pagina principal-->
+                                <!--posible uso de direccion directa imposibilita
+                                mantener barra de enlaces de titulo, para uso de angular en redireccionamiento intentar hacer
+                                uso de atributo ui-sref como en el caso de home-->
                                 <li><a href="src/loginPage.html">Login</a></li>
-                                <li><a href="src/modules/home/home.html">Home</a></li>
+                                <li> <a ui-sref="home">Home</a></li>
                                 <li><a href="src/modules/itinerario/itinerario.html">Itinerario</a></li>
                             </ul>
                         </div> <!-- /.navbar-collapse -->
