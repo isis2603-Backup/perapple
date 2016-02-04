@@ -51,7 +51,7 @@
                 <div class="form-group col-md-12">
                     <label for="name" class="col-md-2 control-label">Nombre</label>
                     <div class="col-md-10">
-                        <input id="name" name="name" ng-model="nameItinerario" class="form-control" type="text" required />
+                        <input id="name" name="name" ng-model="newValue" class="form-control" type="text" required>
                     </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -75,7 +75,7 @@
                 <!--en false list-->
                 <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false"><span class="glyphicon glyphicon-plus"></span> Create</button>
             <!--en true list-->
-                <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; itinerarios = true"><span class="glyphicon glyphicon-save"></span> Save</button>
+                <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; itinerarios = true; setString(newValue);"><span class="glyphicon glyphicon-save"></span> Save</button>
                 <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
 
            </div>
@@ -89,7 +89,7 @@
             <br>
 
             <div class="list-group" ng-hide="!itinerarios" >
-                <a class="list-group-item" ui-sref="itinerario" ><strong>{{nameItinerario}}</strong></a>
+                <a class="list-group-item" ui-sref="itinerario" ><strong>{{objectValue.data}}</strong></a>
 
             </div>
         </div>

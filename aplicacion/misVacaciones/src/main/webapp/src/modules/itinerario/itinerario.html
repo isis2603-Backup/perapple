@@ -1,35 +1,7 @@
-  <div id="itinerario">
+  <div ng-controller="ctrl" id="itinerario">
 
      <!--<link rel="stylesheet" href="itinerarioCSS.css" />-->
-
-     <script>
-
-      angular.module("agregar_ciudad", []);
-      angular.module("agregar_ciudad")
-        .controller("ctrl", function($scope){
-          $scope.nueva_ciudad = "";
-          $scope.ciudades = [];
-          $scope.nuevo_evento="";
-          $scope.eventos=[];
-
-          $scope.agregar = function(nueva_ciudad){
-            $scope.ciudades.push(nueva_ciudad);
-            $scope.nueva_ciudad = "";
-          }
-          $scope.add= function(nuevo_evento){
-              $scope.eventos.push(nuevo_evento);
-              $scope.nuevo_evento="";
-          }
-
-          $scope.detalles = function(nc){
-            window.alert("se muestran abajo en la parte que esta haciendo nicolas")
-          }
-
-        });
-
-    </script>
-
-    <h1>Itinerario 1</h1>
+    <h1>{{objectValue.data}}</h1>
 
     <div id="fechas">
     <p> FECHA INICIO: 01/02/2016   -   FECHA FIN:    15/03/2016 </p>
@@ -50,8 +22,7 @@
 
     <br>
 
-    <div id="agregar_ciudad" ng-app="agregar_ciudad" ng-controller="ctrl">
-
+    <div id="agregar_ciudad" ng-controller="ctrl"> 
       <h2>Ciudades</h2>
 
       <p>
