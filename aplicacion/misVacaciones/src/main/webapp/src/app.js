@@ -16,20 +16,16 @@
         }]);
 
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/login");
+            $urlRouterProvider.otherwise("/home");
             $stateProvider
                     .state('itinerario', {
                         url: '/itinerario',
-                        templateUrl: "src/modules/itinerario/itinerario.html"
+                        templateUrl: "./modules/itinerario/itinerario.html"
                     })
                     .state('home', {
                         url: '/home',
-                        templateUrl: "src/modules/home/home.html"
-                    })
-                    /*.state('login', {
-                        url: '/login',
-                        templateUrl: "src/loginPage.html"
-                    })*/;
+                        templateUrl: "./modules/home/home.html"
+                    });
         }]);
 
 
