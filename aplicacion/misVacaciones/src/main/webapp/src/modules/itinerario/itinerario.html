@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>  
-    <title></title>
-    
-    <link  href="itinerarioCSS.css" rel="stylesheet" type="text/css"> </head>  
 
 <div ng-controller="ctrl" id="itinerario">
     
     <h1>{{objectValue.data}}</h1>
 
     <div class="fecha" id="fechas">
-        <p> <b>FECHA INICIO:</b> 01/02/2016   -   <b>FECHA FIN:</b>    15/03/2016 </p>
+        <p ALIGN=center> <b>FECHA INICIO:</b> 01/02/2016   -   <b>FECHA FIN:</b>    15/03/2016 </p>
     </div>
 
     <h2>Mapa</h2>
@@ -38,8 +32,8 @@
 
       <table id="tabla" border="1" class="table table-bordered">
         <tr>
-            <td > <b>Detalles</b> </td>
-            <td > <b>Ciudades</b> </td>
+            <td ALIGN=center> <b>Detalles</b> </td>
+            <td ALIGN=center> <b>Ciudades</b> </td>
         </tr>
         <tr ng-repeat="nc in ciudades">
           <td><button ng-click="detalles(nc)"> . </button></td>
@@ -85,7 +79,7 @@
       <table border="1" class= "table table-bordered">
         <tr>
 
-        <td ><b>Mis Eventos</b></td>
+        <td aLIGN=center ><b>Mis Eventos</b></td>
 
         </tr>
 
@@ -124,7 +118,7 @@
          <table border="1" class= "table table-bordered">
         <tr>
 
-        <td ><b>Mis Sitios</b></td>
+        <td ALIGN=center><b>Mis Sitios</b></td>
 
         </tr>
         <tr>
@@ -151,4 +145,3 @@
  -->
 
  </div>
-</html>
