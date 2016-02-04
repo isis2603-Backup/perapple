@@ -18,7 +18,7 @@ button{
 .logo {
     width: 213px;
     height: 36px;
-    background: url('http://i.imgur.com/fd8Lcso.png') no-repeat;
+    background: url('http://www.lauruswebworks.com/image/IndexArt783.png') no-repeat;
     margin: 30px auto;
 }
 
@@ -53,12 +53,12 @@ button{
     outline: none;
 }
 
-.login-block input#usuario {
+.login-block input#username {
     background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
-.login-block input#usuario:focus {
+.login-block input#username:focus {
     background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
