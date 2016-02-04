@@ -10,7 +10,7 @@ button{
     margin: 10px;
 }
 #login{
-    
+
     background-color: rgba(0,0,0,0.5);
     margin-top: 100px;
     border-radius: 10px;
@@ -53,12 +53,12 @@ button{
     outline: none;
 }
 
-.login-block input#username {
+.login-block input#usuario {
     background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
-.login-block input#username:focus {
+.login-block input#usuario:focus {
     background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
@@ -95,5 +95,6 @@ button{
 
 .login-block button:hover {
     background: #7b81ff;
+    border: #7b81ff;
 }
 
