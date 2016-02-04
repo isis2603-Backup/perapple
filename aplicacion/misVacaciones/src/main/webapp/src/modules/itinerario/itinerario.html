@@ -1,10 +1,16 @@
-  <div ng-controller="ctrl" id="itinerario">
+<!DOCTYPE html>
+<html>
+<head>  
+    <title></title>
+    
+    <link  href="itinerarioCSS.css" rel="stylesheet" type="text/css"> </head>  
 
-     <!--<link rel="stylesheet" href="itinerarioCSS.css" />-->
+<div ng-controller="ctrl" id="itinerario">
+    
     <h1>{{objectValue.data}}</h1>
 
-    <div id="fechas">
-    <p> FECHA INICIO: 01/02/2016   -   FECHA FIN:    15/03/2016 </p>
+    <div class="fecha" id="fechas">
+        <p> <b>FECHA INICIO:</b> 01/02/2016   -   <b>FECHA FIN:</b>    15/03/2016 </p>
     </div>
 
     <h2>Mapa</h2>
@@ -16,7 +22,7 @@
           center: {lat: 4.598889, lng: -74.080833},
           zoom: 10
         });
-      }
+      };
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 
@@ -30,10 +36,10 @@
       <button id="button_agregar_nueva_ciudad" ng-click="agregar(nueva_ciudad)"> agregar nueva ciudad </button>
       </p>
 
-      <table id="tabla" border="1" class="mytable">
+      <table id="tabla" border="1" class="table table-bordered">
         <tr>
-          <td>Detalles</td>
-          <td>Ciudades</td>
+            <td > <b>Detalles</b> </td>
+            <td > <b>Ciudades</b> </td>
         </tr>
         <tr ng-repeat="nc in ciudades">
           <td><button ng-click="detalles(nc)"> . </button></td>
@@ -50,7 +56,7 @@
       <iframe id="calend" src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0" frameborder="0" scrolling="no"></iframe>
 
     </div>
-    </br>
+    <br>
     <div id="grilla">
     <div id= "evento" ng-app="agregar_evento" ng-controller="ctrl">
         <br>
@@ -76,10 +82,10 @@
         </div>
        <br>
        <br>
-      <table border="1" class= "mytable">
+      <table border="1" class= "table table-bordered">
         <tr>
 
-        <td><b>Mis Eventos</b></td>
+        <td ><b>Mis Eventos</b></td>
 
         </tr>
 
@@ -115,10 +121,10 @@
          </div>
       <br>
       <br>
-         <table border="1" class= "mytable">
+         <table border="1" class= "table table-bordered">
         <tr>
 
-        <td><b>Mis Sitios</b></td>
+        <td ><b>Mis Sitios</b></td>
 
         </tr>
         <tr>
@@ -145,3 +151,4 @@
  -->
 
  </div>
+</html>
