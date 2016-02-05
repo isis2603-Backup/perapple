@@ -25,11 +25,17 @@
     <div class="col-sm-6" style="height:500px; ">
         <div class="col-sm-12 well" style="height:500px; text-align: center">
             <h2>Ciudades</h2>
-
-            <p>
-            <input id="textbox" type='text' ng-model="nueva_ciudad" />
-            <button id="button_agregar_nueva_ciudad" ng-click="agregar(nueva_ciudad)"> agregar nueva ciudad </button>
-            </p>
+            
+            <br>
+           
+                <div class="row">
+            <div class="col-xs-7">
+                <input id="textbox" type="text" class="form-control" title="Escriba el nombre de la ciudad" placeholder="Ciudad" ng-model="nueva_ciudad" />
+            </div>
+            <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-primary btn-sm" ALIGN="left" ng-click="agregar(nueva_ciudad)"> agregar nueva ciudad </button>
+           
+            </div>
+            <br>
 
             <table id="tabla" border="1" class="table table-bordered">
               <tr>
@@ -37,7 +43,7 @@
                   <td ALIGN=center> <b>Ciudades</b> </td>
               </tr>
               <tr ng-repeat="nc in ciudades">
-                <td><button ng-click="detalles(nc)"> . </button></td>
+                <td><button type="button" class="btn btn-primary" ng-click="detalles(nc)"> . </button></td>
                 <td>{{nc}}</td>
               </tr>
             </table>
@@ -58,20 +64,25 @@
             <h2 style="text-align: center"> Ciudad </h2>
             <div class="col-sm-6" ng-app="agregar_evento" ng-controller="ctrl" style="height:500px; text-align: center">
                 <h3>Eventos </h3>
+                <br>
                 <div id="opciones">
                     <form>
-                        <select name="OpcionEventos" ng-model="nuevo_evento" >
-                            <option>Seleccione una opcion</option>
-                            <option value="1" name="COLDPLAY">COLDPLAY</option>
+                        <div class="row">
+                        <div class="col-sm-6">
+                        <select class="form-control" name="OpcionEventos" ng-model="nuevo_evento" >
+                            <option selected value="1">Seleccione una opcion</option>
                             <option value="2">Millonarios - Nacional</option>
                             <option value="3">COLDPLAY</option>
                             <option value="4">Fiesta Andres</option>
-                            <option>COLDPLAY</option>
-                            <option>Show Pirotecnicos Monserrtate</option>
-                            <option>COLDPLAY</option>
-                            <option>Universidad de los Andes</option>
+                             <option value="5">Festival Estereo Picnic</option>
+                            <option value="6">Show Pirotecnicos Monserrtate</option>
+                            <option value="7">Festival Internacional de Teatro</option>
+                            <option value="8">Universidad de los Andes</option>
+                             <option value="9">Rolling Stones en concierto</option>
                         </select>
-                        <button id="button_agregar_evento" ng-click="add(nuevo_e)" > Agregar Evento </button>
+                            </div>
+                        <button id="button_agregar_evento" type="button" class="btn btn-primary " ng-click="add(nuevo_e)" > Agregar Evento </button>
+                        </div>
                     </form>
                 </div>
                 <br>
@@ -90,9 +101,12 @@
               </div>
 
             <div class="col-sm-6" style="height:500px; text-align: center">
-                <h3> Sitios de InterÃ©s </h3>
+                <h3> Sitios de Interés </h3>
+                <br>
                     <div id="opciones">
-                        <select name=sitio>
+                        <div class="row">
+                        <div class="col-sm-5">
+                        <select class="form-control" name=sitio>
                             <option>Seleccione una opcion</option>
                             <option>          </option>
                             <option>Museo del oro</option>
@@ -101,12 +115,15 @@
                             <option>Centro Andino</option>
                             <option>Universidad de los Andes</option>
                         </select>
-                        <input type="date" name="bday" max="1979-12-31">
-                        <button id="button_agregar_sitio" > Agregar sitio</button>
+                        </div>
+                            <div class="col-sm-4">
+                        <input type="date" class="form-control" title="Escriba la fecha del evento" name="bday" max="1979-12-31">
+                         </div>
+                        <button id="button_agregar_sitio" type="button" class="btn btn-primary" > Agregar sitio</button>
+                        </div>
                         <br>
-                    </div>
-                    <br>
-                    <br>
+                   
+                      <br>
                     <table border="1" class= "table table-bordered">
                         <tr>
                             <td ALIGN=center><b>Mis Sitios</b></td>
