@@ -1,83 +1,92 @@
-<div ng-controller="controlador" ng-init="list = true; itinerarios = false;"
-     style="
+<div ng-controller="controlador" ng-init="list = true; itinerarios = false;" style="
      background: url(http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg) center center cover no-repeat fixed;">
-       <!--si list es verdadero-->
-    <div class="conteiner-fluid" >
-    <div class="col-sm-24" ng-if="list">
-        <div class="col-md-4 col-sm-8 col-lg-3 well" style="margin:5px; height:1000px; ">
-            <div class="col-md-10">
-                <div class="img-circle" id="image">
-                    <p> <img class="img-responsive" style="height: 200px; width: 200px" src="http://files.melodiasalvatge.webnode.es/200000767-657786675e/buen-viajero-namibia.jpg" alt="">
-                    </p>
-                </div>
-            </div>
-            <br>
-            <div class="caption" >
-                <p class="dl-horizontal"><strong>Nombre</strong>: {{usuario}} </p>
-                <p class="dl-horizontal"><strong>Correo:</strong> {{correo}}</p>
-            </div>
-        </div>
+      <!--si list es verdadero-->
+      <div class="conteiner-fluid" style="justify-content: center;">
+        <div class="col-sm-24" ng-if="list" style="justify-content: center">
+          <div class="col-md-4 col-sm-3 col-lg-3 well" style="margin:5px; height:600px; justify-content: center;">
 
-        <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:2px">
-            <h1 class="text-center" ><strong>Creación de itinerarios</strong></h1>
+              <div class="img-circle" id="image" style="justify-content: center;width: 200px; margin:0 auto;">
+                <p>
+                  <img class="img-rounded" style="height: 200px; " src="http://files.melodiasalvatge.webnode.es/200000767-657786675e/buen-viajero-namibia.jpg" alt="" />
+                </p>
+              </div>
 
+            <div class="caption">
+              <p class="dl-horizontal">
+                <strong>Nombre</strong>
+                        : {{usuario}} </p>
+              <p class="dl-horizontal">
+                <strong>Correo:</strong>
+                        {{correo}}</p>
+            </div>
+          </div>
+          <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px;">
+            <h1 class="text-center">
+              <strong>Creación de itinerarios</strong>
+            </h1>
             <!--formulario y creacion de itnerarios-->
-
-    <!--si list es falso se oprimio boton create-->
-
-            <div ng-if="!list" class="well" style="background:rgb(117, 139, 198)" >
-        <form novalidate name="form" id="itinerario-form" role="form" >
-            <fieldset>
-                <input id="id" class="form-control" type="hidden"/>
-                <div class="form-group col-md-12">
+            <!--si list es falso se oprimio boton create-->
+            <div ng-if="!list" class="well" style="background:rgb(117, 139, 198)">
+              <form novalidate="" name="form" id="itinerario-form" role="form">
+                <fieldset>
+                  <input id="id" class="form-control" type="hidden" />
+                  <div class="form-group col-md-12">
                     <label for="name" class="col-md-2 control-label">Nombre</label>
                     <div class="col-md-10">
-                        <input id="name" name="name" ng-model="newValue" class="form-control" type="text" required>
+                      <input id="name" name="name" ng-model="itinerario" class="form-control" type="text" required="" />
                     </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="date" class="col-md-2 control-label">Fechas de inicio y fin</label>
+                  </div>
+                  <div class="form-group col-md-12">
+
+                    <label for="date" class="col-md-2 control-label">Fecha inicial</label>
+
                     <div class="col-md-10">
-
-                       <input type ="date" name="date-ini" id="date-ini" class="form-control" required/>
-                       <input type="date" name="date-fin"  id="date-fin" class="form-control" required/>
-
+                        <input type="date" name="date-ini" id="date-ini" class="form-control" required="" />
                     </div>
-                </div>
-            </fieldset>
 
+                  </div>
+                  <div class="form-group col-md-12">
 
-        </form>
+                  <label for="date" class="col-md-2 control-label">Fecha final</label>
+                    <div class="col-md-10">
+                        <input type="date" name="date-fin" id="date-fin" class="form-control" required="" />
+                    </div>
 
-    </div>
+                  </div>
 
-
-            <div class="collapse navbar-collapse" id="itinerario-buttons">
-                <!--en false list-->
-                <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false"><span class="glyphicon glyphicon-plus"></span> Create</button>
-            <!--en true list-->
-                <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; itinerarios = true; setString(newValue);"><span class="glyphicon glyphicon-save"></span> Save</button>
-                <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-
-           </div>
-
-        </div>
-
-        <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:2px">
-            <div class="col-md-10">
-                 <h1 class="text-center" ><strong>Sus itinerarios</strong></h1>
+                </fieldset>
+              </form>
             </div>
-            <br>
-
-            <div class="list-group" ng-hide="!itinerarios" >
-                <a class="list-group-item" ui-sref="itinerario" ><strong>{{objectValue.data}}</strong></a>
-
+            <div class="collapse navbar-collapse" id="itinerario-buttons" style="float:right;">
+              <!--en false list-->
+              <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false">
+                <span class="glyphicon glyphicon-plus"></span>
+ Agregar</button>
+              <!--en true list-->
+              <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; itinerarios = true; setString(newValue);">
+                <span class="glyphicon glyphicon-save"></span>
+ Salvar</button>
+              <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true">
+                <span class="glyphicon glyphicon-remove"></span>
+ Cancelar</button>
             </div>
+          </div>
+          <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px">
+            <div class="col-md-10" style="margin:0px 50px 0px 50px; text-align: center; text-align: center; ">
+              <h1 class="text-center">
+                <strong>Sus itinerarios</strong>
+              </h1>
+              <br>
+            </div>
+
+            <div class="col-md-10 list-group" ng-hide="!itinerarios">
+              <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
+                <strong>
+                  <!--{{objectValue.data}}-->
+                        {{itinerario}}</strong>
+              </a>
+            </div>
+          </div>
         </div>
-
+      </div>
     </div>
-</div>
-
-
-
-</div>
