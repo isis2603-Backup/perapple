@@ -9,6 +9,7 @@
 
             $scope.contrasena = "jojojojo";
             $scope.correo = "correo@gmail.com";
+            $scope.itinerario = "Itinerario 1";
             $scope.objectValue = sharedProperties.getObject();
             $scope.setString = function(newValue) {
                 $scope.objectValue.data = newValue;
