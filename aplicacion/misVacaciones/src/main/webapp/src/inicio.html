@@ -33,7 +33,7 @@
                                 <span class="icon-bar"></span>
                             </button>
                             <a class="navbar-brand" href>MisVacaciones</a>
-                            <a class="navbar-brand">Hola, {{usuario}} </a>
+
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,8 +47,18 @@
                                 <li> <a ui-sref="home">Home</a></li>
                                 <li><a ui-sref="itinerario">Itinerario</a></li>
                             </ul>
+
+                            <div class="collapse navbar-collapse" id="main-bar">
+                            <div style="float:right">
+
+                                <a class="navbar-brand" style="text-align: right">Hola, {{usuario}} </a>
+                                 <a class="navbar-brand text-right" href="../index.html">Cerrar Sesión</a>
+
+                            </div>
+                            </div>
                         </div> <!-- /.navbar-collapse -->
-                    </div> <!-- /.container-fluid -->
+
+                        </div> <!-- /.container-fluid -->
                 </nav>
             </div>
             <div ui-view></div>
