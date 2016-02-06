@@ -1,3 +1,4 @@
 -[Importar proyecto de ejemplo con netbeans.]
--Conexion desde maq virtuales al repositorio con netbeans
--Comenzar elaboración de pantallas en html.
+-[Conexion desde maq virtuales al repositorio con netbeans]
+-[Comenzar elaboración de pantallas en html.]
+-agregar funcionalidad de paso de informacion
