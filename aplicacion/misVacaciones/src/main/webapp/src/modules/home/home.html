@@ -1,4 +1,4 @@
-<div ng-controller="controlador" ng-init="list = true; itinerarios = false;" style="
+<div ng-controller="controlador" ng-init="list = true; " style="
      background: url(http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg) center center cover no-repeat fixed;">
       <!--si list es verdadero-->
       <div class="conteiner-fluid" style="justify-content: center;">
@@ -59,11 +59,11 @@
             </div>
             <div class="collapse navbar-collapse" id="itinerario-buttons" style="float:right;">
               <!--en false list-->
-              <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false; agregar(itinerario)">
+              <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false; agregar(itinerario);">
                 <span class="glyphicon glyphicon-plus"></span>
  Agregar</button>
               <!--en true list-->
-              <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; itinerarios = true; setString(newValue);">
+              <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; setString(newValue);">
                 <span class="glyphicon glyphicon-save"></span>
  Salvar</button>
               <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true">
@@ -78,10 +78,9 @@
               </h1>
               <br>
             </div>
-
-            <div class="col-md-10 list-group" ng-hide="!itinerarios" ng-repeat="i in itinerarios">
+            <div class="col-md-10 list-group" ng-repeat="iter in itinerarios">
               <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
-                <strong>{{i}}</strong>
+                <strong>{{iter}}</strong>
               </a>
             </div>
           </div>

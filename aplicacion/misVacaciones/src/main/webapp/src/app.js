@@ -13,7 +13,7 @@
             $scope.itinerarios = new Array();
 
             $scope.agregar = function(itinerario){
-            $scope.itinerarios[$scope.itinerarios.length]= itinerario;
+            $scope.itinerarios.push(itinerario);
              $scope.itinerario = "Nombre Itinerario";
         };
 
