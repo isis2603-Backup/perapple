@@ -59,7 +59,7 @@
             </div>
             <div class="collapse navbar-collapse" id="itinerario-buttons" style="float:right;">
               <!--en false list-->
-              <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false">
+              <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false; agregar(itinerario)">
                 <span class="glyphicon glyphicon-plus"></span>
  Agregar</button>
               <!--en true list-->
@@ -79,11 +79,11 @@
               <br>
             </div>
 
-            <div class="col-md-10 list-group" ng-hide="!itinerarios">
+            <div class="col-md-10 list-group" ng-hide="!itinerarios" ng-repeat="i in itinerarios">
               <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
                 <strong>
                   <!--{{objectValue.data}}-->
-                        {{itinerario}}</strong>
+                        {{itinerarios[i]}}</strong>
               </a>
             </div>
           </div>

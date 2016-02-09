@@ -9,7 +9,13 @@
 
             $scope.contrasena = "jojojojo";
             $scope.correo = "correo@gmail.com";
-            $scope.itinerario = "Itinerario 1";
+            $scope.itinerario = "Nombre Itinerario";
+            $scope.itinerarios = [];
+            $scope.agregar = function(itinerario){
+            $scope.itinerarios.push(itinerario);
+             $scope.itinerario = "Nombre Itinerario";
+        };
+
             $scope.objectValue = sharedProperties.getObject();
             $scope.setString = function(newValue) {
                 $scope.objectValue.data = newValue;
@@ -73,6 +79,10 @@
                     .state('home', {
                         url: '/home',
                         templateUrl: "./modules/home/home.html"
+                    })
+                    .state('ciudad', {
+                        url: '/ciudad',
+                        templateUrl: "./modules/ciudad/ciudad.html"
                     });
         }]);
 
