@@ -26,14 +26,14 @@
             </h1>
             <!--formulario y creacion de itnerarios-->
             <!--si list es falso se oprimio boton create-->
-            <div ng-if="!list" class="well" style="background:rgb(117, 139, 198)">
-              <form novalidate="" name="form" id="itinerario-form" role="form">
+            <div  class="well" style="background:rgb(117, 139, 198)">
+              <!--<form novalidate="" name="form" id="itinerario-form" role="form">-->
                 <fieldset>
-                  <input id="id" class="form-control" type="hidden" />
+
                   <div class="form-group col-md-12">
                     <label for="name" class="col-md-2 control-label">Nombre</label>
                     <div class="col-md-10">
-                      <input id="name" name="name" ng-model="itinerario" class="form-control" type="text" required="" />
+                      <input id="name" name="name" ng-model="itinerario"  class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="form-group col-md-12">
@@ -55,30 +55,30 @@
                   </div>
 
                 </fieldset>
-              </form>
+              <!--</form>-->
             </div>
             <div class="collapse navbar-collapse" id="itinerario-buttons" style="float:right;">
               <!--en false list-->
-              <button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false; agregar(itinerario);">
+              <!--<button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false; ">
                 <span class="glyphicon glyphicon-plus"></span>
- Agregar</button>
+ Agregar</button>-->
               <!--en true list-->
-              <button id="save-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true; setString(newValue);">
+              <button id="save-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = true; agregar(itinerario); setString(newValue);">
                 <span class="glyphicon glyphicon-save"></span>
  Salvar</button>
-              <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-hide="list" ng-click="list = true">
+             <!-- <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = true">
                 <span class="glyphicon glyphicon-remove"></span>
- Cancelar</button>
+ Cancelar</button>-->
             </div>
           </div>
           <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px">
             <div class="col-md-10" style="margin:0px 50px 0px 50px; text-align: center; text-align: center; ">
               <h1 class="text-center">
-                <strong>Sus itinerarios</strong>
+                <strong>Sus itinerarios </strong>
               </h1>
               <br>
             </div>
-            <div class="col-md-10 list-group" ng-repeat="iter in itinerarios">
+            <div class="col-md-10 list-group" ng-repeat="iter in itinerarios track by $index">
               <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
                 <strong>{{iter}}</strong>
               </a>

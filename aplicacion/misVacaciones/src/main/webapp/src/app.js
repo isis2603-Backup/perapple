@@ -3,18 +3,18 @@
     var mod = ng.module("mainApp", ["ui.router"]);
 
 
-        mod.controller("controlador", function($scope, $rootScope,sharedProperties){
+        mod.controller("controlador", function($scope, sharedProperties){
 
-            $rootScope.usuario= "Perapple";
+            $scope.usuario= "Perapple";
 
             $scope.contrasena = "Perapple";
             $scope.correo = "perapple@gmail.com";
-            $scope.itinerario = "Nombre Itinerario";
-            $scope.itinerarios = new Array();
+            $scope.itinerario = "";
+            $scope.itinerarios = [];
 
             $scope.agregar = function(itinerario){
             $scope.itinerarios.push(itinerario);
-             $scope.itinerario = "Nombre Itinerario";
+             $scope.itinerario = "";
         };
 
             $scope.objectValue = sharedProperties.getObject();
