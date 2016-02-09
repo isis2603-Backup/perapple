@@ -10,9 +10,10 @@
             $scope.contrasena = "Perapple";
             $scope.correo = "perapple@gmail.com";
             $scope.itinerario = "Nombre Itinerario";
-            $scope.itinerarios = [];
+            $scope.itinerarios = new Array();
+
             $scope.agregar = function(itinerario){
-            $scope.itinerarios.push(itinerario);
+            $scope.itinerarios[$scope.itinerarios.length]= itinerario;
              $scope.itinerario = "Nombre Itinerario";
         };
 
