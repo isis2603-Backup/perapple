@@ -5,10 +5,10 @@
 
         mod.controller("controlador", function($scope, $rootScope,sharedProperties){
 
-            $rootScope.usuario= "Daniel";
+            $rootScope.usuario= "Perapple";
 
-            $scope.contrasena = "jojojojo";
-            $scope.correo = "correo@gmail.com";
+            $scope.contrasena = "Perapple";
+            $scope.correo = "perapple@gmail.com";
             $scope.itinerario = "Nombre Itinerario";
             $scope.itinerarios = [];
             $scope.agregar = function(itinerario){
