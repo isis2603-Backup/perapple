@@ -18,7 +18,7 @@ button{
 .logo {
     width: 730px;
     height: 193px;
-    background: url("resources/imagenes/MisVacaciones.png") no-repeat;
+    background: url("resources/imagenes/logo.png") no-repeat;
     background-position: center;
     margin: 20px auto;
 }
