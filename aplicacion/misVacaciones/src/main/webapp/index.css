@@ -1,5 +1,5 @@
 body {
-    background: url('http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg') no-repeat fixed center center;
+    background: url("resources/imagenes/Playa.jpg") no-repeat fixed center center;
     -webkit-background-size: cover;
     background-size: cover;
     font-family: Montserrat;
@@ -18,8 +18,9 @@ button{
 .logo {
     width: 730px;
     height: 193px;
-    background: url('http://4.bp.blogspot.com/-Bdk9S73jLYk/UuJ2jU3Tv5I/AAAAAAAAAFQ/BNbIYSgCgtI/s1600/bienvenido.png') no-repeat;
-    margin: 30px auto;
+    background: url("resources/imagenes/MisVacaciones.png") no-repeat;
+    background-position: center;
+    margin: 20px auto;
 }
 
 .login-block {
