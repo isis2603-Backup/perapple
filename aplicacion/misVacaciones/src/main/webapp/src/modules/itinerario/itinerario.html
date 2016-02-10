@@ -1,3 +1,4 @@
+
 <div ng-controller="ctrl" id="itinerario">
 
     <div class="well" style="height:120px; ">
@@ -90,13 +91,39 @@
                 <table border="1" class= "table table-bordered">
                     <tr>
                         <td aLIGN=center ><b>Mis Eventos</b></td>
+                        <td ALIGN="center" colspan="5"><b>Calificación</b></td>
                     </tr>
                     <tr ng-repeat="nc in eventos">
                         <td>{{nc}}</td>
                     </tr>
-                    <tr><td>Festival Estereo Picnic  </td></tr>
-                    <tr><td>Festival Internacional de Teatro </td></tr>
-                    <tr><td>Rolling Stones en concierto  </td></tr>
+                    <tr><td>Festival Estereo Picnic  </td>
+                    
+                    <td>    
+                        <input type="radio" name="calificacion" value="1"> 1<br></td>
+                    <td> <input type="radio" name="calificacion" value="2"> 2<br></td>
+                    <td><input type="radio" name="calificacion" value="3"> 3<br></td>
+                    <td><input type="radio" name="calificacion" value="4"> 4<br></td>
+                    <td><input type="radio" name="calificacion" value="5"> 5<br></td>
+                    </tr>
+                    
+                    <tr><td>Festival Internacional de Teatro </td>
+                    <td>    
+                        <input type="radio" name="calificacion" value="1"> 1<br></td>
+                    <td> <input type="radio" name="calificacion" value="2"> 2<br></td>
+                    <td><input type="radio" name="calificacion" value="3"> 3<br></td>
+                    <td><input type="radio" name="calificacion" value="4"> 4<br></td>
+                    <td><input type="radio" name="calificacion" value="5"> 5<br></td>
+                    </tr>
+                    <tr><td>Rolling Stones en concierto  </td>
+                    <td>    
+                        <input type="radio" name="calificacion" value="1"> 1<br></td>
+                    <td> <input type="radio" name="calificacion" value="2"> 2<br></td>
+                    <td><input type="radio" name="calificacion" value="3"> 3<br></td>
+                    <td><input type="radio" name="calificacion" value="4"> 4<br></td>
+                    <td><input type="radio" name="calificacion" value="5"> 5<br></td>
+                                   
+                           
+                    </tr>
                 </table>
               </div>
 
@@ -127,8 +154,18 @@
                     <table border="1" class= "table table-bordered">
                         <tr>
                             <td ALIGN=center><b>Mis Sitios</b></td>
+                            <td ALIGN="center" colspan="5"><b>Calificación</b></td>
+                             
                         </tr>
-                        <tr><td>Andres Carne de Res </td></tr>
+                        <tr><td>Andres Carne de Res </td>
+                          <td>    
+                        <input type="radio" name="calificacion" value="1"> 1<br></td>
+                    <td> <input type="radio" name="calificacion" value="2"> 2<br></td>
+                    <td><input type="radio" name="calificacion" value="3"> 3<br></td>
+                    <td><input type="radio" name="calificacion" value="4"> 4<br></td>
+                    <td><input type="radio" name="calificacion" value="5"> 5<br></td>
+                        </tr>
+                       
                     </table>
             </div>
         </div>
@@ -143,3 +180,4 @@
   add to cart: http://plnkr.co/edit/zW7k8J9it1NIJE3hEwWI?p=preview
  -->
 </div>
+
