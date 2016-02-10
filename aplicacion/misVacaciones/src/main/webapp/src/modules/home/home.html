@@ -20,7 +20,27 @@
                         {{correo}}</p>
             </div>
           </div>
-          <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px;">
+            <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px">
+            <div class="col-md-10" style="margin:0px 50px 0px 50px; text-align: center; text-align: center; ">
+              <h1 class="text-center">
+                <strong>Mis itinerarios </strong>
+              </h1>
+              <br>
+            </div>
+            <div class="col-md-10 list-group" ng-repeat="iter in itinerarios track by $index">
+              <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
+                <strong>{{iter}}</strong>
+              </a>
+            </div>
+               <div class="collapse navbar-collapse" id="agregar-button" style="float:right;">
+              <!--en false list-->
+              <button id="create-itinerario" class="btn btn-primary navbar-btn" ng-show="list" ng-click="list = false; ">
+                <span class="glyphicon glyphicon-plus"></span>
+        Agregar</button>
+
+                </div>
+          </div>
+          <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px;" ng-hide="!list">
             <h1 class="text-center">
               <strong>Creación de itinerarios</strong>
             </h1>
@@ -66,24 +86,12 @@
               <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="list" ng-click="list = true; agregar(itinerario); setString(newValue);">
                 <span class="glyphicon glyphicon-save"></span>
  Salvar</button>
-             <!-- <button id="cancel-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = true">
+             <button id="cancel-itinerario" class="btn btn-primary navbar-btn" ng-show="list" ng-click="list = true">
                 <span class="glyphicon glyphicon-remove"></span>
- Cancelar</button>-->
+ Cancelar</button>
             </div>
           </div>
-          <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px">
-            <div class="col-md-10" style="margin:0px 50px 0px 50px; text-align: center; text-align: center; ">
-              <h1 class="text-center">
-                <strong>Sus itinerarios </strong>
-              </h1>
-              <br>
-            </div>
-            <div class="col-md-10 list-group" ng-repeat="iter in itinerarios track by $index">
-              <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
-                <strong>{{iter}}</strong>
-              </a>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
