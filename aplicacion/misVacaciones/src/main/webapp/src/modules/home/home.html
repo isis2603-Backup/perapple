@@ -40,9 +40,9 @@
 
                 </div>
           </div>
-          <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px;" ng-hide="!list">
+          <div class="col-md-8 col-sm-16 col-lg-6 well" style="margin:5px;" ng-show="!list">
             <h1 class="text-center">
-              <strong>Creación de itinerarios</strong>
+              <strong>Creación de itinerario</strong>
             </h1>
             <!--formulario y creacion de itnerarios-->
             <!--si list es falso se oprimio boton create-->
@@ -83,10 +83,10 @@
                 <span class="glyphicon glyphicon-plus"></span>
  Agregar</button>-->
               <!--en true list-->
-              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="list" ng-click="list = true; agregar(itinerario); setString(newValue);">
+              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; agregar(itinerario); setString(newValue);">
                 <span class="glyphicon glyphicon-save"></span>
  Salvar</button>
-             <button id="cancel-itinerario" class="btn btn-primary navbar-btn" ng-show="list" ng-click="list = true">
+             <button id="cancel-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true">
                 <span class="glyphicon glyphicon-remove"></span>
  Cancelar</button>
             </div>
