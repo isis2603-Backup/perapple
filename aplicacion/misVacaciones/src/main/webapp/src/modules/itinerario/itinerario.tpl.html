@@ -6,19 +6,8 @@
         <h4 align=center class="dl-horizontal"><strong>FECHA INICIO</strong>: 01/02/2016 - <strong>FECHA FIN:</strong> 15/03/2016</h4>
     </div>
 
-    <div class="well" style="margin:5px; height:310px; ">
-        <div id="map" style="width: 100%; height: 270px; text-align: center">
-            <script>
-              function initMap() {
-                var mapDiv = document.getElementById('map');
-                var map = new google.maps.Map(mapDiv, {
-                  center: {lat: 4.598889, lng: -74.080833},
-                  zoom: 10
-                });
-              };
-            </script>
-            <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
-        </div>
+    <div class="well" style="margin:5px; height:340px; ">
+        <img src="http://images.nationalgeographic.com/wpf/media-live/richmedia/0/565/project/timeline_water_exploration_v26/images/timeline_main.png" alt="Timeline" style="width:100%">
     </div>
 
     <br>
@@ -26,15 +15,15 @@
     <div class="col-sm-6" style="height:500px; ">
         <div class="col-sm-12 well" style="height:500px; text-align: center">
             <h2>Ciudades</h2>
-            
+
             <br>
-           
+
                 <div class="row">
             <div class="col-xs-7">
                 <input id="textbox" type="text" class="form-control" title="Escriba el nombre de la ciudad" placeholder="Ciudad" ng-model="nueva_ciudad" />
             </div>
             <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-primary btn-sm" ALIGN="left" ng-click="agregar(nueva_ciudad)"> Agregar Nueva Ciudad </button>
-           
+
             </div>
             <br>
 
@@ -53,8 +42,20 @@
 
     <div class="col-sm-6" style="height:500px; margin-bottom: 30px">
         <div class="col-sm-12 well" style="height:500px; text-align: center">
-          <h2>Calendario</h2>
-          <iframe id="calend" src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0; width: 95%; height: 400px; text-align: center;" frameborder="0" scrolling="no"></iframe>
+            <h2>Mapa</h2>
+            <div id="map" style="width: 100%; height: 400px; text-align: center">
+              <script>
+                function initMap() {
+                  var mapDiv = document.getElementById('map');
+                  var map = new google.maps.Map(mapDiv, {
+                    center: {lat: 4.598889, lng: -74.080833},
+                    zoom: 10
+                  });
+                };
+              </script>
+              <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+             </div>
+            <!--<iframe id="calend" src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0; width: 95%; height: 400px; text-align: center;" frameborder="0" scrolling="no"></iframe>-->
         </div>
     </div>
 
@@ -97,17 +98,17 @@
                         <td>{{nc}}</td>
                     </tr>
                     <tr><td>Festival Estereo Picnic  </td>
-                    
-                    <td>    
+
+                    <td>
                         <input type="radio" name="calificacion1" value="1"> 1<br></td>
                     <td> <input type="radio" name="calificacion1" value="2"> 2<br></td>
                     <td><input type="radio" name="calificacion1" value="3"> 3<br></td>
                     <td><input type="radio" name="calificacion1" value="4"> 4<br></td>
                     <td><input type="radio" name="calificacion1" value="5"> 5<br></td>
                     </tr>
-                    
+
                     <tr><td>Festival Internacional de Teatro </td>
-                    <td>    
+                    <td>
                         <input type="radio" name="calificacion2" value="1"> 1<br></td>
                     <td> <input type="radio" name="calificacion2" value="2"> 2<br></td>
                     <td><input type="radio" name="calificacion2" value="3"> 3<br></td>
@@ -115,14 +116,14 @@
                     <td><input type="radio" name="calificacion2" value="5"> 5<br></td>
                     </tr>
                     <tr><td>Rolling Stones en concierto  </td>
-                    <td>    
+                    <td>
                         <input type="radio" name="calificacion3" value="1"> 1<br></td>
                     <td> <input type="radio" name="calificacion3" value="2"> 2<br></td>
                     <td><input type="radio" name="calificacion3" value="3"> 3<br></td>
                     <td><input type="radio" name="calificacion3" value="4"> 4<br></td>
                     <td><input type="radio" name="calificacion3" value="5"> 5<br></td>
-                                   
-                           
+
+
                     </tr>
                 </table>
               </div>
@@ -149,23 +150,23 @@
                         <button id="button_agregar_sitio" type="button" class="btn btn-primary" > Agregar Sitio</button>
                         </div>
                         <br>
-                   
+
                       <br>
                     <table border="1" class= "table table-bordered">
                         <tr>
                             <td ALIGN=center><b>Mis Sitios</b></td>
                             <td ALIGN="center" colspan="5" ><b>Calificación</b></td>
-                             
+
                         </tr>
                         <tr><td>Andres Carne de Res </td>
-                          <td>    
+                          <td>
                         <input type="radio" name="calificacion" value="1"> 1<br></td>
                     <td> <input type="radio" name="calificacion" value="2"> 2<br></td>
                     <td><input type="radio" name="calificacion" value="3"> 3<br></td>
                     <td><input type="radio" name="calificacion" value="4"> 4<br></td>
                     <td><input type="radio" name="calificacion" value="5"> 5<br></td>
                         </tr>
-                       
+
                     </table>
             </div>
         </div>
