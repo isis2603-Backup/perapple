@@ -75,15 +75,15 @@
             $stateProvider
                     .state('itinerario', {
                         url: '/itinerario',
-                        templateUrl: "./modules/itinerario/itinerario.html"
+                        templateUrl: "./modules/itinerario/itinerario.tpl.html"
                     })
                     .state('home', {
                         url: '/home',
-                        templateUrl: "./modules/home/home.html"
+                        templateUrl: "./modules/home/home.tpl.html"
                     })
                     .state('ciudad', {
                         url: '/ciudad',
-                        templateUrl: "./modules/ciudad/ciudad.html"
+                        templateUrl: "./modules/ciudad/ciudad.tpl.html"
                     });
         }]);
 
