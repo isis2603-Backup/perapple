@@ -95,7 +95,7 @@
           </div>
           </div>
             <div id="contenedor" class="col-md-8 col-sm-10 col-lg-6 " style="margin: 5px;">
-    <div id="myCarousel" class="carousel slide">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -104,20 +104,29 @@
       </ol>
       <!-- Carousel items -->
       <div class="carousel-inner">
-        <div class="active item"><img  src="https://www.travelife.com.co/wp-content/uploads/2014/10/Bogota-Destino-Colombia-Travelife.jpg" alt="banner1" /></div>
-        <div class="item"><img  src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xtp1/t31.0-8/11036039_10153251129355909_1578922600600853656_o.jpg" alt="banner2" /></div>
-        <div class="item"><img  src="http://faintercambios.com/wp-content/uploads/2013/02/Ermita-y-MIO.jpeg" alt="banner3" /></div>
+        <div class="active item"><img  src="http://40.media.tumblr.com/tumblr_m65o8dJDtA1rzv6j6o1_1280.jpg" alt="Bogotá" />
+            <div class="carousel-caption"><h3>Bogotá</h3></div>
+        </div>
+        <div class="item"><img  src="https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg" alt="Bucaramanga" />
+        <div class="carousel-caption"><h3>Bucaramanga</h3></div>
+        </div>
+        <div class="item"><img  src="http://static.panoramio.com/photos/large/43907931.jpg" alt="Cali"  />
+        <div class="carousel-caption label"><h3>Cali</h3></div>
+        </div>
 
       </div>
       <!-- Carousel nav -->
-      <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-      <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+      <a class="carousel-control left" href="#myCarousel" data-slide="prev" role="button" ><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="carousel-control right" href="#myCarousel" data-slide="next" role="button"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
 </div>
 
 <script>
     $(document).ready(function(){
-        $('.myCarousel').carousel()
+        $('.myCarousel').carousel({
+            interval:3000,
+            pause:"hover"
+        })
     });
 </script>
         </div>
