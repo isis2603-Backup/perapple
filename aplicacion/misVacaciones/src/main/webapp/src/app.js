@@ -27,24 +27,49 @@
 
          mod.controller("ctrl", function($scope, sharedProperties){
         $scope.nueva_ciudad = "";
-        $scope.ciudades = [];
+        $scope.ciudades = ["Bogotá","Bucaramanga", "Cali" ];
         $scope.nuevo_evento="";
-        $scope.eventos=[];
+        $scope.eventos=[ "Festival Estereo Picnic", "Festival Internacional de Teatro" , "Fiesta Andres" ];
+        $scope.sitios = ["Andrés Carne de Res", "Museo del Oro", "Monserrate"];
         $scope.stringValue = sharedProperties.getString();
         $scope.objectValue = sharedProperties.getObject().data;
 
-        $scope.agregar = function(nueva_ciudad){
-          $scope.ciudades.push(nueva_ciudad);
+        $scope.agregar_ciudad = function(){
+
+          $scope.ciudades.push(prompt("¿Cuál es la nueva ciudad que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
           $scope.nueva_ciudad = "";
         };
-        $scope.add= function(nuevo_evento){
-            $scope.eventos.push(nuevo_evento);
+        $scope.agregar_evento= function(){
+            $scope.eventos.push(prompt("¿Cuál es el nuevo evento/sitio que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
             $scope.nuevo_evento="";
         };
 
-        $scope.detalles = function(nc){
-          window.alert("se muestran abajo en la parte que esta haciendo nicolas");
+        $scope.agregar_sitio= function(){
+            $scope.sitios.push(prompt("¿Cuál es el nuevo evento/sitio que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
+           };
+
+
+        $scope.detalles = function(ciudad){
+          window.alert("Actualizacion de eventos y sitios de interes segun ciudad...");
         };
+
+        $scope.detalles_evento = function(evento){
+          window.alert("Detalles del evento con pop-Up...");
+        };
+
+                $scope.calificar_evento = function(evento){
+          window.alert("Calificación del evento con pop-Up...");
+        };
+
+                $scope.detalles_sitio = function(sitio){
+          window.alert("Detalles del sitio con pop-Up...");
+        };
+
+                $scope.calificar_sitio = function(sitio){
+          window.alert("Calificación del sitio con pop-Up...");
+        };
+
+
   });
 
   mod.service('sharedProperties', function() {

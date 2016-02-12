@@ -1,5 +1,5 @@
 
-<div ng-controller="ctrl" id="itinerario">
+<div ng-controller="ctrl" id="itinerario" style="height:100%">
 
     <div class="well" style="height:120px; ">
         <h2 align="center">Itinerario 1</h2> <!--<h1>{{objectValue.data}}</h1>-->
@@ -11,39 +11,46 @@
     </div>
 
     <br>
-
-    <div class="col-sm-6" style="height:500px; ">
-        <div class="col-sm-12 well" style="height:500px; text-align: center">
+    <div style="justify-content: center; height: 100%">
+    <div class="col-sm-6" style="overflow: auto; height:100%">
+        <div class="col-sm-12 well" style="text-align: center;height:100%">
             <h2>Ciudades</h2>
 
             <br>
 
-                <div class="row">
-            <div class="col-xs-7">
+             <!--   <div class="row">
+
+                    <div class="col-xs-7">
                 <input id="textbox" type="text" class="form-control" title="Escriba el nombre de la ciudad" placeholder="Ciudad" ng-model="nueva_ciudad" />
             </div>
-            <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-primary btn-sm" ALIGN="left" ng-click="agregar(nueva_ciudad)"> Agregar Nueva Ciudad </button>
 
-            </div>
+            </div>-->
             <br>
 
             <table id="tabla" border="1" class="table table-bordered">
               <tr>
-                  <td ALIGN=center> <b>Detalles</b> </td>
                   <td ALIGN=center> <b>Ciudades</b> </td>
+                  <td ALIGN=center> <b>Fechas</b></td>
+                  <td ALIGN=center> <b>Detalles</b> </td>
               </tr>
               <tr ng-repeat="nc in ciudades">
-                <td><button type="button" class="btn btn-primary" ng-click="detalles(nc)"> . </button></td>
+
                 <td>{{nc}}</td>
+                <td>Fecha</td>
+                <td><button type="button" class="btn btn-primary" ng-click="detalles(nc)"> D </button></td>
               </tr>
             </table>
+            <br>
+            <div class="row">
+            <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-primary btn-sm" ALIGN="left" ng-click="agregar()"> Agregar Nueva Ciudad </button>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-6" style="height:500px; margin-bottom: 30px">
-        <div class="col-sm-12 well" style="height:500px; text-align: center">
+    <div class="col-sm-6" style="overflow: auto; margin-bottom: 30px; height:100%;">
+        <div class="col-sm-12 well" style=" text-align: center; height: 100%;">
             <h2>Mapa</h2>
-            <div id="map" style="width: 100%; height: 400px; text-align: center">
+            <div id="map" style="width: 100%; min-height: 400px; text-align: center; height:100%;">
               <script>
                 function initMap() {
                   var mapDiv = document.getElementById('map');
@@ -58,16 +65,26 @@
             <!--<iframe id="calend" src="https://calendar.google.com/calendar/embed?title=Itinerario1&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;height=200&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=vl5fj8rdjo9q47e2g0n5tau224%40group.calendar.google.com&amp;color=%231B887A&amp;ctz=America%2FBogota" style="border-width:0; width: 95%; height: 400px; text-align: center;" frameborder="0" scrolling="no"></iframe>-->
         </div>
     </div>
-
+    </div>
     <br>
 
-    <div class="col-sm-12" style="height:500px; ">
-        <div class="col-sm-12 well" style="height:500px; ">
-            <h2 style="text-align: center"> Ciudad </h2>
-            <div class="col-sm-6" ng-app="agregar_evento" ng-controller="ctrl" style="height:500px; text-align: center">
+    <div class="col-sm-12" style="justify-content: center ">
+        <div class="col-sm-12 well" style="overflow: auto; ">
+            <div style="display:flex; justify-content: center; background-color:#ff9900; border-radius: 8px">
+
+                <div style = "margin:0 auto;">
+                    <h2 style="text-align: center"> Ciudad </h2>
+                    <p>Detalles de la ciudad...</p>
+                </div>
+                <div class="img-circle" id="image" style="justify-content: center;margin:0 auto;">
+                    <img class="img-rounded" style="height: 200px; margin:-5px; " src="http://40.media.tumblr.com/tumblr_m65o8dJDtA1rzv6j6o1_1280.jpg" alt="" />
+
+                </div>
+            </div>
+            <div class="col-sm-6" ng-app="agregar_evento" ng-controller="ctrl" style="overflow: auto; text-align: center">
                 <h3>Eventos </h3>
                 <br>
-                <div id="opciones">
+               <!--<div id="opciones">
                     <form>
                         <div class="row">
                         <div class="col-sm-6">
@@ -86,52 +103,33 @@
                         <button id="button_agregar_evento" type="button" class="btn btn-primary " ng-click="add(nuevo_e)" > Agregar Evento </button>
                         </div>
                     </form>
-                </div>
+                </div>-->
                 <br>
                 <br>
                 <table border="1" class= "table table-bordered">
                     <tr>
                         <td aLIGN=center ><b>Mis Eventos</b></td>
-                        <td ALIGN="center" colspan="5"><b>Calificación</b></td>
+                        <td ALIGN="center" ><b>Detalles</b></td>
+                        <td ALIGN="center" ><b>Calificar</b></td>
+
                     </tr>
-                    <tr ng-repeat="nc in eventos">
+                    <tr ng-repeat="nc in eventos track by $index">
                         <td>{{nc}}</td>
-                    </tr>
-                    <tr><td>Festival Estereo Picnic  </td>
-
-                    <td>
-                        <input type="radio" name="calificacion1" value="1"> 1<br></td>
-                    <td> <input type="radio" name="calificacion1" value="2"> 2<br></td>
-                    <td><input type="radio" name="calificacion1" value="3"> 3<br></td>
-                    <td><input type="radio" name="calificacion1" value="4"> 4<br></td>
-                    <td><input type="radio" name="calificacion1" value="5"> 5<br></td>
+                        <td><button type="button" class="btn btn-primary" ng-click="detalles_evento()"> D </button></td>
+                        <td><button type="button" class="btn btn-primary" ng-click="calificar_evento()"> C </button></td>
                     </tr>
 
-                    <tr><td>Festival Internacional de Teatro </td>
-                    <td>
-                        <input type="radio" name="calificacion2" value="1"> 1<br></td>
-                    <td> <input type="radio" name="calificacion2" value="2"> 2<br></td>
-                    <td><input type="radio" name="calificacion2" value="3"> 3<br></td>
-                    <td><input type="radio" name="calificacion2" value="4"> 4<br></td>
-                    <td><input type="radio" name="calificacion2" value="5"> 5<br></td>
-                    </tr>
-                    <tr><td>Rolling Stones en concierto  </td>
-                    <td>
-                        <input type="radio" name="calificacion3" value="1"> 1<br></td>
-                    <td> <input type="radio" name="calificacion3" value="2"> 2<br></td>
-                    <td><input type="radio" name="calificacion3" value="3"> 3<br></td>
-                    <td><input type="radio" name="calificacion3" value="4"> 4<br></td>
-                    <td><input type="radio" name="calificacion3" value="5"> 5<br></td>
-
-
-                    </tr>
                 </table>
+
+                <div class="row">
+             <button id="button_agregar_evento" type="button" class="btn btn-primary " ng-click="agregar_evento()" > Agregar Evento </button>
+                        </div>
               </div>
 
-            <div class="col-sm-6" style="height:500px; text-align: center">
+            <div class="col-sm-6" style="overflow:auto; text-align: center">
                 <h3> Sitios de Interés </h3>
                 <br>
-                    <div id="opciones">
+                    <!--<div id="opciones">
                         <div class="row">
                         <div class="col-sm-5">
                         <select class="form-control" name=sitio>
@@ -148,26 +146,27 @@
                         <input type="date" class="form-control" title="Escriba la fecha del evento" name="bday" max="1979-12-31">
                          </div>
                         <button id="button_agregar_sitio" type="button" class="btn btn-primary" > Agregar Sitio</button>
-                        </div>
+                        </div>-->
                         <br>
 
                       <br>
                     <table border="1" class= "table table-bordered">
                         <tr>
                             <td ALIGN=center><b>Mis Sitios</b></td>
-                            <td ALIGN="center" colspan="5" ><b>Calificación</b></td>
+                            <td ALIGN="center" ><b>Detalles</b></td>
+                            <td ALIGN="center" ><b>Calificación</b></td>
 
-                        </tr>
-                        <tr><td>Andres Carne de Res </td>
-                          <td>
-                        <input type="radio" name="calificacion" value="1"> 1<br></td>
-                    <td> <input type="radio" name="calificacion" value="2"> 2<br></td>
-                    <td><input type="radio" name="calificacion" value="3"> 3<br></td>
-                    <td><input type="radio" name="calificacion" value="4"> 4<br></td>
-                    <td><input type="radio" name="calificacion" value="5"> 5<br></td>
-                        </tr>
+                        <tr ng-repeat="nc in sitios track by $index">
+                        <td>{{nc}}</td>
+                        <td><button type="button" class="btn btn-primary" ng-click="detalles_sitio()"> D </button></td>
+                        <td><button type="button" class="btn btn-primary" ng-click="calificar_sitio()"> C </button></td>
+                    </tr>
 
                     </table>
+                      <div class="row">
+             <button id="button_agregar_sitio" type="button" class="btn btn-primary " ng-click="agregar_sitio()" > Agregar Sitio </button>
+                        </div>
+              </div>
             </div>
         </div>
     </div>
