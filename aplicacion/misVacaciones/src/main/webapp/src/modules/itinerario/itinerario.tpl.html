@@ -122,7 +122,7 @@
                 </table>
 
                 <div class="row">
-             <button id="button_agregar_evento" type="button" class="btn btn-primary " ng-click="agregar_evento()" > Agregar Evento </button>
+                     <button id="button_agregar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popEvento" > Agregar Evento </button>
                         </div>
               </div>
 
@@ -164,12 +164,83 @@
 
                     </table>
                       <div class="row">
-             <button id="button_agregar_sitio" type="button" class="btn btn-primary " ng-click="agregar_sitio()" > Agregar Sitio </button>
+
+                          <button id="button_agregar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popSitio"  > Agregar Sitio </button>
+
                         </div>
               </div>
             </div>
         </div>
     </div>
+<div class="modal fade" id="popSitio" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Agregar Sitio</h4>
+      </div>
+      <div class="modal-body">
+          <form>
+                        <div class="row">
+                        <div class="col-sm-5">
+                        <select class="form-control" name=sitio>
+                            <option>Seleccione una opcion</option>
+                            <option>          </option>
+                            <option>Museo del oro</option>
+                            <option>Parque Simon Bolivar</option>
+                            <option>Estadio el campin</option>
+                            <option>Centro Andino</option>
+                            <option>Universidad de los Andes</option>
+                        </select>
+                        </div>
+                            <div class="col-sm-4">
+                        <input type="date" class="form-control" title="Escriba la fecha del evento" name="bday" max="1979-12-31">
+                         </div>
+                        </div>
+                                                </form>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Agregar Sitio</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="popEvento" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Agregar Evento</h4>
+      </div>
+      <div class="modal-body">
+         <form>
+                        <div class="row">
+
+                        <select class="form-control" name="OpcionEventos" ng-model="nuevo_evento" >
+                            <option selected value="1">Seleccione una opcion</option>
+                            <option value="2">Millonarios - Nacional</option>
+                            <option value="3">COLDPLAY</option>
+                            <option value="4">Fiesta Andres</option>
+                             <option value="5">Festival Estereo Picnic</option>
+                            <option value="6">Show Pirotecnicos Monserrtate</option>
+                            <option value="7">Festival Internacional de Teatro</option>
+                            <option value="8">Universidad de los Andes</option>
+                             <option value="9">Rolling Stones en concierto</option>
+                        </select>
+                            </div>
+
+                    </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Agregar Evento</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
  <!--
   version 1.48
