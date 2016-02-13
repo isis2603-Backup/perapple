@@ -1,0 +1,36 @@
+.navbar{
+
+    background-color: #0D53BC;
+    background-image: none;
+
+}
+.navbar-default .navbar-brand
+{
+    color: #fff;
+}
+
+.navbar-default .navbar-brand:hover
+{
+    color: #FD9A10;
+
+}
+
+.navbar-default .navbar-nav>li>a
+{
+    color: #fff;
+
+}
+
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus
+{
+    background-color: none;
+
+}
+
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus
+{
+    color:  #FD9A10;
+}
