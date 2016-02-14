@@ -114,8 +114,8 @@
                     </tr>
                     <tr ng-repeat="nc in eventos track by $index">
                         <td>{{nc}}</td>
-                        <td><button type="button" class="btn btn-primary" ng-click="detalles_evento()"> D </button></td>
-                        <td><button type="button" class="btn btn-primary" ng-click="calificar_evento()"> C </button></td>
+                        <td><button id="button_detalles_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesEvento"> D </button></td>
+                        <td><button id="button_calificar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarEvento"> C </button></td>
                     </tr>
 
                 </table>
@@ -157,8 +157,8 @@
 
                         <tr ng-repeat="nc in sitios track by $index">
                         <td>{{nc}}</td>
-                        <td><button type="button" class="btn btn-primary" ng-click="detalles_sitio()"> D </button></td>
-                        <td><button type="button" class="btn btn-primary" ng-click="calificar_sitio()"> C </button></td>
+                            <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio"> D </button></td>
+                            <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> C </button></td>
                     </tr>
 
                     </table>
@@ -306,6 +306,71 @@
 </div><!-- /.modal -->
 </div>
 
+<div class="modal fade" id="popCalificarEvento" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Calificar Evento</h4>
+      </div>
+      <div class="modal-body">
+         <form>
+<!--            <script type="text/javascript" style="display: none">
+            .rating {
+              unicode-bidi: bidi-override;
+              direction: rtl;
+            }
+            .rating > span {
+              display: inline-block;
+              position: relative;
+              width: 1.1em;
+            }
+            .rating > span:hover:before,
+            .rating > span:hover ~ span:before {
+               content: "\2605";
+               position: absolute;
+            }                 
+            </script>-->
+             <div class="rating">
+                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            </div>
+            <div class="input-group" style="width: 100%"> 
+               <input type="text" class="form-control" placeholder="Inserte aquí su comentario" ng-model="comentario">
+            </div>
+        </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="calificar_evento(evento,comentario,calificacion)" data-dismiss="modal">Guardar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+
+<div class="modal fade" id="popCalificarSitio" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Calificar Sitio</h4>
+      </div>
+      <div class="modal-body">
+         <form>
+             <div class="rating">
+                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            </div>
+            <div class="input-group" style="width: 100%"> 
+               <input type="text" class="form-control" placeholder="Inserte aquí su comentario" ng-model="comentario">
+            </div>
+        </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="calificar_sitio(sitio,comentario,calificacion)" data-dismiss="modal">Guardar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
 
  <!--
   version 1.48

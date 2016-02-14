@@ -33,7 +33,10 @@
         $scope.sitios = ["Andrés Carne de Res", "Museo del Oro", "Monserrate"];
         $scope.stringValue = sharedProperties.getString();
         $scope.objectValue = sharedProperties.getObject().data;
-
+        $scope.comentario = "";
+        $scope.calificacion = 0;
+        $scope.calificacionesEvento = [];
+        $scope.calificacionesSitio = [];
         $scope.agregar_ciudad = function(){
 
           $scope.ciudades.push(prompt("¿Cuál es la nueva ciudad que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
@@ -57,16 +60,20 @@
           window.alert("Detalles del evento con pop-Up...");
         };
 
-                $scope.calificar_evento = function(evento){
-          window.alert("Calificación del evento con pop-Up...");
+        $scope.calificar_evento = function(evento, calificacion, comentario){
+          $scope.calificacionesEvento.push({evento:evento,calificacion:calificacion,comentario:comentario});
+          $scope.calificacion = 0; 
+          $scope.comentario ="";
         };
 
-                $scope.detalles_sitio = function(sitio){
+        $scope.detalles_sitio = function(sitio){
           window.alert("Detalles del sitio con pop-Up...");
         };
 
-                $scope.calificar_sitio = function(sitio){
-          window.alert("Calificación del sitio con pop-Up...");
+        $scope.calificar_sitio = function(sitio,calificacion,comentario){
+          $scope.calificacionesSitio.push({sitio:sitio,calificacion:calificacion,comentario:comentario});
+          $scope.calificacion = 0;
+          $scope.comentario ="";
         };
 
 
