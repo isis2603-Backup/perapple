@@ -93,7 +93,18 @@ button{
     outline: none;
     cursor: pointer;
 }
-
+.login-with{
+    width: 320px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border-top: 5px solid #3946ff;
+    margin: 0 auto;
+}
+.fb-login{
+    background: blue;
+    
+}
 .login-block button:hover {
     background: #7b81ff;
     border: #7b81ff;
