@@ -25,7 +25,7 @@
 .navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>li>a:focus
 {
-    background-color: none;
+    background-color: #0D53BC;
 
 }
 
@@ -33,4 +33,26 @@
 .navbar-default .navbar-nav>li>a:focus
 {
     color:  #FD9A10;
+}
+
+.nav 
+{
+   color: #fff;
+    
+}
+
+#barra ul
+{
+    padding:0;
+    list-style: none;
+}
+
+#menunombre > li
+{
+    display: inline-block;
+}
+
+li ul
+{
+ position: absolute;   
 }

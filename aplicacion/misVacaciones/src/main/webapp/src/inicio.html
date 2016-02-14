@@ -59,10 +59,24 @@
                             </ul>
 
                             <div class="collapse navbar-collapse" id="main-bar">
-                            <div style="float:right">
-
-                                <a class="navbar-brand" style="text-align: right">Hola, {{usuario}} </a>
-                                 <a class="navbar-brand text-right" href="../index.html">Cerrar Sesión</a>
+                            <div id="barra" style="float:right">
+                                
+                                <ul class="nav " id="menunombre">
+                                <li >
+                                    <a  class="navbar-brand" data-toggle="dropdown" data-hover="dropdown" style="text-align: left">Hola, {{usuario}}  </a>
+                                    <ul class="dropdown-menu" id="menuperfil">
+                                        <li> <a href=""></a>
+                                        <li class="divider"></li>
+                                        <li> <a> <b>Nombre:</b> Peraple.inc </a>
+                                        <li> <a > <b>Correo:</b> ejemplo@correo.com </a> </li>
+                                        <li class="divider"> </li>
+                                        <li> <button type="button" class="btn btn-primary btn-sm" name="btnEditarPerfil" value="editarPerfil">Editar Perfil </button> </li>
+                                    </ul > 
+                                </li>
+                                <li>  <a class="navbar-brand text-right"  href="../index.html">Cerrar Sesión</a></li>
+                                </ul> 
+                                
+                               
 
                             </div>
                             </div>
