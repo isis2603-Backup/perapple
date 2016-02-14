@@ -11,7 +11,7 @@ button{
 }
 #login{
 
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(221,221,221,1);
     margin-top: 100px;
     border-radius: 10px;
 }
@@ -46,7 +46,7 @@ button{
     height: 42px;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #DDDDDD ;
     margin-bottom: 20px;
     font-size: 14px;
     font-family: Montserrat;
@@ -55,22 +55,22 @@ button{
 }
 
 .login-block input#username {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
 .login-block input#username:focus {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
 
 .login-block input#password {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
 .login-block input#password:focus {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
 
