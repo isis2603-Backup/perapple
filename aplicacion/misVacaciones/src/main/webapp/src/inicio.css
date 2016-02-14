@@ -37,6 +37,7 @@
 
 .nav 
 {
+    margin:auto;
    color: #fff;
     
 }
@@ -47,12 +48,25 @@
     list-style: none;
 }
 
+
 #menunombre > li
 {
     display: inline-block;
 }
 
+#menuperfil > li > button
+{
+    margin-left: 70px;
+    margin-right: auto;
+   
+}
+
 li ul
 {
  position: absolute;   
+}
+
+li:hover ul
+{
+    display:block;
 }
