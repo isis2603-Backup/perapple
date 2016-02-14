@@ -331,7 +331,7 @@
                position: absolute;
             }                 
             </script>-->
-             <div class="rating">
+             <div class="rating" style="float:left">
                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
             </div>
             <div class="input-group" style="width: 100%"> 
@@ -356,7 +356,7 @@
       </div>
       <div class="modal-body">
          <form>
-             <div class="rating">
+             <div class="rating" style="float:left">
                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
             </div>
             <div class="input-group" style="width: 100%"> 
@@ -371,6 +371,99 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
+
+<div class="modal fade" id="popDetallesEvento" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Info Evento</h4>
+      </div>
+      <div class="modal-body">
+         <form>
+            <div  class="well">
+                <fieldset>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Nombre</label>
+                        <div class="col-md-8">
+                          <input id="name" name="name" class="form-control" type="text" />
+                        </div>
+                        <div class="form-group col-md-11" style="float:right">
+                            <img class="img-rounded" style="height: 200px; margin:-5px; " src="http://40.media.tumblr.com/tumblr_m65o8dJDtA1rzv6j6o1_1280.jpg" alt="" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Descripción</label>
+                        <div class="col-md-8">
+                            <input type="date" name="date-ini" id="date-ini" class="form-control" required="" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Calificaciones</label>
+                        <div class="rating" style="float:left">
+                           <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                       </div>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Comentarios</label>
+                        <div class="col-md-8">
+                          <input id="name" name="name" class="form-control" type="text" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>            
+        </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+
+<div class="modal fade" id="popDetallesSitio" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Info Sitio</h4>
+      </div>
+      <div class="modal-body">
+         <form>
+            <div  class="well">
+                <fieldset>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Nombre</label>
+                        <div class="col-md-8">
+                          <input id="name" name="name" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Descripción</label>
+                        <div class="col-md-8">
+                            <input type="date" name="date-ini" id="date-ini" class="form-control" required="" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Calificaciones</label>
+                        <div class="rating" style="float:left">
+                           <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                       </div>
+                    </div>
+                    <div class="form-group col-md-11">
+                        <label for="name" class="col-md-2 control-label">Comentarios</label>
+                        <div class="col-md-8">
+                          <input id="name" name="name" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-11">
+                            <img class="img-rounded" style="height: 200px; margin:-5px; " src="http://40.media.tumblr.com/tumblr_m65o8dJDtA1rzv6j6o1_1280.jpg" alt="" />
+                    </div>
+                </fieldset>
+            </div>            
+        </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+
 
  <!--
   version 1.48
