@@ -3,6 +3,11 @@
     background-color: #0D53BC;
     background-image: none;
 
+
+}
+.navbar-default
+{
+    border-color: #0D53BC;
 }
 .navbar-default .navbar-brand
 {
@@ -35,11 +40,11 @@
     color:  #FD9A10;
 }
 
-.nav 
+.nav
 {
     margin:auto;
    color: #fff;
-    
+
 }
 
 #barra ul
@@ -53,7 +58,7 @@
 {
     display: inline-block;
     margin-top: 3px;
-    
+
 }
 #menuperfil > li > a
 {
@@ -65,12 +70,12 @@
     margin-left: 70px;
     margin-right: auto;
     margin-bottom: 10px;
-   
+
 }
 
 li ul
 {
- position: absolute;   
+ position: absolute;
 }
 
 li:hover ul
