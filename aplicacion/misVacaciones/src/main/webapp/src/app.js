@@ -62,7 +62,7 @@
 
         $scope.calificar_evento = function(evento, calificacion, comentario){
           $scope.calificacionesEvento.push({evento:evento,calificacion:calificacion,comentario:comentario});
-          $scope.calificacion = 0; 
+          $scope.calificacion = 0;
           $scope.comentario ="";
         };
 
