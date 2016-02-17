@@ -64,6 +64,70 @@
 
             </div>
         </div>
+        <div class="modal fade" id="popCrearCuenta" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Agregar Ciudad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-5">
+                        <p>Ingrese fecha de inicio:</p>
+                        <input type="date" class="form-control" title="Fecha Inicio" name="bday" max="1979-12-31">
+                    </div>
+                    <div class="col-sm-5">
+                        <p>Ingrese fecha de fin:</p>
+                        <input type="date" class="form-control" title="Fecha Inicio" name="bday" max="1979-12-31">
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <br>
+                <form>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar Ciudad...">
+                                <span class="input-group-btn">
+                                  <button class="btn btn-default" type="button">Buscar</button>
+                                </span>
+                            </div><!-- /input-group -->
+                            <br>
+                            <table border="1" class="table table-bordered">
+                                <tr>
+                                  <td align="left">Cajica</td>
+                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
+                                </tr>
+                                <tr>
+                                  <td align="left">Caldas</td>
+                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
+                                </tr>
+                                <tr>
+                                  <td align="left">Cali</td>
+                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
+                                </tr>
+                                <tr>
+                                  <td align="left">Cartagena</td>
+                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
+                                </tr>
+                                <!--<tr ng-repeat="nc in ciudades">
+                                  <td align="left">{{nc}}</td>
+                                  <td><button type="button" class="btn btn-primary" ng-click="agregarCiudad(nc)"> Agregar Ciudad </button></td>
+                                </tr>-->
+                            </table>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
     </body>
 
 </html>
