@@ -1,6 +1,6 @@
 (function (ng) {
-    var mod = ng.module("itinerarioModule", ["ui.bootstrap"]);
+    var mod = ng.module("moduloCiudad", ["ui.bootstrap"]);
 
-    mod.constant("itinerarioContext", "api/itinerario");
+    mod.constant("ciudadContext", "api/ciudad");
 
 })(window.angular);
