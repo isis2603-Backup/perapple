@@ -120,6 +120,3 @@
         }]);
 
 })(window.angular);
-
-
-
