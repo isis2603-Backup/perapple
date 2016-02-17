@@ -1,13 +1,13 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 (function(ng){
-    
-    var mod = ng.module("bookModule");
-    
-     mod.service("bookService", ["$http", "bookContext", function ($http, context) {
+
+    var mod = ng.module("homeModule");
+
+     mod.service("homeService", ["$http", "homeContext", function ($http, context) {
         /**
          * Obtener la lista de books.
          * Hace una petición GET con $http a /books para obtener la lista
@@ -59,7 +59,7 @@
             return $http.delete(context + "/" + id);
         };
     }]);
-    
-    
+
+
 })(window.angular);
 
