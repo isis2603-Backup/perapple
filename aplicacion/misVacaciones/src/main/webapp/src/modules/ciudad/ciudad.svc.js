@@ -1,5 +1,5 @@
 (function (ng) {
-    var mod = ng.module("itinerarioModule");
+    var mod = ng.module("moduloCiudad");
 
     mod.service("itinerarioService", ["$scope", "itinerarioContext", function ($http, context) {
 
