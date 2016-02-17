@@ -89,55 +89,26 @@
                 <h3 class="modal-title" style="text-align:center">Crear Cuenta</h3>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-5">
-                        <p>Datos Personales</p>
-                        <input type="text" class="form-control" title="Nombre" name="bday" >
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="email" class="form-control" title="emailNuevo" name="bday" >
-                    </div>
-                    <div class="col-sm-1"></div>
-                </div>
-                <br>
                 <form>
-                    <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-10">
-                            <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar Ciudad...">
-                                <span class="input-group-btn">
-                                  <button class="btn btn-default" type="button">Buscar</button>
-                                </span>
-                            </div><!-- /input-group -->
-                            <br>
-                            <table border="1" class="table table-bordered">
-                                <tr>
-                                  <td align="left">Cajica</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>
-                                <tr>
-                                  <td align="left">Caldas</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>
-                                <tr>
-                                  <td align="left">Cali</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>
-                                <tr>
-                                  <td align="left">Cartagena</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>
-                                <!--<tr ng-repeat="nc in ciudades">
-                                  <td align="left">{{nc}}</td>
-                                  <td><button type="button" class="btn btn-primary" ng-click="agregarCiudad(nc)"> Agregar Ciudad </button></td>
-                                </tr>-->
-                            </table>
-                        </div>
-                        <div class="col-sm-1"></div>
-                    </div>
+                
+                        <h4>Datos Personales</h4>
+                        <p>Nombre</p>
+                        <input type="text" class="form-control" title="Nombre" name="bday" >
+                   
+                    
+                        <p>Email</p>
+                        <input type="email" class="form-control" title="emailNuevo" name="bday" >
+                   
+                        <p>Usuario</p>
+                        <input type="text" class="form-control" title="nombreUsuario" name="bday" >
+
+                        <p>Contraseña</p>
+                        <input type="password" class="form-control" title="contrasena" name="bday" >
+                    
+                        <p>Repetir contraseña</p>
+                        <input type="password" class="form-control" title="repetircontrasena" name="bday" >
+                   
+                <br>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
