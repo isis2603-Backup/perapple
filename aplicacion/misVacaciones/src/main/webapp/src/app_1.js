@@ -24,11 +24,11 @@
                         controllerAs: "ctrl",
                         templateUrl: "./modules/itinerario/itinerario.tpl.html"
                     })
-                    .state('home', {
-                        url: '/home',
-                        controller: "homeCtrl",
+                    .state('viajero', {
+                        url: '/viajero',
+                        controller: "viajeroCtrl",
                         controllerAs: "ctrl",
-                        templateUrl: "./modules/home/home.tpl.html"
+                        templateUrl: "./modules/viajero/viajero.tpl.html"
                     })
                     .state('ciudad', {
                         url: '/ciudad',

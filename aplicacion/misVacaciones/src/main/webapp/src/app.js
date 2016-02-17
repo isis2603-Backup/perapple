@@ -103,15 +103,15 @@
         }]);
 
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/home");
+            $urlRouterProvider.otherwise("/viajero");
             $stateProvider
                     .state('itinerario', {
                         url: '/itinerario',
                         templateUrl: "./modules/itinerario/itinerario.tpl.html"
                     })
-                    .state('home', {
-                        url: '/home',
-                        templateUrl: "./modules/home/home.tpl.html"
+                    .state('viajero', {
+                        url: '/viajero',
+                        templateUrl: "./modules/viajero/viajero.tpl.html"
                     })
                     .state('ciudad', {
                         url: '/ciudad',
