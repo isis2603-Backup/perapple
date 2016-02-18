@@ -23,10 +23,32 @@
          * records: Array con un Author por defecto
          */
         var records = [{
-                id: 1,
-                name: 'Alvaro Mutis',
-                birthDate: '1940-01-22'
-            }];
+            usuario: 'perapple',
+            itinerarios: [
+                It1 = {
+                    nombre: 'Verano 2016',
+                    fechaInicio: '12-05-2016',
+                    fechaFin: '13-06-2016',
+                    ciudades: [
+                        Cd1 = {
+                            nombre: 'Cali',
+                            descripcion: 'Sucursal del cielo',
+                            foto: 'link_foto_cali.png',
+                            fInicio: '12-05-2016',
+                            fFin: '23-05-2016',
+                            sitios: [
+                                st1 = {nombre:'Zoologico de Cali', descripcion:'Muchos animales'},
+                                st2 = {nombre:'Zoologico de Cali', descripcion:'Muchos animales'}
+                            ],
+                            eventos: [
+                                ev1 = {nombre:'Partido America vs Nacional', descripcion: 'Partido de la copa Postobon', fecha: '13-05-2016'},
+                                ev2 = {nombre:'Partido America vs Nacional', descripcion: 'Partido de la copa Postobon', fecha: '13-05-2016'}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }]
 
         function getQueryParams(url) {
             var vars = {}, hash;
