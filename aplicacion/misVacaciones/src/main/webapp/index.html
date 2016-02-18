@@ -67,7 +67,7 @@
                             <input type="text" value="" placeholder="Usuario" id="username" name="usuario" ng-model="usuario" title="Ingrese nombre de usuario" />
                             <input type="password" value="" placeholder="Contraseña" id="password" name="contraseña" title="Ingrese contraseña" />
                             <button type="submit" >Iniciar sesión</button>
-                            <p style="text-align:center">¿No tienes cuenta?</p>
+                            <p>¿No tienes cuenta?</p>
 
                         </form>
                          <button  id="crear_cuenta" data-toggle="modal" data-target="#popCrearCuenta" >Crear cuenta</button>
@@ -84,27 +84,28 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title" style="text-align:center">Crear Cuenta</h3>
+                <h3 class="modal-title" >Crear Cuenta</h3>
             </div>
             <div class="modal-body">
                 <form>
 
-                        <h4 style="text-align:center">Datos Personales</h4>
-                        <p style="text-align:center">Nombre</p>
+                        <h4 >Datos Personales</h4>
+                        <br>
+                        <p >Nombre</p>
                         <input type="text" class="form-control" title="Nombre" name="bday" >
-
-                        <p style="text-align:center">Email</p>
+                        <br>
+                        <p >Email</p>
                         <input type="email" class="form-control" title="emailNuevo" name="bday" >
-
-                        <p style="text-align:center">Usuario</p>
+                        <br>
+                        <p >Usuario</p>
                         <input type="text" class="form-control" title="nombreUsuario" name="bday" >
-
-                        <p style="text-align:center">Contraseña</p>
+                        <br>
+                        <p >Contraseña</p>
                         <input type="password" class="form-control" title="contrasena" name="bday" >
-
-                        <p style="text-align:center">Repetir contraseña</p>
+                        <br>
+                        <p >Repetir contraseña</p>
                         <input type="password" class="form-control" title="repetircontrasena" name="bday" >
-                        <button type="submit" ng-click="agregar_usuario()" >Crear cuenta</button>
+                        <button type="submit" ng-click="agregar_usuario()">Crear Cuenta</button>
                 <br>
                 </form>
             </div><!-- /.modal-content -->

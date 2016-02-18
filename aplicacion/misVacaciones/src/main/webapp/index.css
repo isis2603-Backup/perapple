@@ -118,10 +118,61 @@ button{
 }
 .fb-login{
     background: blue;
-    
+
 }
 .login-block button:hover {
     background: #7b81ff;
     border: #7b81ff;
 }
 
+.login-block p
+{
+    text-align:center;
+}
+
+.modal-body
+{
+    border-top: 5px solid #3946ff;
+    text-align: center;
+    
+
+}
+
+.modal-body button
+{
+    font-size: 15px;
+    background: #4043f9;
+   border: 1px solid #2e30b2;
+   color: #fff;
+   width: 50%;
+   height: 40px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
+}
+
+.modal-body button:hover
+{
+    background: #7b81ff;
+    border: #7b81ff;
+}
+
+.modal-body input
+{
+    font-family: Montserrat;
+    background: #DDDDDD;
+    color:#000;
+
+
+}
+.modal-body input:active, .modal-body input:focus {
+    border: 1px solid #3946ff;
+}
+
+.modal-header
+{
+    text-align: center;
+
+}
