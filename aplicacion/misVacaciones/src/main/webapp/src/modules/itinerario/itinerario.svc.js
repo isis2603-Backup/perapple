@@ -4,54 +4,91 @@
     mod.service("itinerarioService", ["$scope", "itinerarioContext", function ($http, context) {
 
         /**
-         * Obtener la lista de authors.
-         * Hace una petición GET con $http a /authors para obtener la lista
-         * de objetos de la entidad authors
+         * Obtener la lista de itinerarios.
+         * Hace una petición GET con $http a /itinerario para obtener la lista
+         * de objetos de la entidad itinerario
          * @returns {promise} promise para leer la respuesta del servidor.
-         * Se recibe un array de objetos de authors.
+         * Se recibe un array de objetos de itinerario(todos los itinerarios de todos los usuarios).
          */
         this.fetchRecords = function () {
             return $http.get(context);
         };
 
         /**
-         * Obtener un registro de authors.
-         * Hace una petición GET a /authors/:id para obtener
-         * el objeto de un registro específico de authors
-         * @param {number} id del registro a obtener
+         * Obtener un registro de itinerarios.
+         * Hace una petición GET a /itinerario/:viajero para obtener
+         * el objeto de un registro específico de itinerarios
+         * @param {string} viajero del registro a obtener
          * @returns {promise} promise para leer la respuesta del servidor.
-         * Se recibe un objeto instancia de authors.
+         * Se recibe un objeto instancia de itinerario.
          */
-        this.fetchRecord = function (id) {
-            return $http.get(context + "/" + id);
+        this.fetchRecord = function (usuario) {
+            return $http.get(context + "/" + usuario);
         };
 
         /**
-         * Guardar un registro de authors.
-         * Si currentRecord tiene la propiedad id, hace un PUT a /authors/:id con los
-         * nuevos datos de la instancia de authors.
-         * Si currentRecord no tiene la propiedad id, se hace un POST a /authors
-         * para crear el nuevo registro de authors
-         * @param {object} currentRecord instancia de authors a guardar/actualizar
+         * Guardar un registro de itinerario.
+         * Si currentRecord tiene la propiedad viajero, hace un PUT a /itinerario/:viajero con los
+         * nuevos datos de la instancia de itinerario.
+         * Si currentRecord no tiene la propiedad id, se hace un POST a /itinerario
+         * para crear el nuevo registro de itinerario
+         * @param {object} currentRecord instancia de itineraio a guardar/actualizar
          * @returns {promise} promise para leer la respuesta del servidor.
-         * Se recibe un objeto de authors con su nuevo id
+         * Se recibe un objeto de itinerario con su nuevo viajero
          */
         this.saveRecord = function (currentRecord) {
-            if (currentRecord.id) {
-                return $http.put(context + "/" + currentRecord.id, currentRecord);
+            if (currentRecord.usuario) {
+                return $http.put(context + "/" + currentRecord.usuario, currentRecord);
             } else {
                 return $http.post(context, currentRecord);
             }
         };
 
+
+
+       //FUNCIONES PARA BORRADO DE ELEMENTOS 
+
         /**
-         * Hace una petición DELETE a /authors/:id para eliminar un author
-         * @param {number} id identificador de la instancia de author a eliminar
+         * Hace una petición DELETE a /itineraro/:viajero/:nItinerario para eliminar un itinerario
+         * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
+         * @param {string} itinerario identificador del itinerario a eliminar
          * @returns {promise} promise para leer la respuesta del servidor.
          * No se recibe cuerpo en la respuesta.
          */
-        this.deleteRecord = function (id) {
-            return $http.delete(context + "/" + id);
+        this.borrarItinerario = function (viajero, itinerario) {
+            return $http.delete(context + "/" + viajero + "/" + itinerario);
         };
+
+        this.borrarCiudad = function (viajero, itinerario, ciudad){
+            return $http.delete(context + "/" + viajero + "/" + itinerario+"/"+ciudad);
+        };
+
+        /**
+         * Hace una petición DELETE a /itineraro/:viajero/S/:sitio para eliminar un sitio de un itinerario de un usuario dado
+         * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
+         * @param {string} itinerario identificador del itinerario del que se quiere eliminar sitio
+         * @param {string} sitio identificador del sitio a eliminar
+         * @returns {promise} promise para leer respuesta del servidor
+         * No se recibe cuerpo en la respuesta
+         */
+
+        this.borrarSitio = function (viajero, ciudad,itinerario, sitio) {
+            return $http.delete(context + viajero + "/" + itinerario+ "/"+ciudad +"/S/"+sitio);
+        };
+
+        /**
+         * Hace una petición DELETE a /itineraro/:viajero/E/:evento para eliminar un evento de un itinerario de un usuario dado
+         * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
+         * @param {string} itinerario identificador del itinerario del que se quiere eliminar sitio
+         * @param {string} evento identificador del sitio a eliminar
+         * @returns {promise} promise para leer respuesta del servidor
+         * No se recibe cuerpo en la respuesta
+         */
+
+        this.borrarEvento = function (viajero,itinerario, ciudad,evento) {
+            return $http.delete(context + "/" + viajero + "/" + itinerario+"/"+ciudad+"/E/"+evento);
+        };
+
+
     }]);
 })(window.angular);
