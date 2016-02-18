@@ -4,7 +4,7 @@
         "ui.router",
         "homeModule",
         "itinerarioModule",
-        "ciudadModule",
+        "moduloCiudad",
         "homeMock",
         "itinerarioMock",
         "ciudadMock",

@@ -1,7 +1,7 @@
 (function (ng) {
     var mod = ng.module("moduloCiudad");
 
-    mod.service("itinerarioService", ["$scope", "itinerarioContext", function ($http, context) {
+    mod.service("ciudadService", ["$scope", "itinerarioContext", function ($http, context) {
 
         /**
          * Obtener la lista de authors.

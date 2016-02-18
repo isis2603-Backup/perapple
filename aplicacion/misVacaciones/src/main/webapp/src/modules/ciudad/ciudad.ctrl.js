@@ -1,13 +1,13 @@
 (function (ng) {
-    var mod = ng.module("itinerarioModule");
+    var mod = ng.module("moduloCiudad");
 
-    mod.controller("itinerarioCtrl", ["$scope", "itinerarioService", function ($scope, svc) {
+    mod.controller("ciudadCtrl", ["$scope", "ciudadService", function ($scope, svc) {
             $scope.currentRecord = {};
-            $scope.records = [];
+            $scope.eventos = [];
             $scope.alerts = [];
-
-            $scope.today = function () {
-                $scope.value = new Date();
+            $scope.grabar = function () {
+                svc.agregarEvento();
+                svc.refrescar();
             };
 
             $scope.clear = function () {
