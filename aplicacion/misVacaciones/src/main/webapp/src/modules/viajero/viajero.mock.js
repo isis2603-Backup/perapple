@@ -5,7 +5,7 @@
  */
 (function (ng) {
 
-    var mod = ng.module('homeMock', ['ngMockE2E']);
+    var mod = ng.module('viajeroMock', ['ngMockE2E']);
 
 
     mod.run(['$httpBackend', function ($httpBackend) {
@@ -16,7 +16,7 @@
              * api/(cualquierpalabra)/(numero)
              * ej: api/books/1
              */
-            var recordUrl = new RegExp('api/home/([0-9]+)');
+            var recordUrl = new RegExp('api/viajero/([0-9]+)');
 
             /*
              * @type Array
@@ -29,11 +29,35 @@
                     image: ''
                     },
                 {id: 2,
-                    name: 'Java 8',
-                    description: 'Libro Mock 2',
-                    isbn: '12345-2',
-                    image: 'http://image.casadellibro.com/a/l/t0/55/9788441536555.jpg',
-                    publishDate: '2015-01-22'}
+                    name: 'Camilo Mendoza',
+                    password: 'perapple',
+                    image: ''
+                    },
+                {id: 3,
+                    name: 'Harold Gonzalez',
+                    password: 'perapple',
+                    image: ''
+                    },
+                {id: 4,
+                    name: 'María Remolina',
+                    password: 'perapple',
+                    image: ''
+                    },
+                {id: 5,
+                    name: 'Estaben Dalel',
+                    password: 'perapple',
+                    image: ''
+                    },
+                {id: 6,
+                    name: 'Nicolas Galvis',
+                    password: 'perapple',
+                    image: ''
+                    },
+                {id: 7,
+                    name: 'Daniel Althviz',
+                    password: 'perapple',
+                    image: ''
+                    }
             ];
 
             function getQueryParams(url) {
@@ -58,7 +82,7 @@
              * se realiza la simulacion de la paginacion.
              * Response: 200 -> Status ok, array de libros y los headers.
              */
-            $httpBackend.whenGET('api/books').respond(function (method, url) {
+            $httpBackend.whenGET('api/viajero').respond(function (method, url) {
                 var queryParams = getQueryParams(url);
                 var responseObj = [];
                 var page = queryParams.page;
@@ -96,7 +120,7 @@
              * array de records.
              * Response: 201 -> Status created, record -> libro y ningún header.
              */
-            $httpBackend.whenPOST('api/books').respond(function (method, url, data) {
+            $httpBackend.whenPOST('api/viajero').respond(function (method, url, data) {
                 var record = ng.fromJson(data);
                 record.id = Math.floor(Math.random() * 10000);
                 records.push(record);

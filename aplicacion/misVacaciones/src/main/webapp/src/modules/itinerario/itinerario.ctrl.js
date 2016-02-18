@@ -20,7 +20,7 @@
 
                 $scope.opened = true;
             };
-
+            $scope.$on('fecthRecordsItinerario', function() { fetchRecords(); });
             //Alertas
             this.closeAlert = function (index) {
                 $scope.alerts.splice(index, 1);
@@ -91,7 +91,7 @@
                     self.fetchRecords();
                 }, responseError);
             };
-
+            
             this.fetchRecords();
         }]);
 

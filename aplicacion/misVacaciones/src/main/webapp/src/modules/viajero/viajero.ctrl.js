@@ -6,9 +6,9 @@
 
 (function (ng) {
 
-    var mod = ng.module("homeModule");
+    var mod = ng.module("viajeroModule");
 
-    mod.controller("homeCtrl", ["$scope", "homeService", function ($scope, svc) {
+    mod.controller("viajeroCtrl", ["$scope", "viajeroService", function ($scope, svc) {
            //Se almacenan todas las alertas
             $scope.alerts = [];
             $scope.currentRecord = {};
@@ -117,6 +117,8 @@
                     return response;
                 }, responseError);
             };
+            
+            this.fetchRecordsItinerario = function() { $scope.$emit('fetchRecordsItinerario');};  
 
             /*
              * Funcion saveRecord hace un llamado al servicio svc.saveRecord con el fin de

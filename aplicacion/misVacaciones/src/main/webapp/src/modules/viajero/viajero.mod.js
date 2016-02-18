@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 (function (ng) {
-    var mod = ng.module("homeModule", ["ui.bootstrap"]);
-    mod.constant("homeContext", "api/home");
+    var mod = ng.module("viajeroModule", ["ui.bootstrap"]);
+    mod.constant("viajeroContext", "api/viajero");
 
 })(window.angular);
 
