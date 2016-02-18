@@ -3,6 +3,8 @@
 
     mod.service("itinerarioService", ["$scope", "itinerarioContext", function ($http, context) {
 
+
+            //FUNCIONES PARA OBTENER/LEER 
         /**
          * Obtener la lista de itinerarios.
          * Hace una petición GET con $http a /itinerario para obtener la lista
@@ -26,6 +28,7 @@
             return $http.get(context + "/" + usuario);
         };
 
+        //FUNCIONES PARA AGREGAR/GUARDAR
         /**
          * Guardar un registro de itinerario.
          * Si currentRecord tiene la propiedad viajero, hace un PUT a /itinerario/:viajero con los
@@ -60,6 +63,13 @@
             return $http.delete(context + "/" + viajero + "/" + itinerario);
         };
 
+        /**
+         *
+         * @param {type} viajero
+         * @param {type} itinerario
+         * @param {type} ciudad
+         * @returns {unresolved}
+         */
         this.borrarCiudad = function (viajero, itinerario, ciudad){
             return $http.delete(context + "/" + viajero + "/" + itinerario+"/"+ciudad);
         };
@@ -69,6 +79,7 @@
          * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
          * @param {string} itinerario identificador del itinerario del que se quiere eliminar sitio
          * @param {string} sitio identificador del sitio a eliminar
+         * * @param {string} ciudad identificador de la ciudad
          * @returns {promise} promise para leer respuesta del servidor
          * No se recibe cuerpo en la respuesta
          */
@@ -82,6 +93,7 @@
          * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
          * @param {string} itinerario identificador del itinerario del que se quiere eliminar sitio
          * @param {string} evento identificador del sitio a eliminar
+         * @param {string} ciudad identificador de la ciudad
          * @returns {promise} promise para leer respuesta del servidor
          * No se recibe cuerpo en la respuesta
          */
