@@ -6,7 +6,6 @@
         mod.controller("controlador", function($scope, sharedProperties){
 
             $scope.usuario= "Perapple";
-
             $scope.contrasena = "Perapple";
             $scope.correo = "perapple@gmail.com";
             $scope.itinerario = "";
@@ -63,8 +62,8 @@
            };
         
         $scope.agegar_usuario=function (){
-            
-        }
+       // <!--- por desarrollar--->
+        };
 
         $scope.detalles = function(ciudad){
           window.alert("Actualizacion de eventos y sitios de interes segun ciudad...");
