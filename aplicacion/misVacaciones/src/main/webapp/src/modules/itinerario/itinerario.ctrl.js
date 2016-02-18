@@ -3,9 +3,8 @@
 
     mod.controller("itinerarioCtrl", ["$scope", "itinerarioService", function ($scope, svc) {
             $scope.currentRecord = {};
-            $scope.records = [];
+            $scope.records = []; // Itinerarios
             $scope.alerts = [];
-
             $scope.today = function () {
                 $scope.value = new Date();
             };
@@ -86,13 +85,31 @@
                     self.fetchRecords();
                 }, responseError);
             };
-            this.deleteRecord = function (record) {
-                return svc.deleteRecord(record.id).then(function () {
+            
+            this.borrarItinerario = function (viajero, itinerario){
+                return svc.borrarItinerario(viajero,itinerario).then(function () {
                     self.fetchRecords();
                 }, responseError);
             };
             
+            this.borrarCiudad = function (viajero, itinerario, ciudad){
+                return svc.borrarCiudad(viajero,itinerario,ciudad).then(function () {
+                    self.fetchRecords();
+                }, responseError);
+            };
+            
+            this.borrarEvento = function (viajero, itinerario, ciudad, evento){
+                return svc.borrarEvento(viajero,itinerario,ciudad, evento).then(function () {
+                    self.fetchRecords();
+                }, responseError);
+            };
+            
+            this.borrarSitio = function (viajero, itinerario, ciudad, sitio){
+                return svc.borrarSitio(viajero,itinerario, ciudad, sitio).then(function () {
+                    self.fetchRecords();
+                }, responseError);
+            };   
             this.fetchRecords();
         }]);
-
+        
 })(window.angular);
