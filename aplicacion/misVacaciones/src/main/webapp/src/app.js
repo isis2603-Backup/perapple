@@ -6,7 +6,6 @@
         mod.controller("controlador", function($scope, sharedProperties){
 
             $scope.usuario= "Perapple";
-
             $scope.contrasena = "Perapple";
             $scope.correo = "perapple@gmail.com";
             $scope.itinerario = "";
@@ -26,22 +25,33 @@
         });
 
          mod.controller("ctrl", function($scope, sharedProperties){
+            
+        $scope.nombre_usuario="";
+        $scope.contrasena_usuario="";
+        $scope.email_usuario="@";
+        
         $scope.nueva_ciudad = "";
         $scope.ciudades = ["Bogotá","Bucaramanga", "Cali" ];
+        
         $scope.nuevo_evento="";
         $scope.eventos=[ "Festival Estereo Picnic", "Festival Internacional de Teatro" , "Fiesta Andres" ];
+        
         $scope.sitios = ["Andrés Carne de Res", "Museo del Oro", "Monserrate"];
+        
         $scope.stringValue = sharedProperties.getString();
         $scope.objectValue = sharedProperties.getObject().data;
         $scope.comentario = "";
+        
         $scope.calificacion = 0;
         $scope.calificacionesEvento = [];
         $scope.calificacionesSitio = [];
+        
         $scope.agregar_ciudad = function(){
 
           $scope.ciudades.push(prompt("¿Cuál es la nueva ciudad que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
           $scope.nueva_ciudad = "";
         };
+        
         $scope.agregar_evento= function(){
             $scope.eventos.push(prompt("¿Cuál es el nuevo evento/sitio que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
             $scope.nuevo_evento="";
@@ -50,7 +60,10 @@
         $scope.agregar_sitio= function(){
             $scope.sitios.push(prompt("¿Cuál es el nuevo evento/sitio que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
            };
-
+        
+        $scope.agegar_usuario=function (){
+       // <!--- por desarrollar--->
+        };
 
         $scope.detalles = function(ciudad){
           window.alert("Actualizacion de eventos y sitios de interes segun ciudad...");
@@ -103,7 +116,7 @@
         }]);
 
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/viajero");
+            
             $stateProvider
                     .state('itinerario', {
                         url: '/itinerario',

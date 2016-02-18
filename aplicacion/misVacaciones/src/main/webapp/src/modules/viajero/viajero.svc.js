@@ -5,9 +5,9 @@
  */
 (function(ng){
 
-    var mod = ng.module("homeModule");
+    var mod = ng.module("viajeroModule");
 
-     mod.service("homeService", ["$http", "homeContext", function ($http, context) {
+     mod.service("viajeroService", ["$http", "viajeroContext", function ($http, context) {
         /**
          * Obtener la lista de books.
          * Hace una petición GET con $http a /books para obtener la lista
