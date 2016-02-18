@@ -40,13 +40,14 @@
             if (currentRecord.usuario) {
                 return $http.put(context + "/" + currentRecord.usuario, currentRecord);
             } else {
+                //revisar que hacer si usuario no tiene objeto de modulo itinerario asociado que hace el mock
                 return $http.post(context, currentRecord);
             }
         };
 
 
 
-       //FUNCIONES PARA BORRADO DE ELEMENTOS 
+       //FUNCIONES PARA BORRADO DE ELEMENTOS
 
         /**
          * Hace una petición DELETE a /itineraro/:viajero/:nItinerario para eliminar un itinerario
