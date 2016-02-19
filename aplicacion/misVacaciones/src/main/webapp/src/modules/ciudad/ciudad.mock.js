@@ -31,8 +31,8 @@
                             a un promedio de 2625 metros sobre el nivel del mar.\n\
                             \n\
                             Temperatura promedio= 14°C\n\
-                            Altitud= 2600 m\n\
-                            Población= 7.980.001 hab',
+                            Altitud= 2600 metros\n\
+                            Población= 7.980.001 habitantes',
                 imagen: 'http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg',
                 sitios:[
                     {
@@ -132,9 +132,31 @@
                     },
                     {
                         id:2,
-                        nombre:'',
-                        descripción:'',
-                        imagen:''
+                        nombre:'Bogotá Pub Craw',
+                        descripción:'Acerca del tour\n\
+                                     Este jueves 18 de febrero, bogotanos y extranjeros podrán disfrutar del Bogota Pub Crawl, evento que promete hacer un tour por los mejores bares de la ciudad.\n\
+                                     Todo el recorrido se hace en compañía de un guía que habla español e inglés. A lo largo de la jornada habrá un fotógrafo que estará acompañando a los participantes\n\
+                                     del tour y capturará los mejores momentos.\n\
+                                     \n\
+                                     Qué debo saber\n\
+                                        \n\
+                                     La fiesta inicia en el Bier Market (carrera 13 No. 83-75 - zona T) a las 8:30 p.m. Allí, todos los participantes recibirán una manilla después de cancelar el precio \n\
+                                     del tour que es de $60.000. En esta primera parada podrán tomar cerveza o vino y comer pizza sin límite.\n\
+                                     Una hora y media después, el grupo será llevado a un bar donde recibirá un shot de trago gratis y descuentos en la carta del lugar. Habrán precios especiales en cervezas y cocteles.\n\
+                                     Tiempo después el grupo irá a un segundo bar.\n\
+                                     La última y cuarta parada será en la discoteca 4:40 de la Zonta T. Allí no pagaran cover y podrán disfrutar de una buena fiesta.\n\
+                                     En este lugar el trago corre por cuenta de cada participante.\n\
+                                    \n\
+                                    Información del evento\n\
+                                    \n\
+                                    Fecha: 18 de febrero\n\
+                                    \n\
+                                    Lugar de inicio: Bier Market \n\
+                                    \n\
+                                    Hora: 8:30 p.m.\n\
+                                    \n\
+                                    Precio del recorrido: $60.000 o 20 dólares',
+                        imagen:'https://res.cloudinary.com/civico/image/upload/c_fill,f_auto,fl_lossy,h_368,w_1122/v1455220863/entity/event_image/file/940/000/56bcc4cb2f41f3c2be000940.jpg'
                     }
                     
                 ]
@@ -149,8 +171,8 @@
                             \n\
                           Es a su vez conocida como «la capital mundial de la salsa».\n\
                           Temperatura promedio= 23°C \n\
-                          Altitud= 1018 m\n\
-                          Población= 2.394.870 hab ',
+                          Altitud= 1018 metros\n\
+                          Población= 2.394.870 habitantes ',
                 imagen: 'http://static.panoramio.com/photos/large/43907931.jpg',
                 sitios:[
                     {
@@ -190,7 +212,7 @@
                 eventos:[
                     {
                         id:1,
-                         nombre:'Millonarios-Nacional',
+                         nombre:'',
                          detalles:'',
                         imagen:''
                     }
@@ -201,24 +223,59 @@
                 
                 id: 3,
                 nombre: 'Bucaramanga',
-                detalles:'Es un municipio colombiano, capital del departamento de Santander. Está ubicada al nororiente del país sobre la cordillera Oriental, \n\
+                detalles:'Es una ciudad colombiana, capital del departamento de Santander. Está ubicada al nororiente del país sobre la cordillera Oriental, \n\
                           rama de la cordillera de los Andes, a orillas del río de Oro. Bucaramanga cuenta con 531 813 habitantes y junto con Floridablanca, \n\
-                          Girón y Piedecuesta conforman el área metropolitana con un total de 1 126 945 habitantes',
-                imagen: '',
+                          Girón y Piedecuesta conforman el área metropolitana con un total de 1 126 945 habitantes\n\
+                            \n\
+                          Temperatura promedio= 23°C\n\
+                          Altitud= 959 metros\n\
+                          Poblacion= 528.352 habitantes ',
+                imagen: 'https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg',
                 sitios:[
                     {
                         id:1,
-                        nombre:'',
-                        detalles:'',
-                       imagen:''
+                        nombre:'Cañón del Chicamocha',
+                        detalles:'El cañon del Chicamocha es un acidente geográfico en colombia ubicado en las riveras del río Chicamocha,\n\
+                                  durante su recorrido por los departamentos de Boyacá y principalmente de Santander, donde alcanza su máxima \n\n\
+                                  profundidad en inmediaciones de la ciudad de Bucaramanga, entre los municipios de Aratoca, Cepitá, Los Santos y Jordán.',
+                       imagen:'http://santanderalextremo.com/wp-content/uploads/2013/02/panachi_003.jpg'
+                    },
+                    {
+                        id:2,
+                        nombre:'Mirador de Palonegro',
+                        destalles:' ubicado al oriente de la ciudad, en la vía que conduce a la ciudad de Cúcuta. Está construido en el sector un parque en forma de colina,\n\
+\n\                                 donde se puede apreciar desde su cima una panorámica imponente de la ciudad; hay senderos en concreto y en tierra que conducen a la cima donde \n\
+\n\                                 hay una fuente con una estatua del Sagrado Corazón de Jesús, que es visitada en época de Semana Santa por los habitantes de la ciudad, sobre todo \n\
+\n\                                 para realizar el Viacrucis en Viernes Santo; además los habitantes y feligreses del sector tienen la creencia que la estatua hace milagros.\n\
+\n\                                 Cuenta además el parque con un escenario en forma de media torta o media luna para hacer teatro al aire libre u otras actividades culturales, sociales o religiosas.',
+                        imagen:'http://www.riojapacific.com/wp/TravelDemoSources/TravelDemoSources/Website/wp-content/plugins/thethe-image-slider/timthumb.php?w=960&h=398&zc=1&src=http%3A%2F%2Fwww.riojapacific.com%2Fwp%2FTravelDemoSources%2FTravelDemoSources%2FWebsite%2Fwp-content%2Fuploads%2F2015%2F04%2FBUCA RAMANGA-SLIDER1.jpg'
                     }
                 ],
                 eventos:[
                     {
                         id:1,
-                         nombre:'',
-                         detalles:'',
-                        imagen:''
+                         nombre:'Concierto de Manu Chao en Bucaramanga',
+                         detalles:'Pilas pues para una celebración llena de reggae, folk, rock y punk: ¡Todo está listo para que Manu Chao haga temblar a toda Bucaramanga!\n\
+                                   Como ya se confirmó por parte de T310 y The Proyex Project, empresas organizadoras del evento, este emblemático artista se presentará en la Ciudad Bonita el próximo 12 de marzo.\n\
+                                   Así que prepárate para entonar himnos como “Clandestino”, “Desaparecido”, “Mr. Bobby”, “Bienvenido a Tijuana” y “Mala Vida”, entre muchos más.\n\
+                                   \n\
+                                  El concierto se realizará en en el Club El Cortijo ubicado sobre el anillo vial y tendrá una capacidad para 5,000 personas. Sus boletas,\n\
+                                  que se pueden adquirir en Tu Boleta tendrán un valor de $50.000 para las primeras 500 personas y $65.000 para el resto de boletería.\n\
+                                  Seguramente muchos crecimos con su música y sus letras y ritmos aún forman parte de nuestras vidas.\n\
+                                  Prepárate para vivir la magia de su música desde sus inicios con Mano Negra hasta la actualidad.',
+                        imagen:'http://www.infoeventos.com.co/wp-content/uploads/2016/02/manu-chao-feature.jpg'
+                    },
+                    {
+                        id:2,
+                        nombre:'Interpark - Ciudad de la diversión',
+                        detalles:'Disfruta de la ciudad de la diversión y la adrenalina más grande, moderna y segura jamas vista en Bucaramanga. Una ciudad de hierro que no quieres dejar de visitar esta navidad.\n\
+                                  Te dejamos los precios de las entradas y los Pasaportes para un día de adrenalina.\n\
+                                  \n\
+                                  Localidad             	Precio\n\
+                                  ENTRADA                       $ 5.000\n\
+                                  PASAPORTE Lunes a Jueves 	$ 20.000\n\
+                                  PASAPORTE fines de semana 	$ 25.000',
+                        imagen:'http://www.infoeventos.com.co/wp-content/uploads/2015/11/Banner-interparck-ciudad-de-hierro-bucaramanga.jpg'
                     }
                     
                 ]
