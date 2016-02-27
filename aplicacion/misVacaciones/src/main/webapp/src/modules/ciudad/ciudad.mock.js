@@ -165,9 +165,9 @@
                 
                 id: 2,
                 nombre: 'Cali',
-                detalles:'Cali, oficialmente Santiago de Cali,3 es un municipio colombiano, capital del departamento del Valle del Cauca,3 es la tercera ciudad más poblada de Colombia. \n\
+                detalles:'Cali, oficialmente Santiago de Cali, es un municipio colombiano, capital del departamento del Valle del Cauca, es la tercera ciudad más poblada de Colombia. \n\
                           Está situada en la región Sur del Valle del Cauca, entre la cordillera occidental y la cordillera central de los Andes. La ciudad forma parte del Área Metropolitana de Cali, \n\
-                          junto con los municipios aledaños a ésta.8 Fue fundada el 25 de julio de 1536 por Sebastián de Belalcázar, lo que la convierte en una de las ciudades más antiguas de América.\n\
+                          junto con los municipios aledaños a ésta. Fue fundada el 25 de julio de 1536 por Sebastián de Belalcázar, lo que la convierte en una de las ciudades más antiguas de América.\n\
                             \n\
                           Es a su vez conocida como «la capital mundial de la salsa».\n\
                           Temperatura promedio= 23°C \n\
@@ -224,8 +224,8 @@
                 id: 3,
                 nombre: 'Bucaramanga',
                 detalles:'Es una ciudad colombiana, capital del departamento de Santander. Está ubicada al nororiente del país sobre la cordillera Oriental, \n\
-                          rama de la cordillera de los Andes, a orillas del río de Oro. Bucaramanga cuenta con 531 813 habitantes y junto con Floridablanca, \n\
-                          Girón y Piedecuesta conforman el área metropolitana con un total de 1 126 945 habitantes\n\
+                          rama de la cordillera de los Andes, a orillas del río de Oro. Bucaramanga cuenta con 531.813 habitantes y junto con Floridablanca, \n\
+                          Girón y Piedecuesta conforman el área metropolitana con un total de 1.126.945 habitantes\n\
                             \n\
                           Temperatura promedio= 23°C\n\
                           Altitud= 959 metros\n\
@@ -272,6 +272,7 @@
                                   Te dejamos los precios de las entradas y los Pasaportes para un día de adrenalina.\n\
                                   \n\
                                   Localidad             	Precio\n\
+\n\                               \n\
                                   ENTRADA                       $ 5.000\n\
                                   PASAPORTE Lunes a Jueves 	$ 20.000\n\
                                   PASAPORTE fines de semana 	$ 25.000',
