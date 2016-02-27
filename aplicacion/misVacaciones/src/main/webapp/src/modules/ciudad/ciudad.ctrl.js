@@ -3,6 +3,7 @@
 
     mod.controller("ciudadCtrl", ["$scope", "ciudadService", function ($scope, svc) {
             $scope.currentRecord = {};
+            $scope.records = [];
             $scope.eventos = [];
             $scope.alerts = [];
             $scope.grabar = function () {
@@ -73,26 +74,26 @@
                 }, responseError);
             };
 
-            this.fetchRecords = function () {
-                return svc.fetchRecords().then(function (response) {
+            this.fetchCiudades = function () {
+                return svc.fetchCiudades().then(function (response) {
                     $scope.records = response.data;
                     $scope.currentRecord = {};
                     self.editMode = false;
                     return response;
                 }, responseError);
             };
-            this.saveRecord = function () {
-                return svc.saveRecord($scope.currentRecord).then(function () {
-                    self.fetchRecords();
+            this.saveCiudad = function () {
+                return svc.saveCiudad($scope.currentRecord).then(function () {
+                    self.fetchCiudades();
                 }, responseError);
             };
-            this.deleteRecord = function (record) {
-                return svc.deleteRecord(record.id).then(function () {
-                    self.fetchRecords();
+            this.deleteCiudad = function (record) {
+                return svc.deleteCiudad(record.id).then(function () {
+                    self.fetchCiudades();
                 }, responseError);
             };
 
-            this.fetchRecords();
+            this.fetchCiudades();
         }]);
 
 })(window.angular);

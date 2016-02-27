@@ -159,7 +159,8 @@
                         imagen:'https://res.cloudinary.com/civico/image/upload/c_fill,f_auto,fl_lossy,h_368,w_1122/v1455220863/entity/event_image/file/940/000/56bcc4cb2f41f3c2be000940.jpg'
                     }
                     
-                ]
+                ],
+                hoteles:[]
             },
             {
                 
@@ -217,7 +218,8 @@
                         imagen:''
                     }
                     
-                ]
+                ],
+                hoteles:[]
             },
             {
                 
@@ -279,7 +281,8 @@
                         imagen:'http://www.infoeventos.com.co/wp-content/uploads/2015/11/Banner-interparck-ciudad-de-hierro-bucaramanga.jpg'
                     }
                     
-                ]
+                ],
+                hoteles:[]
             }
                         
             ];

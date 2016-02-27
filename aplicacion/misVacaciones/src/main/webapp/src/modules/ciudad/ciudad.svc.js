@@ -5,12 +5,12 @@
 
         /**
          * Obtener la lista de authors.
-         * Hace una petición GET con $http a /authors para obtener la lista
-         * de objetos de la entidad authors
+         * Hace una petición GET con $http a /ciudades para obtener la lista
+         * de objetos de la entidad ciudades
          * @returns {promise} promise para leer la respuesta del servidor.
-         * Se recibe un array de objetos de authors.
+         * Se recibe un array de objetos de ciudades.
          */
-        this.fetchRecords = function () {
+        this.fetchCiudades = function () {
             return $http.get(context);
         };
 
@@ -22,7 +22,7 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un objeto instancia de authors.
          */
-        this.fetchRecord = function (id) {
+        this.fetchCiudad= function (id) {
             return $http.get(context + "/" + id);
         };
 
@@ -36,7 +36,7 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un objeto de authors con su nuevo id
          */
-        this.saveRecord = function (currentRecord) {
+        this.saveCiudad = function (currentRecord) {
             if (currentRecord.id) {
                 return $http.put(context + "/" + currentRecord.id, currentRecord);
             } else {
@@ -50,7 +50,7 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          * No se recibe cuerpo en la respuesta.
          */
-        this.deleteRecord = function (id) {
+        this.deleteCiudad = function (id) {
             return $http.delete(context + "/" + id);
         };
     }]);
