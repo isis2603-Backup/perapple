@@ -212,8 +212,8 @@
                 eventos:[
                     {
                         id:1,
-                         nombre:'',
-                         detalles:'',
+                         nombre:'No hay eventos disponibles',
+                         detalles:'En estos momentos Cali no cuenta con presentación de algún evento',
                         imagen:''
                     }
                     
