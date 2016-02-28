@@ -17,32 +17,29 @@
 
             <br>
 
-             <!--   <div class="row">
-
-                    <div class="col-xs-7">
-                <input id="textbox" type="text" class="form-control" title="Escriba el nombre de la ciudad" placeholder="Ciudad" ng-model="nueva_ciudad" />
-            </div>
-
-            </div>-->
-            <br>
+           <br>
 
             <table id="tabla" border="1" class="table table-bordered">
               <tr>
                   <td ALIGN=center> <b>Ciudades</b> </td>
-                  <td ALIGN=center> <b>Fechas</b></td>
+                  <td ALIGN=center> <b>Fecha Inicio</b></td>
+                  <td ALIGN=center> <b>Fecha Fin</b></td>
                   <td ALIGN=center> <b>Detalles</b> </td>
               </tr>
               <tr ng-repeat="nc in currentRecord.ciudades">
 
                 <td>{{nc.nombre}}</td>
-                <td>Fecha</td>
-                <td><button type="button" class="btn btn-primary" ng-click="detalles(nc)"> D </button></td>
+                <td>{{nc.fInicio|date}}</td>
+                <td>{{nc.fFin|date}}</td>
+                <td><a href="javascript:window.scrollTo(0,1100)"><button  id="detalles" type="button" class="btn btn-primary" name="{{nc.id}}"  ng-click="ctrl.detallesCiudad($event); " > Detalles </button>
+                    </a></td>
               </tr>
             </table>
             <br>
             <div class="row">
                 <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popCiudad" > Agregar Nueva Ciudad </button>
             </div>
+
         </div>
     </div>
 
@@ -66,44 +63,23 @@
     </div>
     </div>
     <br>
-    <div class="col-sm-12" style="justify-content: center ">
+
+    <div id="detallesCiudad" class="col-sm-12 " style="justify-content: center " >
         <div class="col-sm-12 well" style="overflow: auto; ">
             <div style="display:flex; justify-content: center; background-color:#ff9900; border-radius: 8px">
 
                 <div style = "margin:0 auto;">
-                    <h2 style="text-align: center"> Ciudad </h2>
-                    <p>Detalles de la ciudad...</p>
+                    <h2 style="text-align: center"> {{currentCiudadItinerario.nombre}} </h2>
+                    <p>{{currentCiudadItinerario.descripcion}}</p>
                 </div>
                 <div class="img-circle" id="image" style="justify-content: center;margin:0 auto;">
-                    <img class="img-rounded" style="height: 200px; margin:-5px; " src="http://40.media.tumblr.com/tumblr_m65o8dJDtA1rzv6j6o1_1280.jpg" alt="" />
+                    <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadItinerario.foto}}" alt="" />
 
                 </div>
             </div>
 
             <div class="col-sm-6" ng-app="agregar_evento"  style="overflow: auto; text-align: center">
                 <h3>Eventos </h3>
-                <br>
-               <!--<div id="opciones">
-                    <form>
-                        <div class="row">
-                        <div class="col-sm-6">
-                        <select class="form-control" name="OpcionEventos" ng-model="nuevo_evento" >
-                            <option selected value="1">Seleccione una opcion</option>
-                            <option value="2">Millonarios - Nacional</option>
-                            <option value="3">COLDPLAY</option>
-                            <option value="4">Fiesta Andres</option>
-                             <option value="5">Festival Estereo Picnic</option>
-                            <option value="6">Show Pirotecnicos Monserrtate</option>
-                            <option value="7">Festival Internacional de Teatro</option>
-                            <option value="8">Universidad de los Andes</option>
-                             <option value="9">Rolling Stones en concierto</option>
-                        </select>
-                            </div>
-                        <button id="button_agregar_evento" type="button" class="btn btn-primary " ng-click="add(nuevo_e)" > Agregar Evento </button>
-                        </div>
-                    </form>
-                </div>-->
-                <br>
                 <br>
                 <table border="1" class= "table table-bordered">
                     <tr>
@@ -112,10 +88,10 @@
                         <td ALIGN="center" ><b>Calificar</b></td>
 
                     </tr>
-                    <tr ng-repeat="nc in eventos track by $index">
-                        <td>{{nc}}</td>
-                        <td><button id="button_detalles_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesEvento"> D </button></td>
-                        <td><button id="button_calificar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarEvento"> C </button></td>
+                    <tr ng-repeat="nc in currentCiudadItinerario.eventos track by $index">
+                        <td>{{nc.nombre}}</td>
+                        <td><button id="button_detalles_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesEvento"> Detalles </button></td>
+                        <td><button id="button_calificar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
                     </tr>
 
                 </table>
@@ -127,38 +103,17 @@
 
             <div class="col-sm-6" style="overflow:auto; text-align: center">
                 <h3> Sitios de Interés </h3>
-                <br>
-                    <!--<div id="opciones">
-                        <div class="row">
-                        <div class="col-sm-5">
-                        <select class="form-control" name=sitio>
-                            <option>Seleccione una opcion</option>
-                            <option>          </option>
-                            <option>Museo del oro</option>
-                            <option>Parque Simon Bolivar</option>
-                            <option>Estadio el campin</option>
-                            <option>Centro Andino</option>
-                            <option>Universidad de los Andes</option>
-                        </select>
-                        </div>
-                            <div class="col-sm-4">
-                        <input type="date" class="form-control" title="Escriba la fecha del evento" name="bday" max="1979-12-31">
-                         </div>
-                        <button id="button_agregar_sitio" type="button" class="btn btn-primary" > Agregar Sitio</button>
-                        </div>-->
-                        <br>
-
-                      <br>
+                         <br>
                     <table border="1" class= "table table-bordered">
                         <tr>
                             <td ALIGN=center><b>Mis Sitios</b></td>
                             <td ALIGN="center" ><b>Detalles</b></td>
                             <td ALIGN="center" ><b>Calificación</b></td>
 
-                        <tr ng-repeat="nc in sitios track by $index">
-                        <td>{{nc}}</td>
-                            <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio"> D </button></td>
-                            <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> C </button></td>
+                        <tr ng-repeat="nc in  currentCiudadItinerario.sitios track by $index">
+                        <td>{{nc.nombre}}</td>
+                            <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio"> Detalles </button></td>
+                            <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
                     </tr>
 
                     </table>
@@ -170,6 +125,8 @@
               </div>
             </div>
         </div>
+    <a href="javascript:window.scrollTo(0,400)"><button style="text-align:center;" id="volver" type="button" class="btn btn-primary"  > Volver Arriba </button>
+                    </a>
 </div>
 
 <div class="modal fade" id="popCiudad" tabindex="-1" role="dialog">
@@ -184,11 +141,11 @@
                     <div class="col-sm-1"></div>
                     <div class="col-sm-5">
                         <p>Ingrese fecha de inicio:</p>
-                        <input type="date" class="form-control" title="Fecha Inicio" name="bday" max="1979-12-31">
+                        <input type="date" class="form-control" title="Fecha Inicio" name="ini"  max="2020-12-31">
                     </div>
                     <div class="col-sm-5">
                         <p>Ingrese fecha de fin:</p>
-                        <input type="date" class="form-control" title="Fecha Inicio" name="bday" max="1979-12-31">
+                        <input type="date" class="form-control" title="Fecha Fin" name="fin" max="2020-12-31">
                     </div>
                     <div class="col-sm-1"></div>
                 </div>
@@ -199,34 +156,17 @@
                         <div class="col-sm-10">
                             <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar Ciudad...">
+                                <input type="text" class="form-control" placeholder="Buscar Ciudad..." ng-model="ciudadBuscada">
                                 <span class="input-group-btn">
-                                  <button class="btn btn-default" type="button">Buscar</button>
+                                  <button class="btn btn-default" type="button" ng-click="">Buscar</button>
                                 </span>
                             </div><!-- /input-group -->
                             <br>
-                            <table border="1" class="table table-bordered" ng-repeat="ciudad in ciudades">
-                                <tr>
+                            <table border="1" class="table table-bordered" >
+                                <tr ng-repeat="ciudad in ciudades">
                                   <td align="left">{{ciudad.nombre}}</td>
-                                  <td align="right"><button type="button" class="btn btn-primary" ng-click=""> Agregar Ciudad </button></td>
+                                  <td align="center"><button type="button" class="btn btn-primary" ng-click=""> Agregar Ciudad </button></td>
                                 </tr>
-                                <!--
-                                <tr>
-                                  <td align="left">Caldas</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>
-                                <tr>
-                                  <td align="left">Cali</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>
-                                <tr>
-                                  <td align="left">Cartagena</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>-->
-                                <!--<tr ng-repeat="nc in ciudades">
-                                  <td align="left">{{nc}}</td>
-                                  <td><button type="button" class="btn btn-primary" ng-click="agregarCiudad(nc)"> Agregar Ciudad </button></td>
-                                </tr>-->
                             </table>
                         </div>
                         <div class="col-sm-1"></div>

@@ -2,8 +2,11 @@
     var mod = ng.module("itinerarioModule");
 
      mod.controller("itinerarioCtrl", ["$scope","itinerarioService", "ciudadService",function ($scope, svc, svcCiudad) {
-            $scope.currentUser = "";
+            $scope.id="";
+             $scope.currentUser = "";
+            $scope.ciudadBuscada = "";
             $scope.currentRecord = {};
+            $scope.currentCiudadItinerario = {};
             $scope.records = []; // Itinerarios
             $scope.currentCiudad = {};
             $scope.ciudades = []; //ciudades a mostrar para elección
@@ -79,6 +82,9 @@
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
                     $scope.currentRecord = $scope.records[0];
+                    if($scope.currentRecord.ciudades.length >0){
+                    $scope.currentCiudadItinerario = $scope.currentRecord.ciudades[0];
+                }
                     self.editMode = false;
                     return response;
                 }, responseError);
@@ -112,7 +118,10 @@
                     self.fetchRecords();
                 }, responseError);
             };
-
+               /**
+                *
+                * @returns {String} respuesta
+                */
             this.fetchCiudades = function ()
             {
                  return svcCiudad.fetchCiudades().then(function (response) {
@@ -121,6 +130,40 @@
                     return response;
                 }, responseError);
             };
+
+            this.detallesCiudad=function($event)
+            {
+                console.log($event.currentTarget.name);
+                var pId = $event.currentTarget.name;
+                ng.forEach($scope.currentRecord.ciudades, function (value) {
+                    console.log("value.id:"+value.id+" pId:"+pId);
+                if (value.id == pId) {
+
+                    $scope.currentCiudadItinerario = value;
+                    console.log($scope.currentCiudadItinerario.nombre);
+                }
+            });
+            };
+
+            /**
+             * REVISAR
+             * @returns {unresolved}
+             */
+            this.ciudadBuscada = function()
+            {   self.fetchCiudades();
+                var tam = $scope.ciudades.length;
+                for(var i = 0; i<tam;i++){
+               var ciudad = svcCiudad.fetchCiudad(i).then(function (response){
+                   if(response.data.nombre === $scope.ciudadBuscada)
+                   {
+                       $scope.ciudades = response.data;
+                       return response;
+                   }
+                    }, responseError);
+               }
+               return ciudad;
+            };
+
             this.fetchRecords();
         }]);
 

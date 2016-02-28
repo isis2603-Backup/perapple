@@ -34,7 +34,7 @@
                             id: 1,
                             nombre: 'Cali',
                             descripcion: 'Sucursal del cielo',
-                            foto: 'link_foto_cali.png',
+                            foto: 'http://www.elchontaduro.com/wp-content/uploads/2016/01/pub54007.jpg',
                             fInicio: '12-05-2016',
                             fFin: '23-05-2016',
                             sitios: [
@@ -44,6 +44,22 @@
                             eventos: [
                                 {id: 1,nombre:'Partido America vs Nacional', descripcion: 'Partido de la copa Postobon', fecha: '13-05-2016'},
                                 {id: 2,nombre:'Partido America vs Nacional', descripcion: 'Partido de la copa Postobon', fecha: '13-05-2016'}
+                            ]
+                        },
+                        {
+                            id:2,
+                            nombre: 'Bogotá',
+                            descripcion: '2600 metros más cerca de las estrellas',
+                            foto: 'http://4.bp.blogspot.com/-XcTA8HOervg/U1jgFFAEFWI/AAAAAAAAWKI/o0epuGtwH2I/s1600/Plaza+de+Bolivar+en+Bogot%C3%A1.jpg',
+                            fInicio: '12-05-2016',
+                            fFin: '23-05-2016',
+                            sitios: [
+                                {id:1,nombre:'PLaza de Bolivar', descripcion:'Muchas palomas'},
+                                 {id:2,nombre:'Catedral Primada', descripcion:'Mucha historia'}
+                            ],
+                            eventos: [
+                                 {id:1,nombre:'Partido Millonarios vs Santa fe', descripcion: 'Partido de la copa Postobon', fecha: '13-05-2016'},
+                                {id:2,nombre:'Partido Milonarios vs Nacional', descripcion: 'Partido de la copa Postobon', fecha: '20-05-2016'}
                             ]
                         }
                     ]
