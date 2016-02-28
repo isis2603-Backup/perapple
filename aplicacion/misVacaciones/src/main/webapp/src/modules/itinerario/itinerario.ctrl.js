@@ -1,9 +1,12 @@
 (function (ng) {
     var mod = ng.module("itinerarioModule");
 
-    mod.controller("itinerarioCtrl", ["$scope", "itinerarioService", function ($scope, svc) {
+    mod.controller("itinerarioCtrl", ["$scope", "itinerarioService", "ciudadService",function ($scope, svc, svcCiudad) {
+            $scope.currentUser = "";
             $scope.currentRecord = {};
             $scope.records = []; // Itinerarios
+            $scope.currentCiudad = {};
+            $scope.ciudades = []; //ciudades a mostrar para elección
             $scope.alerts = [];
             $scope.today = function () {
                 $scope.value = new Date();
@@ -85,31 +88,40 @@
                     self.fetchRecords();
                 }, responseError);
             };
-            
+
             this.borrarItinerario = function (viajero, itinerario){
                 return svc.borrarItinerario(viajero,itinerario).then(function () {
                     self.fetchRecords();
                 }, responseError);
             };
-            
-            this.borrarCiudad = function (viajero, itinerario, ciudad){
-                return svc.borrarCiudad(viajero,itinerario,ciudad).then(function () {
+
+            this.borrarCiudad = function (viajero, iditinerario, idciudad){
+                return svc.borrarCiudad(viajero,iditinerario,idciudad).then(function () {
                     self.fetchRecords();
                 }, responseError);
             };
-            
-            this.borrarEvento = function (viajero, itinerario, ciudad, evento){
-                return svc.borrarEvento(viajero,itinerario,ciudad, evento).then(function () {
+
+            this.borrarEvento = function (viajero, iditinerario, idciudad, idevento){
+                return svc.borrarEvento(viajero,iditinerario,idciudad, idevento).then(function () {
                     self.fetchRecords();
                 }, responseError);
             };
-            
-            this.borrarSitio = function (viajero, itinerario, ciudad, sitio){
-                return svc.borrarSitio(viajero,itinerario, ciudad, sitio).then(function () {
+
+            this.borrarSitio = function (viajero, iditinerario, idciudad, idsitio){
+                return svc.borrarSitio(viajero,iditinerario, idciudad, idsitio).then(function () {
                     self.fetchRecords();
                 }, responseError);
-            };   
+            };
+
+            this.fetchCiudades = function ()
+            {
+                 return svcCiudad.fetchCiudades().then(function (response) {
+                    $scope.ciudades = response.data;
+                    $scope.currentCiudad = {};
+                    return response;
+                }, responseError);
+            };
             this.fetchRecords();
         }]);
-        
+
 })(window.angular);
