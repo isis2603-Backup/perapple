@@ -16,13 +16,13 @@
          * api/(cualquierpalabra)/(numero)
          * ej: api/authors/1
          */
-        var recordUrl = new RegExp('api/ciudad/([0-9]+)');
+        var recordUrl = new RegExp('api/ciudades/([0-9]+)');
 
         /*
          * @type Array
          * records: Array con un Author por defecto
          */
-        var record = [{
+        var records = [{
                 
                 id: 1,
                 nombre: 'Bogotá',
@@ -310,7 +310,7 @@
          * se realiza la simulacion de la paginacion.
          * Response: 200 -> Status ok, array de libros y los headers.
          */
-        $httpBackend.whenGET('api/ciudad').respond(function (method, url) {
+        $httpBackend.whenGET('api/ciudades').respond(function (method, url) {
             var queryParams = getQueryParams(url);
             var responseObj = [];
             var page = queryParams.page;
