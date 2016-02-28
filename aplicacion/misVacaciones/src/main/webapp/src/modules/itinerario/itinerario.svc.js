@@ -1,10 +1,10 @@
 (function (ng) {
     var mod = ng.module("itinerarioModule");
 
-    mod.service("itinerarioService", ["$scope", "itinerarioContext", function ($http, context) {
+    mod.service("itinerarioService", ["$http", "itinerarioContext", function ($http, context) {
 
 
-            //FUNCIONES PARA OBTENER/LEER 
+            //FUNCIONES PARA OBTENER/LEER
         /**
          * Obtener la lista de itinerarios.
          * Hace una petición GET con $http a /itinerario para obtener la lista

@@ -1,7 +1,7 @@
-<div ng-controller="ctrl" id="itinerario" style="height:100%">
+<div  id="itinerario" style="height:100%">
 
     <div class="well" style="height:120px; ">
-        <h2 align="center">Itinerario 1</h2> <!--<h1>{{objectValue.data}}</h1>-->
+        <h2 align="center">{{currentRecord.nombre}}</h2> <!--<h1>{{objectValue.data}}</h1>-->
         <h4 align=center class="dl-horizontal"><strong>FECHA INICIO</strong>: 01/02/2016 - <strong>FECHA FIN:</strong> 15/03/2016</h4>
     </div>
 
@@ -32,9 +32,9 @@
                   <td ALIGN=center> <b>Fechas</b></td>
                   <td ALIGN=center> <b>Detalles</b> </td>
               </tr>
-              <tr ng-repeat="nc in ciudades">
+              <tr ng-repeat="nc in currentRecord.ciudades">
 
-                <td>{{nc}}</td>
+                <td>{{nc.nombre}}</td>
                 <td>Fecha</td>
                 <td><button type="button" class="btn btn-primary" ng-click="detalles(nc)"> D </button></td>
               </tr>
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-6" ng-app="agregar_evento" ng-controller="ctrl" style="overflow: auto; text-align: center">
+            <div class="col-sm-6" ng-app="agregar_evento"  style="overflow: auto; text-align: center">
                 <h3>Eventos </h3>
                 <br>
                <!--<div id="opciones">
@@ -176,7 +176,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchCiudades();"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Ciudad</h4>
             </div>
             <div class="modal-body">
@@ -205,11 +205,12 @@
                                 </span>
                             </div><!-- /input-group -->
                             <br>
-                            <table border="1" class="table table-bordered">
+                            <table border="1" class="table table-bordered" ng-repeat="ciudad in ciudades">
                                 <tr>
-                                  <td align="left">Cajica</td>
-                                  <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
+                                  <td align="left">{{ciudad.nombre}}</td>
+                                  <td align="right"><button type="button" class="btn btn-primary" ng-click=""> Agregar Ciudad </button></td>
                                 </tr>
+                                <!--
                                 <tr>
                                   <td align="left">Caldas</td>
                                   <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
@@ -221,7 +222,7 @@
                                 <tr>
                                   <td align="left">Cartagena</td>
                                   <td align="right"><button type="button" class="btn btn-primary"> Agregar Ciudad </button></td>
-                                </tr>
+                                </tr>-->
                                 <!--<tr ng-repeat="nc in ciudades">
                                   <td align="left">{{nc}}</td>
                                   <td><button type="button" class="btn btn-primary" ng-click="agregarCiudad(nc)"> Agregar Ciudad </button></td>

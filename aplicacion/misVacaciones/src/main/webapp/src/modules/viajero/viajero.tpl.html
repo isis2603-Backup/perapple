@@ -1,5 +1,4 @@
-<div ng-controller="controlador" ng-init="list = true; " style="
-     background: url(http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg) center center cover no-repeat fixed;">
+<div  ng-init="list = true; " >
       <!--si list es verdadero-->
       <div class="conteiner-fluid" style="justify-content: center;">
         <div class="col-sm-24" ng-if="list" style="justify-content: center">
@@ -85,7 +84,7 @@
                 <span class="glyphicon glyphicon-plus"></span>
  Agregar</button>-->
               <!--en true list-->
-              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; agregar(itinerario); setString(newValue);">
+              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregar(itinerario); setString(newValue);">
                 <span class="glyphicon glyphicon-save"></span>
  Salvar</button>
              <button id="cancel-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true">

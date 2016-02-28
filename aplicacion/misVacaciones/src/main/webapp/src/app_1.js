@@ -2,10 +2,10 @@
 
     var mod = ng.module("mainApp", [
         "ui.router",
-        "homeModule",
+        "viajeroModule",
         "itinerarioModule",
         "moduloCiudad",
-        "homeMock",
+        "viajeroMock",
         "itinerarioMock",
         "ciudadMock",
         "ngMessages"
@@ -16,7 +16,7 @@
         }]);
 
        mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/home");
+            $urlRouterProvider.otherwise("/viajero");
             $stateProvider
                     .state('itinerario', {
                         url: '/itinerario',
@@ -29,12 +29,7 @@
                         controller: "viajeroCtrl",
                         controllerAs: "ctrl",
                         templateUrl: "./modules/viajero/viajero.tpl.html"
-                    })
-                    .state('ciudad', {
-                        url: '/ciudad',
-                        controller: "ciudadCtrl",
-                        controllerAs: "ctrl",
-                        templateUrl: "./modules/ciudad/ciudad.tpl.html"
                     });
+
         }]);
 })(window.angular);

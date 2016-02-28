@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -117,8 +117,8 @@
                     return response;
                 }, responseError);
             };
-            
-            this.fetchRecordsItinerario = function() { $scope.$emit('fetchRecordsItinerario');};  
+
+            this.fetchRecordsItinerario = function() { $scope.$emit('fetchRecordsItinerario');};
 
             /*
              * Funcion saveRecord hace un llamado al servicio svc.saveRecord con el fin de
@@ -146,7 +146,17 @@
              * Funcion fetchRecords consulta todos los registros del módulo book en base de datos
              * para desplegarlo en el template de la lista.
              */
-            this.fetchRecords();
+            $scope.usuario= "Perapple";
+            $scope.contrasena = "Perapple";
+            $scope.correo = "perapple@gmail.com";
+            $scope.itinerario = "";
+            $scope.itinerarios = [];
+
+            this.agregar = function(itinerario){
+            $scope.itinerarios.push(itinerario);
+             $scope.itinerario = "";};
+
+          //  this.fetchRecords();
 
         }]);
 

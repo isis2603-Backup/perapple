@@ -16,7 +16,7 @@
          * api/(cualquierpalabra)/(numero)
          * ej: api/authors/1
          */
-        var recordUrl = new RegExp('api/authors/([0-9]+)');
+        var recordUrl = new RegExp('api/itinerario/([0-9]+)');
 
         /*
          * @type Array
@@ -99,7 +99,7 @@
          * se realiza la simulacion de la paginacion.
          * Response: 200 -> Status ok, array de itinerarios y los headers.
          */
-        $httpBackend.whenGET('api/itinerarios').respond(function (method, url) {
+        $httpBackend.whenGET('api/itinerario').respond(function (method, url) {
             var queryParams = getQueryParams(url);
             var responseObj = [];
             var page = queryParams.page;
@@ -137,7 +137,7 @@
          * array de records.
          * Response: 201 -> Status created, record -> libro y ningún header.
          */
-        $httpBackend.whenPOST('api/itinerarios').respond(function (method, url, data) {
+        $httpBackend.whenPOST('api/itinerario').respond(function (method, url, data) {
             var record = ng.fromJson(data);
             record.id = Math.floor(Math.random() * 10000);
             records.push(record);
@@ -162,7 +162,7 @@
         });
 
         /*
-         * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/authors/[numero]"
+         * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/itinerarios/[numero]"
          * Obtiene el id del la url y el record de libro desde el cuerpo de la peticion
          * Busca y reemplaza el anterior registro por el enviado en el cuerpo de la solicitud
          * Response: 204, no retorna ningun dato ni headers.

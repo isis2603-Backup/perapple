@@ -1,7 +1,7 @@
 (function (ng) {
     var mod = ng.module("itinerarioModule");
 
-    mod.controller("itinerarioCtrl", ["$scope", "itinerarioService", "ciudadService",function ($scope, svc, svcCiudad) {
+     mod.controller("itinerarioCtrl", ["$scope","itinerarioService", "ciudadService",function ($scope, svc, svcCiudad) {
             $scope.currentUser = "";
             $scope.currentRecord = {};
             $scope.records = []; // Itinerarios
@@ -78,7 +78,7 @@
             this.fetchRecords = function () {
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
-                    $scope.currentRecord = {};
+                    $scope.currentRecord = $scope.records[0];
                     self.editMode = false;
                     return response;
                 }, responseError);
