@@ -14,6 +14,11 @@
             return $http.get(context);
         };
 
+        this.fetchSitios= function()
+        {
+            return $http.get(context = "api/ciudad" + "/"+ "sitios");
+        };
+        
         /**
          * Obtener un registro de authors.
          * Hace una petición GET a /authors/:id para obtener
@@ -24,8 +29,14 @@
          */
         this.fetchCiudad= function (id) {
             return $http.get(context + "/" + id);
+           
         };
 
+
+        this.fetchSitio = function(idCiudad, idSitio)
+        {
+            return $http.get(fetchCiudad(idCiudad)+ "/"+ fetchSitios()+ "/" + idSitio);
+        };
         /**
          * Guardar un registro de authors.
          * Si currentRecord tiene la propiedad id, hace un PUT a /authors/:id con los
@@ -44,6 +55,15 @@
             }
         };
 
+            this.saveSitio = function (currentRecord) {
+            if (currentRecord.id) {
+                return $http.put(context + "/" + currentRecord.id, currentRecord);
+            } else {
+                return $http.post(context, currentRecord);
+            }
+        };
+
+
         /**
          * Hace una petición DELETE a /authors/:id para eliminar un author
          * @param {number} id identificador de la instancia de author a eliminar
@@ -52,6 +72,12 @@
          */
         this.deleteCiudad = function (id) {
             return $http.delete(context + "/" + id);
+        };
+        
+       
+        
+         this.deleteSitio = function (idCiudad, idSitio) {
+            return $http.delete(context+"/"+ idCiudad + "/"+ "api/ciudad"+"/"+ idSitio);
         };
     }]);
 })(window.angular);
