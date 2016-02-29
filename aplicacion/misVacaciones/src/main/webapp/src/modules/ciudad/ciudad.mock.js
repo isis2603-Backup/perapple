@@ -17,6 +17,7 @@
          * ej: api/authors/1
          */
         var recordUrl = new RegExp('api/ciudades/([0-9]+)');
+        var recordUrl2= new RegExp('api/ciudades/sitios/([0-9]+)');
 
         /*
          * @type Array
@@ -178,16 +179,18 @@
                 sitios:[
                     {
                         id:1,
-                        nombre:'El gato del río',
-                        detalles:'El Gato del Río es una obra del pintor y escultor Hernando Tejada la cual donó a la ciudad de Cali y que fue instalada en la ribera del río tutelar de la ciudad,\n\
-                                  en el sector noroeste de la ciudad, conocido como Normandía. Con el paso del tiempo se ha convertido en uno de los monumentos más emblemáticos de la ciudad,\n\
-                                  junto con la estatua de Sebastián de Belalcázar y el Cerro de Cristo Rey.\n\
-                                    \n\
-                                  Diez años después de inaugurado el monumento, en el mes de Octubre de 2006 la Cámara de Comercio de Cali lideró una iniciativa de recuperación no solo del monumento, \n\
-                                  sino también de sus alrededores. Para ello promovió la exhibición de una colección de quince esculturas complementarias, todas con la misma base estructural pero pintadas y \n\
-                                  decoradas por artistas plásticos. La iniciativa llamada "las novias del gato" promovía además la adecuación de un parque alrededor del monumento original. \n\
-                                  En el diseño de las gatas participaron reconocidos artistas colombianos como Maripaz Jaramillo y Omar Rayo',
-                       imagen:'https://upload.wikimedia.org/wikipedia/commons/b/b2/Gato_de_Tejada_Cali.JPG'
+                        nombre:'Zoologico de Cali',
+                        detalles:'Es innegable que la región ha redescubierto al Zoológico de Cali como epicentro de conservación,\n\
+                                  que goza de credibilidad en virtud de su transparencia, honestidad y profesionalismo. \n\
+                                  Por más de una década ha ejercido un liderazgo en la comunidad zoológica nacional e internacional,\n\
+                                  promoviendo y acompañando el desarrollo de otras instituciones de su misma naturaleza, \n\
+                                  y participando activamente en la consolidación de una comunidad más comprometida con la conservación de la biodiversidad. \n\
+                                  El Zoológico de Cali ha crecido bajo una forma de organización con objetivos claros y compartidos, \n\
+                                  sustentada en principios y valores en el marco de un pensamiento estratégico que propone relatos innovadores en \n\
+                                  una institución que contribuye a crear escenarios de bienestar para las comunidades humanas y la vida silvestre. \n\
+                                  El Zoológico de Cali es una plataforma que promueve la construcción del compromiso ambiental.',
+                       imagen:'http://www.icesi.edu.co/blogs_estudiantes/zooincali/files/2012/09/mapa_final-1024x6401.jpg'
+                       
                     },
                     {
                         id:2,
@@ -302,8 +305,8 @@
          * Ignora las peticiones GET, no contempladas en la Exp regular ignore_regexp
          */
         $httpBackend.whenGET(ignore_regexp).passThrough();
-
         /*
+
          * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/authors"
          * Obtiene los parámetros de consulta "queryParams" para establecer
          * la pagina y la maxima cantida de records. Con los anteriores parametros
@@ -326,12 +329,45 @@
             }
             return [200, responseObj, headers];
         });
+        
+        $httpBackend.whenGET('api/ciudades'+"/"+ "sitios").respond(function (method, url) {
+            var queryParams = getQueryParams(url);
+            var responseObj = [];
+            var page = queryParams.page;
+            var maxRecords = queryParams.maxRecords;
+            var headers = {};
+            if (page && maxRecords) {
+                var start_index = (page - 1) * maxRecords;
+                var end_index = start_index + maxRecords;
+                responseObj = records.slice(start_index, end_index);
+                headers = {"X-Total-Count": records.length};
+            } else {
+                responseObj = records;
+            }
+            return [200, responseObj, headers];
+        });
+        
+        
+        
+        
+        
         /*
          * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/authors/[numero]"
          * Obtiene el id de la url y el registro asociado dentro del array records.
          * Response: 200 -> Status ok, record -> libro y ningún header.
          */
         $httpBackend.whenGET(recordUrl).respond(function (method, url) {
+            var id = parseInt(url.split('/').pop());
+            var record;
+            ng.forEach(records, function (value) {
+                if (value.id === id) {
+                    record = ng.copy(value);
+                }
+            });
+            return [200, record, {}];
+        });
+        
+        $httpBackend.whenGET(recordUrl2).respond(function (method, url) {
             var id = parseInt(url.split('/').pop());
             var record;
             ng.forEach(records, function (value) {
@@ -354,6 +390,13 @@
             records.push(record);
             return [201, record, {}];
         });
+        
+         $httpBackend.whenPOST('api/ciudades'+"/"+"sitios").respond(function (method, url, data) {
+            var record = ng.fromJson(data);
+            record.id = Math.floor(Math.random() * 10000);
+            records.push(record);
+            return [201, record, {}];
+        });
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud DELETE a la url "api/authors/[numero]"
@@ -371,6 +414,17 @@
             });
             return [204, null, {}];
         });
+        
+        
+        $httpBackend.whenDELETE(recordUrl2).respond(function (method, url) {
+            var id = parseInt(url.split('/').pop());
+            ng.forEach(records, function (value, key) {
+                if (value.id === id) {
+                    records.splice(key, 1);
+                }
+            });
+            return [204, null, {}];
+        });
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/authors/[numero]"
@@ -380,6 +434,17 @@
          *
          */
         $httpBackend.whenPUT(recordUrl).respond(function (method, url, data) {
+            var id = parseInt(url.split('/').pop());
+            var record = ng.fromJson(data);
+            ng.forEach(records, function (value, key) {
+                if (value.id === id) {
+                    records.splice(key, 1, record);
+                }
+            });
+            return [204, null, {}];
+        });
+        
+         $httpBackend.whenPUT(recordUrl2).respond(function (method, url, data) {
             var id = parseInt(url.split('/').pop());
             var record = ng.fromJson(data);
             ng.forEach(records, function (value, key) {
