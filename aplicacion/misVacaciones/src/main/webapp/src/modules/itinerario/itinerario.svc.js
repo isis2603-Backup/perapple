@@ -18,14 +18,14 @@
 
         /**
          * Obtener un registro de itinerarios.
-         * Hace una petición GET a /itinerario/:viajero para obtener
+         * Hace una petición GET a /itinerario/:id para obtener
          * el objeto de un registro específico de itinerarios
-         * @param {string} viajero del registro a obtener
+         * @param {string} id del registro a obtener
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un objeto instancia de itinerario.
          */
-        this.fetchRecord = function (usuario) {
-            return $http.get(context + "/" + usuario);
+        this.fetchRecord = function (id) {
+            return $http.get(context + "/" + id);
         };
 
         //FUNCIONES PARA AGREGAR/GUARDAR
@@ -40,8 +40,8 @@
          * Se recibe un objeto de itinerario con su nuevo viajero
          */
         this.saveRecord = function (currentRecord) {
-            if (currentRecord.usuario) {
-                return $http.put(context + "/" + currentRecord.usuario, currentRecord);
+            if (currentRecord.id) {
+                return $http.put(context + "/" + currentRecord.id, currentRecord);
             } else {
                 //revisar que hacer si usuario no tiene objeto de modulo itinerario asociado que hace el mock
                 return $http.post(context, currentRecord);
@@ -53,14 +53,14 @@
        //FUNCIONES PARA BORRADO DE ELEMENTOS
 
         /**
-         * Hace una petición DELETE a /itineraro/:viajero/:nItinerario para eliminar un itinerario
+         * Hace una petición DELETE a /itineraro/:nItinerario para eliminar un itinerario
          * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
          * @param {string} itinerario identificador del itinerario a eliminar
          * @returns {promise} promise para leer la respuesta del servidor.
          * No se recibe cuerpo en la respuesta.
          */
-        this.borrarItinerario = function (viajero, itinerario) {
-            return $http.delete(context + "/" + viajero + "/" + itinerario);
+        this.borrarItinerario = function (idItinerario) {
+            return $http.delete(context + "/" + idItinerario );
         };
 
         /**

@@ -33,8 +33,15 @@
                             {
                             id: 1,
                             nombre: 'Cali',
-                            descripcion: 'Sucursal del cielo',
-                            foto: 'http://www.elchontaduro.com/wp-content/uploads/2016/01/pub54007.jpg',
+                            detalles: 'Cali, oficialmente Santiago de Cali, es un municipio colombiano, capital del departamento del Valle del Cauca, es la tercera ciudad más poblada de Colombia. \n\
+                          Está situada en la región Sur del Valle del Cauca, entre la cordillera occidental y la cordillera central de los Andes. La ciudad forma parte del Área Metropolitana de Cali, \n\
+                          junto con los municipios aledaños a ésta. Fue fundada el 25 de julio de 1536 por Sebastián de Belalcázar, lo que la convierte en una de las ciudades más antiguas de América.\n\
+                            \n\
+                          Es a su vez conocida como «La capital mundial de la salsa», «La Sucursal del cielo».\n\
+                          Temperatura promedio= 23°C \n\
+                          Altitud= 1018 metros\n\
+                          Población= 2.394.870 habitantes ',
+                            imagen: 'http://www.elchontaduro.com/wp-content/uploads/2016/01/pub54007.jpg',
                             fInicio: '12-05-2016',
                             fFin: '23-05-2016',
                             sitios: [
@@ -49,8 +56,14 @@
                         {
                             id:2,
                             nombre: 'Bogotá',
-                            descripcion: '2600 metros más cerca de las estrellas',
-                            foto: 'http://4.bp.blogspot.com/-XcTA8HOervg/U1jgFFAEFWI/AAAAAAAAWKI/o0epuGtwH2I/s1600/Plaza+de+Bolivar+en+Bogot%C3%A1.jpg',
+                            detalles: 'Bogotá es la capital de la República de Colombia y del departamento de Cundinamarca.\n\
+                           Es la tercera capital más alta en América del Sur (después de La Paz y Quito), \n\
+                            a un promedio de 2625 metros sobre el nivel del mar. «2600 metros más cerca de las estrellas»\n\
+                            \n\
+                            Temperatura promedio= 14°C\n\
+                            Altitud= 2600 metros\n\
+                            Población= 7.980.001 habitantes',
+                            imagen: 'http://4.bp.blogspot.com/-XcTA8HOervg/U1jgFFAEFWI/AAAAAAAAWKI/o0epuGtwH2I/s1600/Plaza+de+Bolivar+en+Bogot%C3%A1.jpg',
                             fInicio: '12-05-2016',
                             fFin: '23-05-2016',
                             sitios: [
@@ -74,17 +87,23 @@
                              {
                             id:1,
                             nombre: 'Bogotá',
-                            descripcion: '2600 metros más cerca de las estrellas',
-                            foto: 'http://4.bp.blogspot.com/-XcTA8HOervg/U1jgFFAEFWI/AAAAAAAAWKI/o0epuGtwH2I/s1600/Plaza+de+Bolivar+en+Bogot%C3%A1.jpg',
+                            detalles: 'Bogotá es la capital de la República de Colombia y del departamento de Cundinamarca.\n\
+                           Es la tercera capital más alta en América del Sur (después de La Paz y Quito), \n\
+                            a un promedio de 2625 metros sobre el nivel del mar. «2600 metros más cerca de las estrellas»\n\
+                            \n\
+                            Temperatura promedio= 14°C\n\
+                            Altitud= 2600 metros\n\
+                            Población= 7.980.001 habitantes',
+                            imagen: 'http://4.bp.blogspot.com/-XcTA8HOervg/U1jgFFAEFWI/AAAAAAAAWKI/o0epuGtwH2I/s1600/Plaza+de+Bolivar+en+Bogot%C3%A1.jpg',
                             fInicio: '12-05-2016',
                             fFin: '23-05-2016',
                             sitios: [
-                                {id:1,nombre:'PLaza de Bolivar', descripcion:'Muchas palomas'},
+                                {id:1,nombre:'Plaza de Bolivar', descripcion:'Muchas palomas'},
                                  {id:2,nombre:'Catedral Primada', descripcion:'Mucha historia'}
                             ],
                             eventos: [
                                  {id:1,nombre:'Partido Millonarios vs Santa fe', descripcion: 'Partido de la copa Postobon', fecha: '13-05-2016'},
-                                {id:2,nombre:'Partido Milonarios vs Nacional', descripcion: 'Partido de la copa Postobon', fecha: '20-05-2016'}
+                                {id:2,nombre:'Partido Millonarios vs Nacional', descripcion: 'Partido de la copa Postobon', fecha: '20-05-2016'}
                             ]
                         }
                     ]
@@ -147,9 +166,9 @@
             return [200, record, {}];
         });
         /*
-         * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/authors"
+         * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/itinierario"
          * Obtiene el record de libro desde el cuerpo de la peticion
-         * Genera un id aleatorio y lo asocia al record de libro y lo guarda en el
+         * Genera un id aleatorio y lo asocia al record de itinerario y lo guarda en el
          * array de records.
          * Response: 201 -> Status created, record -> libro y ningún header.
          */
@@ -179,7 +198,7 @@
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/itinerarios/[numero]"
-         * Obtiene el id del la url y el record de libro desde el cuerpo de la peticion
+         * Obtiene el id del la url y el record de itinerario desde el cuerpo de la peticion
          * Busca y reemplaza el anterior registro por el enviado en el cuerpo de la solicitud
          * Response: 204, no retorna ningun dato ni headers.
          *

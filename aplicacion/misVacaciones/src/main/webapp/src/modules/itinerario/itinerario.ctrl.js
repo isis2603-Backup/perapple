@@ -2,14 +2,19 @@
     var mod = ng.module("itinerarioModule");
 
      mod.controller("itinerarioCtrl", ["$scope","itinerarioService", "ciudadService",function ($scope, svc, svcCiudad) {
-            $scope.id="";
-             $scope.currentUser = "";
-            $scope.ciudadBuscada = "";
-            $scope.currentRecord = {};
-            $scope.currentCiudadItinerario = {};
-            $scope.records = []; // Itinerarios
-            $scope.currentCiudad = {};
-            $scope.ciudades = []; //ciudades a mostrar para elección
+
+            $scope.currentUser = "";
+
+            $scope.currentRecord = {}; //itinerario actual
+            $scope.currentCiudadItinerario = {}; //ciudad actual de la que se muestran detalles
+
+            $scope.records = []; // Itinerarios del usuario
+
+            $scope.currentCiudad = {}; //ciudad seleccionada para agregar
+            $scope.fechaIniCiudad = new Date ();
+            $scope.fechaFinCiudad = new Date ();
+            $scope.ciudadBuscada = ""; //nombre de ciudad ingresada por el usuario
+             $scope.ciudades = []; //ciudades a mostrar para elección
             $scope.alerts = [];
             $scope.today = function () {
                 $scope.value = new Date();
@@ -82,6 +87,7 @@
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
                     $scope.currentRecord = $scope.records[0];
+                    $scope.currentUser = $scope.currentRecord.viajero;
                     if($scope.currentRecord.ciudades.length >0){
                     $scope.currentCiudadItinerario = $scope.currentRecord.ciudades[0];
                 }
@@ -89,6 +95,10 @@
                     return response;
                 }, responseError);
             };
+            /**
+             * para crear un nuevo itinerario
+             * @returns {unresolved}
+             */
             this.saveRecord = function () {
                 return svc.saveRecord($scope.currentRecord).then(function () {
                     self.fetchRecords();
@@ -133,7 +143,7 @@
 
             this.detallesCiudad=function($event)
             {
-                console.log($event.currentTarget.name);
+
                 var pId = $event.currentTarget.name;
                 ng.forEach($scope.currentRecord.ciudades, function (value) {
                     console.log("value.id:"+value.id+" pId:"+pId);
@@ -164,7 +174,35 @@
                return ciudad;
             };
 
+            this.agregarCiudad=function($event){
+                console.log($event)
+                    var pId = $event.currentTarget.name;
+                    var encontro = false;
+                for (var i = 0; i<$scope.ciudades.length && !encontro;i++)
+                {
+                    var value = $scope.ciudades[i];
+                    console.log("value.id:"+value.id+" pId:"+pId);
+                if (value.id == pId) {
+
+                    $scope.currentCiudad = {id:value.id,
+                                            nombre:value.nombre,
+                                            detalles:value.detalles,
+                                            imagen:value.imagen,
+                                            fInicio: $scope.fechaIniCiudad,
+                                            fFin: $scope.fechaFinCiudad,
+                                            sitios: [ ],
+                                            eventos: [ ]};
+                    $scope.currentRecord.ciudades.push($scope.currentCiudad);
+                    self.saveRecord();
+                    encontro = true;
+                    console.log($scope.currentCiudad.nombre);
+                }
+                }
+
+            };
+
             this.fetchRecords();
+            this.fetchCiudades();
         }]);
 
 })(window.angular);
