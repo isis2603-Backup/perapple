@@ -4,15 +4,15 @@
      mod.controller("itinerarioCtrl", ["$scope","itinerarioService", "ciudadService",function ($scope, svc, svcCiudad) {
 
             $scope.currentUser = "";
-
+            $scope.nombreItinerario = "";
             $scope.currentRecord = {}; //itinerario actual
             $scope.currentCiudadItinerario = {}; //ciudad actual de la que se muestran detalles
 
             $scope.records = []; // Itinerarios del usuario
 
             $scope.currentCiudad = {}; //ciudad seleccionada para agregar
-            $scope.fechaIniCiudad = new Date ();
-            $scope.fechaFinCiudad = new Date ();
+            $scope.fechaIni = new Date ();
+            $scope.fechaFin = new Date ();
             $scope.ciudadBuscada = ""; //nombre de ciudad ingresada por el usuario
              $scope.ciudades = []; //ciudades a mostrar para elección
             $scope.alerts = [];
@@ -105,8 +105,29 @@
                 }, responseError);
             };
 
-            this.borrarItinerario = function (viajero, itinerario){
-                return svc.borrarItinerario(viajero,itinerario).then(function () {
+            this.agregarItinerario = function (){
+                console.log("agregando...");
+                var nom = $scope.nombreItinerario;
+                var itinerario = {id:'',
+                                   viajero: 'perapple',
+                                   nombre: nom ,
+                                   fechaInicio: $scope.fechaIni ,
+                                   fechaFin: $scope.fechaFin,
+                                   ciudades: [],
+                                   eventos: []                           
+                };
+                
+                return svc.saveRecord(itinerario).then(function () {
+                    self.fetchRecords();
+                }, responseError);
+            
+            };
+            
+            this.borrarItinerario = function ($event){
+                
+                var iditinerario = $event.currentTarget.name;
+                console.log($event.currentTarget.name);
+                return svc.borrarItinerario(iditinerario).then(function () {
                     self.fetchRecords();
                 }, responseError);
             };
@@ -188,8 +209,8 @@
                                             nombre:value.nombre,
                                             detalles:value.detalles,
                                             imagen:value.imagen,
-                                            fInicio: $scope.fechaIniCiudad,
-                                            fFin: $scope.fechaFinCiudad,
+                                            fInicio: $scope.fechaIni,
+                                            fFin: $scope.fechaFin,
                                             sitios: [ ],
                                             eventos: [ ]};
                     $scope.currentRecord.ciudades.push($scope.currentCiudad);

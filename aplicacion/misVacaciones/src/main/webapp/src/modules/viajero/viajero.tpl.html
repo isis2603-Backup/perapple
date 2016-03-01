@@ -20,7 +20,7 @@
             </div>
 
           </div>-->
-          <div class="col-md-8 col-sm-12 col-lg-5">
+          <div class="col-md-8 col-sm-12 col-lg-5" >
             <div class=" well" style="margin:5px; overflow: auto">
             <div class="col-md-10" style="margin:0px 50px 0px 50px; text-align: center; text-align: center; ">
               <h1 class="text-center">
@@ -28,10 +28,11 @@
               </h1>
               <br>
             </div>
-            <div class="col-md-10 list-group" ng-repeat="iter in itinerarios track by $index">
+            <div class="col-md-10 list-group" ng-repeat="iter in records track by $index;">
               <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
-                <strong>{{iter}}</strong>
+                <strong>{{iter.nombre}}</strong>
               </a>
+                <button ng-controller = "itinerarioCtrl" class="btn btn-primary" name = "{{iter.id}}" ng-click="ctrl.borrarItinerario($event)">Borrar</button>
             </div>
                <div class="collapse navbar-collapse" id="agregar-button" style="float:right;">
               <!--en false list-->
@@ -54,23 +55,23 @@
                   <div class="form-group col-md-12">
                     <label for="name" class="col-md-2 control-label">Nombre</label>
                     <div class="col-md-10">
-                      <input id="name" name="name" ng-model="itinerario"  class="form-control" type="text" />
+                      <input id="name" name="name" ng-model="nombreItinerario"  class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="form-group col-md-12">
 
-                    <label for="date" class="col-md-2 control-label">Fecha inicial</label>
+                    <label for="date" class="col-md-2 control-label" >Fecha inicial</label>
 
                     <div class="col-md-10">
-                        <input type="date" name="date-ini" id="date-ini" class="form-control" required="" />
+                        <input type="date" name="date-ini" id="date-ini" class="form-control" ng-model="fechaIni" required="" />
                     </div>
 
                   </div>
                   <div class="form-group col-md-12">
 
-                  <label for="date" class="col-md-2 control-label">Fecha final</label>
+                  <label for="date" class="col-md-2 control-label" >Fecha final</label>
                     <div class="col-md-10">
-                        <input type="date" name="date-fin" id="date-fin" class="form-control" required="" />
+                        <input type="date" name="date-fin" id="date-fin" class="form-control" ng-model="fechaFin" required="" />
                     </div>
 
                   </div>
@@ -84,7 +85,7 @@
                 <span class="glyphicon glyphicon-plus"></span>
  Agregar</button>-->
               <!--en true list-->
-              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregar(itinerario); setString(newValue);">
+              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregarItinerario(); ">
                 <span class="glyphicon glyphicon-save"></span>
  Salvar</button>
              <button id="cancel-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true">
@@ -93,6 +94,7 @@
             </div>
           </div>
           </div>
+          
             <div id="contenedor" class="col-md-8 col-sm-10 col-lg-6 " style="margin: 5px;">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
@@ -125,8 +127,7 @@
         $('.myCarousel').carousel({
             interval:3000,
             pause:"hover"
-        })
-    });
+        })});
 </script>
         </div>
       </div>

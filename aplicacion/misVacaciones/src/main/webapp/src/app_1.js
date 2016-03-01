@@ -26,7 +26,7 @@
                     })
                     .state('viajero', {
                         url: '/viajero',
-                        controller: "viajeroCtrl",
+                        controller: "itinerarioCtrl",
                         controllerAs: "ctrl",
                         templateUrl: "./modules/viajero/viajero.tpl.html"
                     });

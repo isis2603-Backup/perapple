@@ -54,8 +54,7 @@
 
         /**
          * Hace una petición DELETE a /itineraro/:nItinerario para eliminar un itinerario
-         * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
-         * @param {string} itinerario identificador del itinerario a eliminar
+         * @param {string} idItinerario identificador del itinerario a eliminar
          * @returns {promise} promise para leer la respuesta del servidor.
          * No se recibe cuerpo en la respuesta.
          */
