@@ -18,6 +18,10 @@
         {
             return $http.get(context+ "/" + idCiudad + "/"+ "sitios");
         };
+        this.fetchEventos=function(idCiudad)
+        {
+            return $http.get(context+ "/" + idCiudad + "/"+ "eventos");
+        };
 
         /**
          * Obtener un registro de authors.
@@ -36,6 +40,10 @@
         this.fetchSitio = function(idCiudad,idSitio)
         {
             return $http.get(context+"/"+ idCiudad +"/"+ "sitios"+ "/" + idSitio);
+        };
+        this.fetchEvento = function(idCiudad,idEvento)
+        {
+            return $http.get(context+"/"+ idCiudad +"/"+ "eventos"+ "/" + idEvento);
         };
         /**
          * Guardar un registro de authors.
@@ -63,6 +71,15 @@
             }
         };
 
+        this.saveEvento = function (currentRecord, idEvento) {
+            if (currentRecord.id) {
+                return $http.put(context + "/" + currentRecord.id+ "/"+ "eventos"+ idEvento, currentRecord);
+            } else {
+                return $http.post(context+ "/"+currentRecord.id+"/"+"eventos", currentRecord);
+            }
+        };
+
+
 
         /**
          * Hace una petición DELETE a /authors/:id para eliminar un author
@@ -78,6 +95,10 @@
 
          this.deleteSitio = function (idCiudad, idSitio) {
             return $http.delete(context+"/"+ idCiudad + "/"+ "sitios"+"/"+ idSitio);
+        };
+
+         this.deleteEvento = function (idCiudad, idEvento) {
+            return $http.delete(context+"/"+ idCiudad + "/"+ "eventos"+"/"+ idEvento);
         };
     }]);
 })(window.angular);
