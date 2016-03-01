@@ -12,10 +12,14 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un array de objetos de itinerario(todos los itinerarios de todos los usuarios).
          */
-        this.fetchRecords = function () {
+                
+            this.fetchRecords = function () {
             return $http.get(context);
         };
 
+        this.fetchCurrentRecord = function () {
+            return $http.get(context+"/current");
+        };
         /**
          * Obtener un registro de itinerarios.
          * Hace una petición GET a /itinerario/:id para obtener
@@ -46,6 +50,12 @@
                 //revisar que hacer si usuario no tiene objeto de modulo itinerario asociado que hace el mock
                 return $http.post(context, currentRecord);
             }
+        };
+        
+          this.saveCurrentRecord = function (currentRecord) {
+            if (currentRecord.id) {
+                return $http.put(context + "/current", currentRecord);
+            } 
         };
 
 

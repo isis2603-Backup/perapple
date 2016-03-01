@@ -4,7 +4,7 @@
      mod.controller("itinerarioCtrl", ["$scope","itinerarioService", "ciudadService",function ($scope, svc, svcCiudad) {
 
             $scope.currentUser = "";
-            $scope.nombreItinerario = "";
+            $scope.nombreItinerario = "nombre";
             $scope.currentRecord = {}; //itinerario actual
             $scope.currentCiudadItinerario = {}; //ciudad actual de la que se muestran detalles
 
@@ -86,15 +86,26 @@
             this.fetchRecords = function () {
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
-                    $scope.currentRecord = $scope.records[0];
+                    
                     $scope.currentUser = $scope.currentRecord.viajero;
-                    if($scope.currentRecord.ciudades.length >0){
-                    $scope.currentCiudadItinerario = $scope.currentRecord.ciudades[0];
-                }
+                 //   if($scope.currentRecord.ciudades.length >0){
+                   // $scope.currentCiudadItinerario = $scope.currentRecord.ciudades[0];
+                //} console.log($scope.currentRecord);
+                console.log($scope.currentRecord);
                     self.editMode = false;
                     return response;
                 }, responseError);
             };
+            
+             this.fetchCurrentRecord = function () {
+                return svc.fetchCurrentRecord().then(function (response) {
+                    $scope.currentRecord = response.data;
+                    
+                console.log($scope.currentRecord);
+                    return response;
+                }, responseError);
+            };
+           
             /**
              * para crear un nuevo itinerario
              * @returns {unresolved}
@@ -104,20 +115,47 @@
                     self.fetchRecords();
                 }, responseError);
             };
-
-            this.agregarItinerario = function (){
-                console.log("agregando...");
-                var nom = $scope.nombreItinerario;
-                var itinerario = {id:'',
+            
+             this.saveCurrentRecord = function () {
+                return svc.saveCurrentRecord($scope.currentRecord).then(function () {
+                    self.fetchCurrentRecord();
+                }, responseError);
+            };
+            
+            this.itinerarioActual = function($event)
+            {
+                var id = parseInt($event.currentTarget.name);
+              
+                for (var i = 0; i<$scope.records.length;i++)
+                {
+                    if($scope.records[i].id === id)
+                    {
+                       
+                        $scope.currentRecord = $scope.records[i];
+                           console.log($scope.currentRecord);
+                     
+                    }
+                }
+                return svc.saveCurrentRecord($scope.currentRecord).then(function () {
+                    console.log("record actual itinerario"+$scope.currentRecord.name);
+                    self.fetchCurrentRecord();
+                }, responseError);
+            };
+            this.agregarItinerario = function (nombre, fechaI, fechaF){
+                
+                console.log("nombre: "+nombre+ " fecha:"+fechaI);
+                
+                $scope.currentRecord = {id:'',
                                    viajero: 'perapple',
-                                   nombre: nom ,
-                                   fechaInicio: $scope.fechaIni ,
-                                   fechaFin: $scope.fechaFin,
+                                   nombre: nombre ,
+                                   fechaInicio: fechaI ,
+                                   fechaFin: fechaF,
                                    ciudades: [],
                                    eventos: []                           
                 };
                 
-                return svc.saveRecord(itinerario).then(function () {
+                return svc.saveRecord($scope.currentRecord).then(function () {
+                    console.log("agregando... "+$scope.nombreItinerario);
                     self.fetchRecords();
                 }, responseError);
             
@@ -224,6 +262,7 @@
 
             this.fetchRecords();
             this.fetchCiudades();
+            this.fetchCurrentRecord();
         }]);
 
 })(window.angular);

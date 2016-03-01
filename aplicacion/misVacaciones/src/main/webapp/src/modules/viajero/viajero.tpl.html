@@ -29,7 +29,7 @@
               <br>
             </div>
             <div class="col-md-10 list-group" ng-repeat="iter in records track by $index;">
-              <a class="list-group-item" ui-sref="itinerario" style="width:120%;">
+                <a class="list-group-item" name="{{iter.id}}" ui-sref="itinerario" ng-click="ctrl.itinerarioActual($event)" style="width:120%;">
                 <strong>{{iter.nombre}}</strong>
               </a>
                 <button ng-controller = "itinerarioCtrl" class="btn btn-primary" name = "{{iter.id}}" ng-click="ctrl.borrarItinerario($event)">Borrar</button>
@@ -85,7 +85,7 @@
                 <span class="glyphicon glyphicon-plus"></span>
  Agregar</button>-->
               <!--en true list-->
-              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregarItinerario(); ">
+              <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregarItinerario(nombreItinerario,fechaIni,fechaFin); ">
                 <span class="glyphicon glyphicon-save"></span>
  Salvar</button>
              <button id="cancel-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true">

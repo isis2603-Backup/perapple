@@ -18,6 +18,7 @@
          */
         var recordUrl = new RegExp('api/itinerario/([0-9]+)');
 
+        var current = {};
         /*
          * @type Array
          * records: Array con un Author por defecto
@@ -125,7 +126,7 @@
         /*
          * Ignora las peticiones GET, no contempladas en la Exp regular ignore_regexp
          */
-        $httpBackend.whenGET(ignore_regexp).passThrough();
+        //$httpBackend.whenGET(ignore_regexp).passThrough();
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/itinerarios"
@@ -156,6 +157,7 @@
          * Response: 200 -> Status ok, record -> libro y ningún header.
          */
         $httpBackend.whenGET(recordUrl).respond(function (method, url) {
+            
             var id = parseInt(url.split('/').pop());
             var record;
             ng.forEach(records, function (value) {
@@ -163,7 +165,13 @@
                     record = ng.copy(value);
                 }
             });
-            return [200, record, {}];
+            return [200, record, {}];}
+        );
+        
+        $httpBackend.whenGET('api/itinerario/current').respond(function (method, url) {
+            
+                return [200, current, {}];
+            
         });
         /*
          * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/itinierario"
@@ -204,6 +212,7 @@
          *
          */
         $httpBackend.whenPUT(recordUrl).respond(function (method, url, data) {
+            
             var id = parseInt(url.split('/').pop());
             var record = ng.fromJson(data);
             ng.forEach(records, function (value, key) {
@@ -213,7 +222,14 @@
             });
             return [204, null, {}];
         });
-
+        
+        $httpBackend.whenPUT('api/itinerario/current').respond(function (method, url, data) {
+            
+                current = ng.fromJson(data);
+                
+                return [204, null, {}];
+            });
+    
     }]);
 })(window.angular);
 
