@@ -34,7 +34,8 @@
                 $scope.alerts.splice(index, 1);
             };
 
-            // Función showMessage: Recibe el mensaje en String y su tipo con el fin de almacenarlo en el array $scope.alerts.
+            // Función showMessage: 
+            //              Recibe el mensaje en String y su tipo con el fin de almacenarlo en el array $scope.alerts.
             function showMessage(msg, type) {
                 var types = ["info", "danger", "warning", "success"];
                 if (types.some(function (rc) {
