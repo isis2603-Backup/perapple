@@ -9,37 +9,40 @@
 
      mod.service("viajeroService", ["$http", "viajeroContext", function ($http, context) {
         /**
-         * Obtener la lista de books.
-         * Hace una petición GET con $http a /books para obtener la lista
-         * de books
+         * GET
+         * Obtener la lista de viajero.
+         * Hace una petición GET con $http a /viajeros para obtener la lista
+         * de viajeros
          * @returns {promise} promise para leer la respuesta del servidor}
-         * Devuelve una lista de objetos de books con sus atributos y reviews
+         * Devuelve una lista de objetos de viajeros con sus atributos 
          */
         this.fetchRecords = function () {
             return $http.get(context);
         };
 
         /**
-         * Obtener un registro de books.
-         * Hace una petición GET a /books/:id para obtener
-         * los datos de un registro específico de books
+         * GET
+         * Obtener un registro de viajero.
+         * Hace una petición GET a /viajeros/:viajeroid para obtener
+         * los datos de un registro específico de viajero
          * @param {number} id del registro a obtener
          * @returns {promise} promise para leer la respuesta del servidor
-         * Devuelve un objeto de books con sus atributos y reviews
+         * Devuelve un objeto de viajero con sus atributos 
          */
         this.fetchRecord = function (id) {
             return $http.get(context + "/" + id);
         };
 
         /**
-         * Guardar un registro de books.
-         * Si currentRecord tiene la propiedad id, hace un PUT a /books/:id con los
-         * nuevos datos de la instancia de books.
-         * Si currentRecord no tiene la propiedad id, se hace un POST a /books
-         * para crear el nuevo registro de books
-         * @param {object} currentRecord instancia de book a guardar/actualizar
+         * POST
+         * Guardar un registro de viajero.
+         * Si currentRecord tiene la propiedad id, hace un PUT a /viajeros/:viajeroid con los
+         * nuevos datos de la instancia de viajero.
+         * Si currentRecord no tiene la propiedad id, se hace un POST a /viajeros
+         * para crear el nuevo registro de viajero
+         * @param {object} currentRecord instancia de viajero a guardar/actualizar
          * @returns {promise} promise para leer la respuesta del servidor
-         * Devuelve un objeto de books con sus datos incluyendo el id
+         * Devuelve un objeto de viajero con sus datos incluyendo el id si es creado
          */
         this.saveRecord = function (currentRecord) {
             if (currentRecord.id) {
@@ -50,8 +53,9 @@
         };
 
         /**
-         * Hace una petición DELETE a /books/:id para eliminar un book
-         * @param {number} id identificador de la instancia de book a eliminar
+         * DELETE
+         * Hace una petición DELETE a /viajeros/:viajerosid para eliminar un viajero
+         * @param {number} id identificador de la instancia de viajero a eliminar
          * @returns {promise} promise para leer la respuesta del servidor
          * No devuelve datos.
          */
