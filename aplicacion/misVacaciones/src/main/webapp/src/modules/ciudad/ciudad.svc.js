@@ -14,11 +14,11 @@
             return $http.get(context);
         };
 
-        this.fetchSitios= function()
+        this.fetchSitios= function(idCiudad)
         {
-            return $http.get(context = "api/ciudad" + "/"+ "sitios");
+            return $http.get(context+ "/" + idCiudad + "/"+ "sitios");
         };
-        
+
         /**
          * Obtener un registro de authors.
          * Hace una petición GET a /authors/:id para obtener
@@ -29,13 +29,13 @@
          */
         this.fetchCiudad= function (id) {
             return $http.get(context + "/" + id);
-           
+
         };
 
 
-        this.fetchSitio = function(idCiudad, idSitio)
+        this.fetchSitio = function(idCiudad,idSitio)
         {
-            return $http.get(fetchCiudad(idCiudad)+ "/"+ fetchSitios()+ "/" + idSitio);
+            return $http.get(context+"/"+ idCiudad +"/"+ "sitios"+ "/" + idSitio);
         };
         /**
          * Guardar un registro de authors.
@@ -55,11 +55,11 @@
             }
         };
 
-            this.saveSitio = function (currentRecord) {
+            this.saveSitio = function (currentRecord, idSitio) {
             if (currentRecord.id) {
-                return $http.put(context + "/" + currentRecord.id, currentRecord);
+                return $http.put(context + "/" + currentRecord.id+ "/"+ "sitios"+ idSitio, currentRecord);
             } else {
-                return $http.post(context, currentRecord);
+                return $http.post(context+ "/"+currentRecord.id+"/"+"sitios", currentRecord);
             }
         };
 
@@ -73,11 +73,11 @@
         this.deleteCiudad = function (id) {
             return $http.delete(context + "/" + id);
         };
-        
-       
-        
+
+
+
          this.deleteSitio = function (idCiudad, idSitio) {
-            return $http.delete(context+"/"+ idCiudad + "/"+ "api/ciudad"+"/"+ idSitio);
+            return $http.delete(context+"/"+ idCiudad + "/"+ "sitios"+"/"+ idSitio);
         };
     }]);
 })(window.angular);
