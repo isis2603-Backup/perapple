@@ -91,8 +91,8 @@
                 }, responseError);
             };
 
-             this.fetchSitios = function () {
-                return svc.fetchSitios.then(function (response) {
+             this.fetchSitios = function (id) {
+                return svc.fetchSitios(id).then(function (response) {
                     $scope.sitios = response.data;
                     $scope.currentSitio = {};
                     self.editMode = false;

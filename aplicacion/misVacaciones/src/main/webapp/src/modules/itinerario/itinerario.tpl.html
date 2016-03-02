@@ -89,12 +89,14 @@
                         <td aLIGN=center ><b>Mis Eventos</b></td>
                         <td ALIGN="center" ><b>Detalles</b></td>
                         <td ALIGN="center" ><b>Calificar</b></td>
+                        <td ALIGN="center" ><b>Borrar</b></td>
 
                     </tr>
                     <tr ng-repeat="nc in currentCiudadItinerario.eventos track by $index">
                         <td>{{nc.nombre}}</td>
                         <td><button id="button_detalles_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesEvento"> Detalles </button></td>
                         <td><button id="button_calificar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
+                    <td><button id="button_borrar_evento" type="button" class="btn btn-primary "> Borrar </button></td>
                     </tr>
 
                 </table>
@@ -112,18 +114,19 @@
                             <td ALIGN=center><b>Mis Sitios</b></td>
                             <td ALIGN="center" ><b>Detalles</b></td>
                             <td ALIGN="center" ><b>Calificación</b></td>
-
+                             <td ALIGN="center" ><b>Borrar</b></td>
                         <tr ng-repeat="nc in  currentCiudadItinerario.sitios track by $index">
                         <td>{{nc.nombre}}</td>
                             <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio"> Detalles </button></td>
                             <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
+                            <td><button id="button_borrar_sitio" type="button" class="btn btn-primary"> Borrar </button></td>
                     </tr>
 
                     </table>
                       <div class="row">
 
                           <button id="button_agregar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popSitio"  > Agregar Sitio </button>
-                            <button id="refresh-book" class="btn btn-primary navbar-btn" ng-hide="ctrl.editMode" ng-click="ctrl.fetchSitios"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+                            <button id="refresh-book" class="btn btn-primary navbar-btn" ng-hide="ctrl.editMode" ng-click="ctrl.fetchSitios(1)"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                         </div>
               </div>
             </div>
@@ -179,43 +182,40 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div>
-
 <div class="modal fade" id="popSitio" tabindex="-1" role="dialog">
     <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Agregar Sitio</h4>
-
-      </div>
-      <div class="modal-body">
-          <form>
-                        <div class="row">
-                        <div class="col-sm-5">
-                        <select id="listaSitios" class="form-control" name=sitio>
-                            <option>Seleccione una opcion</option>
-                            <option>          </option>
-                            <option>Museo del oro</option>
-                            <option>Parque Simon Bolivar</option>
-                            <option>Estadio el campin</option>
-                            <option>Centro Andino</option>
-                            <option>Universidad de los Andes</option>
-                        </select>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchSitios(1);"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Agregar Sitio</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <br>
+                   <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
+                           <br>
+                            <table border="1" class="table table-bordered" >
+                                <tr ng-repeat="ciudad in ciudades">
+                                  <td align="left">{{ciudad.nombre}}</td>
+                                  <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event)"> Agregar Ciudad </button></td>
+                                </tr>
+                            </table>
                         </div>
-                            <div class="col-sm-4">
-                        <input type="date" class="form-control" title="Escriba la fecha del evento" name="bday" max="1979-12-31">
-                         </div>
-                        </div>
-                                                </form>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Agregar Sitio</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+                        <div class="col-sm-1"></div>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
+
 
 <div class="modal fade" id="popEvento" tabindex="-1" role="dialog">
     <div class="modal-dialog">
