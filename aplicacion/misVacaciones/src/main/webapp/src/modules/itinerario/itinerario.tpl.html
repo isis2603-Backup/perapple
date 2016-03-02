@@ -185,37 +185,40 @@
 
 <!--pop up agregar evento-->
 <div class="modal fade" id="popEvento" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Agregar Evento</h4>
-      </div>
-      <div class="modal-body">
-         <form>
-                        <div class="row">
+   <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchEventos(1);"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Agregar Evento</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <br>
+                   <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
+                           <br>
+                            <table border="1" class="table table-bordered" >
+                                <tr ng-repeat="ciudad in ciudades">
+                                  <td align="left">{{ciudad.nombre}}</td>
+                                  <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.saveEvento($event)"> Agregar Evento</button>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button></td>
 
-                        <select class="form-control" name="OpcionEventos" ng-model="nuevo_evento" >
-                            <option selected value="1">Seleccione una opcion</option>
-                            <option value="2">Millonarios - Nacional</option>
-                            <option value="3">COLDPLAY</option>
-                            <option value="4">Fiesta Andres</option>
-                             <option value="5">Festival Estereo Picnic</option>
-                            <option value="6">Show Pirotecnicos Monserrtate</option>
-                            <option value="7">Festival Internacional de Teatro</option>
-                            <option value="8">Universidad de los Andes</option>
-                             <option value="9">Rolling Stones en concierto</option>
-                        </select>
-                            </div>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-                    </form>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Agregar Evento</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 </div>
 
 <!--pop up agregar sitio-->
