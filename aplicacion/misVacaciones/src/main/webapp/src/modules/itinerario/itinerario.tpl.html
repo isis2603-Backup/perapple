@@ -201,12 +201,12 @@
                    <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
-                            <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
+
                            <br>
                             <table border="1" class="table table-bordered" >
-                                <tr ng-repeat="ciudad in ciudades">
-                                  <td align="left">{{ciudad.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.saveEvento($event)"> Agregar Evento</button>
+                                <tr ng-repeat="evento in eventos">
+                                  <td align="left">{{evento.nombre}}</td>
+                                  <td align="center"><button type="button" name="{{evento.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.saveEvento($event)"> Agregar Evento</button>
                                   <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button></td>
 
                                 </tr>
