@@ -428,7 +428,7 @@
          * Response: 200 -> Status ok, array de ciudades y los headers.
          */
         $httpBackend.whenGET(recordUrlSitios).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
             var record;
             ng.forEach(records, function (value) {
                 if (value.id === id_ciudad) {
@@ -446,7 +446,7 @@
          * Response: 200 -> Status ok, array de ciudades y los headers.
          */
         $httpBackend.whenGET(recordUrlEventos).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
             var record;
             ng.forEach(records, function (value) {
                 if (value.id === id_ciudad) {
@@ -464,7 +464,7 @@
          * Response: 200 -> Status ok, array de ciudades y los headers.
          */
         $httpBackend.whenGET(recordUrlHoteles).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
             var record;
             ng.forEach(records, function (value) {
                 if (value.id === id_ciudad) {
@@ -480,7 +480,7 @@
          * Response: 200 -> Status ok, record -> ciudad y ningún header.
          */
         $httpBackend.whenGET(recordUrlCiudad).respond(function (method, url) {
-            var id = parseInt(url.split('/').pop());
+            var id = parseInt(url.split('/')[2]);
             var record;
             ng.forEach(records, function (value) {
                 if (value.id === id) {
@@ -496,8 +496,8 @@
          * Response: 200 -> Status ok, record -> sitio y ningún header.
          */
         $httpBackend.whenGET(recordUrlSitio).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_sitio = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_sitio = parseInt(url.split('/')[4]);
             var sitio;
             ng.forEach(records, function (value) {
                 if (value.id === id_ciudad) {
@@ -517,8 +517,8 @@
          * Response: 200 -> Status ok, record -> evento y ningún header.
          */
         $httpBackend.whenGET(recordUrlEvento).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_evento = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_evento = parseInt(url.split('/')[4]);
             var evento;
             ng.forEach(records, function (value) {
                 if (value.id === id_ciudad) {
@@ -538,8 +538,8 @@
          * Response: 200 -> Status ok, record -> hotel y ningún header.
          */
         $httpBackend.whenGET(recordUrlHotel).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_hotel = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_hotel = parseInt(url.split('/')[4]);
             var hotel;
             ng.forEach(records, function (value) {
                 if (value.id === id_ciudad) {
@@ -575,7 +575,7 @@
          * Response: 201 -> Status created, record -> ciudad y ningún header.
          */
         $httpBackend.whenPOST(recordUrlSitios).respond(function (method, url, data) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
             var sitio = ng.fromJson(data);
             sitio.id = Math.floor(Math.random() * 10000);
 
@@ -596,7 +596,7 @@
          * Response: 201 -> Status created, record -> evento y ningún header.
          */
         $httpBackend.whenPOST(recordUrlEventos).respond(function (method, url, data) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
             var evento = ng.fromJson(data);
             evento.id = Math.floor(Math.random() * 10000);
 
@@ -617,7 +617,7 @@
          * Response: 201 -> Status created, record -> hotel y ningún header.
          */
         $httpBackend.whenPOST(recordUrlHoteles).respond(function (method, url, data) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
             var hotel = ng.fromJson(data);
             hotel.id = Math.floor(Math.random() * 10000);
 
@@ -637,7 +637,7 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenDELETE(recordUrlCiudad).respond(function (method, url) {
-            var id = parseInt(url.split('/').pop());
+            var id = parseInt(url.split('/')[2]);
             ng.forEach(records, function (value, key) {
                 if (value.id === id) {
                     records.splice(key, 1);
@@ -653,8 +653,8 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenDELETE(recordUrlSitio).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_sitio = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_sitio = parseInt(url.split('/')[4]);
             ng.forEach(records, function (ciud) {
                 if (ciud.id === id_ciudad) {
                     ng.forEach(ciud.sitios, function (sit, key) {
@@ -674,8 +674,8 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenDELETE(recordUrlEvento).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_evento = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_evento = parseInt(url.split('/')[4]);
             ng.forEach(records, function (ciud) {
                 if (ciud.id === id_ciudad) {
                     ng.forEach(ciud.eventos, function (eve, key) {
@@ -695,8 +695,8 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenDELETE(recordUrlHotel).respond(function (method, url) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_hotel = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_hotel = parseInt(url.split('/')[4]);
             ng.forEach(records, function (ciud) {
                 if (ciud.id === id_ciudad) {
                     ng.forEach(ciud.hoteles, function (hot, key) {
@@ -716,7 +716,7 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenPUT(recordUrlCiudad).respond(function (method, url, data) {
-            var id = parseInt(url.split('/').pop());
+            var id = parseInt(url.split('/')[2]);
             var record = ng.fromJson(data);
             ng.forEach(records, function (value, key) {
                 if (value.id === id) {
@@ -733,8 +733,8 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenPUT(recordUrlSitio).respond(function (method, url, data) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_sitio = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_sitio = parseInt(url.split('/')[4]);
             var sitio = ng.fromJson(data);
 
             ng.forEach(records, function (ciud) {
@@ -756,8 +756,8 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenPUT(recordUrlEvento).respond(function (method, url, data) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_evento = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_evento = parseInt(url.split('/')[4]);
             var evento = ng.fromJson(data);
 
             ng.forEach(records, function (ciud) {
@@ -779,8 +779,8 @@
          * Response: 204, no retorna ningun dato ni headers.
          */
         $httpBackend.whenPUT(recordUrlEvento).respond(function (method, url, data) {
-            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
-            var id_hotel = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/')[2]);
+            var id_hotel = parseInt(url.split('/')[4]);
             var hotel = ng.fromJson(data);
 
             ng.forEach(records, function (ciud) {

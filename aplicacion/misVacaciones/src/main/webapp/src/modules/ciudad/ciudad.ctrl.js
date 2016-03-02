@@ -174,11 +174,7 @@
                 self.fetchEventos();
             }, responseError);
         };
-
-        this.fetchCiudades();
-        this.fetchSitios($scope.currentCiudad);
-        this.fetchEventos($scope.currentCiudad);
-        this.fetchHoteles($scope.currentCiudad);
+        
     }]);
 
 })(window.angular);

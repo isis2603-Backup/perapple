@@ -12,7 +12,7 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un array de objetos de itinerario(todos los itinerarios de todos los usuarios).
          */
-                
+
             this.fetchRecords = function () {
             return $http.get(context);
         };
@@ -31,6 +31,8 @@
         this.fetchRecord = function (id) {
             return $http.get(context + "/" + id);
         };
+
+        
 
         //FUNCIONES PARA AGREGAR/GUARDAR
         /**
@@ -51,11 +53,11 @@
                 return $http.post(context, currentRecord);
             }
         };
-        
+
           this.saveCurrentRecord = function (currentRecord) {
             if (currentRecord.id) {
                 return $http.put(context + "/current", currentRecord);
-            } 
+            }
         };
 
 
@@ -72,7 +74,7 @@
             return $http.delete(context + "/" + idItinerario );
         };
 
-       
+
          /**
          * Hace una petición DELETE a /itineraro/:viajero/S/:sitio para eliminar un sitio de un itinerario de un usuario dado
          * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
