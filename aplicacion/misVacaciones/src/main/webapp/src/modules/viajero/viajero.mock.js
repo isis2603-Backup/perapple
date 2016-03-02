@@ -8,6 +8,13 @@
     var mod = ng.module('viajeroMock', ['ngMockE2E']);
 
 
+    /*
+     * {id: double
+        name: String,
+        password: String,
+        image: String (url),
+        }
+     */
     mod.run(['$httpBackend', function ($httpBackend) {
             var ignore_regexp = new RegExp('^((?!api).)*$');
             /*

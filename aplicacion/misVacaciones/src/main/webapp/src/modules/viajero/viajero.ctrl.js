@@ -9,7 +9,14 @@
     var mod = ng.module("viajeroModule");
 
     mod.controller("viajeroCtrl", ["$scope", "viajeroService", function ($scope, svc) {
-           //Se almacenan todas las alertas
+            
+            //viajero actual
+            $scope.currentViajero = {};
+            
+            //Ciudades
+            $scope.records = [];
+            
+            //Se almacenan todas las alertas
             $scope.alerts = [];
             $scope.currentRecord = {};
             $scope.records = [];
@@ -57,7 +64,7 @@
             function responseError(response) {
                 self.showError(response.data);
             }
-
+            
             //Variables para el controlador
             this.readOnly = false;
             this.editMode = false;
