@@ -19,6 +19,8 @@
         var recordUrl = new RegExp('api/ciudades/([0-9]+)');
         var recordUrl2= new RegExp('api/ciudades/([0-9]+)/sitios');
         var recordUrl3= new RegExp('api/ciudades/([0-9]+)/sitios/([0-9]+)');
+         var recordUrl4= new RegExp('api/ciudades/([0-9]+)/eventos');
+        var recordUrl5= new RegExp('api/ciudades/([0-9]+)/eventos/([0-9]+)');
 
         /*
          * @type Array
@@ -379,6 +381,31 @@
             });
             return [200, sitio, {}];
         });
+        $httpBackend.whenGET(recordUrl4).respond(function (method, url) {
+            var id_ciudad = parseInt(url.split('/').pop().pop());
+            var record;
+            ng.forEach(records, function (value) {
+                if (value.id === id_ciudad) {
+                    record = ng.copy(value.eventos);
+                }
+            });
+            return [200, record, {}];
+        });
+         $httpBackend.whenGET(recordUrl5).respond(function (method, url) {
+            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
+            var id_evento = parseInt(url.split('/').pop());
+            var evento;
+            ng.forEach(records, function (value) {
+                if (value.id === id_ciudad) {
+                    ng.forEach(value.eventos, function (value2) {
+                        if (value2.id === id_evento) {
+                            evento = ng.copy(value2);
+                        }
+                    });
+                }
+            });
+            return [200, evento, {}];
+        });
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/authors"
@@ -395,6 +422,12 @@
         });
 
          $httpBackend.whenPOST(recordUrl2).respond(function (method, url, data) {
+            var record = ng.fromJson(data);
+            record.id = Math.floor(Math.random() * 10000);
+            records.push(record);
+            return [201, record, {}];
+        });
+        $httpBackend.whenPOST(recordUrl4).respond(function (method, url, data) {
             var record = ng.fromJson(data);
             record.id = Math.floor(Math.random() * 10000);
             records.push(record);
@@ -428,6 +461,15 @@
             });
             return [204, null, {}];
         });
+         $httpBackend.whenDELETE(recordUrl5).respond(function (method, url) {
+            var id = parseInt(url.split('/').pop());
+            ng.forEach(records, function (value, key) {
+                if (value.id === id) {
+                    records.splice(key, 1);
+                }
+            });
+            return [204, null, {}];
+        });
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/authors/[numero]"
@@ -452,6 +494,17 @@
             var record = ng.fromJson(data);
             ng.forEach(records, function (value, key) {
                 if (value.id === idSitio) {
+                    records.splice(key, 1, record);
+                }
+            });
+            return [204, null, {}];
+        });
+
+        $httpBackend.whenPUT(recordUrl5).respond(function (method, url, data) {
+            var idEvento = parseInt(url.split('/').pop());
+            var record = ng.fromJson(data);
+            ng.forEach(records, function (value, key) {
+                if (value.id === idEvento) {
                     records.splice(key, 1, record);
                 }
             });
