@@ -125,6 +125,10 @@
                     .state('viajero', {
                         url: '/viajero',
                         templateUrl: "./modules/viajero/viajero.tpl.html"
+                    })
+                    .state('ciudad', {
+                        url: '/ciudad',
+                        templateUrl: "./modules/ciudad/ciudad.tpl.html"
                     });
         }]);
 

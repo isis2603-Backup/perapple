@@ -91,6 +91,14 @@
             }, responseError);
         };
 
+        this.fetchCiudad = function (idCiudad) {
+            return svc.fetchCiudades(idCiudad).then(function (response) {
+                $scope.currentCiudad = response.data;
+                self.editMode = false;
+                return response;
+            }, responseError);
+        };
+
         this.fetchCiudades = function () {
             return svc.fetchCiudades().then(function (response) {
                 $scope.ciudades = response.data;
@@ -174,7 +182,10 @@
                 self.fetchEventos();
             }, responseError);
         };
-        
+
+        this.fetchCiudades();
+        this.fetchCiudad(1);
+
     }]);
 
 })(window.angular);

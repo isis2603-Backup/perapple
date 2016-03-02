@@ -29,6 +29,12 @@
                      controller: "itinerarioCtrl",
                      controllerAs: "ctrl",
                      templateUrl: "./modules/viajero/viajero.tpl.html"
+                 })
+                 .state('ciudad', {
+                     url: '/ciudad',
+                     controller: "ciudadCtrl",
+                     controllerAs: "ctrl",
+                     templateUrl: "./modules/ciudad/ciudad.tpl.html"
                  });
 
      }]);
