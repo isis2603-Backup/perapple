@@ -102,7 +102,7 @@
         this.fetchCiudades = function () {
             return svc.fetchCiudades().then(function (response) {
                 $scope.ciudades = response.data;
-                $scope.currentCiudad = {};
+                $scope.currentCiudad = $scope.ciudades[0];
                 self.editMode = false;
                 return response;
             }, responseError);
@@ -183,8 +183,8 @@
             }, responseError);
         };
 
-        this.fetchCiudades();
-        this.fetchCiudad(1);
+
+        this.fetchCiudades(1);
 
     }]);
 
