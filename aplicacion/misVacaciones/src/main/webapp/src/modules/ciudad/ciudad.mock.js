@@ -17,14 +17,15 @@
          * ej: api/authors/1
          */
         var recordUrl = new RegExp('api/ciudades/([0-9]+)');
-        var recordUrl2= new RegExp('api/ciudades/sitios/([0-9]+)');
+        var recordUrl2= new RegExp('api/ciudades/([0-9]+)/sitios');
+        var recordUrl3= new RegExp('api/ciudades/([0-9]+)/sitios/([0-9]+)');
 
         /*
          * @type Array
          * records: Array con un Author por defecto
          */
         var records = [{
-                
+
                 id: 1,
                 nombre: 'Bogotá',
                 detalles:'Bogotá es la capital de la República de Colombia y del departamento de Cundinamarca.\n\
@@ -159,12 +160,12 @@
                                     Precio del recorrido: $60.000 o 20 dólares',
                         imagen:'https://res.cloudinary.com/civico/image/upload/c_fill,f_auto,fl_lossy,h_368,w_1122/v1455220863/entity/event_image/file/940/000/56bcc4cb2f41f3c2be000940.jpg'
                     }
-                    
+
                 ],
                 hoteles:[]
             },
             {
-                
+
                 id: 2,
                 nombre: 'Cali',
                 detalles:'Cali, oficialmente Santiago de Cali, es un municipio colombiano, capital del departamento del Valle del Cauca, es la tercera ciudad más poblada de Colombia. \n\
@@ -190,7 +191,7 @@
                                   una institución que contribuye a crear escenarios de bienestar para las comunidades humanas y la vida silvestre. \n\
                                   El Zoológico de Cali es una plataforma que promueve la construcción del compromiso ambiental.',
                        imagen:'http://www.icesi.edu.co/blogs_estudiantes/zooincali/files/2012/09/mapa_final-1024x6401.jpg'
-                       
+
                     },
                     {
                         id:2,
@@ -220,12 +221,12 @@
                          detalles:'En estos momentos Cali no cuenta con presentación de algún evento',
                         imagen:''
                     }
-                    
+
                 ],
                 hoteles:[]
             },
             {
-                
+
                 id: 3,
                 nombre: 'Bucaramanga',
                 detalles:'Es una ciudad colombiana, capital del departamento de Santander. Está ubicada al nororiente del país sobre la cordillera Oriental, \n\
@@ -283,13 +284,13 @@
                                   PASAPORTE fines de semana 	$ 25.000',
                         imagen:'http://www.infoeventos.com.co/wp-content/uploads/2015/11/Banner-interparck-ciudad-de-hierro-bucaramanga.jpg'
                     }
-                    
+
                 ],
                 hoteles:[]
             }
-                        
+
             ];
-        
+
 
         function getQueryParams(url) {
             var vars = {}, hash;
@@ -307,7 +308,7 @@
         $httpBackend.whenGET(ignore_regexp).passThrough();
         /*
 
-         * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/authors"
+         * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/ciudades"
          * Obtiene los parámetros de consulta "queryParams" para establecer
          * la pagina y la maxima cantida de records. Con los anteriores parametros
          * se realiza la simulacion de la paginacion.
@@ -329,28 +330,13 @@
             }
             return [200, responseObj, headers];
         });
-        
-        $httpBackend.whenGET('api/ciudades'+"/"+ "sitios").respond(function (method, url) {
-            var queryParams = getQueryParams(url);
-            var responseObj = [];
-            var page = queryParams.page;
-            var maxRecords = queryParams.maxRecords;
-            var headers = {};
-            if (page && maxRecords) {
-                var start_index = (page - 1) * maxRecords;
-                var end_index = start_index + maxRecords;
-                responseObj = records.slice(start_index, end_index);
-                headers = {"X-Total-Count": records.length};
-            } else {
-                responseObj = records;
-            }
-            return [200, responseObj, headers];
-        });
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         /*
          * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/authors/[numero]"
          * Obtiene el id de la url y el registro asociado dentro del array records.
@@ -366,17 +352,34 @@
             });
             return [200, record, {}];
         });
-        
+
         $httpBackend.whenGET(recordUrl2).respond(function (method, url) {
-            var id = parseInt(url.split('/').pop());
+            var id_ciudad = parseInt(url.split('/').pop().pop());
             var record;
             ng.forEach(records, function (value) {
-                if (value.id === id) {
-                    record = ng.copy(value);
+                if (value.id === id_ciudad) {
+                    record = ng.copy(value.sitios);
                 }
             });
             return [200, record, {}];
         });
+
+        $httpBackend.whenGET(recordUrl3).respond(function (method, url) {
+            var id_ciudad = parseInt(url.split('/').pop().pop().pop());
+            var id_sitio = parseInt(url.split('/').pop());
+            var sitio;
+            ng.forEach(records, function (value) {
+                if (value.id === id_ciudad) {
+                    ng.forEach(value.sitios, function (value2) {
+                        if (value2.id === id_sitio) {
+                            sitio = ng.copy(value2);
+                        }
+                    });
+                }
+            });
+            return [200, sitio, {}];
+        });
+
         /*
          * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/authors"
          * Obtiene el record de libro desde el cuerpo de la peticion
@@ -390,8 +393,8 @@
             records.push(record);
             return [201, record, {}];
         });
-        
-         $httpBackend.whenPOST('api/ciudades'+"/"+"sitios").respond(function (method, url, data) {
+
+         $httpBackend.whenPOST(recordUrl2).respond(function (method, url, data) {
             var record = ng.fromJson(data);
             record.id = Math.floor(Math.random() * 10000);
             records.push(record);
@@ -414,9 +417,9 @@
             });
             return [204, null, {}];
         });
-        
-        
-        $httpBackend.whenDELETE(recordUrl2).respond(function (method, url) {
+
+
+        $httpBackend.whenDELETE(recordUrl).respond(function (method, url) {
             var id = parseInt(url.split('/').pop());
             ng.forEach(records, function (value, key) {
                 if (value.id === id) {
@@ -443,12 +446,12 @@
             });
             return [204, null, {}];
         });
-        
-         $httpBackend.whenPUT(recordUrl2).respond(function (method, url, data) {
-            var id = parseInt(url.split('/').pop());
+
+         $httpBackend.whenPUT(recordUrl3).respond(function (method, url, data) {
+            var idSitio = parseInt(url.split('/').pop());
             var record = ng.fromJson(data);
             ng.forEach(records, function (value, key) {
-                if (value.id === id) {
+                if (value.id === idSitio) {
                     records.splice(key, 1, record);
                 }
             });

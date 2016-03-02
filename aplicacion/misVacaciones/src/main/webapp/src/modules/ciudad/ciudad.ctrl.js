@@ -1,4 +1,4 @@
-(function (ng) {
+    (function (ng) {
     var mod = ng.module("moduloCiudad");
 
     mod.controller("ciudadCtrl", ["$scope", "ciudadService", function ($scope, svc) {
@@ -6,6 +6,14 @@
             $scope.records = [];
             $scope.eventos = [];
             $scope.alerts = [];
+
+            $scope.currentSitio={}; //sitio seleccionado para agregar
+            $scope.fechaSitio= new Date(); //fecha visita del sitio
+            $scope.sitioElegido=""; //sitio elegido por el usurario
+            $scope.sitios=[]; //sitios a mostrar según la ciudad elegida
+
+
+
             $scope.grabar = function () {
                 svc.agregarEvento();
                 svc.refrescar();
@@ -78,6 +86,15 @@
                 return svc.fetchCiudades().then(function (response) {
                     $scope.records = response.data;
                     $scope.currentRecord = {};
+                    self.editMode = false;
+                    return response;
+                }, responseError);
+            };
+
+             this.fetchSitios = function () {
+                return svc.fetchSitios.then(function (response) {
+                    $scope.sitios = response.data;
+                    $scope.currentSitio = {};
                     self.editMode = false;
                     return response;
                 }, responseError);

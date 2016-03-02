@@ -123,7 +123,7 @@
                       <div class="row">
 
                           <button id="button_agregar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popSitio"  > Agregar Sitio </button>
-
+                            <button id="refresh-book" class="btn btn-primary navbar-btn" ng-hide="ctrl.editMode" ng-click="ctrl.fetchSitios"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
                         </div>
               </div>
             </div>
@@ -186,12 +186,13 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Agregar Sitio</h4>
+
       </div>
       <div class="modal-body">
           <form>
                         <div class="row">
                         <div class="col-sm-5">
-                        <select class="form-control" name=sitio>
+                        <select id="listaSitios" class="form-control" name=sitio>
                             <option>Seleccione una opcion</option>
                             <option>          </option>
                             <option>Museo del oro</option>

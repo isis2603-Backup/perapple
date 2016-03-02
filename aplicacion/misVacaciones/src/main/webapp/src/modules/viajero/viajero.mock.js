@@ -26,7 +26,7 @@
                 {id: 1,
                     name: 'Perapple',
                     password: 'perapple',
-                    image: ''
+                    image: 'http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg'
                     },
                 {id: 2,
                     name: 'Camilo Mendoza',
