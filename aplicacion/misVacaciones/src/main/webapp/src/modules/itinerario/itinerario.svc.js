@@ -72,18 +72,8 @@
             return $http.delete(context + "/" + idItinerario );
         };
 
-        /**
-         *
-         * @param {type} viajero
-         * @param {type} itinerario
-         * @param {type} ciudad
-         * @returns {unresolved}
-         */
-        this.borrarCiudad = function (viajero, itinerario, ciudad){
-            return $http.delete(context + "/" + viajero + "/" + itinerario+"/"+ciudad);
-        };
-
-        /**
+       
+         /**
          * Hace una petición DELETE a /itineraro/:viajero/S/:sitio para eliminar un sitio de un itinerario de un usuario dado
          * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
          * @param {string} itinerario identificador del itinerario del que se quiere eliminar sitio

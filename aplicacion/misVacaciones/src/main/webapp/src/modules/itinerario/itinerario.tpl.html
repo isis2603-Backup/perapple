@@ -2,7 +2,7 @@
 
     <div class="well" style="height:120px; ">
         <h2 align="center">{{currentRecord.nombre}}</h2> <!--<h1>{{objectValue.data}}</h1>-->
-        <h4 align=center class="dl-horizontal"><strong>FECHA INICIO</strong>: {{currentRecord.fechaInicio}} - <strong>FECHA FIN:</strong> {{currentRecord.fechaFin}} </h4>
+        <h4 align=center class="dl-horizontal"><strong>FECHA INICIO</strong>: {{currentRecord.fechaInicio|date}} - <strong>FECHA FIN:</strong> {{currentRecord.fechaFin|date}} </h4>
     </div>
 
     <div class="well" style="margin:5px; height:340px; ">
@@ -25,6 +25,7 @@
                   <td ALIGN=center> <b>Fecha Inicio</b></td>
                   <td ALIGN=center> <b>Fecha Fin</b></td>
                   <td ALIGN=center> <b>Detalles</b> </td>
+                  <td ALIGN=center> <b>Borrar</b> </td>
               </tr>
               <tr ng-repeat="nc in currentRecord.ciudades">
 
@@ -33,6 +34,8 @@
                 <td>{{nc.fFin|date}}</td>
                 <td><a href="javascript:window.scrollTo(0,1100)"><button  id="detalles" type="button" class="btn btn-primary" name="{{nc.id}}"  ng-click="ctrl.detallesCiudad($event); " > Detalles </button>
                     </a></td>
+                    <td><button  id="borrar" type="button" class="btn btn-primary" name="{{nc.id}}"  ng-click="ctrl.borrarCiudad($event); " > Borrar </button>
+                    </td>
               </tr>
             </table>
             <br>
@@ -64,7 +67,7 @@
     </div>
     <br>
 
-    <div id="detallesCiudad" class="col-sm-12 " style="justify-content: center " >
+    <div  id="detallesCiudad" class="col-sm-12 " style="justify-content: center " ng-show="hayCiudades"  >
         <div class="col-sm-12 well" style="overflow: auto; ">
             <div style="display:flex; justify-content: center; background-color:#ff9900; border-radius: 8px">
 
