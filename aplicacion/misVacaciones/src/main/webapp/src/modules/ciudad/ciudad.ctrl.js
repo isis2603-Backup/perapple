@@ -99,14 +99,33 @@
                     return response;
                 }, responseError);
             };
+
+            this.fetchEventos = function () {
+                return svc.fetchSitios.then(function (response) {
+                    $scope.sitios = response.data;
+                    $scope.currentEvento = {};
+                    self.editMode = false;
+                    return response;
+                }, responseError);
+            };
             this.saveCiudad = function () {
                 return svc.saveCiudad($scope.currentRecord).then(function () {
                     self.fetchCiudades();
                 }, responseError);
             };
+            this.saveEvento = function () {
+                return svc.saveEvento($scope.currentRecord).then(function () {
+                    self.fetchEventos();
+                }, responseError);
+            };
             this.deleteCiudad = function (record) {
                 return svc.deleteCiudad(record.id).then(function () {
                     self.fetchCiudades();
+                }, responseError);
+            };
+            this.deleteEvento = function (record) {
+                return svc.deleteEvento(record.id).then(function () {
+                    self.fetchEventos();
                 }, responseError);
             };
 
