@@ -21,7 +21,7 @@
                     <td>{{nc.nombre}}</td>
                     <td>{{nc.direccion}}</td>
                     <td>{{nc.direccion}}</td>
-                    <td><button id="borrar" type="button" class="btn btn-primary" name="{{nc.id}}"  ng-click="ctrl.deleteHotel(currentRecord, nc); " > Borrar </button></td>
+                    <td><button id="borrar" type="button" class="btn btn-primary" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Borrar </button></td>
                 </tr>
             </table>
 

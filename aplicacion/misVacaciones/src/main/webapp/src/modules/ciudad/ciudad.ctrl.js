@@ -177,9 +177,13 @@
             }, responseError);
         };
 
-        this.deleteHotel = function (ciudad, hotel) {
-            return svc.deleteHotel(ciudad.id, hotel.id).then(function () {
-                self.fetchEventos();
+        this.deleteHotel = function ($event) {
+            var info = $event.currentTarget.name.split("-");
+            var ciudadid = parseInt(info[0]);
+            var hotelid = parseInt(info[1]);
+            console.log("ciudad id:  "+ciudadid+" hotelid "+ hotelid);
+            return svc.deleteHotel(ciudadid, hotelid).then(function () {
+                self.fetchHoteles(ciudadid);
             }, responseError);
         };
 
