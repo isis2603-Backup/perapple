@@ -1,0 +1,34 @@
+<div id="ciudad" style="height:100%" >
+    <div style="justify-content: center; height: 100%">
+        <div class="col-sm-12 well" style="text-align: center;height:100%">
+
+            <h2>Hoteles</h2>
+
+            <br>
+
+            <p>Ciudad: {{currentCiudad.nombre}}</p>
+
+            <br>
+
+            <table id="tabla" border="1" class="table table-bordered">
+                <tr>
+                    <td ALIGN=center> <b>Hotel</b> </td>
+                    <td ALIGN=center> <b>Direccion</b></td>
+                    <td ALIGN=center> <b>Direccion</b></td>
+                    <td ALIGN=center> <b>Borrar</b></td>
+                </tr>
+                <tr ng-repeat="nc in currentCiudad.hoteles">
+                    <td>{{nc.nombre}}</td>
+                    <td>{{nc.direccion}}</td>
+                    <td>{{nc.direccion}}</td>
+                    <td><button id="borrar" type="button" class="btn btn-primary" name="{{nc.id}}"  ng-click="ctrl.deleteHotel(currentRecord, nc); " > Borrar </button></td>
+                </tr>
+            </table>
+
+            <br>
+
+            <button id="borrar" type="button" class="btn btn-primary"  ng-click="ctrl.fetchHoteles(currentCiudad); " > Actualizar Hoteles </button>
+
+        </div>
+    </div>
+</div>

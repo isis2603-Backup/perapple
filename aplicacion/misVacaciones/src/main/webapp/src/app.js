@@ -3,13 +3,19 @@
     var mod = ng.module("mainApp", ["ui.router"]);
 
 
-        mod.controller("controlador", function($scope, $rootScope,sharedProperties){
+        mod.controller("controlador", function($scope, sharedProperties){
 
-            $rootScope.usuario= "Daniel";
+            $scope.usuario= "Perapple";
+            $scope.contrasena = "Perapple";
+            $scope.correo = "perapple@gmail.com";
+            $scope.itinerario = "";
+            $scope.itinerarios = [];
 
-            $scope.contrasena = "jojojojo";
-            $scope.correo = "correo@gmail.com";
-            $scope.itinerario = "Itinerario 1";
+            $scope.agregar = function(itinerario){
+            $scope.itinerarios.push(itinerario);
+             $scope.itinerario = "";
+        };
+
             $scope.objectValue = sharedProperties.getObject();
             $scope.setString = function(newValue) {
                 $scope.objectValue.data = newValue;
@@ -19,25 +25,71 @@
         });
 
          mod.controller("ctrl", function($scope, sharedProperties){
+
+        $scope.nombre_usuario="";
+        $scope.contrasena_usuario="";
+        $scope.email_usuario="@";
+
         $scope.nueva_ciudad = "";
-        $scope.ciudades = [];
+        $scope.ciudades = ["Bogotá","Bucaramanga", "Cali" ];
+
         $scope.nuevo_evento="";
-        $scope.eventos=[];
+        $scope.eventos=[ "Festival Estereo Picnic", "Festival Internacional de Teatro" , "Fiesta Andres" ];
+
+        $scope.sitios = ["Andrés Carne de Res", "Museo del Oro", "Monserrate"];
+
         $scope.stringValue = sharedProperties.getString();
         $scope.objectValue = sharedProperties.getObject().data;
+        $scope.comentario = "";
 
-        $scope.agregar = function(nueva_ciudad){
-          $scope.ciudades.push(nueva_ciudad);
+        $scope.calificacion = 0;
+        $scope.calificacionesEvento = [];
+        $scope.calificacionesSitio = [];
+
+        $scope.agregar_ciudad = function(){
+
+          $scope.ciudades.push(prompt("¿Cuál es la nueva ciudad que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
           $scope.nueva_ciudad = "";
         };
-        $scope.add= function(nuevo_evento){
-            $scope.eventos.push(nuevo_evento);
+
+        $scope.agregar_evento= function(){
+            $scope.eventos.push(prompt("¿Cuál es el nuevo evento/sitio que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
             $scope.nuevo_evento="";
         };
 
-        $scope.detalles = function(nc){
-          window.alert("se muestran abajo en la parte que esta haciendo nicolas");
+        $scope.agregar_sitio= function(){
+            $scope.sitios.push(prompt("¿Cuál es el nuevo evento/sitio que desea agregar...?(por ahora luego se cambia a pop-Up decente)"));
+           };
+
+        $scope.agegar_usuario=function (){
+       // <!--- por desarrollar--->
         };
+
+        $scope.detalles = function(ciudad){
+          window.alert("Actualizacion de eventos y sitios de interes segun ciudad...");
+        };
+
+        $scope.detalles_evento = function(evento){
+          window.alert("Detalles del evento con pop-Up...");
+        };
+
+        $scope.calificar_evento = function(evento, calificacion, comentario){
+          $scope.calificacionesEvento.push({evento:evento,calificacion:calificacion,comentario:comentario});
+          $scope.calificacion = 0;
+          $scope.comentario ="";
+        };
+
+        $scope.detalles_sitio = function(sitio){
+          window.alert("Detalles del sitio con pop-Up...");
+        };
+
+        $scope.calificar_sitio = function(sitio,calificacion,comentario){
+          $scope.calificacionesSitio.push({sitio:sitio,calificacion:calificacion,comentario:comentario});
+          $scope.calificacion = 0;
+          $scope.comentario ="";
+        };
+
+
   });
 
   mod.service('sharedProperties', function() {
@@ -64,15 +116,19 @@
         }]);
 
     mod.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/home");
+            $urlRouterProvider.otherwise("/viajero");
             $stateProvider
                     .state('itinerario', {
                         url: '/itinerario',
-                        templateUrl: "./modules/itinerario/itinerario.html"
+                        templateUrl: "./modules/itinerario/itinerario.tpl.html"
                     })
-                    .state('home', {
-                        url: '/home',
-                        templateUrl: "./modules/home/home.html"
+                    .state('viajero', {
+                        url: '/viajero',
+                        templateUrl: "./modules/viajero/viajero.tpl.html"
+                    })
+                    .state('ciudad', {
+                        url: '/ciudad',
+                        templateUrl: "./modules/ciudad/ciudad.tpl.html"
                     });
         }]);
 

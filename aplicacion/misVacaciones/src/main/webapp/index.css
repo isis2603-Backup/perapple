@@ -1,5 +1,5 @@
 body {
-    background: url('http://1.bp.blogspot.com/-VSSn0RksKcI/UVxgBjUiF6I/AAAAAAAAJqk/d13ffBSIb1s/s1600/Fotografia+de+un+atardecer+con+una+palmera+de+la+playa+en+medio+de+el.jpg') no-repeat fixed center center;
+    background: url("resources/imagenes/playa_1.jpg") no-repeat fixed center center;
     -webkit-background-size: cover;
     background-size: cover;
     font-family: Montserrat;
@@ -11,23 +11,24 @@ button{
 }
 #login{
 
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(221,221,221,1);
     margin-top: 100px;
     border-radius: 10px;
 }
 .logo {
     width: 730px;
     height: 193px;
-    background: url('http://4.bp.blogspot.com/-Bdk9S73jLYk/UuJ2jU3Tv5I/AAAAAAAAAFQ/BNbIYSgCgtI/s1600/bienvenido.png') no-repeat;
-    margin: 30px auto;
+    background: url("resources/imagenes/logo.png") no-repeat;
+    background-position: center;
+    margin: 20px auto;
 }
 
 .login-block {
-    width: 320px;
+    width: 350px;
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    border-top: 5px solid #ff656c;
+    border-top: 5px solid #3946ff;
     margin: 0 auto;
 }
 
@@ -45,7 +46,7 @@ button{
     height: 42px;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #DDDDDD ;
     margin-bottom: 20px;
     font-size: 14px;
     font-family: Montserrat;
@@ -54,36 +55,36 @@ button{
 }
 
 .login-block input#username {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
 .login-block input#username:focus {
-    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
 
 .login-block input#password {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
     background-size: 16px 80px;
 }
 
 .login-block input#password:focus {
-    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+    background: #DDDDDD  url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
     background-size: 16px 80px;
 }
 
 .login-block input:active, .login-block input:focus {
-    border: 1px solid #ff656c;
+    border: 1px solid #3946ff;
 }
 
 .login-block button {
     width: 100%;
     height: 40px;
-    background: #ff656c;
+    background: #4043f9;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 1px solid #e15960;
+    border: 1px solid #2e30b2;
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
@@ -92,9 +93,87 @@ button{
     outline: none;
     cursor: pointer;
 }
+.login-block createaccount {
+    width: 150px;
+    height: 40px;
+    background: #4043f9;
+    box-sizing: border-box;
+    border-radius: 2px;
+    border: 1px solid #2e30b2;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
+}
+.login-with{
+    width: 320px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border-top: 5px solid #3946ff;
+    margin: 0 auto;
+}
+.fb-login{
+    background: blue;
 
+}
 .login-block button:hover {
     background: #7b81ff;
     border: #7b81ff;
 }
 
+.login-block p
+{
+    text-align:center;
+}
+
+.modal-body
+{
+    border-top: 5px solid #3946ff;
+    text-align: center;
+
+
+}
+
+.modal-body button
+{
+    font-size: 15px;
+    background: #4043f9;
+   border: 1px solid #2e30b2;
+   color: #fff;
+   width: 50%;
+   height: 40px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
+}
+
+.modal-body button:hover
+{
+    background: #7b81ff;
+    border: #7b81ff;
+    
+}
+
+.modal-body input
+{
+    font-family: Montserrat;
+    background: #DDDDDD;
+    color:#000;
+
+
+}
+.modal-body input:active, .modal-body input:focus {
+    border: 1px solid #3946ff;
+}
+
+.modal-header
+{
+    text-align: center;
+
+}
