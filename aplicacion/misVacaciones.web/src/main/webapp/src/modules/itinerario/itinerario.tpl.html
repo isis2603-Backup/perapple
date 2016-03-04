@@ -114,16 +114,16 @@
                              <td ALIGN="center" ><b>Borrar</b></td>
                         <tr ng-repeat="nc in  currentCiudadItinerario.sitios track by $index">
                         <td>{{nc.nombre}}</td>
-                            <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio"> Detalles </button></td>
+                            <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio" ng-click="ctrl.detallesSitio($event)"> Detalles </button></td>
                             <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
-                            <td><button id="button_borrar_sitio" type="button" class="btn btn-primary"> Borrar </button></td>
+                            <td><button id="button_borrar_sitio" type="button" class="btn btn-primary" ng-click="ctrl.borrarSitioTabla($event)"> Borrar </button></td>
                     </tr>
 
                     </table>
                       <div class="row">
 
                           <button id="button_agregar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popSitio"  > Agregar Sitio </button>
-                            <button id="refresh-book" class="btn btn-primary navbar-btn" ng-hide="ctrl.editMode" ng-click="ctrl.fetchSitios(1)"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+                            
                         </div>
               </div>
             </div>
@@ -158,17 +158,7 @@
                 <div class="row">
                     <div class="col-sm-1"></div>
                         <div class="col-sm-10">
-                            <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
-                            <!--
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar Ciudad..." ng-model="ciudadBuscada">
-                                <span class="input-group-btn">
-                                  <button class="btn btn-default" type="button" ng-click="">Buscar</button>
-                                </span>
-                            </div>
-                            <br>
-                            -->
-                            <table border="1" class="table table-bordered" >
+                             <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="ciudad in ciudades">
                                   <td align="left">{{ciudad.nombre}}</td>
                                   <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event)"> Agregar Ciudad </button></td>
@@ -188,7 +178,7 @@
    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchEventos(1);"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchEventos(currentCiudadItinerario.id);"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Evento</h4>
             </div>
             <div class="modal-body">
@@ -226,7 +216,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchSitios(1);"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchSitios(currentCiudadItinerario.id);"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Sitio</h4>
             </div>
             <div class="modal-body">
@@ -239,12 +229,12 @@
                    <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
-                            <!--Como se hace un typeahead https://twitter.github.io/typeahead.js/examples/-->
+                            
                            <br>
                             <table border="1" class="table table-bordered" >
-                                <tr ng-repeat="ciudad in ciudades">
-                                  <td align="left">{{ciudad.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event)"> Agregar Ciudad </button></td>
+                                <tr ng-repeat="sitio in sitios">
+                                  <td align="left">{{sitio.nombre}}</td>
+                                  <td align="center"><button type="button" name="{{sitio.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarSitio($event)"> Agregar Sitio </button></td>
                                 </tr>
                             </table>
                         </div>
@@ -375,7 +365,7 @@
 </div>
 
 <!--pop up detalles sitio-->
-<div class="modal fade" id="popDetallesSitio" tabindex="-1" role="dialog">
+<div class="modal fade" id="popDetallesSitio" tabindex="-1" role="dialog" ng-show="haySitios">
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -387,7 +377,7 @@
             <div class="well" style="display:flex; justify-content: center;">
                 <fieldset>
                     <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:orange;">
-                            <img class="img-rounded" style="height: 200px; margin:-5px; " src="http://40.media.tumblr.com/tumblr_m65o8dJDtA1rzv6j6o1_1280.jpg" alt="">
+                            <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentSitioMostrar.imagen}}' alt="">
                         </div>
 <br>
 
@@ -396,7 +386,7 @@
                         <label for="name" class="col-md-4 control-label">Nombre</label>
 
 						<div class="col-md-8" style="margin: 5 px; ">
-                          <input id="name_sitio" name="name-sitio" class="form-control" type="text" readonly="">
+                                                    <p>{{currentSitioMostrar.nombre}} </p>
                         </div>
 
 
@@ -406,7 +396,7 @@
                     <div class="form-group col-md-11">
                         <label for="name" class="col-md-4 control-label">Descripción</label>
                         <div class="col-md-8">
-                            <input type="text" name="date-in" id="date-ini" class="form-control" readonly="">
+                            <p>{{currentSitioMostrar.detalles}}</p>
                         </div>
                     </div>
                     <div class="form-group col-md-11">

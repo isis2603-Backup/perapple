@@ -17,8 +17,10 @@
         $scope.ciudadBuscada = ""; //nombre de ciudad ingresada por el usuario
         $scope.ciudades = []; //ciudades a mostrar para elección
         $scope.alerts = [];
-
+        
+        $scope.currentSitioMostrar={}; //Sitio del cual se muestran detalles
         $scope.currentSitio={}; //sitio seleccionado para agregar
+        $scope.haySitios= false;
         $scope.fechaSitio= new Date(); //fecha visita del sitio
         $scope.sitios=[]; //sitios a mostrar según la ciudad elegida
 
@@ -114,6 +116,25 @@
                 return response;
             }, responseError);
         };
+
+        //Función para "habilitar" los detalles de un sitio
+        this.fetchCurrentRecordSitio = function () {
+            return svc.fetchCurrentRecord().then(function (response) {
+                $scope.currentRecord = response.data;
+                 if($scope.currentRecord.sitios ){
+                if($scope.currentRecord.sitios.length >0){
+                $scope.currentSitioMostrar = $scope.currentRecord.sitios[0];
+
+                $scope.haySitios = true;
+            } else{
+                $scope.haySitios = false;
+            }
+            }
+
+                return response;
+            }, responseError);
+        };
+
 
         /**
          * para crear un nuevo itinerario
@@ -262,7 +283,7 @@
         };
 
         
-
+         //MIRAR !!
         this.detallesSitio=function($event){
 
             var pId = $event.currentTarget.name;
@@ -270,8 +291,8 @@
                 console.log("value.id:"+value.id+" pId:"+pId);
             if (value.id === parseInt(pId)) {
 
-                $scope.currentSitio = value;
-                console.log($scope.currentSitio.nombre);
+                $scope.currentSitioMostrar = value;
+                console.log($scope.currentSitioMostrar.nombre);
             }
         });
         };
@@ -355,7 +376,7 @@
         this.fetchCurrentRecord();
         this.fetchRecords();
         this.fetchCiudades();
-        this.fetchSitios(1);
+        this.fetchSitios();
 
     }]);
 
