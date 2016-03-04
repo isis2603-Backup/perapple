@@ -8,12 +8,13 @@
             $scope.usuario= "Perapple";
             $scope.contrasena = "Perapple";
             $scope.correo = "perapple@gmail.com";
+            $scope.imagen = "http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg";
             $scope.itinerario = "";
             $scope.itinerarios = [];
 
             $scope.agregar = function(itinerario){
             $scope.itinerarios.push(itinerario);
-             $scope.itinerario = "";
+            $scope.itinerario = "";
         };
 
             $scope.objectValue = sharedProperties.getObject();
@@ -62,7 +63,8 @@
            };
 
         $scope.agegar_usuario=function (){
-       // <!--- por desarrollar--->
+           $scope.viajeros.push(prompt("Se ha creado la cuenta de usuario"));
+
         };
 
         $scope.detalles = function(ciudad){
