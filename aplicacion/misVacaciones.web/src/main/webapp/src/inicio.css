@@ -51,6 +51,11 @@
 .navbar-default .navbar-nav>li>a:focus
 {
     color:   #FD9A10;
+    background-image: url(http://3.bp.blogspot.com/-WG-MOHo-sc4/T0MmKOXGgeI/AAAAAAAAG0c/KspSnnTbn8g/s1600/luces4.png);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position: bottom;
+    margin:auto;
     
     
 }
