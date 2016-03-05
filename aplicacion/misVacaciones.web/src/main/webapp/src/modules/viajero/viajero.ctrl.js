@@ -13,18 +13,19 @@
             //viajero actual
             $scope.currentViajero = {};
             
-            //Ciudades
+            //Viajeros
             $scope.records = [];
             
             //Se almacenan todas las alertas
             $scope.alerts = [];
             $scope.currentRecord = {};
             $scope.records = [];
-
+            
+            //fecha de hoy
             $scope.today = function () {
                 $scope.value = new Date();
             };
-
+            //vaciar scope
             $scope.clear = function () {
                 $scope.value = null;
             };
@@ -85,11 +86,11 @@
              *
              */
 
-            this.createRecord = function () {
-                $scope.$broadcast("pre-create", $scope.currentRecord);
+            this.createViajero = function () {
+                $scope.$broadcast("pre-create", $scope.currentViajero);
                 this.editMode = true;
                 $scope.currentRecord = {};
-                $scope.$broadcast("post-create", $scope.currentRecord);
+                $scope.$broadcast("post-create", $scope.currentViajero);
             };
 
             /*
@@ -100,12 +101,12 @@
              *
              */
 
-            this.editRecord = function (record) {
-                $scope.$broadcast("pre-edit", $scope.currentRecord);
-                return svc.fetchRecord(record.id).then(function (response) {
-                    $scope.currentRecord = response.data;
+            this.editViajero = function (viajero) {
+                $scope.$broadcast("pre-edit", $scope.currentViajero);
+                return svc.fetchRecord(viajero.id).then(function (response) {
+                    $scope.currentViajero = response.data;
                     self.editMode = true;
-                    $scope.$broadcast("post-edit", $scope.currentRecord);
+                    $scope.$broadcast("post-edit", $scope.currentViajero);
                     return response;
                 }, responseError);
             };
@@ -117,7 +118,14 @@
              * Muestra el template de la lista de records.
              */
 
-            this.fetchRecords = function () {
+             this.fetchViajero = function (idViajero) {
+                return svc.fetchViajeros(idViajero).then(function (response) {
+                    $scope.currentViajero = response.data;
+                    self.editMode = false;
+                    return response;
+                }, responseError);
+            };
+            this.fetchViajeros = function () {
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
                     $scope.currentRecord = {};
@@ -126,7 +134,7 @@
                 }, responseError);
             };
 
-            this.fetchRecordsItinerario = function() { $scope.$emit('fetchRecordsItinerario');};
+            
 
             /*
              * Funcion saveRecord hace un llamado al servicio svc.saveRecord con el fin de
@@ -134,8 +142,8 @@
              * Muestra el template de la lista de records al finalizar la operación saveRecord
              */
             this.saveRecord = function () {
-                    return svc.saveRecord($scope.currentRecord).then(function () {
-                        self.fetchRecords();
+                    return svc.saveViajero($scope.currentViajero).then(function () {
+                        self.fetchViajeros();
                     }, responseError);
             };
 
@@ -144,9 +152,9 @@
              * de eliminar el registro asociado.
              * Muestra el template de la lista de records al finalizar el borrado del registro.
              */
-            this.deleteRecord = function (record) {
-                return svc.deleteRecord(record.id).then(function () {
-                    self.fetchRecords();
+            this.deleteViajero = function (viajero) {
+                return svc.deleteViajero(viajero.id).then(function () {
+                    self.fetchViajeros();
                 }, responseError);
             };
 
@@ -160,9 +168,9 @@
             $scope.itinerario = "";
             $scope.itinerarios = [];
 
-            this.agregar = function(itinerario){
-            $scope.itinerarios.push(itinerario);
-             $scope.itinerario = "";};
+            this.agregar = function(viajero){
+            $scope.viajeros.push(viajero);
+             $scope.viajero = "";};
 
           //  this.fetchRecords();
 
