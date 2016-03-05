@@ -3,8 +3,8 @@
 
     mod.service("itinerarioService", ["$http", "itinerarioContext", function ($http, context) {
 
-
-            //FUNCIONES PARA OBTENER/LEER
+        //FUNCIONES PARA OBTENER/LEER
+        
         /**
          * Obtener la lista de itinerarios.
          * Hace una petición GET con $http a /itinerario para obtener la lista
@@ -12,14 +12,20 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un array de objetos de itinerario(todos los itinerarios de todos los usuarios).
          */
-
-            this.fetchRecords = function () {
+        this.fetchRecords = function () {
             return $http.get(context);
         };
-
+        
+        /**
+         * Obtener la lista de itinerarios.
+         * Hace una petición GET con $http a /itinerario/current para obtener el itinerario actual
+         * @returns {promise} promise para leer la respuesta del servidor.
+         * Se recibe un objeto de itinerario
+         */
         this.fetchCurrentRecord = function () {
             return $http.get(context+"/current");
         };
+        
         /**
          * Obtener un registro de itinerarios.
          * Hace una petición GET a /itinerario/:id para obtener
@@ -32,9 +38,8 @@
             return $http.get(context + "/" + id);
         };
 
-        
-
         //FUNCIONES PARA AGREGAR/GUARDAR
+        
         /**
          * Guardar un registro de itinerario.
          * Si currentRecord tiene la propiedad viajero, hace un PUT a /itinerario/:viajero con los
@@ -53,16 +58,23 @@
                 return $http.post(context, currentRecord);
             }
         };
-
-          this.saveCurrentRecord = function (currentRecord) {
+        
+        /**
+         * Guardar un registro de itinerario.
+         * Si currentRecord tiene la propiedad viajero, hace un PUT a /itinerario/current/:viajero con los
+         * nuevos datos de la instancia de itinerario.
+         * @param {object} currentRecord instancia de itineraio a guardar/actualizar
+         * @returns {promise} promise para leer la respuesta del servidor.
+         * Se recibe un objeto de itinerario con su nuevo viajero
+         */
+        this.saveCurrentRecord = function (currentRecord) {
             if (currentRecord.id) {
                 return $http.put(context + "/current", currentRecord);
             }
         };
 
-
-
-       //FUNCIONES PARA BORRADO DE ELEMENTOS
+        
+        //FUNCIONES PARA BORRADO DE ELEMENTOS
 
         /**
          * Hace una petición DELETE a /itineraro/:nItinerario para eliminar un itinerario
@@ -74,19 +86,17 @@
             return $http.delete(context + "/" + idItinerario );
         };
 
-
-         /**
-         * Hace una petición DELETE a /itineraro/:viajero/S/:sitio para eliminar un sitio de un itinerario de un usuario dado
+        /**
+         * Hace una petición DELETE a /itinerario/:viajero/:itinerario/:ciudad/S/:sitio para eliminar un sitio de un itinerario de un usuario dado
          * @param {string} viajero identificador de la instancia de itinerarios de la que se quiere eliminar
          * @param {string} itinerario identificador del itinerario del que se quiere eliminar sitio
          * @param {string} sitio identificador del sitio a eliminar
-         * * @param {string} ciudad identificador de la ciudad
+         * @param {string} ciudad identificador de la ciudad
          * @returns {promise} promise para leer respuesta del servidor
          * No se recibe cuerpo en la respuesta
          */
-
-        this.borrarSitio = function (viajero, ciudad,itinerario, sitio) {
-            return $http.delete(context + viajero + "/" + itinerario+ "/"+ciudad +"/S/"+sitio);
+        this.borrarSitio = function (viajero, ciudad, itinerario, sitio) {
+            return $http.delete(context + "/" + viajero + "/" + itinerario+ "/"+ciudad +"/S/"+sitio);
         };
 
         /**
@@ -98,11 +108,9 @@
          * @returns {promise} promise para leer respuesta del servidor
          * No se recibe cuerpo en la respuesta
          */
-
-        this.borrarEvento = function (viajero,itinerario, ciudad,evento) {
+        this.borrarEvento = function (viajero, itinerario, ciudad, evento) {
             return $http.delete(context + "/" + viajero + "/" + itinerario+"/"+ciudad+"/E/"+evento);
         };
-
-
+        
     }]);
 })(window.angular);

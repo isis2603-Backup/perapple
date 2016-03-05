@@ -99,39 +99,37 @@
                 </table>
 
                 <div class="row">
-                    <button id="button_agregar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popEvento" > Agregar Evento </button>
+                    <button id="button_agregar_evento" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popEvento" ng-click="ctrl.fetchEventos(currentCiudadItinerario.id);"> Agregar Evento </button>
                 </div>
               </div>
 
             <div class="col-sm-6" style="overflow:auto; text-align: center">
                 <h3> Sitios de Interés </h3>
-                         <br>
-                    <table border="1" class= "table table-bordered">
-                        <tr>
-                            <td ALIGN=center><b>Mis Sitios</b></td>
-                            <td ALIGN="center" ><b>Detalles</b></td>
-                            <td ALIGN="center" ><b>Calificación</b></td>
-                             <td ALIGN="center" ><b>Borrar</b></td>
-                        <tr ng-repeat="nc in  currentCiudadItinerario.sitios track by $index">
+                <br>
+                <table border="1" class= "table table-bordered">
+                    <tr>
+                        <td ALIGN=center><b>Mis Sitios</b></td>
+                        <td ALIGN="center" ><b>Detalles</b></td>
+                        <td ALIGN="center" ><b>Calificación</b></td>
+                        <td ALIGN="center" ><b>Borrar</b></td>
+                    <tr ng-repeat="nc in  currentCiudadItinerario.sitios track by $index">
                         <td>{{nc.nombre}}</td>
-                            <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio" ng-click="ctrl.detallesSitio($event)"> Detalles </button></td>
-                            <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
-                            <td><button id="button_borrar_sitio" type="button" class="btn btn-primary" ng-click="ctrl.borrarSitioTabla($event)"> Borrar </button></td>
+                        <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio" ng-click="ctrl.detallesSitio($event)"> Detalles </button></td>
+                        <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
+                        <td><button id="button_borrar_sitio" type="button" class="btn btn-primary" name="{{nc.id}}" ng-click="ctrl.borrarSitio($event)"> Borrar </button></td>
                     </tr>
-
-                    </table>
-                      <div class="row">
-
-                          <button id="button_agregar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popSitio"  > Agregar Sitio </button>
-                            
-                        </div>
-              </div>
+                </table>
+                <div class="row">
+                    <button id="button_agregar_sitio" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popSitio" ng-click="ctrl.fetchSitios(currentCiudadItinerario.id);"> Agregar Sitio </button>
+                </div>
             </div>
         </div>
-
+    </div>
+    
     <p ALIGN="center"> <a href="javascript:window.scrollTo(0,500)" style="text-align:center; font-size: 120%;" id="volver" class="btn btn-primary" > Volver Arriba </a> </p>
     <br>
     <br>
+    
 </div>
 
 <!--pop up agregar ciudad-->
@@ -163,7 +161,7 @@
                              <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="ciudad in ciudades">
                                   <td align="left">{{ciudad.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event)"> Agregar Ciudad </button></td>
+                                  <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
                                 </tr>
                             </table>
                         </div>
@@ -177,7 +175,7 @@
 
 <!--pop up agregar evento-->
 <div class="modal fade" id="popEvento" tabindex="-1" role="dialog">
-   <div class="modal-dialog">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchEventos(currentCiudadItinerario.id);"><span aria-hidden="true">&times;</span></button>
@@ -193,24 +191,21 @@
                    <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
-
-                           <br>
+                            <br>
                             <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="evento in eventos">
-                                  <td align="left">{{evento.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{evento.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.saveEvento($event)"> Agregar Evento</button>
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button></td>
-
+                                    <td align="left">{{evento.nombre}}</td>
+                                    <td align="center"><button type="button" name="{{evento.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarEvento($event);"> Agregar Evento </button></td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-sm-1"></div>
+                        <div class="col-sm-1">
+                        </div>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
 </div>
 
 <!--pop up agregar sitio-->
@@ -231,16 +226,16 @@
                    <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
-                            
-                           <br>
+                            <br>
                             <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="sitio in sitios">
-                                  <td align="left">{{sitio.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{sitio.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarSitio($event)"> Agregar Sitio </button></td>
+                                    <td align="left">{{sitio.nombre}}</td>
+                                    <td align="center"><button type="button" name="{{sitio.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarSitio($event);"> Agregar Sitio </button></td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-sm-1"></div>
+                        <div class="col-sm-1">
+                        </div>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
@@ -369,56 +364,52 @@
 <!--pop up detalles sitio-->
 <div class="modal fade" id="popDetallesSitio" tabindex="-1" role="dialog" ng-show="haySitios">
     <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Info Sitio</h4>
-      </div>
-      <div class="modal-body">
-         <form>
-            <div class="well" style="display:flex; justify-content: center;">
-                <fieldset>
-                    <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:orange;">
-                            <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentSitioMostrar.imagen}}' alt="">
-                        </div>
-<br>
-
-
-  <div class="form-group col-md-11">
-                        <label for="name" class="col-md-4 control-label">Nombre</label>
-
-						<div class="col-md-8" style="margin: 5 px; ">
-                                                    <p>{{currentSitioMostrar.nombre}} </p>
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="form-group col-md-11">
-                        <label for="name" class="col-md-4 control-label">Descripción</label>
-                        <div class="col-md-8">
-                            <p>{{currentSitioMostrar.detalles}}</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <label for="name" class="col-md-7 control-label">Calificaciones</label>
-                        <div class="rating" style="float:left;">
-                           <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                       </div>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <label for="name" class="col-md-4 control-label">Comentarios</label>
-                        <div class="col-md-8">
-                          <input id="name_s" name="name_s" class="form-control" type="text" readonly="">
-                        </div>
-                    </div>
-                </fieldset>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Info Sitio</h4>
             </div>
-        </form>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            <div class="modal-body">
+                <form>
+                    <div class="well" style="display:flex; justify-content: center;">
+                        <fieldset>
+                            <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:orange;">
+                                <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentSitioMostrar.imagen}}' alt="">
+                            </div>
+                            <br>
+                            <div class="form-group col-md-11">
+                                <label for="name" class="col-md-4 control-label">Nombre</label>
+                                <div class="col-md-8" style="margin: 5 px; ">
+                                    <p>{{currentSitioMostrar.nombre}} </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-11">
+                                <label for="name" class="col-md-4 control-label">Descripción</label>
+                                <div class="col-md-8">
+                                    <p>{{currentSitioMostrar.detalles}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-11">
+                                <label for="name" class="col-md-7 control-label">Calificaciones</label>
+                                <div class="rating" style="float:left;">
+                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-11">
+                                <label for="name" class="col-md-4 control-label">Comentarios</label>
+                                <div class="col-md-8">
+                                    <input id="name_s" name="name_s" class="form-control" type="text" readonly="">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 
 

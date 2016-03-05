@@ -57,6 +57,10 @@
             self.showError(response.data);
         }
         
+        //Variables para el controlador
+        this.readOnly = false;
+        this.editMode = false;
+        
         //Alertas
         this.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
@@ -64,15 +68,12 @@
 
         this.showError = function (msg) {
             showMessage(msg, "danger");
-        };
-    
-        //Variables para el controlador
-        this.readOnly = false;
-        this.editMode = false;
-
+        };    
+        
         this.changeTab = function (tab) {
             $scope.tab = tab;
         };
+
 
         this.createRecord = function () {
             $scope.$broadcast("pre-create", $scope.currentRecord);
@@ -91,50 +92,6 @@
             }, responseError);
         };
 
-        this.fetchRecords = function () {
-            return svc.fetchRecords().then(function (response) {
-                $scope.records = response.data;
-
-                $scope.currentUser = $scope.currentRecord.viajero;
-
-                self.editMode = false;
-                return response;
-            }, responseError);
-        };
-
-        this.fetchCurrentRecord = function () {
-            return svc.fetchCurrentRecord().then(function (response) {
-                $scope.currentRecord = response.data;
-                if($scope.currentRecord.ciudades){
-                    if($scope.currentRecord.ciudades.length >0){
-                    $scope.currentCiudadItinerario = $scope.currentRecord.ciudades[0];
-                    $scope.hayCiudades = true;
-                    } 
-                    else{
-                        $scope.hayCiudades = false;
-                    }
-                }
-                return response;
-            }, responseError);
-        };
-
-        //Función para "habilitar" los detalles de un sitio
-        this.fetchCurrentCiudadItinerarioSitio = function () {
-            return svc.fetchCurrentRecord().then(function (response) {
-                $scope.currentRecord = response.data;
-                if($scope.currentRecord.sitios ){
-                    if($scope.currentRecord.sitios.length > 0){
-                        $scope.currentSitioMostrar = $scope.currentCiudadItinerario.sitios[0];
-                        $scope.haySitios = true;
-                    } else{
-                        $scope.haySitios = false;
-                    }
-                }
-                return response;
-            }, responseError);
-        };
-
-
         /**
          * para crear un nuevo itinerario
          * @returns {unresolved}
@@ -150,7 +107,60 @@
                 self.fetchCurrentRecord();
             }, responseError);
         };
+        
 
+        this.fetchRecords = function () {
+            return svc.fetchRecords().then(function (response) {
+                $scope.records = response.data;
+                $scope.currentUser = $scope.currentRecord.viajero;
+                self.editMode = false;
+                return response;
+            }, responseError);
+        };
+        
+        this.fetchCiudades = function (){
+            return svcCiudad.fetchCiudades().then(function (response) {
+                $scope.ciudades = response.data;
+                $scope.currentCiudad = {};
+                return response;
+            }, responseError);
+        };
+        
+        this.fetchSitios = function (id) {
+            return svcCiudad.fetchSitios(id).then(function (response) {
+                $scope.sitios = response.data;
+                $scope.currentSitio = {};
+                self.editMode = false;
+                return response;
+            }, responseError);
+        };
+
+        this.fetchEventos = function (id) {
+            return svcCiudad.fetchEventos(id).then(function (response) {
+                $scope.eventos = response.data;
+                $scope.currentEvento = {};
+                self.editMode = false;
+                return response;
+            }, responseError);
+        };
+        
+
+        this.fetchCurrentRecord = function () {
+            return svc.fetchCurrentRecord().then(function (response) {
+                $scope.currentRecord = response.data;
+                if($scope.currentRecord.ciudades){
+                    if($scope.currentRecord.ciudades.length >0){
+                        //$scope.currentCiudadItinerario = $scope.currentRecord.ciudades[0]; si se descomenta esto cuando se agrega un sitio se pone visible la ciudad en [0]
+                        $scope.hayCiudades = true;
+                    } 
+                    else{
+                        $scope.hayCiudades = false;
+                    }
+                }
+                return response;
+            }, responseError);
+        };    
+        
         this.itinerarioActual = function($event){
             var id = parseInt($event.currentTarget.name);
 
@@ -165,136 +175,10 @@
                 }
             }
             return svc.saveCurrentRecord($scope.currentRecord).then(function () {
-
                 self.fetchCurrentRecord();
             }, responseError);
         };
-
-        this.agregarItinerario = function (nombre, fechaI, fechaF){
-
-
-            $scope.currentRecord = {id:'',
-                               viajero: 'perapple',
-                               nombre: nombre ,
-                               fechaInicio: fechaI ,
-                               fechaFin: fechaF,
-                               ciudades: [],
-                               sitios:[],
-                               eventos: []
-            };
-
-            return svc.saveRecord($scope.currentRecord).then(function () {
-
-                self.fetchRecords();
-            }, responseError);
-
-        };
-
-        this.borrarItinerario = function ($event){
-
-            var iditinerario = $event.currentTarget.name;
-
-            return svc.borrarItinerario(iditinerario).then(function () {
-                self.fetchRecords();
-            }, responseError);
-        };
-
-        this.borrarCiudad = function ($event){
-
-            var id = parseInt($event.currentTarget.name);
-            console.log("id ciudad a eliminar: "+id);
-            var encontro = false;
-            for(var i = 0; i<$scope.currentRecord.ciudades.length && !encontro;i++)
-            {
-                if(id === $scope.currentRecord.ciudades[i].id)
-                {
-                    $scope.currentRecord.ciudades.splice(i,1);
-                    console.log($scope.currentRecord.ciudades);
-                    encontro = true;
-                }
-            }
-
-
-            self.saveCurrentRecord();
-            self.saveRecord();
-        };
-
-        this.borrarSitioTabla = function ($event){
-
-            var id = parseInt($event.currentTarget.name);
-            console.log("id sitio a eliminar: "+id);
-            var encontro = false;
-            for(var i = 0; i<$scope.currentRecord.sitios.length && !encontro;i++)
-            {
-                if(id === $scope.currentRecord.sitios[i].id)
-                {
-                    $scope.currentRecord.sitios.splice(i,1);
-                    console.log($scope.currentRecord.sitios);
-                    encontro = true;
-                }
-            }
-
-
-            self.saveCurrentRecord();
-            self.saveRecord();
-        };
-
-        this.borrarEvento = function (viajero, iditinerario, idciudad, idevento){
-            return svc.borrarEvento(viajero,iditinerario,idciudad, idevento).then(function () {
-                self.fetchRecords();
-            }, responseError);
-        };
-
-        this.borrarSitio = function (viajero, iditinerario, idciudad, idsitio){
-            return svc.borrarSitio(viajero,iditinerario, idciudad, idsitio).then(function () {
-                self.fetchRecords();
-            }, responseError);
-        };
-
-        this.fetchCiudades = function (){
-             return svcCiudad.fetchCiudades().then(function (response) {
-                $scope.ciudades = response.data;
-                $scope.currentCiudad = {};
-                return response;
-            }, responseError);
-        };
-
-        this.detallesCiudad=function($event){
-
-            var pId = $event.currentTarget.name;
-            
-            ng.forEach($scope.currentRecord.ciudades, function (value) {
-                console.log("value.id:"+value.id+" pId:"+pId);
-                if (value.id === parseInt(pId)) {
-                    $scope.currentCiudadItinerario = value;
-                    console.log($scope.currentCiudadItinerario.nombre);
-                }
-            });
-        };
         
-        //MIRAR !!
-        this.detallesSitio=function($event){
-
-            var pId = $event.currentTarget.name;
-            
-            ng.forEach($scope.currentCiudadItinerario.sitios, function (value){
-                console.log("value.id:"+value.id+" pId:"+pId);
-                if (value.id === parseInt(pId)) {
-                    $scope.currentSitioMostrar = value;
-                    console.log($scope.currentSitioMostrar.nombre);
-                }
-            });
-        };
-
-        this.fetchSitios = function (id) {
-            return svcCiudad.fetchSitios(id).then(function (response) {
-                $scope.sitios = response.data;
-                $scope.currentSitio = {};
-                self.editMode = false;
-                return response;
-            }, responseError);
-        };
-
         /**
          * REVISAR
          * @returns {unresolved}
@@ -313,7 +197,23 @@
             }
             return ciudad;
         };
-
+        
+        
+        this.agregarItinerario = function (nombre, fechaI, fechaF){
+            $scope.currentRecord = {id:'',
+                               viajero: 'perapple',
+                               nombre: nombre ,
+                               fechaInicio: fechaI ,
+                               fechaFin: fechaF,
+                               ciudades: [],
+                               sitios:[],
+                               eventos: []
+            };
+            return svc.saveRecord($scope.currentRecord).then(function () {
+                self.fetchRecords();
+            }, responseError);
+        };
+        
         this.agregarCiudad=function($event){
             console.log($event);
             var pId = $event.currentTarget.name;
@@ -348,6 +248,7 @@
 
         this.agregarSitio=function($event){
             console.log($event);
+            
             var pId = $event.currentTarget.name;
             var encontro = false;
             
@@ -371,10 +272,155 @@
 
                     encontro = true;
                     console.log($scope.currentSitio.nombre);
-                    self.fetchCurrentRecord();
                 }
             }
         };
+        
+        this.agregarEvento=function($event){
+            console.log($event);
+            
+            var pId = $event.currentTarget.name;
+            var encontro = false;
+            
+            for (var i = 0; i<$scope.eventos.length && !encontro;i++)
+            {
+                var value = $scope.eventos[i];
+                console.log("value.id:"+value.id+" pId:"+pId);
+                
+                if (value.id === parseInt(pId)) {
+                    
+                    $scope.currentEvento = {id:value.id,
+                                            nombre:value.nombre,
+                                            descripcion:value.descripcion,
+                                            fechas:value.fecha
+                                          };
+
+                    $scope.currentCiudadItinerario.eventos.push($scope.currentEvento);
+                    
+                    self.saveCurrentRecord();
+                    self.saveRecord();
+
+                    encontro = true;
+                    console.log($scope.currentEvento.nombre);
+                }
+            }
+        };
+                   
+
+        this.borrarItinerario = function ($event){
+            var iditinerario = $event.currentTarget.name;
+            return svc.borrarItinerario(iditinerario).then(function () {
+                self.fetchRecords();
+            }, responseError);
+        };
+        
+        this.borrarCiudad = function ($event){
+
+            var id = parseInt($event.currentTarget.name);
+            console.log("id ciudad a eliminar: "+id);
+            var encontro = false;
+            for(var i = 0; i<$scope.currentRecord.ciudades.length && !encontro;i++)
+            {
+                if(id === $scope.currentRecord.ciudades[i].id)
+                {
+                    $scope.currentRecord.ciudades.splice(i,1);
+                    console.log($scope.currentRecord.ciudades);
+                    encontro = true;
+                }
+            }
+            self.saveCurrentRecord();
+            self.saveRecord();
+        };      
+        
+        this.borrarSitio = function ($event){
+            
+            var id = parseInt($event.currentTarget.name);
+            
+            console.log("id sitio a eliminar: "+id);
+            var encontro = false;
+
+            for(var i = 0; i<$scope.currentRecord.sitios.length && !encontro;i++)
+            {
+                if(id === $scope.currentRecord.sitios[i].id)
+                {
+                    $scope.currentRecord.sitios.splice(i,1);
+                    console.log($scope.currentRecord.sitios);
+                    encontro = true;
+                }
+            }                        
+            
+            return svc.borrarSitio($scope.currentUser, $scope.currentRecord.id, $scope.currentCiudadItinerario.id, id).then(function () {
+                self.saveCurrentRecord();
+                self.saveRecord();
+                self.fetchRecords();
+            }, responseError);
+        };
+        
+        this.borrarSitioTabla = function ($event){
+
+            var id = parseInt($event.currentTarget.name);
+            console.log("id sitio a eliminar: "+id);
+            var encontro = false;
+            for(var i = 0; i<$scope.currentRecord.sitios.length && !encontro;i++)
+            {
+                if(id === $scope.currentRecord.sitios[i].id)
+                {
+                    $scope.currentRecord.sitios.splice(i,1);
+                    console.log($scope.currentRecord.sitios);
+                    encontro = true;
+                }
+            }
+
+            self.saveCurrentRecord();
+            self.saveRecord();
+        };
+
+        this.borrarEvento = function (viajero, iditinerario, idciudad, idevento){
+            return svc.borrarEvento(viajero,iditinerario,idciudad, idevento).then(function () {
+                self.fetchRecords();
+            }, responseError);
+        };
+        
+
+        this.detallesCiudad=function($event){
+
+            var pId = $event.currentTarget.name;
+            
+            ng.forEach($scope.currentRecord.ciudades, function (value) {
+                console.log("value.id:"+value.id+" pId:"+pId);
+                if (value.id === parseInt(pId)) {
+                    $scope.currentCiudadItinerario = value;
+                    console.log($scope.currentCiudadItinerario.nombre);
+                }
+            });
+        };
+        
+        this.detallesSitio=function($event){
+
+            var pId = $event.currentTarget.name;
+            
+            ng.forEach($scope.currentCiudadItinerario.sitios, function (value){
+                console.log("value.id:"+value.id+" pId:"+pId);
+                if (value.id === parseInt(pId)) {
+                    $scope.currentSitioMostrar = value;
+                    console.log($scope.currentSitioMostrar.nombre);
+                }
+            });
+        };
+        
+        this.detallesEvento=function($event){
+
+            var pId = $event.currentTarget.name;
+            
+            ng.forEach($scope.currentCiudadItinerario.eventos, function (value){
+                console.log("value.id:"+value.id+" pId:"+pId);
+                if (value.id === parseInt(pId)) {
+                    $scope.currentEventoMostrar = value;
+                    console.log($scope.currentEventoMostrar.nombre);
+                }
+            });
+        };
+              
 
         this.fetchCurrentRecord();
         this.fetchRecords();
