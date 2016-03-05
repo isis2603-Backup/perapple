@@ -24,7 +24,7 @@
              * api/(cualquierpalabra)/(numero)
              * ej: api/books/1
              */
-            var recordUrl = new RegExp('api/viajero/([0-9]+)');
+            var recordUrlViajero = new RegExp('api/viajero/([0-9]+)');
 
             /*
              * @type Array
@@ -41,37 +41,37 @@
                     name: 'Camilo Mendoza',
                     password: 'perapple',
                      email: 'p@earpple',
-                    image: ''
+                    image: 'http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg'
                     },
                 {id: 3,
                     name: 'Harold Gonzalez',
                     password: 'perapple',
                      email: 'p@earpple',
-                    image: ''
+                    image: 'http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg'
                     },
                 {id: 4,
                     name: 'María Remolina',
                     password: 'perapple',
                     email: 'p@earpple',
-                    image: ''
+                    image: 'http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg'
                     },
                 {id: 5,
                     name: 'Estaben Dalel',
                     password: 'perapple',
                     email: 'p@earpple',
-                    image: ''
+                    image: 'http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg'
                     },
                 {id: 6,
                     name: 'Nicolas Galvis',
                     password: 'perapple',
                     email: 'p@earpple',
-                    image: ''
+                    image: 'http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg'
                     },
                 {id: 7,
                     name: 'Daniel Althviz',
                     password: 'perapple',
                     email: 'p@earpple',
-                    image: ''
+                    image: 'http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg'
                     }
             ];
 
