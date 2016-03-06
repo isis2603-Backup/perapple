@@ -29,7 +29,7 @@
          * @returns {promise} promise para leer la respuesta del servidor
          * Devuelve un objeto de viajero con sus atributos 
          */
-        this.fetchRecord = function (id) {
+        this.fetchViajeros= function (id) {
             return $http.get(context + "/" + id);
         };
 
