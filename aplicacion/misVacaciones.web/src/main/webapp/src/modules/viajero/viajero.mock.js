@@ -22,7 +22,7 @@
              * @type RegExp
              * recordUrl acepta cualquier url con el formato
              * api/(cualquierpalabra)/(numero)
-             * ej: api/books/1
+             * ej: api/Viajeros/1
              */
             var recordUrlViajero = new RegExp('api/viajero/([0-9]+)');
 
@@ -91,7 +91,7 @@
             $httpBackend.whenGET(ignore_regexp).passThrough();
 
             /*
-             * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/books"
+             * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/Viajeros"
              * Obtiene los parámetros de consulta "queryParams" para establecer
              * la pagina y la maxima cantida de records. Con los anteriores parametros
              * se realiza la simulacion de la paginacion.
@@ -114,11 +114,11 @@
                 return [200, responseObj, headers];
             });
             /*
-             * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/books/[numero]"
+             * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/Viajeros/[numero]"
              * Obtiene el id de la url y el registro asociado dentro del array records.
              * Response: 200 -> Status ok, record -> libro y ningún header.
              */
-            $httpBackend.whenGET(recordUrl).respond(function (method, url) {
+            $httpBackend.whenGET(recordUrlViajero).respond(function (method, url) {
                 var id = parseInt(url.split('/').pop());
                 var record;
                 ng.forEach(records, function (value) {
@@ -129,7 +129,7 @@
                 return [200, record, {}];
             });
             /*
-             * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/books"
+             * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/Viajeros"
              * Obtiene el record de libro desde el cuerpo de la peticion
              * Genera un id aleatorio y lo asocia al record de libro y lo guarda en el
              * array de records.
@@ -143,13 +143,13 @@
             });
 
             /*
-             * Esta funcion se ejecuta al invocar una solicitud DELETE a la url "api/books/[numero]"
+             * Esta funcion se ejecuta al invocar una solicitud DELETE a la url "api/Viajeros/[numero]"
              * Obtiene el id del la url y el registro asociado dentro del array records.
              * Luego realiza un splice "eliminar registro del array".
              * Response: 204, no retorna ningun dato ni headers.
              */
 
-            $httpBackend.whenDELETE(recordUrl).respond(function (method, url) {
+            $httpBackend.whenDELETE(recordUrlViajero).respond(function (method, url) {
                 var id = parseInt(url.split('/').pop());
                 ng.forEach(records, function (value, key) {
                     if (value.id === id) {
@@ -160,13 +160,13 @@
             });
 
             /*
-             * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/books/[numero]"
+             * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/Viajeros/[numero]"
              * Obtiene el id del la url y el record de libro desde el cuerpo de la peticion
              * Busca y reemplaza el anterior registro por el enviado en el cuerpo de la solicitud
              * Response: 204, no retorna ningun dato ni headers.
              *
              */
-            $httpBackend.whenPUT(recordUrl).respond(function (method, url, data) {
+            $httpBackend.whenPUT(recordUrlViajero).respond(function (method, url, data) {
                 var id = parseInt(url.split('/').pop());
                 var record = ng.fromJson(data);
                 ng.forEach(records, function (value, key) {
