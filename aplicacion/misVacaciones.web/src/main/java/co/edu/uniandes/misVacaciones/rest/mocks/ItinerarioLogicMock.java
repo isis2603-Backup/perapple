@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,6 +14,7 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
+import static co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock.ciudades;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,19 +49,18 @@ public class ItinerarioLogicMock {
             itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "perapple", "12-05-2016","13-06-2016"));
 
             ArrayList<CiudadDTO> ciudades = new ArrayList<>();
-            ciudades.add(new CiudadDTO(1L, "Bogotá"));
-            ciudades.add(new CiudadDTO(2L, "Bucaramanga"));
-            ciudades.add(new CiudadDTO(3L, "Cali"));
+            ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
+            ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
+            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
 
             itinerarios.get(0).setCiudades(ciudades);
 
             itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "perapple","12-07-2016","13-08-2016"));
 
             ciudades = new ArrayList<>();
-            ciudades.add(new CiudadDTO(1L, "Bucaramanga"));
-            ciudades.add(new CiudadDTO(2L, "Bogotá"));
-            ciudades.add(new CiudadDTO(3L, "Cali"));
-
+             ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
+            ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
+            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
             itinerarios.get(1).setCiudades(ciudades);
 
         }
