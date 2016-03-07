@@ -21,14 +21,14 @@
                 <br>
 
                 <table id="tabla" border="1" class="table table-bordered">
-                    <tr ng-show = "hayCiudades">
+                    <tr>
                         <td ALIGN=center> <b>Ciudades</b> </td>
                         <td ALIGN=center> <b>Fecha Inicio</b></td>
                         <td ALIGN=center> <b>Fecha Fin</b></td>
                         <td ALIGN=center> <b>Detalles</b> </td>
-                        <td ALIGN=center> <b>Borrar</b> </td>
+                        <td ALIGN=center> <b>Borrar {{currentCiudadesMostrar[0].nombre}}</b> </td>
                     </tr>
-                    <tr ng-repeat="nc in currentRecord.ciudades">
+                    <tr ng-repeat="nc in currentCiudadesMostrar">
                         <td>{{nc.nombre}}</td>
                         <td>{{nc.fInicio|date}}</td>
                         <td>{{nc.fFin|date}}</td>
@@ -67,15 +67,15 @@
 
     <br>
 
-    <div  id="detallesCiudad" class="col-sm-12 " style="justify-content: center " ng-show="hayCiudades"  >
+    <div  id="detallesCiudad" class="col-sm-12 " style="justify-content: center " >
         <div class="col-sm-12 well" style="overflow: auto; ">
             <div style="display:flex; justify-content: center; background-color:#ff9900; border-radius: 8px">
                 <div style = "margin:0 auto;">
-                    <h2 style="text-align: center"> {{currentCiudadItinerario.nombre}} </h2>
-                    <p>{{currentCiudadItinerario.detalles}}</p>
+                    <h2 style="text-align: center"> {{currentCiudadMostrar.nombre}} </h2>
+                    <p>{{currentCiudadMostrar.detalles}}</p>
                 </div>
                 <div class="img-circle" id="image" style="justify-content: center;margin:0 auto;">
-                    <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadItinerario.imagen}}" alt="" />
+                    <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.imagen}}" alt="" />
                 </div>
             </div>
 
@@ -89,17 +89,17 @@
                         <td ALIGN="center" ><b>Calificar</b></td>
                         <td ALIGN="center" ><b>Borrar</b></td>
                     </tr>
-                    <tr ng-repeat="evento in currentCiudadItinerario.eventos track by $index">
+                    <tr ng-repeat="evento in currentEventosMostrar track by $index">
                         <td>{{evento.nombre}}</td>
                         <td><button id="button_detalles_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesEvento"> Detalles </button></td>
                         <td><button id="button_calificar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
-                        <td><button id="button_borrar_evento" type="button" class="btn btn-primary" name="{{evento.id}}"  ng-click="ctrl.borrarEvento(currentRecord.viajero, currentRecord.id, currentCiudadItinerario.id, evento.id);" > Borrar </button></td>
+                        <td><button id="button_borrar_evento" type="button" class="btn btn-primary" name="{{evento.id}}"  ng-click="ctrl.borrarEvento(currentRecord.viajero, currentRecord.id, currentCiudadMostrar.id, evento.id);" > Borrar </button></td>
                     </tr>
 
                 </table>
 
                 <div class="row">
-                    <button id="button_agregar_evento" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popEvento" ng-click="ctrl.fetchEventos(currentCiudadItinerario.id);"> Agregar Evento </button>
+                    <button id="button_agregar_evento" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popEvento" ng-click="ctrl.fetchEventosBD(currentCiudadMostrar.id);"> Agregar Evento </button>
                 </div>
               </div>
 
@@ -112,7 +112,7 @@
                         <td ALIGN="center" ><b>Detalles</b></td>
                         <td ALIGN="center" ><b>Calificación</b></td>
                         <td ALIGN="center" ><b>Borrar</b></td>
-                    <tr ng-repeat="nc in  currentCiudadItinerario.sitios track by $index">
+                    <tr ng-repeat="nc in currentSitioMostrar track by $index">
                         <td>{{nc.nombre}}</td>
                         <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio" ng-click="ctrl.detallesSitio($event)"> Detalles </button></td>
                         <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
@@ -120,7 +120,7 @@
                     </tr>
                 </table>
                 <div class="row">
-                    <button id="button_agregar_sitio" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popSitio" ng-click="ctrl.fetchSitios(currentCiudadItinerario.id);"> Agregar Sitio </button>
+                    <button id="button_agregar_sitio" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popSitio" ng-click="ctrl.fetchSitiosBD(currentCiudadMostrar.id);"> Agregar Sitio </button>
                 </div>
             </div>
         </div>
@@ -178,7 +178,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchEventos(currentCiudadItinerario.id);"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchEventosBD(currentCiudadMostrar.id);"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Evento</h4>
             </div>
             <div class="modal-body">
@@ -213,7 +213,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchSitios(currentCiudadItinerario.id);"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchSitiosBD(currentCiudadMostrar.id);"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Sitio</h4>
             </div>
             <div class="modal-body">

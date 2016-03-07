@@ -20,33 +20,22 @@
          * Se recibe un array de objetos de itinerario(todos los itinerarios de todos los usuarios).
          */
         this.fetchItinerarios = function () {
-            //return itinerarios;
-            return $http.get(context);
+            $http.get(context).then(function(response) {
+                itinerarios = response.data;
+            });
         };
             
         /**
          * Obtener la lista de itinerarios asociados a cierto viajero.
          * Hace una petición GET con $http a /itinerario/viajero/:idViajero 
          * para obtener la lista de objetos de la entidad itinerario asociados a ese viajero
-         * @param {string} idViajero del viajero de quien se quieren los itinerarios
+         * @param {string} emailViajero del viajero de quien se quieren los itinerarios
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un array de objetos de itinerario (solo los itinerarios de ese usuario).
          */
-        this.fetchItinerariosViajero = function (idViajero) {
-            
-            var itinerarios_viajero = [];
-            
-            for(var i = 0; i<itinerarios.length; i++)
-            {
-                if(idViajero === itinerarios[i].viajero)
-                {
-                    itinerarios_viajero.push(itinerarios[i]);
-                }
-            }
-            
-            return itinerarios_viajero;
-            
-            //return $http.get(context + "/viajero/" + idViajero);
+        this.fetchItinerariosViajero = function (emailViajero) {
+            //console.log("url:"+context + "/viajero/" + emailViajero);
+            return $http.get(context + "/viajero/" + emailViajero);
         };
         
         /**
@@ -448,19 +437,7 @@
          * No se recibe cuerpo en la respuesta.
          */
         this.deleteItinerario = function (idItinerario) {
-            
-            var encontro = false;
-            
-            for(var i = 0; i<itinerarios.length && !encontro;i++)
-            {
-                if(idItinerario === itinerarios[i].id)
-                {
-                    itinerarios.splice(i,1);
-                    encontro = true;
-                }
-            }
-            
-            //return $http.delete(context + "/" + idItinerario );
+            return $http.delete(context + "/" + idItinerario );
         };
         
         /**
