@@ -46,19 +46,19 @@ public class ItinerarioLogicMock {
 
             itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "perapple", "12-05-2016","13-06-2016"));
 
-            ArrayList<CityDTO> ciudades = new ArrayList<>();
-            ciudades.add(new CityDTO(1L, "Bogotá"));
-            ciudades.add(new CityDTO(2L, "Bucaramanga"));
-            ciudades.add(new CityDTO(3L, "Cali"));
+            ArrayList<CiudadDTO> ciudades = new ArrayList<>();
+            ciudades.add(new CiudadDTO(1L, "Bogotá"));
+            ciudades.add(new CiudadDTO(2L, "Bucaramanga"));
+            ciudades.add(new CiudadDTO(3L, "Cali"));
 
             itinerarios.get(0).setCiudades(ciudades);
 
             itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "perapple","12-07-2016","13-08-2016"));
 
             ciudades = new ArrayList<>();
-            ciudades.add(new CityDTO(1L, "Bucaramanga"));
-            ciudades.add(new CityDTO(2L, "Bogotá"));
-            ciudades.add(new CityDTO(3L, "Cali"));
+            ciudades.add(new CiudadDTO(1L, "Bucaramanga"));
+            ciudades.add(new CiudadDTO(2L, "Bogotá"));
+            ciudades.add(new CiudadDTO(3L, "Cali"));
 
             itinerarios.get(1).setCiudades(ciudades);
 
@@ -221,7 +221,7 @@ public class ItinerarioLogicMock {
                     ciudad.setId(1L);
                     }
                     else{
-                        ArrayList<CityDTO> ciudadesN = new ArrayList<>();
+                        ArrayList<CiudadDTO> ciudadesN = new ArrayList<>();
                         ciudad.setId(1L);
                         ciudadesN.add(ciudad);
                         itinerario.setCiudades(ciudadesN);
