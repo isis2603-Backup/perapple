@@ -7,7 +7,6 @@ package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.ArrayList;
 
-
 /**
  * Objeto de transferencia de datos de Ciudades.
  * @author Asistente

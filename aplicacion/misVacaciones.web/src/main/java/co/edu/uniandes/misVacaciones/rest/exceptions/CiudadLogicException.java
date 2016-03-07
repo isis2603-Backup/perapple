@@ -3,7 +3,7 @@ package co.edu.uniandes.misVacaciones.rest.exceptions;
 /**
  * Representa las excepciones de la lógica de CityLogic
  */
-public class CityLogicException extends Exception {
+public class CiudadLogicException extends Exception {
 
 	/**
 	 * versión usada en la serialización de la clase
@@ -13,14 +13,14 @@ public class CityLogicException extends Exception {
 	/**
 	 * Constructor por defecto
 	 */
-	public CityLogicException() {
+	public CiudadLogicException() {
 	}
 
 	/**
 	 * Constructor con un mensaje
 	 * @param message mensaje de la excepción
 	 */
-	public CityLogicException(String message) {
+	public CiudadLogicException(String message) {
 		super(message);
 	}
 
@@ -28,7 +28,7 @@ public class CityLogicException extends Exception {
 	 * Constructor con una causa
 	 * @param cause causa de la excepción. Usada para generar la traza.
 	 */
-	public CityLogicException(Throwable cause) {
+	public CiudadLogicException(Throwable cause) {
 		super(cause);
 	}
 
@@ -37,7 +37,7 @@ public class CityLogicException extends Exception {
 	 * @param message mensaje de la excepción
 	 * @param cause causa de la excepción. Usada para generar la traza.
 	 */
-	public CityLogicException(String message, Throwable cause) {
+	public CiudadLogicException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

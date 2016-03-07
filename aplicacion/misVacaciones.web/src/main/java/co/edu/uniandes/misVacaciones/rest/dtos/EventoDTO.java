@@ -1,19 +1,23 @@
 /*
- * CityDTO
- * Objeto de transferencia de datos de Ciudades.
+ * EventoDTO
+ * Objeto de transferencia de datos de Eventos.
  * Los DTO especifican los mensajes que se envían entre el cliente y el servidor.
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
+
+
 /**
- * Objeto de transferencia de datos de Ciudades.
- * @author Asistente
+ * Objeto de transferencia de datos de Eventos.
+ * @author Perapple
  */
 public class EventoDTO {
     private Long id;
     private String nombre;
     private String detalles;
     private String imagen;
+
+
     /**
      * Constructor por defecto
      */
