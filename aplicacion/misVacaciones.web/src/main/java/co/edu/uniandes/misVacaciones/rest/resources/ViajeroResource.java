@@ -9,6 +9,7 @@ package co.edu.uniandes.misVacaciones.rest.resources;
 import co.edu.uniandes.misVacaciones.rest.dtos.CityDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CityLogicException;
 import co.edu.uniandes.misVacaciones.rest.mocks.CityLogicMock;
+import co.edu.uniandes.misVacaciones.rest.mocks.ViajeroLogicMock;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -32,13 +33,13 @@ import javax.ws.rs.Produces;
  *
  * @author Asistente
  */
-@Path("ciudades")
+@Path("viajeros")
 @Produces("application/json")
 @RequestScoped
-public class CityResource {
+public class ViajeroResource {
 
 	@Inject
-	CityLogicMock cityLogic;
+	ViajeroLogicMock cityLogic;
 
 	/**
 	 * Obtiene el listado de ciudades.

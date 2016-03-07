@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -26,10 +27,10 @@ import javax.inject.Singleton;
  */
 @Named
 @Singleton
-public class CityLogicMock {
+public class ViajeroLogicMock {
 
 	// objeto para presentar logs de las operaciones
-	private final static Logger logger = Logger.getLogger(CityLogicMock.class.getName());
+	private final static Logger logger = Logger.getLogger(ViajeroLogicMock.class.getName());
 
 	// listado de ciudades
     public static ArrayList<CityDTO> cities;
@@ -37,8 +38,8 @@ public class CityLogicMock {
     /**
      * Constructor. Crea los datos de ejemplo.
      */
-    public CityLogicMock() {
-        //TODO crear ciudades iniciales
+    public ViajeroLogicMock() {
+
     	if (cities == null) {
             cities = new ArrayList<>();
             cities.add(new CityDTO(1L, "Bogota"));

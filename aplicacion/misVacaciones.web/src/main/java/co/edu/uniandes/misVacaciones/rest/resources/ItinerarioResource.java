@@ -7,8 +7,11 @@ package co.edu.uniandes.misVacaciones.rest.resources;
 
 
 import co.edu.uniandes.misVacaciones.rest.dtos.CityDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CityLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import co.edu.uniandes.misVacaciones.rest.mocks.CityLogicMock;
+import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,22 +26,22 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
- * Clase que implementa el recurso REST correspondiente a "cities".
+ * Clase que implementa el recurso REST correspondiente a "itinerarios".
  *
  * Note que la aplicación (definida en RestConfig.java) define la ruta
- * "/api" y este recurso tiene la ruta "cities".
+ * "/api" y este recurso tiene la ruta "itinerarios".
  * Al ejecutar la aplicación, el recurse será accesibe a través de la
  * ruta "/api/cities"
  *
  * @author Asistente
  */
-@Path("ciudades")
+@Path("itinerarios")
 @Produces("application/json")
 @RequestScoped
-public class CityResource {
+public class ItinerarioResource {
 
 	@Inject
-	CityLogicMock cityLogic;
+	ItinerarioLogicMock itinerarioLogic;
 
 	/**
 	 * Obtiene el listado de ciudades.
@@ -46,8 +49,8 @@ public class CityResource {
 	 * @throws CityLogicException excepción retornada por la lógica
 	 */
     @GET
-    public List<CityDTO> getCities() throws CityLogicException {
-        return cityLogic.getCities();
+    public List<ItinerarioDTO> getCities() throws ItinerarioLogicException {
+        return itinerarioLogic.getItinerarios();
     }
 
     /**
@@ -58,8 +61,8 @@ public class CityResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public CityDTO getCity(@PathParam("id") Long id) throws CityLogicException {
-        return cityLogic.getCity(id);
+    public ItinerarioDTO getItinerario(@PathParam("id") Long id) throws ItinerarioLogicException {
+        return itinerarioLogic.getItinerario(id);
     }
 
     /**
@@ -69,8 +72,8 @@ public class CityResource {
      * @throws CityLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
-    public CityDTO createCity(CityDTO city) throws CityLogicException {
-        return cityLogic.createCity(city);
+    public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) throws ItinerarioLogicException {
+        return itinerarioLogic.createItinerario(itinerario);
     }
 
     /**
@@ -82,8 +85,8 @@ public class CityResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public CityDTO updateCity(@PathParam("id") Long id, CityDTO city) throws CityLogicException {
-        return cityLogic.updateCity(id, city);
+    public ItinerarioDTO updateItinerario(@PathParam("id") Long id, ItinerarioDTO itinerario) throws ItinerarioLogicException {
+        return itinerarioLogic.updateItinerario(id, itinerario);
     }
 
     /**
@@ -93,8 +96,8 @@ public class CityResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteCity(@PathParam("id") Long id) throws CityLogicException {
-    	cityLogic.deleteCity(id);
+    public void deleteItinerario(@PathParam("id") Long id) throws ItinerarioLogicException {
+    	itinerarioLogic.deleteItinerario(id);
     }
 
 }
