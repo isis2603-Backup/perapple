@@ -9,9 +9,9 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
  *
  * @author Perapple <(^-^)>
  */
-import co.edu.uniandes.misVacaciones.rest.dtos.CityDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CityLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class ItinerarioLogicMock {
 	/**
 	 * Obtiene el listado de personas.
 	 * @return lista de ciudades
-	 * @throws CityLogicException cuando no existe la lista en memoria
+	 * @throws CiudadLogicException cuando no existe la lista en memoria
 	 */
     public List<ItinerarioDTO> getItinerarios() throws ItinerarioLogicException {
     	if (itinerarios == null) {

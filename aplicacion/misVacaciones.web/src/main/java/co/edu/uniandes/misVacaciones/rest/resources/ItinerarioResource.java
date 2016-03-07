@@ -6,11 +6,11 @@
 package co.edu.uniandes.misVacaciones.rest.resources;
 
 
-import co.edu.uniandes.misVacaciones.rest.dtos.CityDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CityLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.CityLogicMock;
+import co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock;
 import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class ItinerarioResource {
 	/**
 	 * Obtiene el listado de ciudades.
 	 * @return lista de ciudades
-	 * @throws CityLogicException excepción retornada por la lógica
+	 * @throws CiudadLogicException excepción retornada por la lógica
 	 */
     @GET
     public List<ItinerarioDTO> getCities() throws ItinerarioLogicException {
@@ -57,7 +57,7 @@ public class ItinerarioResource {
      * Obtiene una ciudad
      * @param id identificador de la ciudad
      * @return ciudad encontrada
-     * @throws CityLogicException cuando la ciudad no existe
+     * @throws CiudadLogicException cuando la ciudad no existe
      */
     @GET
     @Path("{id: \\d+}")
@@ -69,7 +69,7 @@ public class ItinerarioResource {
      * Agrega una ciudad
      * @param city ciudad a agregar
      * @return datos de la ciudad a agregar
-     * @throws CityLogicException cuando ya existe una ciudad con el id suministrado
+     * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
     public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) throws ItinerarioLogicException {
@@ -81,7 +81,7 @@ public class ItinerarioResource {
      * @param id identificador de la ciudad a modificar
      * @param city ciudad a modificar
      * @return datos de la ciudad modificada
-     * @throws CityLogicException cuando no existe una ciudad con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      */
     @PUT
     @Path("{id: \\d+}")
@@ -92,7 +92,7 @@ public class ItinerarioResource {
     /**
      * Elimina los datos de una ciudad
      * @param id identificador de la ciudad a eliminar
-     * @throws CityLogicException cuando no existe una ciudad con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      */
     @DELETE
     @Path("{id: \\d+}")

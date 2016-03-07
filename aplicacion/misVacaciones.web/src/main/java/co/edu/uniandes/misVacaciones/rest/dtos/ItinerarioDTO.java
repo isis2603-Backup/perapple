@@ -6,7 +6,7 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  * Objeto de transferencia de datos de Ciudades.
@@ -18,7 +18,7 @@ public class ItinerarioDTO {
     private String viajero;
     private String fechaInicio;
     private String fechaFin;
-    private ArrayList<CityDTO> ciudades;
+    private ArrayList<CiudadDTO> ciudades;
 
     /**
      * Constructor por defecto
@@ -84,11 +84,11 @@ public class ItinerarioDTO {
         this.fechaFin = fechaFin;
     }
 
-    public ArrayList<CityDTO> getCiudades() {
+    public ArrayList<CiudadDTO> getCiudades() {
         return ciudades;
     }
 
-    public void setCiudades(ArrayList<CityDTO> ciudades) {
+    public void setCiudades(ArrayList<CiudadDTO> ciudades) {
         this.ciudades = ciudades;
     }
 
