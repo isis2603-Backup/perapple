@@ -1,15 +1,14 @@
 /*
- * CityDTO
- * Objeto de transferencia de datos de Ciudades.
+ * ItinerarioDTO
+ * Objeto de transferencia de datos de Itinerarios.
  * Los DTO especifican los mensajes que se envían entre el cliente y el servidor.
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
- * Objeto de transferencia de datos de Ciudades.
+ * Objeto de transferencia de datos de Itinerarios.
  * @author Asistente
  */
 public class ItinerarioDTO {
@@ -18,7 +17,7 @@ public class ItinerarioDTO {
     private String viajero;
     private String fechaInicio;
     private String fechaFin;
-    private ArrayList<CityDTO> ciudades;
+    private ArrayList<CiudadDTO> ciudades;
 
     /**
      * Constructor por defecto
@@ -84,11 +83,11 @@ public class ItinerarioDTO {
         this.fechaFin = fechaFin;
     }
 
-    public ArrayList<CityDTO> getCiudades() {
+    public ArrayList<CiudadDTO> getCiudades() {
         return ciudades;
     }
 
-    public void setCiudades(ArrayList<CityDTO> ciudades) {
+    public void setCiudades(ArrayList<CiudadDTO> ciudades) {
         this.ciudades = ciudades;
     }
 
@@ -114,6 +113,7 @@ public class ItinerarioDTO {
                 +" , fechaFin: "+fechaFin
                 +" , ciudades: [";
         //for \(*0*)/
+        if(ciudades!=null){
         for(int i = 0; i<ciudades.size();i++)
         {
             if(i<ciudades.size()-1)
@@ -125,10 +125,10 @@ public class ItinerarioDTO {
             {
                 objeto += ciudades.get(i).toString();
             }
-        }
+        }}
 
-         objeto +="],"
-                + ", }" ;
+         objeto +="]"
+                + " }" ;
 
         return objeto;
     }

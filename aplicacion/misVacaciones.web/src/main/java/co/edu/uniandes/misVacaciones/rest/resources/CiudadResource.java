@@ -6,9 +6,9 @@
 package co.edu.uniandes.misVacaciones.rest.resources;
 
 
-import co.edu.uniandes.misVacaciones.rest.dtos.CityDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CityLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.CityLogicMock;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
+import co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,54 +23,54 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
- * Clase que implementa el recurso REST correspondiente a "cities".
+ * Clase que implementa el recurso REST correspondiente a "ciudades".
  *
  * Note que la aplicación (definida en RestConfig.java) define la ruta
- * "/api" y este recurso tiene la ruta "cities".
+ * "/api" y este recurso tiene la ruta "ciudades".
  * Al ejecutar la aplicación, el recurse será accesibe a través de la
- * ruta "/api/cities"
+ * ruta "/api/ciudades"
  *
- * @author Asistente
+ * @author Perapple
  */
 @Path("ciudades")
 @Produces("application/json")
 @RequestScoped
-public class CityResource {
+public class CiudadResource {
 
 	@Inject
-	CityLogicMock cityLogic;
+	CiudadLogicMock ciudadLogic;
 
 	/**
 	 * Obtiene el listado de ciudades.
 	 * @return lista de ciudades
-	 * @throws CityLogicException excepción retornada por la lógica
+	 * @throws CiudadLogicException excepción retornada por la lógica
 	 */
     @GET
-    public List<CityDTO> getCities() throws CityLogicException {
-        return cityLogic.getCities();
+    public List<CiudadDTO> getCiudades() throws CiudadLogicException {
+        return ciudadLogic.getCiudades();
     }
 
     /**
      * Obtiene una ciudad
      * @param id identificador de la ciudad
      * @return ciudad encontrada
-     * @throws CityLogicException cuando la ciudad no existe
+     * @throws CiudadLogicException cuando la ciudad no existe
      */
     @GET
     @Path("{id: \\d+}")
-    public CityDTO getCity(@PathParam("id") Long id) throws CityLogicException {
-        return cityLogic.getCity(id);
+    public CiudadDTO getCity(@PathParam("id") Long id) throws CiudadLogicException {
+        return ciudadLogic.getCiudad(id);
     }
 
     /**
      * Agrega una ciudad
      * @param city ciudad a agregar
      * @return datos de la ciudad a agregar
-     * @throws CityLogicException cuando ya existe una ciudad con el id suministrado
+     * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
-    public CityDTO createCity(CityDTO city) throws CityLogicException {
-        return cityLogic.createCity(city);
+    public CiudadDTO createCity(CiudadDTO city) throws CiudadLogicException {
+        return ciudadLogic.fundarCiudad(city);
     }
 
     /**
@@ -78,23 +78,23 @@ public class CityResource {
      * @param id identificador de la ciudad a modificar
      * @param city ciudad a modificar
      * @return datos de la ciudad modificada
-     * @throws CityLogicException cuando no existe una ciudad con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      */
     @PUT
     @Path("{id: \\d+}")
-    public CityDTO updateCity(@PathParam("id") Long id, CityDTO city) throws CityLogicException {
-        return cityLogic.updateCity(id, city);
+    public CiudadDTO updateCity(@PathParam("id") Long id, CiudadDTO city) throws CiudadLogicException {
+        return ciudadLogic.actualizarCiudad(id, city);
     }
 
     /**
      * Elimina los datos de una ciudad
      * @param id identificador de la ciudad a eliminar
-     * @throws CityLogicException cuando no existe una ciudad con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteCity(@PathParam("id") Long id) throws CityLogicException {
-    	cityLogic.deleteCity(id);
+    public void deleteCity(@PathParam("id") Long id) throws CiudadLogicException {
+    	ciudadLogic.arrazarCiudad(id);
     }
 
 }

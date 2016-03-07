@@ -6,11 +6,9 @@
 package co.edu.uniandes.misVacaciones.rest.resources;
 
 
-import co.edu.uniandes.misVacaciones.rest.dtos.CityDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CityLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.CityLogicMock;
 import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
 import java.util.List;
 
@@ -33,7 +31,7 @@ import javax.ws.rs.Produces;
  * Al ejecutar la aplicación, el recurse será accesibe a través de la
  * ruta "/api/cities"
  *
- * @author Asistente
+ * @author Perapple
  */
 @Path("itinerarios")
 @Produces("application/json")
@@ -44,20 +42,20 @@ public class ItinerarioResource {
 	ItinerarioLogicMock itinerarioLogic;
 
 	/**
-	 * Obtiene el listado de ciudades.
-	 * @return lista de ciudades
-	 * @throws CityLogicException excepción retornada por la lógica
+	 * Obtiene el listado de Itinerarios.
+	 * @return lista de itinerarios
+	 * @throws ItinerarioLogicException excepción retornada por la lógica
 	 */
     @GET
-    public List<ItinerarioDTO> getCities() throws ItinerarioLogicException {
+    public List<ItinerarioDTO> getItinerarios() throws ItinerarioLogicException {
         return itinerarioLogic.getItinerarios();
     }
 
     /**
-     * Obtiene una ciudad
-     * @param id identificador de la ciudad
-     * @return ciudad encontrada
-     * @throws CityLogicException cuando la ciudad no existe
+     * Obtiene un itinerario
+     * @param id identificador del itinerario
+     * @return itinerario encontrado
+     * @throws ItinerarioLogicException cuando el itineraio no existe
      */
     @GET
     @Path("{id: \\d+}")
@@ -66,10 +64,10 @@ public class ItinerarioResource {
     }
 
     /**
-     * Agrega una ciudad
-     * @param city ciudad a agregar
-     * @return datos de la ciudad a agregar
-     * @throws CityLogicException cuando ya existe una ciudad con el id suministrado
+     * Agrega un itinerario
+     * @param itinerario itinerario a agregar
+     * @return datos del itinerario a agregar
+     * @throws ItinerarioLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
     public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) throws ItinerarioLogicException {
@@ -77,11 +75,11 @@ public class ItinerarioResource {
     }
 
     /**
-     * Actualiza los datos de una ciudad
-     * @param id identificador de la ciudad a modificar
-     * @param city ciudad a modificar
-     * @return datos de la ciudad modificada
-     * @throws CityLogicException cuando no existe una ciudad con el id suministrado
+     * Actualiza los datos de un itineario
+     * @param id identificador del itinerario a modificar
+     * @param itinerario itinerario a modificar
+     * @return datos del itinerario a modificada
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
      */
     @PUT
     @Path("{id: \\d+}")
@@ -90,14 +88,27 @@ public class ItinerarioResource {
     }
 
     /**
-     * Elimina los datos de una ciudad
-     * @param id identificador de la ciudad a eliminar
-     * @throws CityLogicException cuando no existe una ciudad con el id suministrado
+     * Elimina los datos de un itinerario
+     * @param id identificador del itinerario a eliminar
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
      */
     @DELETE
     @Path("{id: \\d+}")
     public void deleteItinerario(@PathParam("id") Long id) throws ItinerarioLogicException {
     	itinerarioLogic.deleteItinerario(id);
+    }
+
+    /**
+     * Crea ciudad en el itinerario con id dado
+     * @param id identificador del itinerario a agregar ciudad
+     * @param ciudad dto de ciudad a agregar
+     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException
+     */
+    @POST
+    @Path("{id: \\d+}/ciudades")
+    public void createCiudad(@PathParam("id")Long id, CiudadDTO ciudad) throws ItinerarioLogicException
+    {
+        itinerarioLogic.createCiudad(id, ciudad);
     }
 
 }

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,12 +8,13 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
 
 /**
  *
- * @author Perapple <(^-^)>
+ * @author Perapple
  */
-import co.edu.uniandes.misVacaciones.rest.dtos.CityDTO;
+
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CityLogicException;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
+import static co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock.ciudades;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -43,8 +45,24 @@ public class ItinerarioLogicMock {
 
     	if (itinerarios == null) {
             itinerarios = new ArrayList<>();
+
             itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "perapple", "12-05-2016","13-06-2016"));
+
+            ArrayList<CiudadDTO> ciudades = new ArrayList<>();
+            ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
+            ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
+            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+
+            itinerarios.get(0).setCiudades(ciudades);
+
             itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "perapple","12-07-2016","13-08-2016"));
+
+            ciudades = new ArrayList<>();
+             ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
+            ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
+            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+            itinerarios.get(1).setCiudades(ciudades);
+
         }
 
     	// indica que se muestren todos los mensajes
@@ -55,11 +73,11 @@ public class ItinerarioLogicMock {
     	logger.info("itinerarios" + itinerarios );
     }
 
-	/**
-	 * Obtiene el listado de personas.
-	 * @return lista de ciudades
-	 * @throws CityLogicException cuando no existe la lista en memoria
-	 */
+//
+	 //* Obtiene el listado de itinerarios.
+	 //* @return lista de itienrarios
+	// * @throws ItinerarioLogicException cuando no existe la lista en memoria
+//
     public List<ItinerarioDTO> getItinerarios() throws ItinerarioLogicException {
     	if (itinerarios == null) {
     		logger.severe("Error interno: lista de ciudades no existe.");
@@ -169,7 +187,7 @@ public class ItinerarioLogicMock {
     public void deleteItinerario(Long id) throws ItinerarioLogicException {
     	logger.info("recibiendo solictud de eliminar itinerario con id " + id);
 
-    	// busca la ciudad con el id suministrado
+    	// busca el itinerario con el id suministrado
         for (ItinerarioDTO itinerario : itinerarios) {
             if (Objects.equals(itinerario.getId(), id)) {
 
@@ -183,5 +201,44 @@ public class ItinerarioLogicMock {
         // no encontró el itinerario con ese id ?
         logger.severe("No existe un itinerario con ese id");
         throw new ItinerarioLogicException("No existe un itinerario con ese id");
+    }
+
+    public void createCiudad(Long id, CiudadDTO ciudad) throws ItinerarioLogicException {
+
+        logger.info("recibiendo solictud de agregar ciudad a itinerario con id " + id);
+
+    	// busca el itinerario con el id suministrado
+        for (ItinerarioDTO itinerario : itinerarios) {
+            if (Objects.equals(itinerario.getId(), id)) {
+
+            	// elimina la ciudad
+            	logger.info("agregando ciudad a" + itinerario);
+                if(ciudad.getId()== null){
+
+                    if(itinerario.getCiudades()!=null){
+                    if(itinerario.getCiudades().size()>0)
+                    ciudad.setId(itinerario.getCiudades().get(itinerario.getCiudades().size()-1).getId()+1);
+                    else
+                    ciudad.setId(1L);
+                    }
+                    else{
+                        ArrayList<CiudadDTO> ciudadesN = new ArrayList<>();
+                        ciudad.setId(1L);
+                        ciudadesN.add(ciudad);
+                        itinerario.setCiudades(ciudadesN);
+                    }
+                itinerario.getCiudades().add(ciudad);
+                }
+                else{itinerario.getCiudades().add(ciudad);
+
+                }
+                return;
+            }
+        }
+
+        // no encontró el itinerario con ese id ?
+        logger.severe("No existe un itinerario con ese id");
+
+        throw new ItinerarioLogicException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
