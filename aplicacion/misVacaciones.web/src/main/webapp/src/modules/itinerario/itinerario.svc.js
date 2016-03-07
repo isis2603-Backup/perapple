@@ -8,6 +8,7 @@
             
         //Variables:
         var itinerarios = [];
+        var self = this;
             
             
         //FUNCIONES PARA OBTENER LISTAS (GET)
@@ -58,10 +59,10 @@
                     return itinerarios[i].ciudades;
                 }
             }
-            
-            console.log("No existe itinerario con id: "+idItinerario+", entonces se retorna itinerarios[0].ciudades");
-            return itinerarios[0].ciudades;
-            
+            if(!encontro){
+                console.log("No existe itinerario con id: "+idItinerario+", entonces se retorna itinerarios[0].ciudades");
+                return itinerarios[0].ciudades;
+            }
             //return $http.get(context + "/" + idItinerario + "/ciudades");
         };
         
@@ -77,7 +78,8 @@
         this.fetchSitios = function (idItinerario, idCiudad) {
             
             var encontro = false;
-            var ciudades = fetchCiudades(idItinerario);
+            
+            var ciudades = self.fetchCiudades(idItinerario);
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
@@ -87,10 +89,10 @@
                     return ciudades[i].sitios;
                 }
             }
-            
-            console.log("No existe ciudad con id: "+idCiudad+", entonces se retorna ciudades[0].sitios");
-            return ciudades[0].sitios;
-            
+            if(!encontro){
+                console.log("No existe ciudad con id: "+idCiudad+", entonces se retorna ciudades[0].sitios");
+                return ciudades[0].sitios;
+            }
             //return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios");
         };
         
@@ -106,7 +108,7 @@
         this.fetchEventos = function (idItinerario, idCiudad) {
             
             var encontro = false;
-            var ciudades = fetchCiudades(idItinerario);
+            var ciudades = self.fetchCiudades(idItinerario);
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
@@ -116,10 +118,10 @@
                     return ciudades[i].eventos;
                 }
             }
-            
-            console.log("No existe ciudad con id: "+idCiudad+", entonces se retorna ciudades[0].eventos");
-            return ciudades[0].eventos;
-            
+            if(!encontro){
+                console.log("No existe ciudad con id: "+idCiudad+", entonces se retorna ciudades[0].eventos");
+                return ciudades[0].eventos;
+            }
             //return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos");
         };
         
@@ -156,10 +158,10 @@
                     return itinerarios[i];
                 }
             }
-            
-            console.log("No existe itinerario con id: "+idItinerario+", entonces se retorna itinerarios[0]");
-            return itinerarios[0];
-            
+            if(!encontro){
+                console.log("No existe itinerario con id: "+idItinerario+", entonces se retorna itinerarios[0]");
+                return itinerarios[0];
+            }
             //return $http.get(context + "/" + idItinerario);
         };
         
@@ -175,20 +177,20 @@
         this.fetchCiudad= function (idItinerario, idCiudad) {
             
             var encontro = false;
-            var ciudades  = fetchItinerario(idItinerario).ciudades;
+            var ciudades  = self.fetchItinerario(idItinerario).ciudades;
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
-                if(idCiudad === ciudades[i].id)
+                if(idCiudad === ciudades[i].id.toString())
                 {
                     encontro = true;
                     return ciudades[i];
                 }
             }
-            
-            console.log("No existe ciudad con id: "+idCiudad+", entonces se retorna ciudades[0]");
-            return ciudades[0];
-            
+            if(!encontro){
+                console.log("No existe ciudad con id: "+idCiudad+", entonces se retorna ciudades[0]");
+                return ciudades[0];
+            }
             //return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad);
         };
         
@@ -205,20 +207,20 @@
         this.fetchSitio = function (idItinerario, idCiudad, idSitio) {
             
             var encontro = false;
-            var sitios = (fetchCiudades(idItinerario)).fetchSitios(idCiudad);
+            var sitios = (self.fetchCiudades(idItinerario)).fetchSitios(idCiudad);
             
             for(var i = 0; i<sitios.length && !encontro;i++)
             {
-                if(idSitio === sitios[i].id)
+                if(idSitio === sitios[i].id.toString())
                 {
                     encontro = true;
                     return sitios[i];
                 }
             }
-            
-            console.log("No existe sitio con id: "+idSitio+", entonces se retorna sitios[0]");
-            return sitios[0];
-            
+            if(!encontro){
+                console.log("No existe sitio con id: "+idSitio+", entonces se retorna sitios[0]");
+                return sitios[0];
+            }
             //return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios/" + idSitio);
         };
         
@@ -235,20 +237,20 @@
         this.fetchEvento = function (idItinerario, idCiudad, idEvento) {
             
             var encontro = false;
-            var eventos = (fetchCiudades(idItinerario)).fetchEventos(idCiudad);
+            var eventos = (self.fetchCiudades(idItinerario)).fetchEventos(idCiudad);
             
             for(var i = 0; i<eventos.length && !encontro;i++)
             {
-                if(idEvento === eventos[i].id)
+                if(idEvento === eventos[i].id.toString())
                 {
                     encontro = true;
                     return eventos[i];
                 }
             }
-            
-            console.log("No existe sitio con id: "+idEvento+", entonces se retorna [0]");
-            return eventos[0];
-            
+            if(!encontro){
+                console.log("No existe sitio con id: "+idEvento+", entonces se retorna [0]");
+                return eventos[0];
+            }
             //return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos/" + idEvento);
         };
         
@@ -319,12 +321,12 @@
             
             var encontro = false;
             var indice = -1;
-            var itinerario = fetchItinerario(idItinerario);
+            var itinerario = self.fetchItinerario(idItinerario);
             var ciudades = itinerario.ciudades;
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
-                if(nCiudad.id === ciudades[i].id)
+                if(nCiudad.id === ciudades[i].id.toString())
                 {
                     encontro = true;
                     indice = i;
@@ -334,13 +336,13 @@
             if (encontro) {
                 ciudades[indice] = nCiudad;
                 itinerario.ciudades = ciudades;
-                saveItinerario(itinerario);
+                self.saveItinerario(itinerario);
                 //return $http.put(context + "/" + idItinerario + "/ciudades/" + nCiudad.id, nCiudad);
             } 
             else {
                 ciudades.push(nCiudad);
                 itinerario.ciudades = ciudades;
-                saveItinerario(itinerario);
+                self.saveItinerario(itinerario);
                 //return $http.post(context + "/" + idItinerario + "/ciudades/", nCiudad);
             }
         };
@@ -360,12 +362,12 @@
             
             var encontro = false;
             var indice = -1;
-            var ciudad = fetchCiudad(idItinerario, idCiudad);
+            var ciudad = self.fetchCiudad(idItinerario, idCiudad);
             var sitios = ciudad.sitios;
             
             for(var i = 0; i<sitios.length && !encontro;i++)
             {
-                if(nSitio.id === sitios[i].id)
+                if(nSitio.id === sitios[i].id.toString())
                 {
                     encontro = true;
                     indice = i;
@@ -375,13 +377,13 @@
             if (encontro) {
                 sitios[indice] = nSitio;
                 ciudad.sitios = sitios;
-                saveCiudad(idItinerario, ciudad);
+                self.saveCiudad(idItinerario, ciudad);
                 //return $http.put(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios/" + nSitio.id, nSitio);
             } 
             else {
                 sitios.push(nSitio);
                 ciudad.sitios = sitios;
-                saveCiudad(idItinerario, ciudad);
+                self.saveCiudad(idItinerario, ciudad);
                 //return $http.post(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios/", nSitio);
             }
         };
@@ -401,12 +403,12 @@
             
             var encontro = false;
             var indice = -1;
-            var ciudad = fetchCiudad(idItinerario, idCiudad);
+            var ciudad = self.fetchCiudad(idItinerario, idCiudad);
             var eventos = ciudad.eventos;
             
             for(var i = 0; i<eventos.length && !encontro;i++)
             {
-                if(nEvento.id === eventos[i].id)
+                if(nEvento.id === eventos[i].id.toString())
                 {
                     encontro = true;
                     indice = i;
@@ -416,13 +418,13 @@
             if (encontro) {
                 eventos[indice] = nEvento;
                 ciudad.eventos = eventos;
-                saveCiudad(idItinerario, ciudad);
+                self.saveCiudad(idItinerario, ciudad);
                 //return $http.put(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos/" + nEvento.id, nEvento);
             } 
             else {
                 eventos.push(nEvento);
                 ciudad.eventos = eventos;
-                saveCiudad(idItinerario, ciudad);
+                self.saveCiudad(idItinerario, ciudad);
                 //return $http.post(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos/", nEvento);
             }
         };
@@ -451,16 +453,16 @@
         this.deleteCiudad = function (idItinerario, idCiudad) {
             
             var encontro = false;
-            var itinerario = fetchItinerario(idItinerario);
+            var itinerario = self.fetchItinerario(idItinerario);
             var ciudades = itinerario.ciudades;
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
-                if(idCiudad === ciudades[i].id)
+                if(idCiudad === ciudades[i].id.toString())
                 {
                     ciudades.splice(i,1);
                     itinerario.ciudades = ciudades;
-                    saveItinerario(itinerario);
+                    self.saveItinerario(itinerario);
                     encontro = true;
                 }
             }
@@ -480,16 +482,16 @@
         this.deleteSitio = function (idItinerario, idCiudad, idSitio) {
             
             var encontro = false;
-            var ciudad = fetchCiudad(idItinerario, idCiudad);
+            var ciudad = self.fetchCiudad(idItinerario, idCiudad);
             var sitios = ciudad.sitios;
             
             for(var i = 0; i<sitios.length && !encontro;i++)
             {
-                if(idSitio === sitios[i].id)
+                if(idSitio === sitios[i].id.toString())
                 {
                     sitios.splice(i,1);
                     ciudad.sitios = sitios;
-                    saveCiudad(idItinerario, ciudad);
+                    self.saveCiudad(idItinerario, ciudad);
                     encontro = true;
                 }
             }
@@ -510,16 +512,16 @@
         this.deleteEvento = function (idItinerario, idCiudad, idEvento) {
             
             var encontro = false;
-            var ciudad = fetchCiudad(idItinerario, idCiudad);
+            var ciudad = self.fetchCiudad(idItinerario, idCiudad);
             var eventos = ciudad.eventos;
             
             for(var i = 0; i<eventos.length && !encontro;i++)
             {
-                if(idEvento === eventos[i].id)
+                if(idEvento === eventos[i].id.toString())
                 {
                     eventos.splice(i,1);
                     ciudad.eventos = eventos;
-                    saveCiudad(idItinerario, ciudad);
+                    self.saveCiudad(idItinerario, ciudad);
                     encontro = true;
                 }
             }

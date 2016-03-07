@@ -49,19 +49,7 @@
             $scope.opened = true;
         };
         
-        $scope.safeApply = function(fn) {
-            var phase = this.$root.$$phase;
-            if(phase === '$apply' || phase === '$digest') {
-                if(fn && (typeof(fn) === 'function')) {
-                    fn();
-                }
-            } 
-            else {
-                this.$apply(fn);
-            }
-        };
-
-        $scope.$on('fetchRecordsItinerario', function() { fetchRecords(); fetchRecordsViajero($scope.currentUser) });
+        $scope.$on('fetchRecordsItinerario', function() { fetchRecords(); fetchRecordsViajero($scope.currentUser); });
         //$scope.$on('fecthRecordsItinerario', function() { fetchRecords(); });
         
         //Variables para el controlador
@@ -155,7 +143,7 @@
             self.fetchCurrentRecord();
             self.fetchCurrentCiudades();
             
-            console.log("itinerarioActual Cali..."+$scope.currentCiudadesMostrar[0].nombre);
+            //console.log("itinerarioActual Cali..."+$scope.currentCiudadesMostrar[0].nombre);
         };
         
         this.agregarItinerario = function (nombre, fechaI, fechaF){
@@ -187,7 +175,7 @@
         this.fetchCurrentCiudades = function (){
             
             $scope.currentCiudadesMostrar = svc.fetchCiudades($scope.currentRecord.id);
-            $scope.currentCiudadMostrar = {};
+            $scope.currentCiudadMostrar = $scope.currentCiudadesMostrar[0];
             
             //return svc.fetchCiudades($scope.currentRecord.id).then(function (response) {
             //    $scope.currentCiudades = response.data;
@@ -198,12 +186,27 @@
         
         this.fetchCurrentSitios = function (){
             $scope.currentSitiosMostrar = svc.fetchSitios($scope.currentRecord.id, $scope.currentCiudadMostrar.id);
-            $scope.currentSitioMostrar = {};
+            $scope.currentSitioMostrar = $scope.currentSitiosMostrar[0];
         };
         
         this.fetchCurrentEventos = function (){
             $scope.currentEventosMostrar = svc.fetchEventos($scope.currentRecord.id, $scope.currentCiudadMostrar.id);
-            $scope.currentEventoMostrar = {};
+            $scope.currentEventoMostrar = $scope.currentEventosMostrar[0];
+        };
+        
+        this.fetchCurrents = function (){
+            self.fetchCurrentRecord()
+                    .then(
+                        function(){
+                            self.fetchCurrentCiudades();
+                        }, responseError
+                    )
+                    .then(
+                        function(){
+                            self.fetchCurrentSitios();
+                            self.fetchCurrentEventos();
+                        }, responseError
+                    );
         };
         
         this.fetchCiudadesBD = function (){
@@ -291,9 +294,12 @@
 
             var idCiudad = parseInt($event.currentTarget.name);
             
-            svc.deleteCiudad($scope.currentRecord.id, idCiudad);
-            
-            self.fetchCurrentCiudades();
+            svc.deleteCiudad($scope.currentRecord.id, idCiudad)
+                    .then(
+                        function(){
+                            self.fetchCurrents();
+                        }, responseError
+                    );
         };      
         
         this.borrarSitio = function ($event){
@@ -321,10 +327,13 @@
 
             var idCiudad = $event.currentTarget.name;
             
-            $scope.currentCiudadMostrar = svc.fetchCiudad($scope.currentRecord.id, idCiudad);
-            
-            this.fetchCurrentSitios();
-            this.fetchCurrentEventos();
+            $scope.currentCiudadMostrar = svc.fetchCiudad($scope.currentRecord.id, idCiudad)
+                    .then(
+                        function(){
+                            self.fetchCurrentSitios();
+                            self.fetchCurrentEventos();
+                        }, responseError
+                    );
         };
         
         this.detallesSitio=function($event){
@@ -341,10 +350,11 @@
             $scope.currentEventoMostrar = svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento);
         };
 
-            
+        // al cargar cualquiera de las plantillas se 
+        // ejecutan estos
         this.fetchRecords();
         this.fetchRecordsViajero($scope.currentUser);
-        this.fetchCurrentRecord();
+        this.fetchCurrents();        
     }]);
 
 })(window.angular);
