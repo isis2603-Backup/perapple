@@ -50,6 +50,7 @@ public class CiudadResource {
         return ciudadLogic.getCiudades();
     }
 
+
     /**
      * Obtiene una ciudad
      * @param id identificador de la ciudad
@@ -58,32 +59,32 @@ public class CiudadResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public CiudadDTO getCity(@PathParam("id") Long id) throws CiudadLogicException {
+    public CiudadDTO geCiudad(@PathParam("id") Long id) throws CiudadLogicException {
         return ciudadLogic.getCiudad(id);
     }
 
     /**
      * Agrega una ciudad
-     * @param city ciudad a agregar
+     * @param ciudad ciudad a agregar
      * @return datos de la ciudad a agregar
      * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
-    public CiudadDTO createCity(CiudadDTO city) throws CiudadLogicException {
-        return ciudadLogic.fundarCiudad(city);
+    public CiudadDTO fundarCiudad(CiudadDTO ciudad) throws CiudadLogicException {
+        return ciudadLogic.fundarCiudad(ciudad);
     }
 
     /**
      * Actualiza los datos de una ciudad
      * @param id identificador de la ciudad a modificar
-     * @param city ciudad a modificar
+     * @param ciudad ciudad a modificar
      * @return datos de la ciudad modificada
      * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      */
     @PUT
     @Path("{id: \\d+}")
-    public CiudadDTO updateCity(@PathParam("id") Long id, CiudadDTO city) throws CiudadLogicException {
-        return ciudadLogic.actualizarCiudad(id, city);
+    public CiudadDTO actualizarCiudad(@PathParam("id") Long id, CiudadDTO ciudad) throws CiudadLogicException {
+        return ciudadLogic.actualizarCiudad(id, ciudad);
     }
 
     /**
@@ -93,7 +94,7 @@ public class CiudadResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteCity(@PathParam("id") Long id) throws CiudadLogicException {
+    public void arrazarCiudad(@PathParam("id") Long id) throws CiudadLogicException {
     	ciudadLogic.arrazarCiudad(id);
     }
 

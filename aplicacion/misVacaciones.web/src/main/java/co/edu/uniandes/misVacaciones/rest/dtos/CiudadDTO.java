@@ -135,7 +135,7 @@ public class CiudadDTO {
 
         for(int i = 0; i<sitios.size();i++)
         {
-            if(i<sitios.size()-1)
+            if(i<sitios.size()-1 && sitios!=null)
             {
 
                 ciudad += sitios.get(i).toString()+" , ";
@@ -151,7 +151,7 @@ public class CiudadDTO {
 
          for(int i = 0; i<eventos.size();i++)
         {
-            if(i<eventos.size()-1)
+            if(i<eventos.size()-1 && eventos!=null)
             {
 
                 ciudad += eventos.get(i).toString()+" , ";

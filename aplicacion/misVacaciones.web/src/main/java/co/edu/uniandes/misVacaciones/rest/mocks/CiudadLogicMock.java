@@ -7,7 +7,7 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
 
 /**
  *
- * @author Asistente
+ * @author Perapple
  */
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
@@ -116,7 +116,7 @@ public class CiudadLogicMock {
     	} else {
 
     		// genera un id para la ciudad
-    		logger.info("Generando id paa la nueva ciudad");
+    		logger.info("Generando id para la nueva ciudad");
     		long newId = 1;
 	        for (CiudadDTO ciudad : ciudades) {
 	            if (newId <= ciudad.getId()){
