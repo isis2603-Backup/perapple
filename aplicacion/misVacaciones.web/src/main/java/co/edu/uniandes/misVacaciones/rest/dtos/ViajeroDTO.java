@@ -24,7 +24,7 @@ public class ViajeroDTO {
 
     /**
      * Constructor con parámetros.
-     * @param id identificador del ciajero
+     * @param id identificador del viajero
      * @param name nombre del viajero
      * @param email email del viajero
      * @param password contraseña del viajero
@@ -95,6 +95,7 @@ public class ViajeroDTO {
      * Convierte el objeto a una cadena
      * @return el objeto como una cadena JSON.
      */
+    @Override
     public String toString() {
     	return "{ id : " + getId() + ", name : \"" + getName() + "\", email: \"" + getEmail() + "\", password: \"" + getPassword() + "\", image: \"" + getImage() + "\" }" ;
     }

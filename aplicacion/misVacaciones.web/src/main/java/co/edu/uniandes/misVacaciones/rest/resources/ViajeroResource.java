@@ -6,9 +6,8 @@
 package co.edu.uniandes.misVacaciones.rest.resources;
 
 
-import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock;
+import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
+import co.edu.uniandes.misVacaciones.rest.exceptions.ViajeroLogicException;
 import co.edu.uniandes.misVacaciones.rest.mocks.ViajeroLogicMock;
 import java.util.List;
 
@@ -39,7 +38,7 @@ import javax.ws.rs.Produces;
 public class ViajeroResource {
 
 	@Inject
-	ViajeroLogicMock cityLogic;
+	ViajeroLogicMock viajeroLogic;
 
 	/**
 	 * Obtiene el listado de ciudades.
@@ -47,8 +46,8 @@ public class ViajeroResource {
 	 * @throws CiudadLogicException excepción retornada por la lógica
 	 */
     @GET
-    public List<CiudadDTO> getCities() throws CiudadLogicException {
-        return cityLogic.getCities();
+    public List<ViajeroDTO> getViajeros() throws ViajeroLogicException {
+        return viajeroLogic.getViajeros();
     }
 
     /**
@@ -59,8 +58,8 @@ public class ViajeroResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public CiudadDTO getCity(@PathParam("id") Long id) throws CiudadLogicException {
-        return cityLogic.getCity(id);
+    public ViajeroDTO getViajero(@PathParam("id") Long id) throws ViajeroLogicException {
+        return viajeroLogic.getViajero(id);
     }
 
     /**
@@ -70,8 +69,8 @@ public class ViajeroResource {
      * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
-    public CiudadDTO createCity(CiudadDTO city) throws CiudadLogicException {
-        return cityLogic.createCity(city);
+    public ViajeroDTO createViajero(ViajeroDTO viajero) throws ViajeroLogicException {
+        return viajeroLogic.createViajero(viajero);
     }
 
     /**
@@ -83,8 +82,8 @@ public class ViajeroResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public CiudadDTO updateCity(@PathParam("id") Long id, CiudadDTO city) throws CiudadLogicException {
-        return cityLogic.updateCity(id, city);
+    public ViajeroDTO updateViajero(@PathParam("id") Long id, ViajeroDTO viajero) throws ViajeroLogicException {
+        return viajeroLogic.updateViajero(id, viajero);
     }
 
     /**
@@ -94,8 +93,8 @@ public class ViajeroResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteCity(@PathParam("id") Long id) throws CiudadLogicException {
-    	cityLogic.deleteCity(id);
+    public void deleteViajero(@PathParam("id") Long id) throws ViajeroLogicException {
+    	viajeroLogic.deleteViajero(id);
     }
 
 }
