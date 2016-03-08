@@ -10,9 +10,9 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
  *
  * @author Asistente
  */
-import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
-import static co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock.ciudades;
+import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
+import co.edu.uniandes.misVacaciones.rest.exceptions.ViajeroLogicException;
+import static co.edu.uniandes.misVacaciones.rest.mocks.ViajeroLogicMock.viajeros;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +24,7 @@ import javax.inject.Singleton;
 
 
 /**
- * Mock del recurso Ciudades (Mock del servicio REST)
+ * Mock del recurso Viajeros (Mock del servicio REST)
  */
 @Named
 @Singleton
@@ -34,155 +34,163 @@ public class ViajeroLogicMock {
 	private final static Logger logger = Logger.getLogger(ViajeroLogicMock.class.getName());
 
 	// listado de ciudades
-    public static ArrayList<CiudadDTO> ciudades;
+    public static ArrayList<ViajeroDTO> viajeros;
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
     public ViajeroLogicMock() {
 
-    	if (ciudades == null) {
-            ciudades = new ArrayList<>();
-             ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
-            ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
-            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+    	if (viajeros == null) {
+            viajeros = new ArrayList<>();
+            viajeros.add(new ViajeroDTO(1L, "Perapple", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(2L, "Camilo Mendoza", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(3L, "Harold Gonzalez", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(4L, "María Remolina", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(5L, "Esteban Dalel", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(6L, "Nicolas Galvis", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(7L, "Daniel Althviz", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            
         }
 
     	// indica que se muestren todos los mensajes
     	logger.setLevel(Level.INFO);
 
     	// muestra información
-    	logger.info("Inicializa la lista de ciudades");
-    	logger.info("ciudades" + ciudades );
+    	logger.info("Inicializa la lista de viajeros");
+    	logger.info("viajeros" + viajeros );
     }
 
 	/**
-	 * Obtiene el listado de personas.
-	 * @return lista de ciudades
-	 * @throws CiudadLogicException cuando no existe la lista en memoria
+	 * Obtiene el listado de viajeros.
+	 * @return lista de viajeros
+	 * @throws ViajeroLogicException cuando no existe la lista en memoria
 	 */
-    public List<CiudadDTO> getCities() throws CiudadLogicException {
-    	if (ciudades == null) {
-    		logger.severe("Error interno: lista de ciudades no existe.");
-    		throw new CiudadLogicException("Error interno: lista de ciudades no existe.");
+    public List<ViajeroDTO> getViajeros() throws ViajeroLogicException {
+    	if (viajeros == null) {
+    		logger.severe("Error interno: lista de viajeros no existe.");
+    		throw new ViajeroLogicException("Error interno: lista de viajeros no existe.");
     	}
 
-    	logger.info("retornando todas las ciudades");
-    	return ciudades;
+    	logger.info("retornando todos los viajeros");
+    	return viajeros;
     }
 
     /**
-     * Obtiene una ciudad
-     * @param id identificador de la ciudad
-     * @return ciudad encontrada
-     * @throws CiudadLogicException cuando la ciudad no existe
+     * Obtiene un viajero
+     * @param id identificador del viajero
+     * @return viajero encontrado
+     * @throws ViajeroLogicException cuando el viajero no existe
      */
-    public CiudadDTO getCity(Long id) throws CiudadLogicException {
-    	logger.info("recibiendo solicitud de ciudad con id " + id);
+    public ViajeroDTO getViajero(Long id) throws ViajeroLogicException {
+    	logger.info("recibiendo solicitud de viajero con id " + id);
 
-    	// busca la ciudad con el id suministrado
-        for (CiudadDTO city : ciudades) {
-            if (Objects.equals(city.getId(), id)){
-            	logger.info("retornando ciudad " + city);
-                return city;
+    	// busca el viajero con el id suministrado
+        for (ViajeroDTO viajero : viajeros) {
+            if (Objects.equals(viajero.getId(), id)){
+            	logger.info("retornando viajero " + viajero);
+                return viajero;
             }
         }
 
-        // si no encuentra la ciudad
-        logger.severe("No existe ciudad con ese id");
-        throw new CiudadLogicException("No existe ciudad con ese id");
+        // si no encuentra el viajero
+        logger.severe("No existe viajero con ese id");
+        throw new ViajeroLogicException("No existe viajero con ese id");
     }
 
     /**
-     * Agrega una ciudad a la lista.
-     * @param newCity ciudad a adicionar
-     * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
-     * @return ciudad agregada
+     * Agrega un viajero a la lista.
+     * @param newViajero viajero a adicionar
+     * @throws ViajeroLogicException cuando ya existe un viajero con el id suministrado
+     * @return viajero agregado
      */
-    public CiudadDTO createCity(CiudadDTO newCity) throws CiudadLogicException {
-    	logger.info("recibiendo solicitud de agregar ciudad " + newCity);
+    public ViajeroDTO createViajero(ViajeroDTO newViajero) throws ViajeroLogicException {
+    	logger.info("recibiendo solicitud de agregar viajero " + newViajero);
 
-    	// la nueva ciudad tiene id ?
-    	if ( newCity.getId() != null ) {
+    	// el nuevo viajero tiene id 
+    	if ( newViajero.getId() != null ) {
 	    	// busca la ciudad con el id suministrado
-	        for (CiudadDTO city : ciudades) {
+	        for (ViajeroDTO viajero : viajeros) {
 	        	// si existe una ciudad con ese id
-	            if (Objects.equals(city.getId(), newCity.getId())){
-	            	logger.severe("Ya existe una ciudad con ese id");
-	                throw new CiudadLogicException("Ya existe una ciudad con ese id");
+	            if (Objects.equals(viajero.getId(), newViajero.getId())){
+	            	logger.severe("Ya existe un viajero con ese id");
+	                throw new ViajeroLogicException("Ya existe un viajero con ese id");
 	            }
 	        }
 
-	    // la nueva ciudad no tiene id ?
+	    // el nuevo viajero no tiene id 
     	} else {
 
-    		// genera un id para la ciudad
-    		logger.info("Generando id paa la nueva ciudad");
+    		// genera un id para el viajero
+    		logger.info("Generando id para el nuevo viajero");
     		long newId = 1;
-	        for (CiudadDTO city : ciudades) {
-	            if (newId <= city.getId()){
-	                newId =  city.getId() + 1;
+	        for (ViajeroDTO viajero : viajeros) {
+	            if (newId <= viajero.getId()){
+	                newId =  viajero.getId() + 1;
 	            }
 	        }
-	        newCity.setId(newId);
+	        newViajero.setId(newId);
     	}
 
         // agrega la ciudad
-    	logger.info("agregando ciudad " + newCity);
-        ciudades.add(newCity);
-        return newCity;
+    	logger.info("agregando viajero " + newViajero);
+        viajeros.add(newViajero);
+        return newViajero;
     }
 
     /**
-     * Actualiza los datos de una ciudad
-     * @param id identificador de la ciudad a modificar
-     * @param city ciudad a modificar
-     * @return datos de la ciudad modificada
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * Actualiza los datos de un viajero
+     * @param id identificador del viajero a modificar
+     * @param viajero viajero a modificar
+     * @return datos del viajero modificado
+     * @throws ViajeroLogicException cuando no existe un viajero con el id suministrado
      */
-    public CiudadDTO updateCity(Long id, CiudadDTO updatedCity) throws CiudadLogicException {
-    	logger.info("recibiendo solictud de modificar ciudad " + updatedCity);
+    public ViajeroDTO updateViajero(Long id, ViajeroDTO updatedViajero) throws ViajeroLogicException {
+    	logger.info("recibiendo solictud de modificar viajero " + updatedViajero);
 
-    	// busca la ciudad con el id suministrado
-        for (CiudadDTO city : ciudades) {
-            if (Objects.equals(city.getId(), id)) {
+    	// busca el viajero con el id suministrado
+        for (ViajeroDTO viajero : viajeros) {
+            if (Objects.equals(viajero.getId(), id)) {
 
-            	// modifica la ciudad
-            	city.setId(updatedCity.getId());
-                city.setNombre(updatedCity.getNombre());
+            	// modifica el viajero
+            	viajero.setId(updatedViajero.getId());
+                viajero.setName(updatedViajero.getName());
+                viajero.setEmail(updatedViajero.getEmail());
+                viajero.setImage(updatedViajero.getImage());
+                viajero.setPassword(updatedViajero.getPassword());
 
-                // retorna la ciudad modificada
-            	logger.info("Modificando ciudad " + city);
-                return city;
+                // retorna el viajero modificado
+            	logger.info("Modificando viajero " + viajero);
+                return viajero;
             }
         }
 
-        // no encontró la ciudad con ese id ?
-        logger.severe("No existe una ciudad con ese id");
-        throw new CiudadLogicException("No existe una ciudad con ese id");
+        // no encontró el viajero con ese id 
+        logger.severe("No existe un viajero con ese id");
+        throw new ViajeroLogicException("No existe una ciudad con ese id");
     }
 
     /**
-     * Elimina los datos de una ciudad
-     * @param id identificador de la ciudad a eliminar
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * Elimina los datos de un viajero
+     * @param id identificador del viajero a eliminar
+     * @throws ViajeroLogicException cuando no existe una ciudad con el id suministrado
      */
-    public void deleteCity(Long id) throws CiudadLogicException {
-    	logger.info("recibiendo solictud de eliminar ciudad con id " + id);
+    public void deleteViajero(Long id) throws ViajeroLogicException {
+    	logger.info("recibiendo solictud de eliminar viajero con id " + id);
 
-    	// busca la ciudad con el id suministrado
-        for (CiudadDTO city : ciudades) {
-            if (Objects.equals(city.getId(), id)) {
+    	// busca el viajero con el id suministrado
+        for (ViajeroDTO viajero : viajeros) {
+            if (Objects.equals(viajero.getId(), id)) {
 
-            	// elimina la ciudad
-            	logger.info("eliminando ciudad " + city);
-                ciudades.remove(city);
+            	// elimina el viajero
+            	logger.info("eliminando viajero " + viajero);
+                viajeros.remove(viajero);
                 return;
             }
         }
 
-        // no encontró la ciudad con ese id ?
-        logger.severe("No existe una ciudad con ese id");
-        throw new CiudadLogicException("No existe una ciudad con ese id");
+        // no encontró el viajero con ese id 
+        logger.severe("No existe un viajero con ese id");
+        throw new ViajeroLogicException("No existe un viajero con ese id");
     }
 }
