@@ -41,8 +41,8 @@ public class ViajeroResource {
 	ViajeroLogicMock viajeroLogic;
 
 	/**
-	 * Obtiene el listado de ciudades.
-	 * @return lista de ciudades
+	 * Obtiene el listado de viajeros.
+	 * @return lista de viajeros
 	 * @throws CiudadLogicException excepción retornada por la lógica
 	 */
     @GET
@@ -51,10 +51,10 @@ public class ViajeroResource {
     }
 
     /**
-     * Obtiene una ciudad
-     * @param id identificador de la ciudad
-     * @return ciudad encontrada
-     * @throws CiudadLogicException cuando la ciudad no existe
+     * Obtiene un viajero
+     * @param id identificador del viajero
+     * @return viajero encontrado
+     * @throws ViajeroLogicException cuando el viajero no existe
      */
     @GET
     @Path("{id: \\d+}")
@@ -63,10 +63,10 @@ public class ViajeroResource {
     }
 
     /**
-     * Agrega una ciudad
-     * @param city ciudad a agregar
-     * @return datos de la ciudad a agregar
-     * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
+     * Agrega un viajero
+     * @param viajero viajero a agregar
+     * @return datos del viajero a agregar
+     * @throws ViajeroLogicException cuando ya existe un viajero con el id suministrado
      */
     @POST
     public ViajeroDTO createViajero(ViajeroDTO viajero) throws ViajeroLogicException {
@@ -74,11 +74,11 @@ public class ViajeroResource {
     }
 
     /**
-     * Actualiza los datos de una ciudad
-     * @param id identificador de la ciudad a modificar
-     * @param city ciudad a modificar
-     * @return datos de la ciudad modificada
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * Actualiza los datos de un viajero
+     * @param id identificador del viajero a modificar
+     * @param viajero viajero a modificar
+     * @return datos del viajero modificado
+     * @throws ViajeroLogicException cuando no existe un viajero con el id suministrado
      */
     @PUT
     @Path("{id: \\d+}")
@@ -87,9 +87,9 @@ public class ViajeroResource {
     }
 
     /**
-     * Elimina los datos de una ciudad
-     * @param id identificador de la ciudad a eliminar
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * Elimina los datos de un viajero
+     * @param id identificador del viajero a eliminar
+     * @throws ViajeroLogicException cuando no existe un viajero con el id suministrado
      */
     @DELETE
     @Path("{id: \\d+}")
