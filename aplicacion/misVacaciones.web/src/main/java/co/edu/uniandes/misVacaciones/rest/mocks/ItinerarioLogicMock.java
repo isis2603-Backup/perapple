@@ -13,8 +13,9 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
 
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
-import static co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock.ciudades;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +36,7 @@ public class ItinerarioLogicMock {
 	// objeto para presentar logs de las operaciones
 	private final static Logger logger = Logger.getLogger(ItinerarioLogicMock.class.getName());
 
-	// listado de ciudades
+	// listado de itinerarios
     public static ArrayList<ItinerarioDTO> itinerarios;
 
     /**
@@ -84,7 +85,7 @@ public class ItinerarioLogicMock {
     		throw new ItinerarioLogicException("Error interno: lista de itinerarios no existe.");
     	}
 
-    	logger.info("retornando todas las ciudades");
+    	logger.info("retornando todos los itinerarios");
     	return itinerarios;
     }
 
@@ -239,6 +240,105 @@ public class ItinerarioLogicMock {
         // no encontró el itinerario con ese id ?
         logger.severe("No existe un itinerario con ese id");
 
-        throw new ItinerarioLogicException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new ItinerarioLogicException("No existe un itinerario con ese id"); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updateCiudad(Long id, CiudadDTO ciudad, Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+
+        boolean existeItinerario = false;
+        boolean existeCiudad = false;
+
+        for (ItinerarioDTO itinerario : itinerarios) {
+
+            if (Objects.equals(itinerario.getId(), id)) {
+                existeItinerario = true;
+            	// modifica la ciudad
+            	logger.info("modificando la ciudad"+ ciudad + " del itinerario " + itinerario);
+               for(CiudadDTO ciudadvieja : itinerario.getCiudades()){
+                if(Objects.equals(ciudadvieja.getId(), idciudad)){
+                    existeCiudad = true;
+                    ciudadvieja =  ciudad;
+                }
+               }
+
+            }
+        }
+
+        // no encontró el itinerario con ese id ?
+        if(!existeItinerario)
+        {logger.severe("No existe un itinerario con ese id");
+
+        throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+
+        if(!existeCiudad){
+        logger.severe("No existe una ciudad con ese id en el itinerario identificado");
+
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+    }
+
+    public void deleteCiudad(Long id, Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+
+        boolean existeCiudad = false;
+    logger.info("recibiendo solicitud de eliminar ciudad con id " + idciudad + " del itinerario con id " +id);
+
+    ItinerarioDTO itin=null;
+    	// busca el itinerario con el id suministrado
+        for (int i = 0 ;i<itinerarios.size() && itin == null; i++) {
+            ItinerarioDTO itinerario = itinerarios.get(i);
+            if (Objects.equals(itinerario.getId(), id)) {
+
+            	// eliminando la ciudad
+                itin = itinerario;
+            	logger.info("eliminando la ciudad con id"+ idciudad + " del itinerario con id" + id);
+
+
+            }
+        }
+
+        if(itin != null){
+            ArrayList<CiudadDTO> ciudades = itin.getCiudades();
+         for( int i = 0; i<ciudades.size();i++){
+                if(Objects.equals(ciudades.get(i).getId(), idciudad)){
+                    existeCiudad = true;
+                   ciudades.remove(i);
+                }
+               }
+        }
+        // no encontró el itinerario con ese id ?
+        if(itin == null){
+        logger.severe("No existe un itinerario con ese id");
+        throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+        if(!existeCiudad){
+        logger.severe("No existe una ciudad con ese id en el itinerario con ese id");
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+    }
+
+    public List<CiudadDTO> getCiudades(Long id) throws ItinerarioLogicException {
+
+    logger.info("recibiendo solicitud retonro de las cidudades del itnerario con id " +id);
+
+    	// busca el itinerario con el id suministrado
+        for (ItinerarioDTO itinerario : itinerarios) {
+            if (Objects.equals(itinerario.getId(), id)) {
+
+            	// retornando las ciudades
+            	logger.info("retornando el arreglo de ciudades"+ itinerario.getCiudades());
+             return itinerario.getCiudades();
+
+            }
+        }
+
+        // no encontró el itinerario con ese id ?
+
+        logger.severe("No existe un itinerario con ese id");
+        throw new ItinerarioLogicException("No existe un itinerario con ese id");
+
+
+
+
     }
 }
