@@ -176,8 +176,7 @@
                             \n\
                             - Mejor disfraz sobreviviente.\n\
                             \n\
-                            - Mejor disfraz grupo.',
-                    imagen:'http://res.cloudinary.com/civico/image/upload/c_fill,f_auto,fl_lossy,h_368,w_1122/v1455293431/entity/event_image/file/bc2/001/56be03f72f41f3c2be001bc2.jpg'
+                            - Mejor disfraz grupo.'
                 },
                 {
                     id:2,
@@ -204,8 +203,7 @@
                                 \n\
                                 Hora: 8:30 p.m.\n\
                                 \n\
-                                Precio del recorrido: $60.000 o 20 dólares',
-                    imagen:'https://res.cloudinary.com/civico/image/upload/c_fill,f_auto,fl_lossy,h_368,w_1122/v1455220863/entity/event_image/file/940/000/56bcc4cb2f41f3c2be000940.jpg'
+                                Precio del recorrido: $60.000 o 20 dólares'
                 }
             ],
             hoteles:[
@@ -277,9 +275,8 @@
             eventos:[
                 {
                     id:1,
-                     nombre:'No hay eventos disponibles',
-                     detalles:'En estos momentos Cali no cuenta con presentación de algún evento',
-                    imagen:''
+                    nombre:'No hay eventos disponibles',
+                    detalles:'En estos momentos Cali no cuenta con presentación de algún evento',
                 }
 
             ],
@@ -343,8 +340,7 @@
                             El concierto se realizará en en el Club El Cortijo ubicado sobre el anillo vial y tendrá una capacidad para 5,000 personas. Sus boletas,\n\
                             que se pueden adquirir en Tu Boleta tendrán un valor de $50.000 para las primeras 500 personas y $65.000 para el resto de boletería.\n\
                             Seguramente muchos crecimos con su música y sus letras y ritmos aún forman parte de nuestras vidas.\n\
-                            Prepárate para vivir la magia de su música desde sus inicios con Mano Negra hasta la actualidad.',
-                    imagen:'http://www.infoeventos.com.co/wp-content/uploads/2016/02/manu-chao-feature.jpg'
+                            Prepárate para vivir la magia de su música desde sus inicios con Mano Negra hasta la actualidad.'
                 },
                 {
                     id:2,
@@ -356,28 +352,26 @@
                             \n\ \n\
                             ENTRADA                       $ 5.000\n\
                             PASAPORTE Lunes a Jueves 	$ 20.000\n\
-                            PASAPORTE fines de semana 	$ 25.000',
-                    imagen:'http://www.infoeventos.com.co/wp-content/uploads/2015/11/Banner-interparck-ciudad-de-hierro-bucaramanga.jpg'
+                            PASAPORTE fines de semana 	$ 25.000'
                 }
-
-                ],
-                hoteles:[
-                    {
-                        id:1,
-                        nombre:'Hotel Dann Avenida 19',
-                        direccion:'Cl. 19 # 5 - 72'
-                    },
-                    {
-                        id:2,
-                        nombre:'Hotel Augusta',
-                        direccion:'Avenida Jiménez # 4 - 7'
-                    },
-                    {
-                        id:3,
-                        nombre:'Hotel Casa Galeria',
-                        direccion:'Cra. 2 # 12 - 92'
-                    }
-                ]
+            ],
+            hoteles:[
+                {
+                    id:1,
+                    nombre:'Hotel Dann Avenida 19',
+                    direccion:'Cl. 19 # 5 - 72'
+                },
+                {
+                    id:2,
+                    nombre:'Hotel Augusta',
+                    direccion:'Avenida Jiménez # 4 - 7'
+                },
+                {
+                    id:3,
+                    nombre:'Hotel Casa Galeria',
+                    direccion:'Cra. 2 # 12 - 92'
+                }
+            ]
             }
         ];
 

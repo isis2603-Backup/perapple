@@ -36,7 +36,7 @@
                             <div class="form-group col-md-12">
                                 <label for="name" class="col-md-2 control-label">Nombre</label>
                                 <div class="col-md-10">
-                                    <input id="name" name="name" ng-model="nombreItinerario"  class="form-control" type="text" />
+                                    <input id="name" name="name" ng-model="nombreNuevoItinerario"  class="form-control" type="text" />
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
@@ -60,7 +60,7 @@
                         <span class="glyphicon glyphicon-plus"></span>
                         Agregar</button>-->
                         <!--en true list-->
-                        <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregarItinerario(nombreItinerario,fechaIni,fechaFin); ">
+                        <button id="save-itinerario" class="btn btn-primary navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregarItinerario(nombreNuevoItinerario,fechaIni,fechaFin); ">
                             <span class="glyphicon glyphicon-save"></span>
                             Salvar
                         </button>

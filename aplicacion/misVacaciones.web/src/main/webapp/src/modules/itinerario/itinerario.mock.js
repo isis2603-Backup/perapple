@@ -9,24 +9,34 @@
 
 
     mod.run(['$httpBackend', function ($httpBackend) {
-        var ignore_regexp = new RegExp('^((?!api).)*$');
+            
+        /*
+         * @type String
+         * api/itinerario/
+         */
+        var context = 'api/itinerario';
         /*
          * @type RegExp
          * recordUrl acepta cualquier url con el formato
-         * api/(cualquierpalabra)/(numero)
-         * ej: api/authors/1
+         * api/itinerario/(numero)
+         * ej: api/itinerario/1
          */
-        var recordUrl = new RegExp('api/itinerario/([0-9]+)');
-
-        var current = {};
+        var urlItinerario = new RegExp('api/itinerario/([0-9]+)');
+        /*
+         * @type RegExp
+         * recordUrl acepta cualquier url con el formato
+         * api/itinerario/viajero/(username)
+         * ej: api/itinerario/viajero/perapple
+         */
+        var urlViajero = new RegExp('api/itinerario/viajero/([a-zA-Z0-9._-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,4})');
         /*
          * @type Array
-         * records: Array con un Author por defecto
+         * records: Array con 2 itinerarios por defecto
          */
         var records = [
                 {   
                     id:1,
-                    viajero: 'perapple',
+                    viajero: 'p@earpple.com',
                     nombre: 'Verano 2016',
                     fechaInicio: '12-05-2016',
                     fechaFin: '13-06-2016',
@@ -58,7 +68,8 @@
                                               sustentada en principios y valores en el marco de un pensamiento estratégico que propone relatos innovadores en \n\
                                               una institución que contribuye a crear escenarios de bienestar para las comunidades humanas y la vida silvestre. \n\
                                               El Zoológico de Cali es una plataforma que promueve la construcción del compromiso ambiental.',
-                                   imagen:'http://www.icesi.edu.co/blogs_estudiantes/zooincali/files/2012/09/mapa_final-1024x6401.jpg'
+                                    imagen:'http://www.icesi.edu.co/blogs_estudiantes/zooincali/files/2012/09/mapa_final-1024x6401.jpg',
+                                    fecha:'13-05-2016'
                                 },
                                 { 
                                     id:2,
@@ -68,7 +79,8 @@
                                               La Sala Principal del teatro tiene una capacidad de 1039 espectadores que se dividen en diferentes localidades, cada uno con un nombre particular, \n\
                                               siendo la Luneta la primera y está situada a un nivel más bajo que el escenario. Le siguen el Primer y Segundo palco respectivamente divididos en cubículos numerados y \n\
                                               en los dos últimos niveles el anfiteatro y la galería.',
-                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/0/0b/CONTRASTES.JPG'
+                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/0/0b/CONTRASTES.JPG',
+                                    fecha:'20-05-2016'
                                 },
                                 {
                                     id:3,
@@ -78,21 +90,22 @@
                                               En 1942, se construyó la iglesia que se ve hoy en día, la cual es uno de los referentes del paisaje arquitectónico de la Ciudad de Cali. La actual construcción es una iglesia gótica en miniatura,\n\
                                               y como muchas iglesias góticas en América está inspirada en la Catedral de Ulm, Alemania.\n\
                                               La nueva ermita está dedicada a Nuestra Señora de los Dolores y en su interior conserva la antigua imagen del Señor de la Caña en el altar lateral izquierdo.',
-                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/2/2f/Ermita_cali.jpg'
+                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/2/2f/Ermita_cali.jpg',
+                                    fecha:'22-05-2016'
                                 }
                             ],
                             eventos: [
                                 {
                                     id: 1,
                                     nombre:'Partido America vs Nacional',
-                                    descripcion: 'Partido de la copa Postobon', 
+                                    detalles: 'Partido de la copa Postobon', 
                                     fecha: '13-05-2016'
                                 },
                                 {
                                     id: 2,
                                     nombre:'Partido America vs Nacional', 
-                                    descripcion: 'Partido de la copa Postobon', 
-                                    fecha: '13-05-2016'
+                                    detalles: 'Partido de la copa Postobon', 
+                                    fecha: '20-05-2016'
                                 }
                             ]
                         },
@@ -122,7 +135,8 @@
                                                 Expone piezas de diferentes culturas indígenas asentadas en la actual Colombia antes de la llegada de los europeos, \n\
                                                 entre las que destacan la Calima, los muiscas, la Nariño, la quimbaya, la sinú, la tairona, la San Agustín, la Tierradentro, la Tolima, \n\
                                                 entre otras cosas.',
-                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/d/dc/BOG_Museo_del_Oro.JPG'
+                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/d/dc/BOG_Museo_del_Oro.JPG',
+                                    fecha:'13-05-2016'
                                 },
                                 {
                                     id:2,
@@ -131,7 +145,8 @@
                                                 Se encuentra ubicado en la localidad de Chapinero, entre las calles 93 A y 93 B y entre las carreras 11 A y 13, \n\
                                                 en el sector de El Chicó. Fue inaugurado el 14 de junio de 1995.\n\
                                                 En el parque se encuentra la primera tienda de Starbucks y Carls Jr. en toda Colombia.',
-                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/0/0d/Bogot%C3%A1barrio_El_Chic%C3%B3_Parque_de_la_93.JPG'
+                                    imagen:'https://upload.wikimedia.org/wikipedia/commons/0/0d/Bogot%C3%A1barrio_El_Chic%C3%B3_Parque_de_la_93.JPG',
+                                    fecha:'18-05-2016'
                                 },
                                 {
                                     id:3,
@@ -143,20 +158,21 @@
                                                 \n\
                                                 La Candelaria no sólo es el centro histórico de Bogotá, con los años se ha convertido además en un importante centro comercial y de negocios para la ciudad pues ofrece mercados y \n\
                                                 oportunidades para todos los habitantes de la ciudad sin importar el origen de su condición social.',
-                                    imagen:'http://bogotabureau.com/herramientas/wp-content/uploads/2014/02/La-Candelaria.jpg'
+                                    imagen:'http://bogotabureau.com/herramientas/wp-content/uploads/2014/02/La-Candelaria.jpg',
+                                    fecha:'22-05-2016'
                                 }
                             ],
                             eventos: [
                                 {
                                     id:3,
                                     nombre:'Partido Millonarios vs Santa Fe', 
-                                    descripcion: 'Partido de la copa Postobon', 
+                                    detalles: 'Partido de la copa Postobon', 
                                     fecha: '13-05-2016'
                                 },
                                 {
                                     id:4,
                                     nombre:'Partido Milonarios vs Nacional', 
-                                    descripcion: 'Partido de la copa Postobon', 
+                                    detalles: 'Partido de la copa Postobon', 
                                     fecha: '20-05-2016'
                                 }
                             ]
@@ -165,7 +181,7 @@
                 },
                 { 
                     id: 2,
-                    viajero: 'perapple',
+                    viajero: 'p@earpple.com',
                     nombre: 'Invierno 2016',
                     fechaInicio: '12-07-2016',
                     fechaFin: '13-08-2016',
@@ -187,25 +203,27 @@
                                 {
                                     id:4,
                                     nombre:'Plaza de Bolivar', 
-                                    descripcion:'Muchas palomas'
+                                    detalles:'Muchas palomas',
+                                    fecha: '14-05-2016'
                                 },
                                 {
                                     id:5,
                                     nombre:'Catedral Primada', 
-                                    descripcion:'Mucha historia'
+                                    detalles:'Mucha historia',
+                                    fecha: '17-05-2016'
                                 }
                             ],
                             eventos: [
                                 {
                                     id:3,
                                     nombre:'Partido Millonarios vs Santa Fe', 
-                                    descripcion: 'Partido de la copa Postobon', 
+                                    detalles: 'Partido de la copa Postobon', 
                                     fecha: '13-05-2016'
                                 },
                                 {
                                     id:4,
                                     nombre:'Partido Millonarios vs Nacional', 
-                                    descripcion: 'Partido de la copa Postobon', 
+                                    detalles: 'Partido de la copa Postobon', 
                                     fecha: '20-05-2016'
                                 }
                             ]
@@ -213,6 +231,7 @@
                     ]
                 }
         ];
+        var current = {};
 
         function getQueryParams(url) {
             var vars = {}, hash;
@@ -224,10 +243,8 @@
             return vars;
         }
 
-        /*
-         * Ignora las peticiones GET, no contempladas en la Exp regular ignore_regexp
-         */
-        //$httpBackend.whenGET(ignore_regexp).passThrough();
+
+        //GET
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/itinerarios"
@@ -236,7 +253,7 @@
          * se realiza la simulacion de la paginacion.
          * Response: 200 -> Status ok, array de itinerarios y los headers.
          */
-        $httpBackend.whenGET('api/itinerario').respond(function (method, url) {
+        $httpBackend.whenGET(context).respond(function (method, url) {
             var queryParams = getQueryParams(url);
             var responseObj = [];
             var page = queryParams.page;
@@ -252,13 +269,13 @@
             }
             return [200, responseObj, headers];
         });
+        
         /*
          * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/itinerarios/[numero]"
          * Obtiene el id de la url y el registro asociado dentro del array records.
          * Response: 200 -> Status ok, record -> libro y ningún header.
          */
-        $httpBackend.whenGET(recordUrl).respond(function (method, url) {
-
+        $httpBackend.whenGET(urlItinerario).respond(function (method, url) {
             var id = parseInt(url.split('/').pop());
             var record;
             ng.forEach(records, function (value) {
@@ -266,14 +283,36 @@
                     record = ng.copy(value);
                 }
             });
-            return [200, record, {}];}
-        );
-
-        $httpBackend.whenGET('api/itinerario/current').respond(function (method, url) {
-
-                return [200, current, {}];
-
+            return [200, record, {}];
         });
+        
+        /*
+         * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/itinerario/viajero/[username]"
+         * Obtiene el id de la url y el registro asociado dentro del array records.
+         * Response: 200 -> Status ok, record -> libro y ningún header.
+         */
+        $httpBackend.whenGET(urlViajero).respond(function (method, url) {
+            var email_viajero = url.split('/').pop();
+            var records_viajero = [];
+            ng.forEach(records, function (value) {
+                if (value.viajero === email_viajero) {
+                    records_viajero.push(value);
+                }
+            });
+            return [200, records_viajero, {}];
+        });
+        
+        /*
+         * Esta funcion se ejecuta al invocar una solicitud GET a la url "api/itinerarios/current"
+         * Response: 200 -> Status ok, current itinerario y no headers.
+         */
+        $httpBackend.whenGET(context+'/current').respond(function (method, url) {
+            return [200, current, {}];
+        });
+    
+            
+        //POST
+            
         /*
          * Esta funcion se ejecuta al invocar una solicitud POST a la url "api/itinierario"
          * Obtiene el record de libro desde el cuerpo de la peticion
@@ -281,12 +320,15 @@
          * array de records.
          * Response: 201 -> Status created, record -> libro y ningún header.
          */
-        $httpBackend.whenPOST('api/itinerario').respond(function (method, url, data) {
+        $httpBackend.whenPOST(context).respond(function (method, url, data) {
             var record = ng.fromJson(data);
             record.id = Math.floor(Math.random() * 10000);
             records.push(record);
             return [201, record, {}];
         });
+
+        
+        //DELETE
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud DELETE a la url "api/itinerarios/[numero]"
@@ -294,25 +336,26 @@
          * Luego realiza un splice "eliminar registro del array".
          * Response: 204, no retorna ningun dato ni headers.
          */
-
-        $httpBackend.whenDELETE(recordUrl).respond(function (method, url) {
+        $httpBackend.whenDELETE(urlItinerario).respond(function (method, url) {
             var id = parseInt(url.split('/').pop());
             ng.forEach(records, function (value, key) {
                 if (value.id === id) {
                     records.splice(key, 1);
                 }
             });
-            return [204, null, {}];
+            return [204, records, {}];
         });
+
+
+        //PUT
 
         /*
          * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/itinerarios/[numero]"
          * Obtiene el id del la url y el record de itinerario desde el cuerpo de la peticion
          * Busca y reemplaza el anterior registro por el enviado en el cuerpo de la solicitud
          * Response: 204, no retorna ningun dato ni headers.
-         *
          */
-        $httpBackend.whenPUT(recordUrl).respond(function (method, url, data) {
+        $httpBackend.whenPUT(urlItinerario).respond(function (method, url, data) {
 
             var id = parseInt(url.split('/').pop());
             var record = ng.fromJson(data);
@@ -324,7 +367,11 @@
             return [204, null, {}];
         });
 
-        $httpBackend.whenPUT('api/itinerario/current').respond(function (method, url, data) {
+        /*
+         * Esta funcion se ejecuta al invocar una solicitud PUT a la url "api/itinerarios/current"
+         * Response: 204, no retorna ningun dato ni headers.
+         */
+        $httpBackend.whenPUT(context+'/current').respond(function (method, url, data) {
             current = ng.fromJson(data);
             return [204, null, {}];
         });
