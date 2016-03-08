@@ -285,7 +285,8 @@ public class ItinerarioLogicMock {
 
     ItinerarioDTO itin=null;
     	// busca el itinerario con el id suministrado
-        for (ItinerarioDTO itinerario : itinerarios) {
+        for (int i = 0 ;i<itinerarios.size() && itin == null; i++) {
+            ItinerarioDTO itinerario = itinerarios.get(i);
             if (Objects.equals(itinerario.getId(), id)) {
 
             	// eliminando la ciudad
@@ -297,10 +298,11 @@ public class ItinerarioLogicMock {
         }
 
         if(itin != null){
-         for(CiudadDTO ciudad : itin.getCiudades()){
-                if(Objects.equals(ciudad.getId(), idciudad)){
+            ArrayList<CiudadDTO> ciudades = itin.getCiudades();
+         for( int i = 0; i<ciudades.size();i++){
+                if(Objects.equals(ciudades.get(i).getId(), idciudad)){
                     existeCiudad = true;
-                   itin.getCiudades().remove(ciudad);
+                   ciudades.remove(i);
                 }
                }
         }
