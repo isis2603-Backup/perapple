@@ -8,6 +8,7 @@ package co.edu.uniandes.misVacaciones.rest.resources;
 
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
+import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
 import java.util.List;
@@ -110,5 +111,43 @@ public class ItinerarioResource {
     {
         itinerarioLogic.createCiudad(id, ciudad);
     }
+    /**
+     * Actualiza los datos de una ciudad de un itineario
+     * @param id identificador del itinerario a modificar
+     * @param ciudad datos modificados de la ciudad
+     * @param idciudad identificadot de la ciudad
+     * @return datos de la ciudad del itinerario a modificar
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
+     */
+    @PUT
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
+    public void updateCiudades(@PathParam("id") Long id, CiudadDTO ciudad, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
 
+        itinerarioLogic.updateCiudad(id, ciudad, idciudad);
+    }
+
+    /**
+     * Elimina los datos de un itinerario
+     * @param id identificador del itinerario a eliminar
+     * @param idciudad
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
+     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
+     */
+    @DELETE
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
+    public void deleteCiudad(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+    	itinerarioLogic.deleteCiudad(id, idciudad);
+    }
+
+    /**
+     * Obtiene las ciudades del itinerario
+     * @param id identificador del itinerario
+     * @return lista de ciudades del itinerario
+     * @throws ItinerarioLogicException cuando el itineraio no existe
+     */
+    @GET
+    @Path("{id: \\d+}/ciudades")
+    public List<CiudadDTO> getCiudades(@PathParam("id") Long id) throws ItinerarioLogicException {
+        return itinerarioLogic.getCiudades(id);
+    }
 }
