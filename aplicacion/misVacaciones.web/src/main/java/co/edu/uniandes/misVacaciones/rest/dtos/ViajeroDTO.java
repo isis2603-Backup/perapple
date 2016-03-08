@@ -12,6 +12,9 @@ package co.edu.uniandes.misVacaciones.rest.dtos;
 public class ViajeroDTO {
     private Long id;
     private String name;
+    private String email;
+    private String password; 
+    private String image;
 
     /**
      * Constructor por defecto
@@ -21,13 +24,19 @@ public class ViajeroDTO {
 
     /**
      * Constructor con parámetros.
-     * @param id identificador de la ciudad
-     * @param name nombre de la ciudad
+     * @param id identificador del ciajero
+     * @param name nombre del viajero
+     * @param email email del viajero
+     * @param password contraseña del viajero
+     * @param image imagen de perfil del viajero
      */
-    public ViajeroDTO(Long id, String name) {
+    public ViajeroDTO(Long id, String name, String email, String password, String image) {
 		super();
 		this.id = id;
 		this.name = name;
+                this.email = email;
+                this.password = password;
+                this.image = image;
 	}
 
 	/**
@@ -57,12 +66,36 @@ public class ViajeroDTO {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     /**
      * Convierte el objeto a una cadena
+     * @return el objeto como una cadena JSON.
      */
-    @Override
     public String toString() {
-    	return "{ id : " + getId() + ", name : \"" + getName() + "\" }" ;
+    	return "{ id : " + getId() + ", name : \"" + getName() + "\", email: \"" + getEmail() + "\", password: \"" + getPassword() + "\", image: \"" + getImage() + "\" }" ;
     }
 }
