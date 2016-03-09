@@ -91,11 +91,20 @@ public class CiudadDTO {
         return sitios;
     }
 
+   public void setSitios(ArrayList<SitioDTO> sitios)
+   {
+       this.sitios = sitios;
+   }
     /**
      * @return Lista de eventos de la ciudad
      */
     public ArrayList<EventoDTO> getEventos() {
         return eventos;
+    }
+
+    public void setEventos(ArrayList<EventoDTO> eventos)
+    {
+        this.eventos = eventos;
     }
 
      /**
@@ -121,6 +130,7 @@ public class CiudadDTO {
 
     /**
      * Convierte el objeto a una cadena
+     * @return
      */
     @Override
     public String toString() {
@@ -133,7 +143,9 @@ public class CiudadDTO {
                 +" , fechaFin: "+fechaFin
                 +" , sitios: [";
 
-        for(int i = 0; i<sitios.size();i++)
+        if(sitios!=null){
+
+            for(int i = 0; i<sitios.size();i++)
         {
             if(i<sitios.size()-1 && sitios!=null)
             {
@@ -145,13 +157,16 @@ public class CiudadDTO {
                 ciudad += sitios.get(i).toString();
             }
         }
+        }
 
          ciudad +="],"
                  + " eventos: [";
 
-         for(int i = 0; i<eventos.size();i++)
+         if(eventos!=null){
+
+             for(int i = 0; i<eventos.size();i++)
         {
-            if(i<eventos.size()-1 && eventos!=null)
+            if(i<eventos.size()-1 )
             {
 
                 ciudad += eventos.get(i).toString()+" , ";
@@ -161,9 +176,10 @@ public class CiudadDTO {
                 ciudad += eventos.get(i).toString();
             }
         }
+         }
+
           ciudad +="],"
                   + " }";
-
 
         return ciudad;
     }

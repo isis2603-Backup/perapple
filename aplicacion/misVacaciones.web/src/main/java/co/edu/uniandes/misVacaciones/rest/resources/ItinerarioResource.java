@@ -116,7 +116,6 @@ public class ItinerarioResource {
      * @param id identificador del itinerario a modificar
      * @param ciudad datos modificados de la ciudad
      * @param idciudad identificadot de la ciudad
-     * @return datos de la ciudad del itinerario a modificar
      * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
      */
     @PUT

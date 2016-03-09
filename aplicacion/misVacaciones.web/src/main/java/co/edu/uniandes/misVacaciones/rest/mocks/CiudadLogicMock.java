@@ -10,7 +10,12 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
  * @author Perapple
  */
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +40,7 @@ public class CiudadLogicMock {
 	// listado de ciudades
     public static ArrayList<CiudadDTO> ciudades;
 
+
     /**
      * Constructor. Crea los datos de ejemplo.
      */
@@ -46,6 +52,8 @@ public class CiudadLogicMock {
             ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
             ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
         }
+
+
 
     	// indica que se muestren todos los mensajes
     	logger.setLevel(Level.INFO);
@@ -184,4 +192,285 @@ public class CiudadLogicMock {
         logger.severe("No existe una ciudad con ese id");
         throw new CiudadLogicException("No existe una ciudad con ese id");
     }
+
+    public void crearSitioEnCiudad(Long idCiudad, SitioDTO nuevoSitio) throws CiudadLogicException
+    {
+        logger.info("recibiendo solicitud de agregar sitio en la ciudad con id " + idCiudad);
+
+    	    	// busca la ciudad con el id suministrado
+	        for (CiudadDTO ciudad : ciudades) {
+	        	// si existe una ciudad con ese id
+	            if (Objects.equals(ciudad.getId(), idCiudad)){
+
+                        logger.info("agregando sitio a ciudad:"+ ciudad);
+                        if(nuevoSitio.getId()== null){
+
+                    if(ciudad.getSitios()!=null){
+                    if(ciudad.getSitios().size()>0)
+                    nuevoSitio.setId(ciudad.getSitios().get(ciudad.getSitios().size()-1).getId()+1);
+                    else
+                    nuevoSitio.setId(1L);
+                    }
+                    else{
+                        ArrayList<SitioDTO> sitiosN = new ArrayList<>();
+                        nuevoSitio.setId(1L);
+                        sitiosN.add(nuevoSitio);
+                        ciudad.setSitios(sitiosN);
+                    }
+                ciudad.getSitios().add(nuevoSitio);
+                }
+                else{ciudad.getSitios().add(nuevoSitio);
+
+                }
+                return;
+            }
+        }
+
+        // no encontró la ciudad con ese id ?
+        logger.severe("No existe una ciudad con ese id");
+
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+    }
+
+    public void actualizarSitio(Long id, SitioDTO sitio, Long idSitio)throws CiudadLogicException, SitioLogicException
+    {
+         boolean existeCiudad = false;
+        boolean existeSitio= false;
+
+        for (CiudadDTO ciudad : ciudades) {
+
+            if (Objects.equals(ciudad.getId(), id)) {
+                existeCiudad = true;
+            	// modifica la ciudad
+            	logger.info("modificando el sitio"+ sitio + " de la ciudad " + ciudad);
+               for(SitioDTO antiguoSitio : ciudad.getSitios()){
+                if(Objects.equals(antiguoSitio.getId(), idSitio)){
+                    existeSitio = true;
+                    antiguoSitio =  sitio;
+                }
+               }
+
+            }
+        }
+
+        // no encontró alguna ciudad con ese id ?
+        if(!existeCiudad)
+        {logger.severe("No existe una ciudad con ese id");
+
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+
+        if(!existeSitio){
+        logger.severe("No existe un sitio con ese id en la ciudad indicada");
+
+        throw new SitioLogicException("No existe un sitio con ese id");
+        }
+
+    }
+
+    public void borrarSitio(Long idCiudad, Long idSitio) throws CiudadLogicException, SitioLogicException
+    {
+         boolean existeSitio=false;
+        logger.info("recibiendo solicitud de eliminar sitio con id " + idSitio + " de la ciudad con id " +idCiudad);
+
+    CiudadDTO stadt=null;
+    	// busca la ciudad  con el id suministrado
+        for (int i = 0 ;i<ciudades.size() && stadt == null; i++) {
+            CiudadDTO ciudad = ciudades.get(i);
+            if (Objects.equals(ciudad.getId(), idCiudad)) {
+
+            	// eliminando el sitio
+                stadt = ciudad;
+            	logger.info("eliminando el sitio con id"+ idSitio + " de la ciudad con id" + idCiudad);
+
+
+            }
+        }
+
+        if(stadt != null){
+            ArrayList<SitioDTO> sitios = stadt.getSitios();
+         for( int i = 0; i<sitios.size();i++){
+                if(Objects.equals(sitios.get(i).getId(), idSitio)){
+                    existeSitio = true;
+                   sitios.remove(i);
+                }
+               }
+        }
+        // no encontró la ciudad con ese id ?
+        if(stadt == null){
+        logger.severe("No existe una ciudad con ese id");
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+        if(!existeSitio){
+        logger.severe("No existe un sitio con ese id en la ciudad con ese idCiudad");
+        throw new SitioLogicException("No existe un Sitio con ese id");
+        }
+
+
+    }
+
+    public void crearEventoEnCiudad(Long idCiudad, EventoDTO nuevoEvento) throws CiudadLogicException
+    {
+        logger.info("recibiendo solicitud de agregar evento en la ciudad con id " + idCiudad);
+
+    	    	// busca la ciudad con el id suministrado
+	        for (CiudadDTO ciudad : ciudades) {
+	        	// si existe una ciudad con ese id
+	            if (Objects.equals(ciudad.getId(), idCiudad)){
+
+                        logger.info("agregando evento a ciudad:"+ ciudad);
+                        if(nuevoEvento.getId()== null){
+
+                    if(ciudad.getEventos()!=null){
+                    if(ciudad.getEventos().size()>0)
+                    nuevoEvento.setId(ciudad.getEventos().get(ciudad.getEventos().size()-1).getId()+1);
+                    else
+                    nuevoEvento.setId(1L);
+                    }
+                    else{
+                        ArrayList<EventoDTO> eventosN = new ArrayList<>();
+                        nuevoEvento.setId(1L);
+                        eventosN.add(nuevoEvento);
+                        ciudad.setEventos(eventosN);
+                    }
+                ciudad.getEventos().add(nuevoEvento);
+                }
+                else{ciudad.getEventos().add(nuevoEvento);
+
+                }
+                return;
+            }
+        }
+
+        // no encontró la ciudad con ese id ?
+        logger.severe("No existe una ciudad con ese id");
+
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+    }
+
+
+    public void actualizarEvento(Long id, EventoDTO evento, Long idEvento)throws CiudadLogicException, EventoLogicException
+    {
+         boolean existeCiudad = false;
+        boolean existeEvento= false;
+
+        for (CiudadDTO ciudad : ciudades) {
+
+            if (Objects.equals(ciudad.getId(), id)) {
+                existeCiudad = true;
+            	// modifica la ciudad
+            	logger.info("modificando el evento"+ evento + " de la ciudad " + ciudad);
+               for(EventoDTO antiguoEvento : ciudad.getEventos()){
+                if(Objects.equals(antiguoEvento.getId(), idEvento)){
+                    existeEvento = true;
+                    antiguoEvento =  evento;
+                }
+               }
+
+            }
+        }
+
+        // no encontró alguna ciudad con ese id ?
+        if(!existeCiudad)
+        {logger.severe("No existe una ciudad con ese id");
+
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+
+        if(!existeEvento){
+        logger.severe("No existe un evento con ese id en la ciudad indicada");
+
+        throw new EventoLogicException("No existe un evento con ese id");
+        }
+    }
+
+
+     public void borrarEvento(Long idCiudad, Long idEvento) throws CiudadLogicException, EventoLogicException
+    {
+         boolean existeEvento=false;
+        logger.info("recibiendo solicitud de eliminar evento con id " + idEvento + " de la ciudad con id " +idCiudad);
+
+    CiudadDTO stadt=null;
+    	// busca la ciudad  con el id suministrado
+        for (int i = 0 ;i<ciudades.size() && stadt == null; i++) {
+            CiudadDTO ciudad = ciudades.get(i);
+            if (Objects.equals(ciudad.getId(), idCiudad)) {
+
+            	// eliminando el evento
+                stadt = ciudad;
+            	logger.info("eliminando el evento con id"+ idEvento + " de la ciudad con id" + idCiudad);
+
+
+            }
+        }
+
+        if(stadt != null){
+            ArrayList<EventoDTO> eventos = stadt.getEventos();
+         for( int i = 0; i<eventos.size();i++){
+                if(Objects.equals(eventos.get(i).getId(), idEvento)){
+                    existeEvento = true;
+                   eventos.remove(i);
+                }
+               }
+        }
+        // no encontró la ciudad con ese id ?
+        if(stadt == null){
+        logger.severe("No existe una ciudad con ese id");
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+        if(!existeEvento){
+        logger.severe("No existe un evento con ese id en la ciudad con ese idCiudad");
+        throw new EventoLogicException("No existe un Evento con ese id");
+        }
+
+
+    }
+
+      public List<SitioDTO> getSitios(Long idCiudad) throws CiudadLogicException
+      {
+
+    logger.info("recibiendo solicitud retorno de los sitios de la ciudad con id " +idCiudad);
+
+    	// busca la ciudad con el id suministrado
+        for (CiudadDTO ciudad : ciudades) {
+            if (Objects.equals(ciudad.getId(), idCiudad)) {
+
+            	// retornando los sitios
+            	logger.info("retornando el arreglo de sitios"+ ciudad.getSitios());
+             return ciudad.getSitios();
+
+            }
+        }
+
+        // no encontró la ciudad con ese id ?
+
+        logger.severe("No existe una ciudad con ese id");
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+       }
+
+       public List<EventoDTO> getEventos(Long idCiudad) throws CiudadLogicException
+      {
+
+    logger.info("recibiendo solicitud retorno de los eventos de la ciudad con id " +idCiudad);
+
+    	// busca la ciudad con el id suministrado
+        for (CiudadDTO ciudad : ciudades) {
+            if (Objects.equals(ciudad.getId(), idCiudad)) {
+
+            	// retornando los eventos
+            	logger.info("retornando el arreglo de eventos"+ ciudad.getEventos());
+             return ciudad.getEventos();
+
+            }
+        }
+
+        // no encontró la ciudad con ese id ?
+
+        logger.severe("No existe una ciudad con ese id");
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+       }
+
+
+
 }
+
