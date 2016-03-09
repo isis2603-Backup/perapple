@@ -452,13 +452,15 @@
          */
         this.deleteCiudad = function (idItinerario, idCiudad) {
             
+            console.log("entro al svc");
+            
             var encontro = false;
             var itinerario = self.fetchItinerario(idItinerario);
             var ciudades = itinerario.ciudades;
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
-                if(idCiudad === ciudades[i].id.toString())
+                if(idCiudad === ciudades[i].id)
                 {
                     ciudades.splice(i,1);
                     itinerario.ciudades = ciudades;

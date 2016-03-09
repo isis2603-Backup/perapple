@@ -175,7 +175,7 @@
         this.fetchCurrentCiudades = function (){
             
             $scope.currentCiudadesMostrar = svc.fetchCiudades($scope.currentRecord.id);
-            $scope.currentCiudadMostrar = $scope.currentCiudadesMostrar[0];
+            //$scope.currentCiudadMostrar = $scope.currentCiudadesMostrar[0];
             
             //return svc.fetchCiudades($scope.currentRecord.id).then(function (response) {
             //    $scope.currentCiudades = response.data;
@@ -186,12 +186,12 @@
         
         this.fetchCurrentSitios = function (){
             $scope.currentSitiosMostrar = svc.fetchSitios($scope.currentRecord.id, $scope.currentCiudadMostrar.id);
-            $scope.currentSitioMostrar = $scope.currentSitiosMostrar[0];
+            //$scope.currentSitioMostrar = $scope.currentSitiosMostrar[0];
         };
         
         this.fetchCurrentEventos = function (){
             $scope.currentEventosMostrar = svc.fetchEventos($scope.currentRecord.id, $scope.currentCiudadMostrar.id);
-            $scope.currentEventoMostrar = $scope.currentEventosMostrar[0];
+            //$scope.currentEventoMostrar = $scope.currentEventosMostrar[0];
         };
         
         this.fetchCurrents = function (){
@@ -294,12 +294,13 @@
 
             var idCiudad = parseInt($event.currentTarget.name);
             
-            svc.deleteCiudad($scope.currentRecord.id, idCiudad)
-                    .then(
-                        function(){
-                            self.fetchCurrents();
-                        }, responseError
-                    );
+            if (idCiudad === $scope.currentCiudadMostrar.id){
+                $scope.currentCiudadMostrar = {};
+            }
+            
+            svc.deleteCiudad($scope.currentRecord.id, idCiudad);//esto no retorna promesa entonces no necesito el then
+            
+            self.fetchCurrents();
         };      
         
         this.borrarSitio = function ($event){
@@ -327,13 +328,12 @@
 
             var idCiudad = $event.currentTarget.name;
             
-            $scope.currentCiudadMostrar = svc.fetchCiudad($scope.currentRecord.id, idCiudad)
-                    .then(
-                        function(){
-                            self.fetchCurrentSitios();
-                            self.fetchCurrentEventos();
-                        }, responseError
-                    );
+            $scope.currentCiudadMostrar = svc.fetchCiudad($scope.currentRecord.id, idCiudad);
+            
+            console.log("detallesCiudad se actualizo"+$scope.currentCiudadMostrar.nombre);
+            
+            self.fetchCurrentSitios();
+            self.fetchCurrentEventos();
         };
         
         this.detallesSitio=function($event){
