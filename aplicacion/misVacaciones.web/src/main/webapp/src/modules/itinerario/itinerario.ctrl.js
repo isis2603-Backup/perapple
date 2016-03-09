@@ -175,6 +175,8 @@
         this.fetchCurrentCiudades = function (){
             
             $scope.currentCiudadesMostrar = svc.fetchCiudades($scope.currentRecord.id);
+            
+            self.fetchCiudadesBD();
             //$scope.currentCiudadMostrar = $scope.currentCiudadesMostrar[0];
             
             //return svc.fetchCiudades($scope.currentRecord.id).then(function (response) {
@@ -212,7 +214,6 @@
         this.fetchCiudadesBD = function (){
             return svcCiudad.fetchCiudades().then(function (response) {
                 $scope.ciudadesBD = response.data;
-                $scope.currentCiudad = {};
                 return response;
             }, responseError);
         };
@@ -239,6 +240,7 @@
         //Funciones para agregar (AGREGAR)    
             
         this.agregarCiudad=function($event){
+                        
             var idCiudad = $event.currentTarget.name;
             var ciudadBD = svcCiudad.fetchCiudad(idCiudad);
             
@@ -329,8 +331,6 @@
             var idCiudad = $event.currentTarget.name;
             
             $scope.currentCiudadMostrar = svc.fetchCiudad($scope.currentRecord.id, idCiudad);
-            
-            console.log("detallesCiudad se actualizo"+$scope.currentCiudadMostrar.nombre);
             
             self.fetchCurrentSitios();
             self.fetchCurrentEventos();
