@@ -1,19 +1,19 @@
 /*
- * CityDTO
- * Objeto de transferencia de datos de Ciudades.
+ * ViajeroDTO
+ * Objeto de transferencia de datos de Viajeros.
  * Los DTO especifican los mensajes que se envían entre el cliente y el servidor.
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 /**
- * Objeto de transferencia de datos de Ciudades.
- * @author Asistente
+ * Objeto de transferencia de datos de Viajeros.
+ * @author Perapple
  */
 public class ViajeroDTO {
     private Long id;
     private String name;
     private String email;
-    private String password; 
+    private String password;
     private String image;
 
     /**
@@ -39,58 +39,84 @@ public class ViajeroDTO {
                 this.image = image;
 	}
 
-	/**
-     * @return the id
+    /**
+     * Retorna el id del viajero
+     * @return el id del viajero
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * @param id the id to set
+     * Modifica el id del viajero
+     * @param id el id a modificar
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * @return the name
+     * Retorna el nombre del viajero
+     * @return el nombre del viajero
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name the name to set
+     * Modifica el nombre del viajero
+     * @param name el nombre a modificar
      */
     public void setName(String name) {
         this.name = name;
     }
-    
+    /**
+     * Retorna el email del viajero
+     * @return el email del viajero
+     */
     public String getEmail() {
         return email;
     }
-
+    /**
+     * Modifica el email del viajero
+     * @param email el email a modificar
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Retorna la contraseña del viajero
+     * @return la contraseña del viajero
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Modifica la contraseña del viajero
+     * @param password la contrasñea a modificar
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Retorna la imagen del viajero
+     * @return la imagen del viajero
+     */
     public String getImage() {
         return image;
     }
 
+    /**
+     * Modifica la imagen del viajero
+     * @param image la imagen a modificar
+     */
     public void setImage(String image) {
         this.image = image;
     }
-    
+
     /**
      * Convierte el objeto a una cadena
      * @return el objeto como una cadena JSON.

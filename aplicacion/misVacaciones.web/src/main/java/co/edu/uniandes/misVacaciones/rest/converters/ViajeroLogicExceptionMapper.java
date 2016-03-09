@@ -7,7 +7,7 @@ import javax.ws.rs.ext.Provider;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ViajeroLogicException;
 
 /**
- * Convertidor de Excepciones ItinerarioLogicException a mensajes REST.
+ * Convertidor de Excepciones ViajeroLogicException a mensajes REST.
  */
 @Provider
 public class ViajeroLogicExceptionMapper implements ExceptionMapper<ViajeroLogicException> {
