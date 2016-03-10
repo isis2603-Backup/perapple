@@ -181,7 +181,7 @@
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
-                if(idCiudad === ciudades[i].id.toString())
+                if(idCiudad === ciudades[i].id)
                 {
                     encontro = true;
                     return ciudades[i];
@@ -211,7 +211,7 @@
             
             for(var i = 0; i<sitios.length && !encontro;i++)
             {
-                if(idSitio === sitios[i].id.toString())
+                if(idSitio === sitios[i].id)
                 {
                     encontro = true;
                     return sitios[i];
@@ -241,7 +241,7 @@
             
             for(var i = 0; i<eventos.length && !encontro;i++)
             {
-                if(idEvento === eventos[i].id.toString())
+                if(idEvento === eventos[i].id)
                 {
                     encontro = true;
                     return eventos[i];
@@ -327,7 +327,7 @@
             
             for(var i = 0; i<ciudades.length && !encontro;i++)
             {
-                if(nCiudad.id === ciudades[i].id.toString())
+                if(nCiudad.id === ciudades[i].id)
                 {
                     encontro = true;
                     indice = i;
@@ -368,7 +368,7 @@
             
             for(var i = 0; i<sitios.length && !encontro;i++)
             {
-                if(nSitio.id === sitios[i].id.toString())
+                if(nSitio.id === sitios[i].id)
                 {
                     encontro = true;
                     indice = i;
@@ -409,7 +409,7 @@
             
             for(var i = 0; i<eventos.length && !encontro;i++)
             {
-                if(nEvento.id === eventos[i].id.toString())
+                if(nEvento.id === eventos[i].id)
                 {
                     encontro = true;
                     indice = i;
@@ -453,8 +453,6 @@
          */
         this.deleteCiudad = function (idItinerario, idCiudad) {
             
-            console.log("entro al svc");
-            
             var encontro = false;
             var itinerario = self.fetchItinerario(idItinerario);
             var ciudades = itinerario.ciudades;
@@ -490,7 +488,7 @@
             
             for(var i = 0; i<sitios.length && !encontro;i++)
             {
-                if(idSitio === sitios[i].id.toString())
+                if(idSitio === sitios[i].id)
                 {
                     sitios.splice(i,1);
                     ciudad.sitios = sitios;
@@ -520,7 +518,7 @@
             
             for(var i = 0; i<eventos.length && !encontro;i++)
             {
-                if(idEvento === eventos[i].id.toString())
+                if(idEvento === eventos[i].id)
                 {
                     eventos.splice(i,1);
                     ciudad.eventos = eventos;
