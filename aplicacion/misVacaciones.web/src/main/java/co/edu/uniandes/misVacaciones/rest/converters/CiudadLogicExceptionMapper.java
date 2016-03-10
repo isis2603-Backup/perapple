@@ -28,4 +28,3 @@ public class CiudadLogicExceptionMapper implements ExceptionMapper<CiudadLogicEx
 	}
 
 }
->>>>>>> e840caa7ec64b0f35fd6ab3576500e0b2367ae4e:aplicacion/misVacaciones.web/src/main/java/co/edu/uniandes/misVacaciones/rest/converters/CiudadLogicExceptionMapper.java

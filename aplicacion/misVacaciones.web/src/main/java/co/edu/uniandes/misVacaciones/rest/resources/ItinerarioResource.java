@@ -155,16 +155,17 @@ public class ItinerarioResource {
     /**
      * Agrega un sitio de interes en una ciudad con el id dado del itinerario con id dado
      * @param id identificador del itinerario
-     * @param idciudad identificar de la ciudad
+     * @param idciudad identificador de la ciudad
      * @param sitio el sitio a agregar
+     * @return el sitio que agregó
      * @throws ItinerarioLogicException cuando no existe -----
      * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public void createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) throws ItinerarioLogicException, CiudadLogicException
+    public SitioDTO createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) throws ItinerarioLogicException, CiudadLogicException
     {
-        itinerarioLogic.createSitioDeInteres(id, idciudad, sitio);
+        return itinerarioLogic.createSitioDeInteres(id, idciudad, sitio);
     }
     
      /**
@@ -181,5 +182,33 @@ public class ItinerarioResource {
     public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
     	itinerarioLogic.deleteSitioDeInteres(id, idciudad, idsitio);
     }
-
+    
+     /**
+     * Obtiene el listado de sitios de una ciudad en un itinerario
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad
+     * @throws ItinerarioLogicException cuando no existe -----
+     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
+     */
+    @GET
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
+    public void fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
+    {
+        itinerarioLogic.fetchSitiosDeInteres(id, idciudad);
+    }
+    
+         /**
+     * Obtiene los datos de un sitio de interes en una ciudad del itinerario
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad en el itinerario
+     * @param idsitio identificador del sitio a buscar
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * @throws SitioLogicException cuando no existe un sitio con el id sumunistrado
+     */
+    @GET
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
+    public void fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
+    	itinerarioLogic.fetchSitioDeInteres(id, idciudad, idsitio);
+    }
 }
