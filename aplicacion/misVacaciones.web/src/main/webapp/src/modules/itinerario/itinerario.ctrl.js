@@ -163,7 +163,7 @@
         };
         
         this.borrarItinerario = function ($event){
-            var idItinerario = $event.currentTarget.name;
+            var idItinerario = parseInt($event.currentTarget.name);
             return svc.deleteItinerario(idItinerario).then(function () {
                 self.fetchRecordsViajero($scope.currentUser);
             }, responseError);
@@ -242,16 +242,14 @@
         this.agregarCiudad=function($event){
                         
             var ciudadBD = {};
-            var idCiudad = $event.currentTarget.name;
+            var idCiudad = parseInt($event.currentTarget.name);
             
             return svcCiudad.fetchCiudad(idCiudad)
                     .then(function (response) {
                         ciudadBD = response.data;
-                        console.log("ciudadBD"+ciudadBD.nombre);
                         return response;
                     }, responseError)
                     .then(function () {
-                        console.log("agregarCiudad2"+ciudadBD.nombre);
                         var nCiudad = {id:ciudadBD.id,
                             nombre:ciudadBD.nombre,
                             detalles:ciudadBD.detalles,
@@ -270,7 +268,7 @@
 
         this.agregarSitio = function($event){
             
-            var idSitio = $event.currentTarget.name;
+            var idSitio = parseInt($event.currentTarget.name);
             var sitioBD = svcCiudad.fetchSitio($scope.currentCiudadMostrar.id, idSitio);
             
             var nSitio = {id:sitioBD.id,
@@ -286,7 +284,7 @@
         
         this.agregarEvento = function($event){
             
-            var idEvento = $event.currentTarget.name;
+            var idEvento = parseInt($event.currentTarget.name);
             var eventoBD = svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento);
             
             var nEvento = {id:eventoBD.id,
@@ -338,24 +336,25 @@
         
         this.detallesCiudad=function($event){
 
-            var idCiudad = $event.currentTarget.name;
+            var idCiudad = parseInt($event.currentTarget.name);
             
             $scope.currentCiudadMostrar = svc.fetchCiudad($scope.currentRecord.id, idCiudad);
             
             self.fetchCurrentSitios();
             self.fetchCurrentEventos();
+            self.fetchSitiosBD(idCiudad)
         };
         
         this.detallesSitio=function($event){
 
-            var idSitio = $event.currentTarget.name;
+            var idSitio = parseInt($event.currentTarget.name);
             
             $scope.currentSitioMostrar = svc.fetchSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idSitio);
         };
         
         this.detallesEvento=function($event){
 
-            var idEvento = $event.currentTarget.name;
+            var idEvento = parseInt($event.currentTarget.name);
             
             $scope.currentEventoMostrar = svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento);
         };

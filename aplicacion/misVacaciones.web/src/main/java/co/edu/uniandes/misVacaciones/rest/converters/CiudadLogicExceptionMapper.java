@@ -1,3 +1,4 @@
+
 package co.edu.uniandes.misVacaciones.rest.converters;
 
 import javax.ws.rs.core.Response;
@@ -10,7 +11,7 @@ import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
  * Convertidor de Excepciones CityLogicException a mensajes REST.
  */
 @Provider
-public class CityLogicExceptionMapper implements ExceptionMapper<CiudadLogicException> {
+public class CiudadLogicExceptionMapper implements ExceptionMapper<CiudadLogicException> {
 
 	/**
 	 * Generador de una respuesta a partir de una excepción
@@ -27,3 +28,4 @@ public class CityLogicExceptionMapper implements ExceptionMapper<CiudadLogicExce
 	}
 
 }
+>>>>>>> e840caa7ec64b0f35fd6ab3576500e0b2367ae4e:aplicacion/misVacaciones.web/src/main/java/co/edu/uniandes/misVacaciones/rest/converters/CiudadLogicExceptionMapper.java
