@@ -95,6 +95,34 @@ public class CiudadResource {
         return ciudadLogic.getCiudad(id);
     }
 
+    /**
+     * Obtiene un  sitio
+     * @param id identificador de la ciudad
+     * @param idSitio identficador del sitio
+     * @return ciudad encontrada
+     * @throws CiudadLogicException cuando la ciudad no existe
+     * @throws SitioLogicException cuando el sitio no existe
+     */
+    @GET
+    @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
+    public SitioDTO getSitio(@PathParam("id") Long id, @PathParam("idSitio")Long idSitio) throws CiudadLogicException,SitioLogicException {
+        return ciudadLogic.getSitio(idSitio, id);
+    }
+
+    /**
+     * Obtiene un  sitio
+     * @param id identificador de la ciudad
+     * @param idEvento identficador del evento
+     * @return ciudad encontrada
+     * @throws CiudadLogicException cuando la ciudad no existe
+     * @throws EventoLogicException cuando el evento no existe
+     */
+    @GET
+    @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
+    public EventoDTO getEvento(@PathParam("id") Long id, @PathParam("idEvento")Long idEvento) throws CiudadLogicException,EventoLogicException {
+        return ciudadLogic.getEvento(idEvento, id);
+    }
+
 
      /**
      * Agrega una ciudad

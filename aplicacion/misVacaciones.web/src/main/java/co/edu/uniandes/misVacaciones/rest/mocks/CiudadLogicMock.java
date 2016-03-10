@@ -448,6 +448,76 @@ public class CiudadLogicMock {
         throw new CiudadLogicException("No existe una ciudad con ese id");
        }
 
+      public SitioDTO getSitio(Long idSitio, Long idCiudad) throws SitioLogicException,CiudadLogicException
+      {
+          boolean existeSitio=false;
+          CiudadDTO stadt=null;
+          SitioDTO ort=null;
+
+          logger.info("recibiendo solicitud retorno de un sitio con id:"+ idSitio+" "+ "de la lista de sitios la ciudad con id:" + idCiudad);
+
+            for (int i=0; i<ciudades.size()&& stadt==null;i++) {
+                CiudadDTO ciudad=ciudades.get(i);
+                if (Objects.equals(ciudad.getId(), idCiudad)){
+                    stadt=ciudad;
+              for(SitioDTO sitio:stadt.getSitios())
+               {
+                   if(Objects.equals(sitio.getId(), idSitio))
+                    existeSitio=true;
+                   ort=sitio;
+            }
+
+          }
+        }
+
+        // si no encuentra la ciudad
+        if(stadt==null){
+        logger.severe("No existe ciudad con ese id");
+        throw new CiudadLogicException("No existe ciudad con ese id");
+        }
+        if(!existeSitio){
+                 logger.severe("No existe sitio con ese id");
+        throw new SitioLogicException("No existe sitio con ese id");
+        }
+
+         return ort;
+      }
+
+      public EventoDTO getEvento(Long idEvento, Long idCiudad) throws EventoLogicException,CiudadLogicException
+      {
+          boolean existeEvento=false;
+          CiudadDTO stadt=null;
+          EventoDTO ereignis=null;
+
+          logger.info("recibiendo solicitud retorno de un evento con id:"+ idEvento+" "+ "de la lista de sitios la ciudad con id:" + idCiudad);
+
+            for (int i=0; i<ciudades.size()&& stadt==null;i++) {
+                CiudadDTO ciudad=ciudades.get(i);
+                if (Objects.equals(ciudad.getId(), idCiudad)){
+                    stadt=ciudad;
+              for(EventoDTO evento:stadt.getEventos())
+               {
+                   if(Objects.equals(evento.getId(), idEvento))
+                    existeEvento=true;
+                   ereignis=evento;
+            }
+
+          }
+        }
+
+        // si no encuentra la ciudad
+        if(stadt==null){
+        logger.severe("No existe ciudad con ese id");
+        throw new CiudadLogicException("No existe ciudad con ese id");
+        }
+        if(!existeEvento){
+                 logger.severe("No existe evento con ese id");
+        throw new EventoLogicException("No existe evento con ese id");
+        }
+
+         return ereignis;
+      }
+
        public List<EventoDTO> getEventos(Long idCiudad) throws CiudadLogicException
       {
 
