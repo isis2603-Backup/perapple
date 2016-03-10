@@ -422,16 +422,18 @@ public class ItinerarioLogicMock {
                 if (Objects.equals(itinerario.getId(), id)) {
                     // busca la ciudad
                     itin = itinerario;
-                    logger.info("buscando la ciudad con id"+ idciudad + " del itinerario con id" + id);
+                    logger.info("buscando la ciudad con id "+ idciudad + " del itinerario con id" + id);
                     ArrayList<CiudadDTO> ciudades = itin.getCiudades();
                     for( int j = 0; j<ciudades.size() && ciudad == null;j++){
                         CiudadDTO ciudadActual = ciudades.get(j);
                         if(Objects.equals(ciudadActual.getId(), idciudad)){
                             ciudad = ciudadActual;
+                            logger.info("buscado el sitio con id " + idsitio);
                             ArrayList<SitioDTO> sitios = ciudad.getSitios();
                             for( int k = 0; k<sitios.size() && sitio == null;k++){
                                 SitioDTO sitioActual = sitios.get(k);
                                 if(Objects.equals(sitioActual.getId(), idsitio)){
+                                    logger.info("eliminando el sitio con id " + idsitio);
                                     sitio = sitioActual;
                                     sitios.remove(k);
                                 }
@@ -445,10 +447,12 @@ public class ItinerarioLogicMock {
             logger.severe("No existe un itinerario con ese id");
             throw new ItinerarioLogicException("No existe un itinerario con ese id");
         }
+        // no encontró la ciudad con ese id ?
         if(ciudad == null){
             logger.severe("No existe una ciudad con ese idciudad en el itinerario con ese id");
             throw new CiudadLogicException("No existe una ciudad con ese id");
         }
+        // no encontró el sitio con ese id ?
         if(sitio == null){
             logger.severe("No existe un sitio con ese idsitio en la ciudad con ese idciudad del itinerario con ese id");
             throw new SitioLogicException("No existe un sitio con ese id");

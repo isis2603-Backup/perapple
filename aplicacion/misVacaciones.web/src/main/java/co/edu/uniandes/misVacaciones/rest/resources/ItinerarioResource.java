@@ -177,7 +177,7 @@ public class ItinerarioResource {
      * @throws SitioLogicException cuando no existe un sitio con el id sumunistrado
      */
     @DELETE
-    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
     public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
     	itinerarioLogic.deleteSitioDeInteres(id, idciudad, idsitio);
     }
