@@ -241,10 +241,18 @@
             
         this.agregarCiudad=function($event){
                         
+            var ciudadBD = {};
             var idCiudad = $event.currentTarget.name;
-            var ciudadBD = svcCiudad.fetchCiudad(idCiudad);
             
-            var nCiudad = {id:ciudadBD.id,
+            return svcCiudad.fetchCiudad(idCiudad)
+                    .then(function (response) {
+                        ciudadBD = response.data;
+                        console.log("ciudadBD"+ciudadBD.nombre);
+                        return response;
+                    }, responseError)
+                    .then(function () {
+                        console.log("agregarCiudad2"+ciudadBD.nombre);
+                        var nCiudad = {id:ciudadBD.id,
                             nombre:ciudadBD.nombre,
                             detalles:ciudadBD.detalles,
                             imagen:ciudadBD.imagen,
@@ -253,9 +261,11 @@
                             sitios: [],
                             eventos: []
                           };
-            
-            svc.saveCiudad($scope.currentRecord.id, nCiudad);
-            self.fetchCurrentCiudades();
+                        svc.saveCiudad($scope.currentRecord.id, nCiudad);
+                    }, responseError)
+                    .then(function () {
+                        self.fetchCurrentCiudades();
+                    }, responseError);
         };
 
         this.agregarSitio = function($event){

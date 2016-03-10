@@ -474,6 +474,7 @@
          * Response: 200 -> Status ok, record -> ciudad y ningún header.
          */
         $httpBackend.whenGET(recordUrlCiudad).respond(function (method, url) {
+            
             var id = parseInt(url.split('/')[2]);
             var record;
             ng.forEach(records, function (value) {

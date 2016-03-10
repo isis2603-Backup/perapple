@@ -321,6 +321,7 @@
             
             var encontro = false;
             var indice = -1;
+            
             var itinerario = self.fetchItinerario(idItinerario);
             var ciudades = itinerario.ciudades;
             
