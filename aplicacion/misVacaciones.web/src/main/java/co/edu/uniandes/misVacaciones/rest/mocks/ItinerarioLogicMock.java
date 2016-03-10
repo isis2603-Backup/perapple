@@ -258,10 +258,13 @@ public class ItinerarioLogicMock {
                 existeItinerario = true;
             	// modifica la ciudad
             	logger.info("modificando la ciudad"+ ciudad + " del itinerario " + itinerario);
-               for(CiudadDTO ciudadvieja : itinerario.getCiudades()){
+               for(int i = 0; i<itinerario.getCiudades().size();i++){
+                   CiudadDTO ciudadvieja = itinerario.getCiudades().get(i);
                 if(Objects.equals(ciudadvieja.getId(), idciudad)){
                     existeCiudad = true;
-                    ciudadvieja =  ciudad;
+                    itinerario.getCiudades().remove(i);
+                    itinerario.getCiudades().add(i, ciudad);
+                    logger.info("Ciudad modificada: "+ itinerario.getCiudades().get(i));
                 }
                }
 
