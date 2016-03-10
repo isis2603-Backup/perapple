@@ -182,6 +182,7 @@ public class CiudadDTO {
                   detalles
                   + ", imagen: \""+imagen+" \" }";
 
+
         return ciudad;
     }
 }
