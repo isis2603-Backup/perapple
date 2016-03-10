@@ -6,7 +6,7 @@
 
 .navbar{
 
-    background-color: #0D53BC;
+    background-color: #33CC33;
     background-image: none;
     background-repeat: no-repeat;
     background-size: 1380px;
@@ -14,7 +14,7 @@
 }
 .navbar-default
 {
-    border-color: #0D53BC;
+    border-color: #33CC33;
 }
 .navbar-default .navbar-brand
 {
@@ -24,7 +24,7 @@
 
 .navbar-default .navbar-brand:hover
 {
-    color: #FD9A10;
+    color: #0000CC;
     
 
 }
@@ -41,7 +41,7 @@
 .navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>li>a:focus
 {
-    background-color: #0D53BC;
+    background-color: #33CC33;
     
 
 }
@@ -49,7 +49,7 @@
 .navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>li>a:focus
 {
-    color:   #FD9A10;
+    color:   #0000CC;
     background-image: url(http://3.bp.blogspot.com/-WG-MOHo-sc4/T0MmKOXGgeI/AAAAAAAAG0c/KspSnnTbn8g/s1600/luces4.png);
     background-repeat: no-repeat;
     background-size: 20%;

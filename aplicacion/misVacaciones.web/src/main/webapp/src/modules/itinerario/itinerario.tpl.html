@@ -32,15 +32,15 @@
                         <td>{{nc.nombre}}</td>
                         <td>{{nc.fInicio|date}}</td>
                         <td>{{nc.fFin|date}}</td>
-                        <td><a href="javascript:window.scrollTo(0,1100)"><button  id="detalles" type="button" class="btn btn-primary" name="{{nc.id}}"  ng-click="ctrl.detallesCiudad($event); " > Detalles </button></a></td>
-                        <td><button id="borrar" type="button" class="btn btn-primary" name="{{nc.id}}"  ng-click="ctrl.borrarCiudad($event); " > Borrar </button></td>
+                        <td><a href="javascript:window.scrollTo(0,1100)"><button  id="detalles" type="button" class="btn btn-success" name="{{nc.id}}"  ng-click="ctrl.detallesCiudad($event); " > Detalles </button></a></td>
+                        <td><button id="borrar" type="button" class="btn btn-success" name="{{nc.id}}"  ng-click="ctrl.borrarCiudad($event); " > Borrar </button></td>
                     </tr>
                 </table>
 
                 <br>
 
                 <div class="row">
-                    <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popCiudad"> Agregar Nueva Ciudad </button>
+                    <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-success" data-toggle="modal" data-target="#popCiudad"> Agregar Nueva Ciudad </button>
                 </div>
             </div>
         </div>
@@ -91,15 +91,15 @@
                     </tr>
                     <tr ng-repeat="evento in currentEventosMostrar track by $index">
                         <td>{{evento.nombre}}</td>
-                        <td><button id="button_detalles_evento" type="button" class="btn btn-primary " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
-                        <td><button id="button_calificar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
-                        <td><button id="button_borrar_evento" type="button" class="btn btn-primary" name="{{evento.id}}" ng-click="ctrl.borrarEvento($event);" > Borrar </button></td>
+                        <td><button id="button_detalles_evento" type="button" class="btn btn-success " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
+                        <td><button id="button_calificar_evento" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
+                        <td><button id="button_borrar_evento" type="button" class="btn btn-success" name="{{evento.id}}" ng-click="ctrl.borrarEvento($event);" > Borrar </button></td>
                     </tr>
 
                 </table>
 
                 <div class="row">
-                    <button id="button_agregar_evento" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popEvento" ng-click="ctrl.fetchEventosBD(currentCiudadMostrar.id);"> Agregar Evento </button>
+                    <button id="button_agregar_evento" type="button" class="btn btn-success" data-toggle="modal" data-target="#popEvento" ng-click="ctrl.fetchEventosBD(currentCiudadMostrar.id);"> Agregar Evento </button>
                 </div>
               </div>
 
@@ -114,19 +114,19 @@
                         <td ALIGN="center" ><b>Borrar</b></td>
                     <tr ng-repeat="nc in currentSitiosMostrar track by $index">
                         <td>{{nc.nombre}}</td>
-                        <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesSitio($event)" data-target="#popDetallesSitio"> Detalles </button></td>
-                        <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
-                        <td><button id="button_borrar_sitio" type="button" class="btn btn-primary" name="{{nc.id}}" ng-click="ctrl.borrarSitio($event)"> Borrar </button></td>
+                        <td><button id="button_detalles_sitio" type="button" class="btn btn-success " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesSitio($event)" data-target="#popDetallesSitio"> Detalles </button></td>
+                        <td><button id="button_calificar_sitio" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
+                        <td><button id="button_borrar_sitio" type="button" class="btn btn-success" name="{{nc.id}}" ng-click="ctrl.borrarSitio($event)"> Borrar </button></td>
                     </tr>
                 </table>
                 <div class="row">
-                    <button id="button_agregar_sitio" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popSitio" ng-click="ctrl.fetchSitiosBD(currentCiudadMostrar.id);"> Agregar Sitio </button>
+                    <button id="button_agregar_sitio" type="button" class="btn btn-success" data-toggle="modal" data-target="#popSitio" ng-click="ctrl.fetchSitiosBD(currentCiudadMostrar.id);"> Agregar Sitio </button>
                 </div>
             </div>
         </div>
     </div>
     
-    <p ALIGN="center"> <a href="javascript:window.scrollTo(0,500)" style="text-align:center; font-size: 120%;" id="volver" class="btn btn-primary" > Volver Arriba </a> </p>
+    <p ALIGN="center"> <a href="javascript:window.scrollTo(0,500)" style="text-align:center; font-size: 120%;" id="volver" class="btn btn-success" > Volver Arriba </a> </p>
     <br>
     <br>
     
@@ -161,7 +161,7 @@
                              <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="cBD in ciudadesBD">
                                   <td align="left">{{cBD.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{cBD.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
+                                  <td align="center"><button type="button" name="{{cBD.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
                                 </tr>
                             </table>
                         </div>
@@ -195,7 +195,7 @@
                             <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="evento in eventosBD">
                                     <td align="left">{{evento.nombre}}</td>
-                                    <td align="center"><button type="button" name="{{evento.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarEvento($event);"> Agregar Evento </button></td>
+                                    <td align="center"><button type="button" name="{{evento.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarEvento($event);"> Agregar Evento </button></td>
                                 </tr>
                             </table>
                         </div>
@@ -230,7 +230,7 @@
                             <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="sitio in sitiosBD">
                                     <td align="left">{{sitio.nombre}}</td>
-                                    <td align="center"><button type="button" name="{{sitio.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarSitio($event);"> Agregar Sitio </button></td>
+                                    <td align="center"><button type="button" name="{{sitio.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarSitio($event);"> Agregar Sitio </button></td>
                                 </tr>
                             </table>
                         </div>
@@ -279,7 +279,7 @@
         </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" ng-click="calificar_evento(evento,comentario,calificacion)" data-dismiss="modal">Guardar</button>
+        <button type="button" class="btn btn-success" ng-click="calificar_evento(evento,comentario,calificacion)" data-dismiss="modal">Guardar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -305,7 +305,7 @@
         </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" ng-click="calificar_sitio(sitio,comentario,calificacion)" data-dismiss="modal">Guardar</button>
+        <button type="button" class="btn btn-success" ng-click="calificar_sitio(sitio,comentario,calificacion)" data-dismiss="modal">Guardar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
