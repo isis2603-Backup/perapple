@@ -95,6 +95,22 @@ public class CiudadDTO {
    {
        this.sitios = sitios;
    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
+    }
+
+    public void setFechaInicio(String fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
     /**
      * @return Lista de eventos de la ciudad
      */
