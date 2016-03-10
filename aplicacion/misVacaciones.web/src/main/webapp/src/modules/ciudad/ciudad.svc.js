@@ -2,7 +2,9 @@
     var mod = ng.module("moduloCiudad");
 
     mod.service("ciudadService", ["$http", "ciudadContext", function ($http, context) {
-
+        
+        var self = this;
+        
         /**
          * Obtener la lista de ciudades.
          * Hace una petición GET con $http a /ciudades para obtener la lista
@@ -87,7 +89,7 @@
          */
         this.fetchEvento = function(idCiudad,idEvento)
         {
-            return $http.get(context+"/"+ idCiudad +"/"+ "eventos"+ "/" + idEvento);
+            return $http.get(context+"/"+ idCiudad +"/eventos/" + idEvento);
         };
 
         /**

@@ -512,9 +512,13 @@
          * Response: 200 -> Status ok, record -> evento y ningún header.
          */
         $httpBackend.whenGET(recordUrlEvento).respond(function (method, url) {
+            
+            console.log("entro al mock");
+            
             var id_ciudad = parseInt(url.split('/')[2]);
             var id_evento = parseInt(url.split('/')[4]);
             var evento;
+            
             ng.forEach(records, function (value) {
                 if (value.id === id_ciudad) {
                     ng.forEach(value.eventos, function (value2) {
