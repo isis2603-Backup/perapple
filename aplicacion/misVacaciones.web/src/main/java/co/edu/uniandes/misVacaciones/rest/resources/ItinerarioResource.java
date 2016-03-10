@@ -13,6 +13,7 @@ import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
 import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -187,14 +188,15 @@ public class ItinerarioResource {
      * Obtiene el listado de sitios de una ciudad en un itinerario
      * @param id identificador del itinerario
      * @param idciudad identificador de la ciudad
+     * @return 
      * @throws ItinerarioLogicException cuando no existe -----
      * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public void fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
+    public ArrayList<SitioDTO> fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
     {
-        itinerarioLogic.fetchSitiosDeInteres(id, idciudad);
+        return itinerarioLogic.fetchSitiosDeInteres(id, idciudad);
     }
     
          /**
@@ -202,13 +204,14 @@ public class ItinerarioResource {
      * @param id identificador del itinerario
      * @param idciudad identificador de la ciudad en el itinerario
      * @param idsitio identificador del sitio a buscar
+     * @return 
      * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
      * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      * @throws SitioLogicException cuando no existe un sitio con el id sumunistrado
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
-    public void fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
-    	itinerarioLogic.fetchSitioDeInteres(id, idciudad, idsitio);
+    public SitioDTO fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
+    	return itinerarioLogic.fetchSitioDeInteres(id, idciudad, idsitio);
     }
 }
