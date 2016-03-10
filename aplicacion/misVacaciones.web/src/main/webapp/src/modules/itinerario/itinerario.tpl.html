@@ -137,7 +137,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchCiudades();"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchCurrentCiudades();"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Ciudad</h4>
             </div>
             <div class="modal-body">
@@ -159,9 +159,9 @@
                     <div class="col-sm-1"></div>
                         <div class="col-sm-10">
                              <table border="1" class="table table-bordered" >
-                                <tr ng-repeat="ciudad in ciudades">
-                                  <td align="left">{{ciudad.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{ciudad.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
+                                <tr ng-repeat="cBD in ciudadesBD">
+                                  <td align="left">{{cBD.nombre}}</td>
+                                  <td align="center"><button type="button" name="{{cBD.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
                                 </tr>
                             </table>
                         </div>

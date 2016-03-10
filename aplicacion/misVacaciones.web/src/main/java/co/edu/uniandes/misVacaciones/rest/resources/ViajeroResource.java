@@ -1,7 +1,7 @@
 /*
  * CityResource.java
- * Clase que representa el recurso "/cities"
- * Implementa varios métodos para manipular las ciudades
+ * Clase que representa el recurso "/viajeros"
+ * Implementa varios métodos para manipular los viajeros
  */
 package co.edu.uniandes.misVacaciones.rest.resources;
 
@@ -23,14 +23,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
- * Clase que implementa el recurso REST correspondiente a "cities".
+ * Clase que implementa el recurso REST correspondiente a "viajeros".
  *
  * Note que la aplicación (definida en RestConfig.java) define la ruta
- * "/api" y este recurso tiene la ruta "cities".
+ * "/api" y este recurso tiene la ruta "viajeors".
  * Al ejecutar la aplicación, el recurse será accesibe a través de la
- * ruta "/api/cities"
+ * ruta "/api/viajeros"
  *
- * @author Asistente
+ * @author Perapple
  */
 @Path("viajeros")
 @Produces("application/json")

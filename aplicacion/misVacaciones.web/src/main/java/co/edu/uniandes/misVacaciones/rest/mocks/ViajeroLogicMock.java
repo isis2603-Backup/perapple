@@ -1,14 +1,8 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.misVacaciones.rest.mocks;
 
 /**
  *
- * @author Asistente
+ * @author Perapple
  */
 import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ViajeroLogicException;
@@ -33,7 +27,7 @@ public class ViajeroLogicMock {
 	// objeto para presentar logs de las operaciones
 	private final static Logger logger = Logger.getLogger(ViajeroLogicMock.class.getName());
 
-	// listado de ciudades
+	// listado de viajeros
     public static ArrayList<ViajeroDTO> viajeros;
 
     /**
@@ -50,7 +44,7 @@ public class ViajeroLogicMock {
             viajeros.add(new ViajeroDTO(5L, "Esteban Dalel", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
             viajeros.add(new ViajeroDTO(6L, "Nicolas Galvis", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
             viajeros.add(new ViajeroDTO(7L, "Daniel Althviz", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
-            
+
         }
 
     	// indica que se muestren todos los mensajes
@@ -107,7 +101,7 @@ public class ViajeroLogicMock {
     public ViajeroDTO createViajero(ViajeroDTO newViajero) throws ViajeroLogicException {
     	logger.info("recibiendo solicitud de agregar viajero " + newViajero);
 
-    	// el nuevo viajero tiene id 
+    	// el nuevo viajero tiene id
     	if ( newViajero.getId() != null ) {
 	    	// busca la ciudad con el id suministrado
 	        for (ViajeroDTO viajero : viajeros) {
@@ -118,7 +112,7 @@ public class ViajeroLogicMock {
 	            }
 	        }
 
-	    // el nuevo viajero no tiene id 
+	    // el nuevo viajero no tiene id
     	} else {
 
     		// genera un id para el viajero
@@ -165,7 +159,7 @@ public class ViajeroLogicMock {
             }
         }
 
-        // no encontró el viajero con ese id 
+        // no encontró el viajero con ese id
         logger.severe("No existe un viajero con ese id");
         throw new ViajeroLogicException("No existe una ciudad con ese id");
     }
@@ -189,7 +183,7 @@ public class ViajeroLogicMock {
             }
         }
 
-        // no encontró el viajero con ese id 
+        // no encontró el viajero con ese id
         logger.severe("No existe un viajero con ese id");
         throw new ViajeroLogicException("No existe un viajero con ese id");
     }
