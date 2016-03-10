@@ -13,8 +13,10 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
 
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -340,5 +342,55 @@ public class ItinerarioLogicMock {
 
 
 
+    }
+
+    public void createSitioDeInteres(Long id, Long idciudad, SitioDTO sitio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void deleteSitioDeInteres(Long id, Long idciudad, Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
+
+    logger.info("recibiendo solicitud de eliminar sitio con id " + idsitio + " de la ciudad con id" + idciudad + " del itinerario con id " + id);
+
+    ItinerarioDTO itin = null;
+    CiudadDTO ciudad = null;
+    SitioDTO sitio = null;
+    	// busca el itinerario con el id suministrado
+        for (int i = 0 ;i<itinerarios.size() && itin == null; i++) {
+            ItinerarioDTO itinerario = itinerarios.get(i);
+            if (Objects.equals(itinerario.getId(), id)) {
+            	// busca la ciudad
+                itin = itinerario;
+            	logger.info("buscando la ciudad con id"+ idciudad + " del itinerario con id" + id);
+                ArrayList<CiudadDTO> ciudades = itin.getCiudades();
+                for( int j = 0; j<ciudades.size();j++){
+                    CiudadDTO ciudadActual = ciudades.get(j);
+                    if(Objects.equals(ciudadActual.getId(), idciudad)){
+                        ciudad = ciudadActual;
+                        ArrayList<SitioDTO> sitios = ciudad.getSitios();
+                        for( int k = 0; k<ciudades.size();k++){
+                            SitioDTO sitioActual = sitios.get(k);
+                            if(Objects.equals(sitioActual.getId(), idciudad)){
+                                sitio = sitioActual;
+                                sitios.remove(k);
+                            }
+                        }
+                    }
+                }
+            }
+        }    
+        // no encontró el itinerario con ese id ?
+        if(itin == null){
+        logger.severe("No existe un itinerario con ese id");
+        throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+        if(ciudad == null){
+        logger.severe("No existe una ciudad con ese idciudad en el itinerario con ese id");
+        throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+        if(sitio == null){
+        logger.severe("No existe un sitio con ese idsitio en la ciudad con ese idciudad del itinerario con ese id");
+        throw new SitioLogicException("No existe un sitio con ese id");
+        }
     }
 }
