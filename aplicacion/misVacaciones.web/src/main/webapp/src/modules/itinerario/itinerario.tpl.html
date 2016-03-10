@@ -91,9 +91,9 @@
                     </tr>
                     <tr ng-repeat="evento in currentEventosMostrar track by $index">
                         <td>{{evento.nombre}}</td>
-                        <td><button id="button_detalles_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesEvento"> Detalles </button></td>
+                        <td><button id="button_detalles_evento" type="button" class="btn btn-primary " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
                         <td><button id="button_calificar_evento" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
-                        <td><button id="button_borrar_evento" type="button" class="btn btn-primary" name="{{evento.id}}"  ng-click="ctrl.borrarEvento(currentRecord.viajero, currentRecord.id, currentCiudadMostrar.id, evento.id);" > Borrar </button></td>
+                        <td><button id="button_borrar_evento" type="button" class="btn btn-primary" name="{{evento.id}}" ng-click="ctrl.borrarEvento($event);" > Borrar </button></td>
                     </tr>
 
                 </table>
@@ -112,9 +112,9 @@
                         <td ALIGN="center" ><b>Detalles</b></td>
                         <td ALIGN="center" ><b>Calificación</b></td>
                         <td ALIGN="center" ><b>Borrar</b></td>
-                    <tr ng-repeat="nc in currentSitioMostrar track by $index">
+                    <tr ng-repeat="nc in currentSitiosMostrar track by $index">
                         <td>{{nc.nombre}}</td>
-                        <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popDetallesSitio" ng-click="ctrl.detallesSitio($event)"> Detalles </button></td>
+                        <td><button id="button_detalles_sitio" type="button" class="btn btn-primary " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesSitio($event)" data-target="#popDetallesSitio"> Detalles </button></td>
                         <td><button id="button_calificar_sitio" type="button" class="btn btn-primary " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
                         <td><button id="button_borrar_sitio" type="button" class="btn btn-primary" name="{{nc.id}}" ng-click="ctrl.borrarSitio($event)"> Borrar </button></td>
                     </tr>
@@ -178,7 +178,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchEventosBD(currentCiudadMostrar.id);"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchCurrentEventos();"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Evento</h4>
             </div>
             <div class="modal-body">
@@ -193,7 +193,7 @@
                         <div class="col-sm-10">
                             <br>
                             <table border="1" class="table table-bordered" >
-                                <tr ng-repeat="evento in eventos">
+                                <tr ng-repeat="evento in eventosBD">
                                     <td align="left">{{evento.nombre}}</td>
                                     <td align="center"><button type="button" name="{{evento.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarEvento($event);"> Agregar Evento </button></td>
                                 </tr>
@@ -213,7 +213,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchSitiosBD(currentCiudadMostrar.id);"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.fetchCurrentSitios();"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Agregar Sitio</h4>
             </div>
             <div class="modal-body">
@@ -228,7 +228,7 @@
                         <div class="col-sm-10">
                             <br>
                             <table border="1" class="table table-bordered" >
-                                <tr ng-repeat="sitio in sitios">
+                                <tr ng-repeat="sitio in sitiosBD">
                                     <td align="left">{{sitio.nombre}}</td>
                                     <td align="center"><button type="button" name="{{sitio.id}}" class="btn btn-primary " data-dismiss="modal" ng-click="ctrl.agregarSitio($event);"> Agregar Sitio </button></td>
                                 </tr>
@@ -325,22 +325,28 @@
                     <div class="well" style="display:flex; justify-content: center;">
                         <fieldset>
                             <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:orange;">
-                                <img class="img-rounded" style="height: 200px; margin:-5px; " src="http://40.media.tumblr.com/tumblr_m65o8dJDtA1rzv6j6o1_1280.jpg" alt="">
+                                <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.imagen}}" alt="">
                             </div>
                             <br>
-                            <div class="form-group col-md-11">
+                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Nombre</label>
-                                <div class="col-md-8" style="margin: 5px;">
-                                    <p>nombre</p>
+                                <div class="col-md-8">
+                                    <p>{{currentEventoMostrar.nombre}}</p>
                                 </div>
                             </div>
-
+                            <div class="form-group col-md-11">
+                                <label for="name" class="col-md-4 control-label">Fecha</label>
+                                <div class="col-md-8">
+                                    <p>{{currentEventoMostrar.fecha|date}}</p>
+                                </div>
+                            </div>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Descripción</label>
                                 <div class="col-md-8">
-                                    <input type="text" name="date-ini" id="date-ini" class="form-control" readonly="">
+                                    <p>{{currentEventoMostrar.detalles}}</p>
                                 </div>
                             </div>
+                            <!--
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-7 control-label">Calificaciones</label>
                                 <div class="rating" style="float:left;">
@@ -353,6 +359,7 @@
                                     <input id="name" name="name" class="form-control" type="text" readonly="">
                                 </div>
                             </div>
+                            -->
                         </fieldset>
                     </div>
                 </form>
@@ -362,7 +369,7 @@
 </div>
 
 <!--pop up detalles sitio-->
-<div class="modal fade" id="popDetallesSitio" tabindex="-1" role="dialog" ng-show="haySitios">
+<div class="modal fade" id="popDetallesSitio" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -383,7 +390,12 @@
                                     <p>{{currentSitioMostrar.nombre}} </p>
                                 </div>
                             </div>
-
+                            <div class="form-group col-md-11">
+                                <label for="name" class="col-md-4 control-label">Fecha</label>
+                                <div class="col-md-8" style="margin: 5 px; ">
+                                    <p>{{currentSitioMostrar.fecha|date}} </p>
+                                </div>
+                            </div>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Descripción</label>
                                 <div class="col-md-8">
@@ -391,19 +403,20 @@
                                 </div>
                             </div>
 
+                            <!--
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-7 control-label">Calificaciones</label>
                                 <div class="rating" style="float:left;">
                                     <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                                 </div>
                             </div>
-
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Comentarios</label>
                                 <div class="col-md-8">
                                     <input id="name_s" name="name_s" class="form-control" type="text" readonly="">
                                 </div>
                             </div>
+                            -->
                         </fieldset>
                     </div>
                 </form>

@@ -103,7 +103,7 @@
                                 },
                                 {
                                     id: 2,
-                                    nombre:'Partido America vs Nacional', 
+                                    nombre:'Partido America vs Junior', 
                                     detalles: 'Partido de la copa Postobon', 
                                     fecha: '20-05-2016'
                                 }

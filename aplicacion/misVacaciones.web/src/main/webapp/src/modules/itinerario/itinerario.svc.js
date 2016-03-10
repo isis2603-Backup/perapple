@@ -207,7 +207,9 @@
         this.fetchSitio = function (idItinerario, idCiudad, idSitio) {
             
             var encontro = false;
-            var sitios = (self.fetchCiudades(idItinerario)).fetchSitios(idCiudad);
+            var sitios;
+            
+            sitios = self.fetchSitios(idItinerario, idCiudad);
             
             for(var i = 0; i<sitios.length && !encontro;i++)
             {
@@ -237,7 +239,9 @@
         this.fetchEvento = function (idItinerario, idCiudad, idEvento) {
             
             var encontro = false;
-            var eventos = (self.fetchCiudades(idItinerario)).fetchEventos(idCiudad);
+            var eventos;
+            
+            eventos = self.fetchEventos(idItinerario, idCiudad);
             
             for(var i = 0; i<eventos.length && !encontro;i++)
             {
