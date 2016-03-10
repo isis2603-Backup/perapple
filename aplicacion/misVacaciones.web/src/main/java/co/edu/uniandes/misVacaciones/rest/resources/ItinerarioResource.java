@@ -7,9 +7,11 @@ package co.edu.uniandes.misVacaciones.rest.resources;
 
 
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
 import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
@@ -152,7 +154,7 @@ public class ItinerarioResource {
     public List<CiudadDTO> getCiudades(@PathParam("id") Long id) throws ItinerarioLogicException {
         return itinerarioLogic.getCiudades(id);
     }
-    
+
     /**
      * Agrega un sitio de interes en una ciudad con el id dado del itinerario con id dado
      * @param id identificador del itinerario
@@ -168,7 +170,7 @@ public class ItinerarioResource {
     {
         return itinerarioLogic.createSitioDeInteres(id, idciudad, sitio);
     }
-    
+
      /**
      * Elimina los datos de un sitio de interes en una ciudad del itinerario
      * @param id identificador del itinerario
@@ -183,12 +185,12 @@ public class ItinerarioResource {
     public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
     	itinerarioLogic.deleteSitioDeInteres(id, idciudad, idsitio);
     }
-    
+
      /**
      * Obtiene el listado de sitios de una ciudad en un itinerario
      * @param id identificador del itinerario
      * @param idciudad identificador de la ciudad
-     * @return 
+     * @return
      * @throws ItinerarioLogicException cuando no existe -----
      * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
      */
@@ -198,13 +200,13 @@ public class ItinerarioResource {
     {
         return itinerarioLogic.fetchSitiosDeInteres(id, idciudad);
     }
-    
+
          /**
      * Obtiene los datos de un sitio de interes en una ciudad del itinerario
      * @param id identificador del itinerario
      * @param idciudad identificador de la ciudad en el itinerario
      * @param idsitio identificador del sitio a buscar
-     * @return 
+     * @return
      * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
      * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      * @throws SitioLogicException cuando no existe un sitio con el id sumunistrado
@@ -213,5 +215,78 @@ public class ItinerarioResource {
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
     public SitioDTO fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
     	return itinerarioLogic.fetchSitioDeInteres(id, idciudad, idsitio);
+    }
+
+     /**
+     * Agrega un evento en una ciudad con el id dado del itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad
+     * @param evento el evento a agregar
+     * @return el evento que agregó
+     * @throws ItinerarioLogicException cuando no existe -----
+     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
+     */
+    @POST
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
+    public EventoDTO createEvento(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, EventoDTO evento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException
+    {
+        return itinerarioLogic.createEvento(id, idciudad, evento);
+    }
+
+     /**
+     * Elimina los datos de un evento en una ciudad del itinerario
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad en el itinerario
+     * @param idevento identificador del evento a eliminar
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * @throws EventoLogicException cuando no existe un evento con el id sumunistrado
+     */
+    @DELETE
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
+    public void deleteEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException, SitioLogicException {
+    	itinerarioLogic.deleteEvento(id, idciudad, idevento);
+    }
+
+     /**
+     * Obtiene el listado de eventos de una ciudad en un itinerario
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad
+     * @return lista de eventos de la ciudad con el id dado del itinerario con el id dado
+     * @throws ItinerarioLogicException cuando no existe -----
+     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
+     */
+    @GET
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
+    public ArrayList<EventoDTO> fetchEventos(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
+    {
+        return itinerarioLogic.fetchEventos(id, idciudad);
+    }
+
+    /**
+     * Obtiene los datos de un evento en una ciudad del itinerario
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad en el itinerario
+     * @param idevento identificador del evento a buscar
+     * @return evento buscado
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * @throws EventoLogicException cuando no existe un sitio con el id sumunistrado
+     */
+    @GET
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
+    public EventoDTO fetchEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException {
+    	return itinerarioLogic.fetchEvento(id, idciudad, idevento);
+    }
+
+    /**
+     * Retorna la lista de itinerarios asociados a un viajero particular
+     * @param id del viajero del que se quieren obtener sus itienrarios
+     * @return lista de itinerarios
+     */
+    @GET
+    @Path("viajero/{idviajero: }")
+    public ArrayList<ItinerarioDTO> getItinerariosViajero(@PathParam("idviajero") String id){
+    	return itinerarioLogic.getItinerariosViajero(id);
     }
 }

@@ -13,8 +13,10 @@ package co.edu.uniandes.misVacaciones.rest.mocks;
 
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
 
@@ -63,7 +65,7 @@ public class ItinerarioLogicMock {
             ciudades = new ArrayList<>();
              ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
             ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
-            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los parques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
             itinerarios.get(1).setCiudades(ciudades);
 
         }
@@ -338,20 +340,20 @@ public class ItinerarioLogicMock {
 
         logger.severe("No existe un itinerario con ese id");
         throw new ItinerarioLogicException("No existe un itinerario con ese id");
-        
+
 
 
 
     }
-   
+
     /**
-     * 
+     *
      * @param id
      * @param idciudad
      * @param sitio
      * @return el sitio que se agrega
      * @throws ItinerarioLogicException
-     * @throws CiudadLogicException 
+     * @throws CiudadLogicException
      */
     public SitioDTO createSitioDeInteres(Long id, Long idciudad, SitioDTO sitio) throws ItinerarioLogicException, CiudadLogicException {
         logger.info("recibiendo solictud de agregar sitio a ciudad con id " + idciudad + " de itinerario con id " + id);
@@ -394,23 +396,23 @@ public class ItinerarioLogicMock {
             logger.severe("No existe un itinerario con ese id");
             throw new ItinerarioLogicException("No existe un itinerario con ese id");
         }
-        
+
         if(cdad == null){
             logger.severe("No existe una ciudad con ese id");
             throw new CiudadLogicException("No existe una ciudad con ese id");
         }
-        
+
         return sitio;
     }
-    
+
     /**
-     * 
+     *
      * @param id
      * @param idciudad
      * @param idsitio
      * @throws ItinerarioLogicException
      * @throws CiudadLogicException
-     * @throws SitioLogicException 
+     * @throws SitioLogicException
      */
     public void deleteSitioDeInteres(Long id, Long idciudad, Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
         logger.info("recibiendo solicitud de eliminar sitio con id " + idsitio + " de la ciudad con id" + idciudad + " del itinerario con id " + id);
@@ -443,7 +445,7 @@ public class ItinerarioLogicMock {
                         }
                     }
                 }
-            }    
+            }
         // no encontró el itinerario con ese id ?
         if(itin == null){
             logger.severe("No existe un itinerario con ese id");
@@ -460,14 +462,14 @@ public class ItinerarioLogicMock {
             throw new SitioLogicException("No existe un sitio con ese id");
         }
     }
-    
+
     /**
-     * 
+     *
      * @param id
      * @param idciudad
      * @return
      * @throws ItinerarioLogicException
-     * @throws CiudadLogicException 
+     * @throws CiudadLogicException
      */
     public ArrayList<SitioDTO> fetchSitiosDeInteres(Long id, Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
         logger.info("recibiendo solicitud de listar sitios de la ciudad con id" + idciudad + " del itinerario con id " + id);
@@ -491,7 +493,7 @@ public class ItinerarioLogicMock {
                         }
                     }
                 }
-            }    
+            }
         // no encontró el itinerario con ese id ?
         if(itin == null){
             logger.severe("No existe un itinerario con ese id");
@@ -503,16 +505,16 @@ public class ItinerarioLogicMock {
             throw new CiudadLogicException("No existe una ciudad con ese id");
         }
     }
-    
+
     /**
-     * 
+     *
      * @param id
      * @param idciudad
      * @param idsitio
      * @return
      * @throws ItinerarioLogicException
      * @throws CiudadLogicException
-     * @throws SitioLogicException 
+     * @throws SitioLogicException
      */
     public SitioDTO fetchSitioDeInteres(Long id, Long idciudad, Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
         logger.info("recibiendo solicitud de listar sitio con id " + idsitio + " de la ciudad con id" + idciudad + " del itinerario con id " + id);
@@ -544,7 +546,7 @@ public class ItinerarioLogicMock {
                         }
                     }
                 }
-            }    
+            }
         // no encontró el itinerario con ese id ?
         if(itin == null){
             logger.severe("No existe un itinerario con ese id");
@@ -561,4 +563,249 @@ public class ItinerarioLogicMock {
             throw new SitioLogicException("No existe un sitio con ese id");
         }
     }
+
+    /**
+     * Crea un nuevo evento en la ciudad con el id dado en el itinerario con el id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad
+     * @param evento elemento tipo evento que se desea agregar
+     * @return el evento que se desea agregar
+     * @throws ItinerarioLogicException si no existe itinerario
+     * @throws CiudadLogicException si no existe ciudad
+     * @throws EventoLogicException si ya existe una ciudad con el id del evento que se quiere agregar
+     */
+    public EventoDTO createEvento(Long id, Long idciudad, EventoDTO evento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException {
+        logger.info("recibiendo solictud de agregar evento a ciudad con id " + idciudad + " de itinerario con id " + id);
+
+    	// busca el itinerario con el id suministrado
+        ItinerarioDTO iti = null;
+        CiudadDTO cdad = null;
+        for (ItinerarioDTO itinerario : itinerarios) {
+            if (Objects.equals(itinerario.getId(), id)) {
+                iti = itinerario;
+                for(CiudadDTO ciudad : itinerario.getCiudades()){
+                    if(Objects.equals(ciudad.getId(), idciudad)){
+                        cdad = ciudad;
+                        logger.info("agregando evento a" + ciudad);
+                        if (evento.getId() == null) {
+                            if (ciudad.getEventos()!= null) {
+                                if (ciudad.getEventos().size() > 0) {
+                                    evento.setId(ciudad.getSitios().get(ciudad.getSitios().size() - 1).getId() + 1);
+                                } else {
+                                    evento.setId(1L);
+                                }
+                            } else {
+                                ArrayList<EventoDTO> eventosN = new ArrayList<>();
+                                evento.setId(1L);
+                                eventosN.add(evento);
+                                ciudad.setEventos(eventosN);
+                            }
+                            ciudad.getEventos().add(evento);
+                        } else {
+                             logger.info("evento ya tenía id");
+                             for(EventoDTO eve :ciudad.getEventos()){
+                             if(Objects.equals(eve.getId(), evento.getId()))
+                             {
+                                 throw new EventoLogicException("Ya existe un evento con el id del evento a agregar... \\(o0o)/");
+                             }
+                             }
+                            ciudad.getEventos().add(evento);
+                        }
+                    }
+                }
+            }
+        }
+
+        // no encontró el itinerario con ese id ?
+        if(iti == null){
+            logger.severe("No existe un itinerario con ese id");
+            throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+
+        if(cdad == null){
+            logger.severe("No existe una ciudad con ese id");
+            throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+
+        return evento;    }
+
+
+    /**
+     * Borra un evento con el id dado en una ciudad con id dado en un itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad
+     * @param idevento identificador del evento
+     * @throws ItinerarioLogicException si no existe itinerario
+     * @throws CiudadLogicException si no existe ciudad
+     * @throws EventoLogicException si no existe evento
+     */
+    public void deleteEvento(Long id, Long idciudad, Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException {
+         logger.info("recibiendo solicitud de eliminar evento con id " + idevento + " de la ciudad con id" + idciudad + " del itinerario con id " + id);
+
+        ItinerarioDTO itin = null;
+        CiudadDTO ciudad = null;
+        EventoDTO evento = null;
+            // busca el itinerario con el id suministrado
+            for (int i = 0 ;i<itinerarios.size() && itin == null; i++) {
+                ItinerarioDTO itinerario = itinerarios.get(i);
+                if (Objects.equals(itinerario.getId(), id)) {
+                    // busca la ciudad
+                    itin = itinerario;
+                    logger.info("buscando la ciudad con id "+ idciudad + " del itinerario con id" + id);
+                    ArrayList<CiudadDTO> ciudades = itin.getCiudades();
+                    for( int j = 0; j<ciudades.size() && ciudad == null;j++){
+                        CiudadDTO ciudadActual = ciudades.get(j);
+                        if(Objects.equals(ciudadActual.getId(), idciudad)){
+                            ciudad = ciudadActual;
+                            logger.info("buscado el evento con id " + idevento);
+                            ArrayList<EventoDTO> eventos = ciudad.getEventos();
+                            for( int k = 0; k<eventos.size() && evento == null;k++){
+                                EventoDTO eventoActual = eventos.get(k);
+                                if(Objects.equals(eventoActual.getId(), idevento)){
+                                    logger.info("eliminando el evento con id " + idevento);
+                                    evento = eventoActual;
+                                    eventos.remove(k);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        // no encontró el itinerario con ese id ?
+        if(itin == null){
+            logger.severe("No existe un itinerario con ese id");
+            throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+        // no encontró la ciudad con ese id ?
+        if(ciudad == null){
+            logger.severe("No existe una ciudad con ese idciudad en el itinerario con ese id");
+            throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+        // no encontró el evento con ese id ?
+        if(evento == null){
+            logger.severe("No existe un evento con ese idevento en la ciudad con ese idciudad del itinerario con ese id");
+            throw new EventoLogicException("No existe un evento con ese id");
+        }}
+
+    /**
+     * retorna los eventos de una ciudad con id dado de un itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad
+     * @return lista de evetos de la ciudad con id dado del itinerario con id dado
+     * @throws ItinerarioLogicException si no existe itinerario con dado
+     * @throws CiudadLogicException si no existe ciudad con id dado
+     */
+    public ArrayList<EventoDTO> fetchEventos(Long id, Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+     logger.info("recibiendo solicitud de listar eventos de la ciudad con id" + idciudad + " del itinerario con id " + id);
+
+        ItinerarioDTO itin = null;
+        CiudadDTO ciudad = null;
+            // busca el itinerario con el id suministrado
+            for (int i = 0 ;i<itinerarios.size() && itin == null; i++) {
+                ItinerarioDTO itinerario = itinerarios.get(i);
+                if (Objects.equals(itinerario.getId(), id)) {
+                    // busca la ciudad
+                    itin = itinerario;
+                    logger.info("buscando la ciudad con id "+ idciudad + " del itinerario con id" + id);
+                    ArrayList<CiudadDTO> ciudades = itin.getCiudades();
+                    for( int j = 0; j<ciudades.size() && ciudad == null;j++){
+                        CiudadDTO ciudadActual = ciudades.get(j);
+                        if(Objects.equals(ciudadActual.getId(), idciudad)){
+                            logger.info("retornando eventos" + ciudadActual.getEventos());
+                            ciudad = ciudadActual;
+                            return ciudad.getEventos();
+                        }
+                    }
+                }
+            }
+        // no encontró el itinerario con ese id ?
+        if(itin == null){
+            logger.severe("No existe un itinerario con ese id");
+            throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+        // no encontró la ciudad con ese id ?
+        else {
+            logger.severe("No existe una ciudad con ese idciudad en el itinerario con ese id");
+            throw new CiudadLogicException("No existe una ciudad con ese id");
+        }}
+
+    /**
+     * Retorna un evento con id dado de una ciudad con id dado de un itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad
+     * @param idevento identificador del evento
+     * @return el evento buscado
+     * @throws ItinerarioLogicException si no existe el itinerario
+     * @throws CiudadLogicException si no existe la ciudad
+     * @throws EventoLogicException si no existe el evento
+     */
+
+    public EventoDTO fetchEvento(Long id, Long idciudad, Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException {
+
+    logger.info("recibiendo solicitud de listar evento con id " + idevento + " de la ciudad con id" + idciudad + " del itinerario con id " + id);
+
+        ItinerarioDTO itin = null;
+        CiudadDTO ciudad = null;
+        EventoDTO evento = null;
+            // busca el itinerario con el id suministrado
+            for (int i = 0 ;i<itinerarios.size() && itin == null; i++) {
+                ItinerarioDTO itinerario = itinerarios.get(i);
+                if (Objects.equals(itinerario.getId(), id)) {
+                    // busca la ciudad
+                    itin = itinerario;
+                    logger.info("buscando la ciudad con id "+ idciudad + " del itinerario con id" + id);
+                    ArrayList<CiudadDTO> ciudades = itin.getCiudades();
+                    for( int j = 0; j<ciudades.size() && ciudad == null;j++){
+                        CiudadDTO ciudadActual = ciudades.get(j);
+                        if(Objects.equals(ciudadActual.getId(), idciudad)){
+                            ciudad = ciudadActual;
+                            logger.info("buscado el evento con id " + idevento);
+                            ArrayList<EventoDTO> eventos = ciudad.getEventos();
+                            for( int k = 0; k<eventos.size() && evento == null;k++){
+                                EventoDTO eventoActual = eventos.get(k);
+                                if(Objects.equals(eventoActual.getId(), idevento)){
+                                    logger.info("listando el evento con id " + idevento);
+                                    return eventoActual;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        // no encontró el itinerario con ese id ?
+        if(itin == null){
+            logger.severe("No existe un itinerario con ese id");
+            throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+        // no encontró la ciudad con ese id ?
+        else if(ciudad == null){
+            logger.severe("No existe una ciudad con ese idciudad en el itinerario con ese id");
+            throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+        // no encontró el evento con ese id ?
+        else {
+            logger.severe("No existe un evento con ese idevento en la ciudad con ese idciudad del itinerario con ese id");
+            throw new EventoLogicException("No existe un evento con ese id");
+        }
+
+
+    }
+
+    public ArrayList<ItinerarioDTO> getItinerariosViajero(String id) {
+
+        ArrayList<ItinerarioDTO> itinerariosresp = new ArrayList<>();
+
+        for(ItinerarioDTO iti : itinerarios)
+        {
+        if(Objects.equals(iti.getViajero(), id)){
+
+            itinerariosresp.add(iti);
+        }
+        }
+
+
+        return itinerariosresp;
+    }
+
+
 }
