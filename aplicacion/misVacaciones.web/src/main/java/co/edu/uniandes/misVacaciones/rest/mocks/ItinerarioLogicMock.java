@@ -51,7 +51,7 @@ public class ItinerarioLogicMock {
     	if (itinerarios == null) {
             itinerarios = new ArrayList<>();
 
-            itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "perapple", "12-05-2016","13-06-2016"));
+            itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "p@earpple.com", "12-05-2016","13-06-2016"));
 
             ArrayList<CiudadDTO> ciudades = new ArrayList<>();
             ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
@@ -60,7 +60,7 @@ public class ItinerarioLogicMock {
 
             itinerarios.get(0).setCiudades(ciudades);
 
-            itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "perapple","12-07-2016","13-08-2016"));
+            itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "p@earpple.com","12-07-2016","13-08-2016"));
 
             ciudades = new ArrayList<>();
              ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));

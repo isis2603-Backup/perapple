@@ -178,8 +178,9 @@ public class CiudadDTO {
         }
          }
 
-          ciudad +="],"
-                  + " }";
+          ciudad +="], detalles: "+
+                  detalles
+                  + ", imagen: \""+imagen+" \" }";
 
         return ciudad;
     }

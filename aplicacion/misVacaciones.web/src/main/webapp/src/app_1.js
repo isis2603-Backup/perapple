@@ -5,9 +5,9 @@
         "viajeroModule",
         "itinerarioModule",
         "moduloCiudad",
-        "viajeroMock",
-        "itinerarioMock",
-        "ciudadMock",
+        //"viajeroMock",
+        //"itinerarioMock",
+        //"ciudadMock",
         "ngMessages"
     ]);
 
