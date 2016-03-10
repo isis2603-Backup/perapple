@@ -287,6 +287,8 @@
             var idEvento = parseInt($event.currentTarget.name);
             var eventoBD = svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento);
             
+            console.log("ctrl agregarEvento id:"+idEvento+" eventoBD:"+eventoBD.nombre);
+            
             var nEvento = {id:eventoBD.id,
                             nombre:eventoBD.nombre,
                             detalles:eventoBD.detalles,
