@@ -236,5 +236,6 @@ public class CiudadResource {
     public void borrarEvento(@PathParam("id") Long idCiudad,@PathParam("idEvento") Long idEvento) throws EventoLogicException, CiudadLogicException {
     	ciudadLogic.borrarEvento(idCiudad, idEvento);
     }
+    
 
 }
