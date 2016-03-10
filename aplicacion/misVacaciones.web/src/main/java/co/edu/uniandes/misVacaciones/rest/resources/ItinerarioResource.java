@@ -158,10 +158,11 @@ public class ItinerarioResource {
      * @param idciudad identificar de la ciudad
      * @param sitio el sitio a agregar
      * @throws ItinerarioLogicException cuando no existe -----
+     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public void createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) throws ItinerarioLogicException
+    public void createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) throws ItinerarioLogicException, CiudadLogicException
     {
         itinerarioLogic.createSitioDeInteres(id, idciudad, sitio);
     }
