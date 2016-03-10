@@ -8,8 +8,10 @@ package co.edu.uniandes.misVacaciones.rest.resources;
 
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
 import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
 import java.util.List;
 
@@ -149,4 +151,34 @@ public class ItinerarioResource {
     public List<CiudadDTO> getCiudades(@PathParam("id") Long id) throws ItinerarioLogicException {
         return itinerarioLogic.getCiudades(id);
     }
+    
+    /**
+     * Agrega un sitio de interes en una ciudad con el id dado del itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificar de la ciudad
+     * @param sitio el sitio a agregar
+     * @throws ItinerarioLogicException cuando no existe -----
+     */
+    @POST
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
+    public void createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) throws ItinerarioLogicException
+    {
+        itinerarioLogic.createSitioDeInteres(id, idciudad, sitio);
+    }
+    
+     /**
+     * Elimina los datos de un sitio de interes en una ciudad del itinerario
+     * @param id identificador del itinerario
+     * @param idciudad identificador de la ciudad en el itinerario
+     * @param idsitio identificador del sitio a eliminar
+     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
+     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * @throws SitioLogicException cuando no existe un sitio con el id sumunistrado
+     */
+    @DELETE
+    @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
+    public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
+    	itinerarioLogic.deleteSitioDeInteres(id, idciudad, idsitio);
+    }
+
 }
