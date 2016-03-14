@@ -335,27 +335,30 @@
                 $scope.currentCiudadMostrar = {};
             }
 
-            svc.deleteCiudad($scope.currentRecord.id, idCiudad);//esto no retorna promesa entonces no necesito el then
-
-            self.fetchCurrents();
+            return svc.deleteCiudad($scope.currentRecord.id, idCiudad)
+                    .then(function (){
+                        self.fetchCurrents();
+                    });
         };
 
         this.borrarSitio = function ($event){
 
             var idSitio = parseInt($event.currentTarget.name);
 
-            svc.deleteSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idSitio);
-
-            self.fetchCurrentSitios();
+            return svc.deleteSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idSitio)
+                    .then(function (){
+                        self.fetchCurrentSitios();
+                    });
         };
 
         this.borrarEvento = function ($event){
 
             var idEvento = parseInt($event.currentTarget.name);
 
-            svc.deleteEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento);
-
-            self.fetchCurrentEventos();
+            return svc.deleteEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento)
+                    .then(function (){
+                        self.fetchCurrentEventos();
+                    });
         };
 
 
@@ -365,25 +368,39 @@
 
             var idCiudad = parseInt($event.currentTarget.name);
 
-            $scope.currentCiudadMostrar = svc.fetchCiudad($scope.currentRecord.id, idCiudad);
-
-            self.fetchCurrentSitios();
-            self.fetchCurrentEventos();
-            self.fetchSitiosBD(idCiudad)
+            return svc.fetchCiudad($scope.currentRecord.id, idCiudad)
+                    .then(function (response){
+                        $scope.currentCiudadMostrar = response.data;
+                    })
+                    .then(function (){
+                        self.fetchCurrentSitios();
+                    })
+                    .then(function (){
+                        self.fetchCurrentEventos();
+                    })
+                    .then(function (){
+                        self.fetchSitiosBD(idCiudad);
+                    });
         };
 
         this.detallesSitio=function($event){
 
             var idSitio = parseInt($event.currentTarget.name);
 
-            $scope.currentSitioMostrar = svc.fetchSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idSitio);
+            return svc.fetchSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idSitio)
+                    .then(function (response){
+                        $scope.currentSitioMostrar = response.data;
+                    });
         };
 
         this.detallesEvento=function($event){
 
             var idEvento = parseInt($event.currentTarget.name);
 
-            $scope.currentEventoMostrar = svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento);
+            return svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento)
+                    .then(function (response){
+                        $scope.currentEventoMostrar = response.data;
+                    });
         };
 
         // al cargar cualquiera de las plantillas se
