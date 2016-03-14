@@ -42,16 +42,21 @@ public class ItinerarioLogicMock {
 
 	// listado de itinerarios
     public static ArrayList<ItinerarioDTO> itinerarios;
+    public static ItinerarioDTO current;
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
     public ItinerarioLogicMock() {
 
+        if(current == null)
+        {
+            current = new ItinerarioDTO();
+        }
     	if (itinerarios == null) {
             itinerarios = new ArrayList<>();
 
-            itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "perapple", "12-05-2016","13-06-2016"));
+            itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "p@earpple.com", "12-05-2016","13-06-2016"));
 
             ArrayList<CiudadDTO> ciudades = new ArrayList<>();
             ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
@@ -60,11 +65,11 @@ public class ItinerarioLogicMock {
 
             itinerarios.get(0).setCiudades(ciudades);
 
-            itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "perapple","12-07-2016","13-08-2016"));
+            itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "p@earpple.com","12-07-2016","13-08-2016"));
 
             ciudades = new ArrayList<>();
              ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
-            ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
+            ciudades.add(new CiudadDTO(2L, "Barranquilla", "Puerta de oro de Colombia", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", "15/06/2016", "17/06/2016"));
             ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los parques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
             itinerarios.get(1).setCiudades(ciudades);
 
@@ -76,13 +81,34 @@ public class ItinerarioLogicMock {
     	// muestra información
     	logger.info("Inicializa la lista de itinerarios");
     	logger.info("itinerarios" + itinerarios );
+        logger.info("current " + current);
     }
 
-//
-	 //* Obtiene el listado de itinerarios.
-	 //* @return lista de itienrarios
-	// * @throws ItinerarioLogicException cuando no existe la lista en memoria
-//
+    /**
+     * Retorna el itinerario que actualmente se esta visualizando
+     * @return itinerario Actual
+     */
+
+    public ItinerarioDTO getCurrentItinerario()
+    {
+        logger.info("retornando currentItinerario "+ current);
+        return current;
+    }
+
+    public ItinerarioDTO setCurrentItinerario(ItinerarioDTO nuevoCurrent)
+    {
+        logger.info("cambiando currentItinerario de " +current+" a "+ nuevoCurrent);
+        current = nuevoCurrent;
+        return current;
+    }
+
+        /**
+	* Obtiene el listado de itinerarios.
+	* @return lista de itienrarios
+	* @throws ItinerarioLogicException cuando no existe la lista en memoria
+        */
+
+
     public List<ItinerarioDTO> getItinerarios() throws ItinerarioLogicException {
     	if (itinerarios == null) {
     		logger.severe("Error interno: lista de ciudades no existe.");
