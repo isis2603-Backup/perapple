@@ -47,6 +47,24 @@ public class ItinerarioResource {
 	@Inject
 	ItinerarioLogicMock itinerarioLogic;
 
+      /**
+       * El itinerario que actualmente se este manejando
+       * @return el itinerario que actualmente se esta manejando
+       * @throws ItinerarioLogicException
+       */
+
+      @GET
+      @Path("current")
+    public ItinerarioDTO getCurrentItinerario() throws ItinerarioLogicException {
+        return itinerarioLogic.getCurrentItinerario();
+    }
+
+    @PUT
+    @Path("current")
+    public ItinerarioDTO setCurrentItinerario(ItinerarioDTO nuevoCurrent){
+        return itinerarioLogic.setCurrentItinerario(nuevoCurrent);
+    }
+
 	/**
 	 * Obtiene el listado de Itinerarios.
 	 * @return lista de itinerarios
