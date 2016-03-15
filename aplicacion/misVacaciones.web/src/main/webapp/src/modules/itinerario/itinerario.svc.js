@@ -201,13 +201,13 @@
          */
         this.saveCiudad = function (idItinerario, nCiudad) {
 
-            var itinerario;
+            var ciudades;
 
-            self.fetchItinerarios().fetchItinerario(idItinerario).then(function(response){
-                itinerario = response.data;
-            });
+            self.fetchCiudades(idItinerario)
+                    .then(function(response){
+                        ciudades = response.data;
+                    });
 
-            var ciudades = itinerario.ciudades;
             var encontro = false;
 
             for(var i = 0; i<ciudades.length && !encontro;i++)
