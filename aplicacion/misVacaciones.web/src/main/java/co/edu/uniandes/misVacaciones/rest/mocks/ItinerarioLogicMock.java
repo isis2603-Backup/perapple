@@ -836,5 +836,35 @@ public class ItinerarioLogicMock {
         return itinerariosresp;
     }
 
+    public CiudadDTO getCiudad(Long id, Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+        CiudadDTO resp = null;
+        ItinerarioDTO itin = null;
+        for (ItinerarioDTO itinerario : itinerarios) {
+            if(Objects.equals(itinerario.getId(), id))
+            {
+            itin = itinerario;
+                for (CiudadDTO ciudad : itinerario.getCiudades()) {
+                    if(Objects.equals(ciudad.getId(), idciudad))
+                    {
+                        resp = ciudad;
+                        return resp;
+                    }
+                }
+            }
+        }
+
+       if(itin == null){
+            logger.severe("No existe un itinerario con ese id");
+            throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+        // no encontró la ciudad con ese id ?
+        else if(resp == null){
+            logger.severe("No existe una ciudad con ese idciudad en el itinerario con ese id");
+            throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+    return resp;
+
+    }
+
 
 }

@@ -173,6 +173,13 @@ public class ItinerarioResource {
         return itinerarioLogic.getCiudades(id);
     }
 
+    @GET
+    @Path("{id: \\d+}/ciudades/{idciudad:\\d+}")
+    public CiudadDTO getCiudades(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+        return itinerarioLogic.getCiudad(id, idciudad);
+    }
+
+
     /**
      * Agrega un sitio de interes en una ciudad con el id dado del itinerario con id dado
      * @param id identificador del itinerario
