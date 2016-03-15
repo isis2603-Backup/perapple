@@ -61,7 +61,7 @@ public class ItinerarioLogicMock {
             ArrayList<CiudadDTO> ciudades = new ArrayList<>();
             ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
             ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
-            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los parques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
 
             itinerarios.get(0).setCiudades(ciudades);
 
@@ -836,6 +836,14 @@ public class ItinerarioLogicMock {
         return itinerariosresp;
     }
 
+    /**
+     * Obtiene la ciudad con el idciudad dado, del itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificadot de la ciudad
+     * @return ciudad buscada
+     * @throws ItinerarioLogicException si no existe itinerario
+     * @throws CiudadLogicException  si no existe ciudad
+     */
     public CiudadDTO getCiudad(Long id, Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
         CiudadDTO resp = null;
         ItinerarioDTO itin = null;

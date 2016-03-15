@@ -173,6 +173,14 @@ public class ItinerarioResource {
         return itinerarioLogic.getCiudades(id);
     }
 
+    /**
+     * Obtiene la ciudad con el idciudad dado, del itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificadot de la ciudad
+     * @return ciudad buscada
+     * @throws ItinerarioLogicException si no existe itinerario
+     * @throws CiudadLogicException  si no existe ciudad
+     */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad:\\d+}")
     public CiudadDTO getCiudades(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
