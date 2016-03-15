@@ -12,16 +12,17 @@
 
             <table id="tabla" border="1" class="table table-bordered">
                 <tr>
-                    <td ALIGN=center> <b>Hotel</b> </td>
-                    <td ALIGN=center> <b>Direccion</b></td>
-                    <td ALIGN=center> <b>Direccion</b></td>
-                    <td ALIGN=center> <b>Borrar</b></td>
+                    <td ALIGN=center> <b>Ciudad</b> </td>
+                    <td ALIGN=center> <b>Descripcion</b></td>
+                    <td ALIGN=center> <b>Sitios</b></td>
+                    <td ALIGN=center> <b>Eventos</b></td>
                 </tr>
-                <tr ng-repeat="nc in currentCiudad.hoteles">
+                <tr ng-repeat="nc in ciudades">
                     <td>{{nc.nombre}}</td>
-                    <td>{{nc.direccion}}</td>
-                    <td>{{nc.direccion}}</td>
-                    <td><button id="borrar" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Borrar </button></td>
+                    <td>{{nc.detalles}}</td>
+                    <td><button id="borrar" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Ver Sitios </button></td>
+                 <td><button id="borrar" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Ver Eventos </button></td>
+
                 </tr>
             </table>
 
