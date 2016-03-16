@@ -144,10 +144,11 @@
                     }, responseError)
                     .then(function(){
                         svc.saveCurrentItinerario($scope.currentRecord);
-                    }, responseError)
-                    .then(function(){
                         self.fetchCurrentRecord();
                     }, responseError)
+                    //.then(function(){
+                      //  self.fetchCurrentRecord();
+                    //}, responseError)
                     .then(function(){
                         self.fetchCurrentCiudades();
                     }, responseError);
@@ -210,13 +211,15 @@
             self.fetchCurrentRecord()
                     .then(
                         function(){
+                            if($scope.currentRecord.id)
                             self.fetchCurrentCiudades();
                         }, responseError
                     )
                     .then(
                         function(){
+                            if($scope.currentCiudadMostrar.id){
                             self.fetchCurrentSitios();
-                            self.fetchCurrentEventos();
+                            self.fetchCurrentEventos();}
                         }, responseError
                     );
         };
@@ -407,6 +410,7 @@
         // ejecutan estos
         this.fetchRecords();
         this.fetchRecordsViajero($scope.currentUser);
+        //this.fetchCurrentRecord();
         this.fetchCurrents();
     }]);
 

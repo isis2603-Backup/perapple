@@ -20,7 +20,7 @@
          * Se recibe un array de objetos de itinerario(todos los itinerarios de todos los usuarios).
          */
         this.fetchItinerarios = function () {
-            $http.get(context);
+            return $http.get(context);
         };
 
         /**
@@ -177,8 +177,6 @@
             self.fetchItinerarios()
                     .then(function (response) {
                         itinerarios = response.data;
-                    })
-                    .then(function () {
                         for(var i = 0; i<itinerarios.length && !encontro;i++)
                         {
                             if(nItinerario.id === itinerarios[i].id)
@@ -193,7 +191,24 @@
                         else {
                             return $http.post(context, nItinerario);
                         }
-                    });
+                    })
+                    //.then(function () {
+                      //  for(var i = 0; i<itinerarios.length && !encontro;i++)
+                       // {
+                         //   if(nItinerario.id === itinerarios[i].id)
+                           // {
+                             //   encontro = true;
+                           // }
+                        //}
+
+                        //if (encontro) {
+                          //  return $http.put(context + "/" + nItinerario.id, nItinerario);
+                        //}
+                        //else {
+                          //  return $http.post(context, nItinerario);
+                        //}
+                    //})
+                    ;
         };
 
         /**
