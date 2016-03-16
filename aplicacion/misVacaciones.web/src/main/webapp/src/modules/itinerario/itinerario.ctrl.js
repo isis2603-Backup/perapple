@@ -107,6 +107,8 @@
                     }, responseError)
                     .then(function(){
                         svc.saveCurrentItinerario($scope.currentRecord);
+                    }, responseError)
+                    .then(function(){
                         self.fetchCurrentRecord();
                     }, responseError)
                     .then(function(){
@@ -147,7 +149,6 @@
             return svc.fetchCiudades($scope.currentRecord.id)
                     .then(function (response) {
                         $scope.currentCiudadesMostrar = response.data;
-                        console.log("entro aca");
                     }, responseError)
                     .then(function () {
                         self.fetchCiudadesBD();
@@ -276,7 +277,7 @@
             return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response) {
                         eventoBD = response.data;
-                        console.log("ctrl agregar evento eventoBD: "+eventoBD.name);
+                        //console.log("ctrl agregar evento eventoBD: "+eventoBD.name);
                         return response;
                     }, responseError)
                     .then(function () {
