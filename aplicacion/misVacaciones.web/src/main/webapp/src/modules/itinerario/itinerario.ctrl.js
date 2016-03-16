@@ -147,6 +147,7 @@
             return svc.fetchCiudades($scope.currentRecord.id)
                     .then(function (response) {
                         $scope.currentCiudadesMostrar = response.data;
+                        console.log("entro aca");
                     }, responseError)
                     .then(function () {
                         self.fetchCiudadesBD();
@@ -214,7 +215,8 @@
 
         this.agregarCiudad=function($event){
 
-            var ciudadBD = {};
+            var ciudadBD;
+            var nCiudad;
             var idCiudad = parseInt($event.currentTarget.name);
 
             return svcCiudad.fetchCiudad(idCiudad)
@@ -223,7 +225,8 @@
                         return response;
                     }, responseError)
                     .then(function () {
-                        var nCiudad = {id:ciudadBD.id,
+                        nCiudad = {
+                            id:ciudadBD.id,
                             nombre:ciudadBD.nombre,
                             detalles:ciudadBD.detalles,
                             imagen:ciudadBD.imagen,
@@ -232,10 +235,12 @@
                             sitios: [],
                             eventos: []
                           };
+                    }, responseError)
+                    .then(function () {
                         svc.saveCiudad($scope.currentRecord.id, nCiudad);
                     }, responseError)
                     .then(function () {
-                        self.fetchCurrentCiudades();
+                        self.fetchCurrents();
                     }, responseError);
         };
 
