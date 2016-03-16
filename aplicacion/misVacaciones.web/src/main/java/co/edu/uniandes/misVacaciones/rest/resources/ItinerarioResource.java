@@ -47,6 +47,24 @@ public class ItinerarioResource {
 	@Inject
 	ItinerarioLogicMock itinerarioLogic;
 
+      /**
+       * El itinerario que actualmente se este manejando
+       * @return el itinerario que actualmente se esta manejando
+       * @throws ItinerarioLogicException
+       */
+
+      @GET
+      @Path("current")
+    public ItinerarioDTO getCurrentItinerario() throws ItinerarioLogicException {
+        return itinerarioLogic.getCurrentItinerario();
+    }
+
+    @PUT
+    @Path("current")
+    public ItinerarioDTO setCurrentItinerario(ItinerarioDTO nuevoCurrent){
+        return itinerarioLogic.setCurrentItinerario(nuevoCurrent);
+    }
+
 	/**
 	 * Obtiene el listado de Itinerarios.
 	 * @return lista de itinerarios
@@ -154,6 +172,21 @@ public class ItinerarioResource {
     public List<CiudadDTO> getCiudades(@PathParam("id") Long id) throws ItinerarioLogicException {
         return itinerarioLogic.getCiudades(id);
     }
+
+    /**
+     * Obtiene la ciudad con el idciudad dado, del itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificadot de la ciudad
+     * @return ciudad buscada
+     * @throws ItinerarioLogicException si no existe itinerario
+     * @throws CiudadLogicException  si no existe ciudad
+     */
+    @GET
+    @Path("{id: \\d+}/ciudades/{idciudad:\\d+}")
+    public CiudadDTO getCiudad(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+        return itinerarioLogic.getCiudad(id, idciudad);
+    }
+
 
     /**
      * Agrega un sitio de interes en una ciudad con el id dado del itinerario con id dado

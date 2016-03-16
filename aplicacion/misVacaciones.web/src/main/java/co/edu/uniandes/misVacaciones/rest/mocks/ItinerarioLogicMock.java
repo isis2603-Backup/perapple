@@ -42,31 +42,39 @@ public class ItinerarioLogicMock {
 
 	// listado de itinerarios
     public static ArrayList<ItinerarioDTO> itinerarios;
+    public static ItinerarioDTO current;
 
     /**
      * Constructor. Crea los datos de ejemplo.
      */
     public ItinerarioLogicMock() {
 
+        if(current == null)
+        {
+            current = new ItinerarioDTO();
+        }
     	if (itinerarios == null) {
             itinerarios = new ArrayList<>();
 
-            itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "perapple", "12-05-2016","13-06-2016"));
+            itinerarios.add(new ItinerarioDTO(1L, "Verano 2016", "p@earpple.com", "12-05-2016","13-06-2016"));
 
             ArrayList<CiudadDTO> ciudades = new ArrayList<>();
             ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
             ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
-            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los paques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+            ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los parques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
 
             itinerarios.get(0).setCiudades(ciudades);
 
-            itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "perapple","12-07-2016","13-08-2016"));
+            itinerarios.add(new ItinerarioDTO(2L, "Invierno 2016", "p@earpple.com","12-07-2016","13-08-2016"));
 
             ciudades = new ArrayList<>();
              ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
-            ciudades.add(new CiudadDTO(2L, "Cali", "Sucursal del cielo", "http://static.panoramio.com/photos/large/43907931.jpg", "15/06/2016", "17/06/2016"));
             ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los parques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+            ciudades.add(new CiudadDTO(4L, "Barranquilla", "Puerta de oro de Colombia", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", "15/06/2016", "17/06/2016"));
+
             itinerarios.get(1).setCiudades(ciudades);
+
+            itinerarios.add(new ItinerarioDTO(3L, "Prueba 2016", "p@earpple.com", "12-05-2016","20-05-2016"));
 
         }
 
@@ -76,13 +84,34 @@ public class ItinerarioLogicMock {
     	// muestra información
     	logger.info("Inicializa la lista de itinerarios");
     	logger.info("itinerarios" + itinerarios );
+        logger.info("current " + current);
     }
 
-//
-	 //* Obtiene el listado de itinerarios.
-	 //* @return lista de itienrarios
-	// * @throws ItinerarioLogicException cuando no existe la lista en memoria
-//
+    /**
+     * Retorna el itinerario que actualmente se esta visualizando
+     * @return itinerario Actual
+     */
+
+    public ItinerarioDTO getCurrentItinerario()
+    {
+        logger.info("retornando currentItinerario "+ current);
+        return current;
+    }
+
+    public ItinerarioDTO setCurrentItinerario(ItinerarioDTO nuevoCurrent)
+    {
+        logger.info("cambiando currentItinerario de " +current+" a "+ nuevoCurrent);
+        current = nuevoCurrent;
+        return current;
+    }
+
+        /**
+	* Obtiene el listado de itinerarios.
+	* @return lista de itienrarios
+	* @throws ItinerarioLogicException cuando no existe la lista en memoria
+        */
+
+
     public List<ItinerarioDTO> getItinerarios() throws ItinerarioLogicException {
     	if (itinerarios == null) {
     		logger.severe("Error interno: lista de ciudades no existe.");
@@ -208,6 +237,12 @@ public class ItinerarioLogicMock {
         throw new ItinerarioLogicException("No existe un itinerario con ese id");
     }
 
+    /**
+     * Crea una ciudad en el itinerario con id dado, según una ciudad dada por párametro
+     * @param id
+     * @param ciudad
+     * @throws ItinerarioLogicException
+     */
     public void createCiudad(Long id, CiudadDTO ciudad) throws ItinerarioLogicException {
 
         logger.info("recibiendo solictud de agregar ciudad a itinerario con id " + id);
@@ -258,10 +293,13 @@ public class ItinerarioLogicMock {
                 existeItinerario = true;
             	// modifica la ciudad
             	logger.info("modificando la ciudad"+ ciudad + " del itinerario " + itinerario);
-               for(CiudadDTO ciudadvieja : itinerario.getCiudades()){
+               for(int i = 0; i<itinerario.getCiudades().size();i++){
+                   CiudadDTO ciudadvieja = itinerario.getCiudades().get(i);
                 if(Objects.equals(ciudadvieja.getId(), idciudad)){
                     existeCiudad = true;
-                    ciudadvieja =  ciudad;
+                    itinerario.getCiudades().remove(i);
+                    itinerario.getCiudades().add(i, ciudad);
+                    logger.info("Ciudad modificada: "+ itinerario.getCiudades().get(i));
                 }
                }
 
@@ -791,6 +829,11 @@ public class ItinerarioLogicMock {
 
     }
 
+    /**
+     * Obtiene los itinerarios por identificación de viajero
+     * @param id identificador del viajero
+     * @return los itinerarios del viajero con identificador dado
+     */
     public ArrayList<ItinerarioDTO> getItinerariosViajero(String id) {
 
         ArrayList<ItinerarioDTO> itinerariosresp = new ArrayList<>();
@@ -805,6 +848,44 @@ public class ItinerarioLogicMock {
 
 
         return itinerariosresp;
+    }
+
+    /**
+     * Obtiene la ciudad con el idciudad dado, del itinerario con id dado
+     * @param id identificador del itinerario
+     * @param idciudad identificadot de la ciudad
+     * @return ciudad buscada
+     * @throws ItinerarioLogicException si no existe itinerario
+     * @throws CiudadLogicException  si no existe ciudad
+     */
+    public CiudadDTO getCiudad(Long id, Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+        CiudadDTO resp = null;
+        ItinerarioDTO itin = null;
+        for (ItinerarioDTO itinerario : itinerarios) {
+            if(Objects.equals(itinerario.getId(), id))
+            {
+            itin = itinerario;
+                for (CiudadDTO ciudad : itinerario.getCiudades()) {
+                    if(Objects.equals(ciudad.getId(), idciudad))
+                    {
+                        resp = ciudad;
+                        return resp;
+                    }
+                }
+            }
+        }
+
+       if(itin == null){
+            logger.severe("No existe un itinerario con ese id");
+            throw new ItinerarioLogicException("No existe un itinerario con ese id");
+        }
+        // no encontró la ciudad con ese id ?
+        else if(resp == null){
+            logger.severe("No existe una ciudad con ese idciudad en el itinerario con ese id");
+            throw new CiudadLogicException("No existe una ciudad con ese id");
+        }
+    return resp;
+
     }
 
 

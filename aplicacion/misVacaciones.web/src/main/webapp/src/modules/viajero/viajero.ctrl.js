@@ -14,7 +14,7 @@
             $scope.currentViajero = {};
             
             //Viajeros
-            $scope.records = [];
+            $scope.viajeros = [];
             
             //Se almacenan todas las alertas
             $scope.alerts = [];
@@ -141,7 +141,7 @@
              * persistirlo en base de datos.
              * Muestra el template de la lista de records al finalizar la operación saveRecord
              */
-            this.saveRecord = function () {
+            this.saveViajero = function () {
                     return svc.saveViajero($scope.currentViajero).then(function () {
                         self.fetchViajeros();
                     }, responseError);
@@ -162,13 +162,13 @@
              * Funcion fetchRecords consulta todos los registros del módulo book en base de datos
              * para desplegarlo en el template de la lista.
              */
-            $scope.usuario= "Perapple";
+            $scope.viajero= "Perapple";
             $scope.contrasena = "Perapple";
             $scope.correo = "perapple@gmail.com";
             $scope.itinerario = "";
             $scope.itinerarios = [];
 
-            this.agregar = function(viajero){
+            this.agregarViajero = function(viajero){
             $scope.viajeros.push(viajero);
              $scope.viajero = "";};
 

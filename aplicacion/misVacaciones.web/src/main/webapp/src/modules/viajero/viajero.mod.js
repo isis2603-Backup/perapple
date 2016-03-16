@@ -5,7 +5,7 @@
  */
 (function (ng) {
     var mod = ng.module("viajeroModule", ["ui.bootstrap"]);
-    mod.constant("viajeroContext", "api/viajero");
+    mod.constant("viajeroContext", "http://localhost:8080/misVacaciones.web/api/viajeros");
 
 })(window.angular);
 

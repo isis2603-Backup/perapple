@@ -30,8 +30,8 @@
                     </tr>
                     <tr ng-repeat="nc in currentCiudadesMostrar">
                         <td>{{nc.nombre}}</td>
-                        <td>{{nc.fInicio|date}}</td>
-                        <td>{{nc.fFin|date}}</td>
+                        <td>{{nc.fechaInicio|date}}</td>
+                        <td>{{nc.fechaFin|date}}</td>
                         <td><a href="javascript:window.scrollTo(0,1100)"><button  id="detalles" type="button" class="btn btn-success" name="{{nc.id}}"  ng-click="ctrl.detallesCiudad($event); " > Detalles </button></a></td>
                         <td><button id="borrar" type="button" class="btn btn-success" name="{{nc.id}}"  ng-click="ctrl.borrarCiudad($event); " > Borrar </button></td>
                     </tr>
@@ -125,11 +125,11 @@
             </div>
         </div>
     </div>
-    
+
     <p ALIGN="center"> <a href="javascript:window.scrollTo(0,500)" style="text-align:center; font-size: 120%;" id="volver" class="btn btn-success" > Volver Arriba </a> </p>
     <br>
     <br>
-    
+
 </div>
 
 <!--pop up agregar ciudad-->

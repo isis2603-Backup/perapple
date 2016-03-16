@@ -23,7 +23,13 @@
         $scope.currentHotel = {};
         //Hoteles
         $scope.hoteles = [];
-
+        
+        //viajero actual
+        $scope.currentViajero = {};
+            
+        //Viajeros
+        $scope.viajeros = [];
+        
         //Alertas
         $scope.alerts = [];
 
@@ -187,6 +193,51 @@
             }, responseError);
         };
 
+
+        this.createViajero = function () {
+            $scope.$broadcast("pre-create", $scope.currentViajero);
+                this.editMode = true;
+                $scope.currentRecord = {};
+                $scope.$broadcast("post-create", $scope.currentViajero);
+            };
+            
+             this.editViajero = function (viajero) {
+                $scope.$broadcast("pre-edit", $scope.currentViajero);
+                return svc.fetchRecord(viajero.id).then(function (response) {
+                    $scope.currentViajero = response.data;
+                    self.editMode = true;
+                    $scope.$broadcast("post-edit", $scope.currentViajero);
+                    return response;
+                }, responseError);
+            };
+        this.fetchViajero = function (idViajero) {
+                return svc.fetchViajeros(idViajero).then(function (response) {
+                    $scope.currentViajero = response.data;
+                    self.editMode = false;
+                    return response;
+                }, responseError);
+            };
+            this.fetchViajeros = function () {
+                return svc.fetchRecords().then(function (response) {
+                    $scope.records = response.data;
+                    $scope.currentRecord = {};
+                    self.editMode = false;
+                    return response;
+                }, responseError);
+            };
+             this.saveViajero = function () {
+                    return svc.saveViajero($scope.currentViajero).then(function () {
+                        self.fetchViajeros();
+                    }, responseError);
+            };
+            this.deleteViajero = function (viajero) {
+                return svc.deleteViajero(viajero.id).then(function () {
+                    self.fetchViajeros();
+                }, responseError);
+            };
+            this.agregarViajero = function(viajero){
+            $scope.viajeros.push(viajero);
+             $scope.viajero = "";};
 
         this.fetchCiudades(1);
 
