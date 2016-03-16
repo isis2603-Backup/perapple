@@ -2,32 +2,32 @@
     <div style="justify-content: center; height: 100%">
         <div class="col-sm-12 well" style="text-align: center;height:100%">
 
-            <h2>Ciudades</h2>
+            <h2>Hoteles</h2>
 
             <br>
+
+            <p>Ciudad: {{currentCiudad.nombre}}</p>
 
             <br>
 
             <table id="tabla" border="1" class="table table-bordered">
                 <tr>
-                    <td ALIGN=center> <b>id</b> </td>
-                    <td ALIGN=center> <b>nombre</b></td>
-                    <td ALIGN=center> <b>detalles</b></td>
-                    <td ALIGN=center> <b>Sitios</b></td>
-                    <td ALIGN=center> <b>Eventos</b></td>
+                    <td ALIGN=center> <b>Hotel</b> </td>
+                    <td ALIGN=center> <b>Direccion</b></td>
+                    <td ALIGN=center> <b>Direccion</b></td>
+                    <td ALIGN=center> <b>Borrar</b></td>
                 </tr>
-                <tr ng-repeat="nc in ciudades">
-                    <td>{{nc.id}}</td>
+                <tr ng-repeat="nc in currentCiudad.hoteles">
                     <td>{{nc.nombre}}</td>
-                    <td>{{nc.detalles}}</td>
-                    <td><button id="sitios" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Ver Sitios </button></td>
-                     <td><button id="eventos" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Ver Eventos </button></td>
-                                </tr>
+                    <td>{{nc.direccion}}</td>
+                    <td>{{nc.direccion}}</td>
+                    <td><button id="borrar" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Borrar </button></td>
+                </tr>
             </table>
 
             <br>
 
-            <button id="agregarCiudad" type="button" class="btn btn-success"  ng-click="ctrl.fetchHoteles(currentCiudad); " > Agregar ciudad </button>
+            <button id="borrar" type="button" class="btn btn-success"  ng-click="ctrl.fetchHoteles(currentCiudad); " > Actualizar Hoteles </button>
 
         </div>
     </div>
