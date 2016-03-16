@@ -69,9 +69,12 @@ public class ItinerarioLogicMock {
 
             ciudades = new ArrayList<>();
              ciudades.add(new CiudadDTO(1L, "Bogota", "Bogotá es la capital de la República de Colombia", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg","07/05/2016", " 08/05/2016" ));
-            ciudades.add(new CiudadDTO(2L, "Barranquilla", "Puerta de oro de Colombia", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", "15/06/2016", "17/06/2016"));
             ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los parques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "18/07/2016", "19/07/2016"));
+            ciudades.add(new CiudadDTO(4L, "Barranquilla", "Puerta de oro de Colombia", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", "15/06/2016", "17/06/2016"));
+
             itinerarios.get(1).setCiudades(ciudades);
+
+            itinerarios.add(new ItinerarioDTO(3L, "Prueba 2016", "p@earpple.com", "12-05-2016","20-05-2016"));
 
         }
 
@@ -234,6 +237,12 @@ public class ItinerarioLogicMock {
         throw new ItinerarioLogicException("No existe un itinerario con ese id");
     }
 
+    /**
+     * Crea una ciudad en el itinerario con id dado, según una ciudad dada por párametro
+     * @param id
+     * @param ciudad
+     * @throws ItinerarioLogicException
+     */
     public void createCiudad(Long id, CiudadDTO ciudad) throws ItinerarioLogicException {
 
         logger.info("recibiendo solictud de agregar ciudad a itinerario con id " + id);
@@ -820,6 +829,11 @@ public class ItinerarioLogicMock {
 
     }
 
+    /**
+     * Obtiene los itinerarios por identificación de viajero
+     * @param id identificador del viajero
+     * @return los itinerarios del viajero con identificador dado
+     */
     public ArrayList<ItinerarioDTO> getItinerariosViajero(String id) {
 
         ArrayList<ItinerarioDTO> itinerariosresp = new ArrayList<>();
