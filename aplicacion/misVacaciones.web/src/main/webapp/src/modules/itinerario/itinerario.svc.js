@@ -3,25 +3,9 @@
 
     mod.service("itinerarioService", ["$http", "itinerarioContext", function ($http, context) {
 
-        //Context:
-        //context = api/itinerarios
-
-        //Variables:
-        var self = this;
-
+        //Context: context = api/itinerarios
 
         //FUNCIONES PARA OBTENER LISTAS (GET)
-
-        /**
-         * Obtener la lista de itinerarios.
-         * Hace una petición GET con $http a /itinerario para obtener la lista
-         * de objetos de la entidad itinerario
-         * @returns {promise} promise para leer la respuesta del servidor.
-         * Se recibe un array de objetos de itinerario(todos los itinerarios de todos los usuarios).
-         */
-        this.fetchItinerarios = function () {
-            return $http.get(context);
-        };
 
         /**
          * Obtener la lista de itinerarios asociados a cierto viajero.
@@ -32,7 +16,6 @@
          * Se recibe un array de objetos de itinerario (solo los itinerarios de ese usuario).
          */
         this.fetchItinerariosViajero = function (emailViajero) {
-            //console.log("url:"+context + "/viajero/" + emailViajero);
             return $http.get(context + "/viajero/" + emailViajero);
         };
 
@@ -45,8 +28,6 @@
          * Se recibe un array de objetos de ciudades
          */
         this.fetchCiudades = function (idItinerario) {
-            //console.log("svc.fetchCiudades: " + context + "/" + idItinerario + "/ciudades");
-            if(idItinerario)
             return $http.get(context + "/" + idItinerario + "/ciudades");
         };
 
@@ -60,7 +41,6 @@
          * Se recibe un array de objetos de sitios
          */
         this.fetchSitios = function (idItinerario, idCiudad) {
-            if(idCiudad && idItinerario)
             return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios");
         };
 
@@ -74,7 +54,6 @@
          * Se recibe un array de objetos de eventos
          */
         this.fetchEventos = function (idItinerario, idCiudad) {
-            if(idCiudad && idItinerario)
             return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos");
         };
 
@@ -170,45 +149,8 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          */
         this.saveItinerario = function (nItinerario) {
-
-            var encontro = false;
-            var itinerarios;
-
-            self.fetchItinerarios()
-                    .then(function (response) {
-                        itinerarios = response.data;
-                        for(var i = 0; i<itinerarios.length && !encontro;i++)
-                        {
-                            if(nItinerario.id === itinerarios[i].id)
-                            {
-                                encontro = true;
-                            }
-                        }
-
-                        if (encontro) {
-                            return $http.put(context + "/" + nItinerario.id, nItinerario);
-                        }
-                        else {
-                            return $http.post(context, nItinerario);
-                        }
-                    })
-                    //.then(function () {
-                      //  for(var i = 0; i<itinerarios.length && !encontro;i++)
-                       // {
-                         //   if(nItinerario.id === itinerarios[i].id)
-                           // {
-                             //   encontro = true;
-                           // }
-                        //}
-
-                        //if (encontro) {
-                          //  return $http.put(context + "/" + nItinerario.id, nItinerario);
-                        //}
-                        //else {
-                          //  return $http.post(context, nItinerario);
-                        //}
-                    //})
-                    ;
+            return $http.post(context, nItinerario);
+            //return $http.put(context + "/" + nItinerario.id, nItinerario);
         };
 
         /**
@@ -222,30 +164,8 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          */
         this.saveCiudad = function (idItinerario, nCiudad) {
-
-            var ciudades;
-            var encontro = false;
-
-            self.fetchCiudades(idItinerario)
-                    .then(function(response){
-                        ciudades = response.data;
-                    })
-                    .then(function(){
-                        for(var i = 0; i<ciudades.length && !encontro;i++)
-                        {
-                            if(nCiudad.id === ciudades[i].id)
-                            {
-                                encontro = true;
-                            }
-                        }
-
-                        if (encontro) {
-                            return $http.put(context + "/" + idItinerario + "/ciudades/" + nCiudad.id, nCiudad);
-                        }
-                        else {
-                            return $http.post(context + "/" + idItinerario + "/ciudades/", nCiudad);
-                        }
-                    });
+            return $http.post(context + "/" + idItinerario + "/ciudades/", nCiudad);
+            //return $http.put(context + "/" + idItinerario + "/ciudades/" + nCiudad.id, nCiudad);
         };
 
         /**
@@ -260,30 +180,8 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          */
         this.saveSitio = function (idItinerario, idCiudad, nSitio) {
-
-            var sitios;
-            var encontro = false;
-
-            self.fetchSitios(idItinerario, idCiudad)
-                    .then( function(response) {
-                        sitios=response.data;
-                    })
-                    .then( function() {
-                        for(var i = 0; i<sitios.length && !encontro;i++)
-                        {
-                            if(nSitio.id === sitios[i].id)
-                            {
-                                encontro = true;
-                            }
-                        }
-
-                        if (encontro) {
-                            return $http.put(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios/" + nSitio.id, nSitio);
-                        }
-                        else {
-                            return $http.post(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios/", nSitio);
-                        }
-                    });
+            return $http.post(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios/", nSitio);
+            //return $http.put(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios/" + nSitio.id, nSitio);
         };
 
         /**
@@ -298,30 +196,8 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          */
         this.saveEvento = function (idItinerario, idCiudad, nEvento) {
-
-            var eventos;
-            var encontro = false;
-
-            self.fetchEventos(idItinerario, idCiudad)
-                    .then( function(response) {
-                        eventos=response.data;
-                    })
-                    .then( function() {
-                        for(var i = 0; i<eventos.length && !encontro;i++)
-                        {
-                            if(nEvento.id === eventos[i].id)
-                            {
-                                encontro = true;
-                            }
-                        }
-
-                        if (encontro) {
-                            return $http.put(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos/" + nEvento.id, nSitio);
-                        }
-                        else {
-                            return $http.post(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos/", nEvento);
-                        }
-                    });
+            return $http.post(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos/", nEvento);
+            //return $http.put(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos/" + nEvento.id, nSitio);
         };
 
 
