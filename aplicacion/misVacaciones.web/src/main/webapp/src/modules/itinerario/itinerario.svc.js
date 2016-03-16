@@ -46,6 +46,7 @@
          */
         this.fetchCiudades = function (idItinerario) {
             //console.log("svc.fetchCiudades: " + context + "/" + idItinerario + "/ciudades");
+            if(idItinerario)
             return $http.get(context + "/" + idItinerario + "/ciudades");
         };
 
@@ -59,6 +60,7 @@
          * Se recibe un array de objetos de sitios
          */
         this.fetchSitios = function (idItinerario, idCiudad) {
+            if(idCiudad && idItinerario)
             return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/sitios");
         };
 
@@ -72,6 +74,7 @@
          * Se recibe un array de objetos de eventos
          */
         this.fetchEventos = function (idItinerario, idCiudad) {
+            if(idCiudad && idItinerario)
             return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad + "/eventos");
         };
 
@@ -110,6 +113,7 @@
          * Se recibe un objeto instancia de ciudad.
          */
         this.fetchCiudad= function (idItinerario, idCiudad) {
+            if(idCiudad && idItinerario)
             return $http.get(context + "/" + idItinerario + "/ciudades/" + idCiudad);
         };
 

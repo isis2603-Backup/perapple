@@ -183,7 +183,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad:\\d+}")
-    public CiudadDTO getCiudades(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+    public CiudadDTO getCiudad(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
         return itinerarioLogic.getCiudad(id, idciudad);
     }
 

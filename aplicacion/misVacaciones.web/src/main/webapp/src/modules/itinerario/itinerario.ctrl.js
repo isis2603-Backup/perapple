@@ -264,8 +264,8 @@
                             nombre:ciudadBD.nombre,
                             detalles:ciudadBD.detalles,
                             imagen:ciudadBD.imagen,
-                            fInicio: $scope.fechaIni,
-                            fFin: $scope.fechaFin,
+                            fechaInicio: $scope.fechaIni,
+                            fechaFin: $scope.fechaFin,
                             sitios: [],
                             eventos: []
                           };
