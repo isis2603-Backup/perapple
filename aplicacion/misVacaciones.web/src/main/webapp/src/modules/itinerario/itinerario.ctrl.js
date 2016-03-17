@@ -100,7 +100,7 @@
         this.itinerarioActual = function($event){
 
             var idItinerario = parseInt($event.currentTarget.name);
-            
+
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
