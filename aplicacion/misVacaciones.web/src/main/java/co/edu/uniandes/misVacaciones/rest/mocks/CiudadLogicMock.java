@@ -56,10 +56,10 @@ public class CiudadLogicMock {
 
              ArrayList<EventoDTO> eventos1 = new ArrayList<>();
             eventos1.add(new EventoDTO(1L, "Bogotá Pub Craw", "Acerca del tour\\n\\\n" +
-                " Bogotanos y extranjeros podrán disfrutar del Bogota Pub Crawl, evento que promete hacer un tour por los mejores bares de la ciudad.\\n\\\n" +
+                " Bogotanos y extranjeros podrán disfrutar del Bogota Pub Crawl, evento que promete hacer un tour por los mejores bares de la ciudad.\n\\n" +
                 " Todo el recorrido se hace en compañía de un guía que habla español e inglés. A lo largo de la jornada habrá un fotógrafo que estará acompañando a los participantes\\n\\\n" +
                 " del tour y capturará los mejores momentos.\\n\\\n" +
-                " \\n\\\n" +
+                " \n\\n" +
                 " Qué debo saber\\n\\\n" +
                 " \\n\\\n" +
                 " La fiesta inicia en el Bier Market (carrera 13 No. 83-75 - zona T) a las 8:30 p.m. Allí, todos los participantes recibirán una manilla después de cancelar el precio \\n\\\n" +
