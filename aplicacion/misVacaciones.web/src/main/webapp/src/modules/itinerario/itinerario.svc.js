@@ -28,7 +28,6 @@
          * Se recibe un array de objetos de ciudades
          */
         this.fetchCiudades = function (idItinerario) {
-            console.log("fetch ciudades idIti:"+idItinerario);
             return $http.get(context + "/" + idItinerario + "/ciudades");
         };
 

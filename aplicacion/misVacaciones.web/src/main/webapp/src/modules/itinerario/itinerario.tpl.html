@@ -91,7 +91,7 @@
                     </tr>
                     <tr ng-repeat="evento in currentEventosMostrar track by $index">
                         <td>{{evento.nombre}}</td>
-                        <td><button id="button_detalles_evento" type="button" class="btn btn-success " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
+                        <td><button id="button_detalles_evento" type="button" class="btn btn-success " name="{{evento.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
                         <td><button id="button_calificar_evento" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
                         <td><button id="button_borrar_evento" type="button" class="btn btn-success" name="{{evento.id}}" ng-click="ctrl.borrarEvento($event);" > Borrar </button></td>
                     </tr>
@@ -341,9 +341,9 @@
                                 </div>
                             </div>-->
                             <div class="form-group col-md-11">
-                                <label for="name" class="col-md-4 control-label">Descripción</label>
+                                <label for="name" class="col-md-4 control-label">Detalles</label>
                                 <div class="col-md-8">
-                                    <p>{{currentEventoMostrar.descripcion}}</p>
+                                    <p>{{currentEventoMostrar.detalles}}</p>
                                 </div>
                             </div>
                             <!--
