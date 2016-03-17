@@ -59,7 +59,7 @@
          * @returns {promise} promise para leer la respuesta del servidor
          * No devuelve datos.
          */
-        this.deleteRecord = function (idViajero) {
+        this.deleteViajero = function (idViajero) {
             return $http.delete(context + "/" + idViajero);
         };
     }]);

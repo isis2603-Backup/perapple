@@ -1,26 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 (function (ng) {
 
     var mod = ng.module("viajeroModule");
 
-    mod.controller("viajeroCtrl", ["$scope", "viajeroService", function ($scope, svc) {
-            
+    mod.controller("viajeroCtrl", ["$scope", "viajeroService", function ($scope, svc,svcViajero) {
+
             //viajero actual
             $scope.currentViajero = {};
-            
+
             //Viajeros
             $scope.viajeros = [];
-            
+            $scope.currentViajeroMostrar= {};
             //Se almacenan todas las alertas
             $scope.alerts = [];
             $scope.currentRecord = {};
             $scope.records = [];
-            
+
             //fecha de hoy
             $scope.today = function () {
                 $scope.value = new Date();
@@ -42,7 +38,7 @@
                 $scope.alerts.splice(index, 1);
             };
 
-            // Función showMessage: 
+            // Función showMessage:
             //              Recibe el mensaje en String y su tipo con el fin de almacenarlo en el array $scope.alerts.
             function showMessage(msg, type) {
                 var types = ["info", "danger", "warning", "success"];
@@ -65,7 +61,7 @@
             function responseError(response) {
                 self.showError(response.data);
             }
-            
+
             //Variables para el controlador
             this.readOnly = false;
             this.editMode = false;
@@ -134,7 +130,14 @@
                 }, responseError);
             };
 
-            
+            this.fetchViajerosBD = function (idViajero) {
+            return svcViajero.fetchEventos(idViajero).then(function (response) {
+                $scope.viajerosBD = response.data;
+                $scope.currentViajero = {};
+                self.editMode = false;
+                return response;
+            }, responseError);
+        };
 
             /*
              * Funcion saveRecord hace un llamado al servicio svc.saveRecord con el fin de
@@ -146,7 +149,31 @@
                         self.fetchViajeros();
                     }, responseError);
             };
+            this.agregarEvento = function($event){
 
+            var idEvento = parseInt($event.currentTarget.name);
+            console.log("ctrl agregar evento idEve: "+idEvento);
+            var eventoBD = {};
+
+            return svcViajero.fetchViajero($scope.currentViajeroMostrar.id, idViajero)
+                    .then(function (response) {
+                        viajeroBD = response.data;
+                        console.log("ctrl agregar viajero viajeroBD: "+viajeroBD.id);
+                        return response;
+                    }, responseError)
+                    .then(function () {
+                        var nViajero = {
+                            id:viajeroBD.id,
+                            nombre:viajeroBD.nombre,
+                            email:viajeroBD.email,
+                            contrasena:viajeroBD.contrasena
+                          };
+                        svc.saveViajero($scope.currentRecord.id, nViajero);
+                    }, responseError)
+                    .then(function () {
+                        self.fetchCurrentEventos();
+                    }, responseError);
+        };
             /*
              * Funcion deleteRecord hace un llamado al servicio svc.deleteRecord con el fin
              * de eliminar el registro asociado.
@@ -157,6 +184,15 @@
                     self.fetchViajeros();
                 }, responseError);
             };
+            this.borrarViajero = function ($event){
+
+            var idViajero = parseInt($event.currentTarget.id);
+
+            return svc.deleteViajero(idViajero)
+                    .then(function (){
+                        self.fetchCurrentViajeros();
+                    });
+        };
 
             /*
              * Funcion fetchRecords consulta todos los registros del módulo book en base de datos
