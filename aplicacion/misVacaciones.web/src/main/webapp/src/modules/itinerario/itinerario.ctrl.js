@@ -30,9 +30,6 @@
 
         //Otras variables
         $scope.nombreNuevoItinerario = "Verano 2017";
-        $scope.idNuevoItinerario = 3;
-        $scope.haySitios = false;
-        $scope.hayEventos = false;
         $scope.alerts = [];
 
         $scope.today = function () {
@@ -49,8 +46,9 @@
             $scope.opened = true;
         };
 
-        $scope.$on('fetchRecordsItinerario', function() { fetchRecords(); fetchRecordsViajero($scope.currentUser); });
-        //$scope.$on('fecthRecordsItinerario', function() { fetchRecords(); });
+        $scope.$on('fetchRecordsItinerario', function() {
+            self.fetchRecordsViajero($scope.currentUser);
+        });
 
         //Variables para el controlador
         var self = this;
@@ -83,41 +81,6 @@
             $scope.tab = tab;
         };
 
-        //Funciones que involucran itinerarios=records
-        this.createRecord = function () {
-            $scope.$broadcast("pre-create", $scope.currentRecord);
-            this.editMode = true;
-            $scope.currentRecord = {};
-            $scope.$broadcast("post-create", $scope.currentRecord);
-        };
-
-        this.editRecord = function (record) {
-            $scope.$broadcast("pre-edit", $scope.currentRecord);
-            return svc.fetchItinerario(record.id).then(function (response) {
-                $scope.currentRecord = response.data;
-                self.editMode = true;
-                $scope.$broadcast("post-edit", $scope.currentRecord);
-                return response;
-            }, responseError);
-        };
-
-        this.saveRecord = function () {
-            return svc.saveItinerario($scope.currentRecord).then(function () {
-                self.fetchRecordsViajero($scope.currentUser);
-            }, responseError);
-        };
-
-        this.saveCurrentRecord = function () {
-            return svc.saveCurrentItinerario($scope.currentRecord).then(function () {
-                self.fetchCurrentRecord();
-            }, responseError);
-        };
-
-        this.fetchRecords = function () {
-            svc.fetchItinerarios();
-            self.editMode = false;
-        };
-
         this.fetchRecordsViajero = function (emailViajero) {
             return svc.fetchItinerariosViajero(emailViajero).then(function (response) {
                 $scope.records = response.data;
@@ -137,26 +100,22 @@
         this.itinerarioActual = function($event){
 
             var idItinerario = parseInt($event.currentTarget.name);
-
+            
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
                     }, responseError)
                     .then(function(){
                         svc.saveCurrentItinerario($scope.currentRecord);
-                        self.fetchCurrentRecord();
                     }, responseError)
-                    //.then(function(){
-                      //  self.fetchCurrentRecord();
-                    //}, responseError)
                     .then(function(){
-                        self.fetchCurrentCiudades();
+                        self.fetchCurrents();
                     }, responseError);
-            //console.log("itinerarioActual Cali..."+$scope.currentCiudadesMostrar[0].nombre);
         };
 
         this.agregarItinerario = function (nombre, fechaI, fechaF){
-            $scope.currentRecord = {id:$scope.idNuevoItinerario.toString(),
+
+            $scope.currentRecord = {
                                     viajero: $scope.currentUser,
                                     nombre: nombre ,
                                     fechaInicio: fechaI ,
@@ -165,7 +124,7 @@
                                     sitios:[],
                                     eventos: []
                                    };
-            $scope.idNuevoItinerario = $scope.idNuevoItinerario + 1;
+
             return svc.saveItinerario($scope.currentRecord)
                     .then(function () {
                         self.fetchRecordsViajero($scope.currentUser);
@@ -204,22 +163,22 @@
             return svc.fetchEventos($scope.currentRecord.id, $scope.currentCiudadMostrar.id)
                     .then(function (response) {
                         $scope.currentEventosMostrar = response.data;
+                        console.log($scope.currentEventosMostrar[0].nombre);
                     }, responseError);
         };
 
         this.fetchCurrents = function (){
             self.fetchCurrentRecord()
-                    .then(
-                        function(){
-                            if($scope.currentRecord.id)
-                            self.fetchCurrentCiudades();
+                    .then(function(){
+                            if($scope.currentRecord.id){
+                                self.fetchCurrentCiudades();
+                            }
                         }, responseError
                     )
-                    .then(
-                        function(){
+                    .then(function(){
                             if($scope.currentCiudadMostrar.id){
-                            self.fetchCurrentSitios();
-                            self.fetchCurrentEventos();}
+                                self.fetchCurrentSitios();
+                                self.fetchCurrentEventos();}
                         }, responseError
                     );
         };
@@ -254,7 +213,8 @@
 
         this.agregarCiudad=function($event){
 
-            var ciudadBD = {};
+            var ciudadBD;
+            var nCiudad;
             var idCiudad = parseInt($event.currentTarget.name);
 
             return svcCiudad.fetchCiudad(idCiudad)
@@ -263,7 +223,8 @@
                         return response;
                     }, responseError)
                     .then(function () {
-                        var nCiudad = {id:ciudadBD.id,
+                        nCiudad = {
+                            id:ciudadBD.id,
                             nombre:ciudadBD.nombre,
                             detalles:ciudadBD.detalles,
                             imagen:ciudadBD.imagen,
@@ -272,10 +233,12 @@
                             sitios: [],
                             eventos: []
                           };
+                    }, responseError)
+                    .then(function () {
                         svc.saveCiudad($scope.currentRecord.id, nCiudad);
                     }, responseError)
                     .then(function () {
-                        self.fetchCurrentCiudades();
+                        self.fetchCurrents();
                     }, responseError);
         };
 
@@ -306,6 +269,7 @@
         this.agregarEvento = function($event){
 
             var idEvento = parseInt($event.currentTarget.name);
+            console.log("ctrl agregar evento idEve: "+idEvento);
             var eventoBD = {};
 
             return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
@@ -315,11 +279,12 @@
                         return response;
                     }, responseError)
                     .then(function () {
-                        var nEvento = {id:eventoBD.id,
-                                        nombre:eventoBD.nombre,
-                                        detalles:eventoBD.detalles,
-                                        fecha:$scope.fechaEvento
-                                      };
+                        var nEvento = {
+                            id:eventoBD.id,
+                            nombre:eventoBD.nombre,
+                            detalles:eventoBD.detalles,
+                            fecha:$scope.fechaEvento
+                          };
                         svc.saveEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nEvento);
                     }, responseError)
                     .then(function () {
@@ -399,19 +364,21 @@
         this.detallesEvento=function($event){
 
             var idEvento = parseInt($event.currentTarget.name);
+            console.log("detalles evento id Ev: "+idEvento);
 
             return svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response){
                         $scope.currentEventoMostrar = response.data;
+                        console.log("detalles evento: "+$scope.currentEventoMostrar.nombre);
                     });
         };
 
         // al cargar cualquiera de las plantillas se
         // ejecutan estos
-        this.fetchRecords();
-        this.fetchRecordsViajero($scope.currentUser);
-        //this.fetchCurrentRecord();
-        this.fetchCurrents();
+        this.fetchRecordsViajero($scope.currentUser)
+                .then(function(){
+                    self.fetchCurrents();
+                });
     }]);
 
 })(window.angular);
