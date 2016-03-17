@@ -53,8 +53,8 @@ public class ItinerarioResource {
        * @throws ItinerarioLogicException
        */
 
-      @GET
-      @Path("current")
+    @GET
+    @Path("current")
     public ItinerarioDTO getCurrentItinerario() throws ItinerarioLogicException {
         return itinerarioLogic.getCurrentItinerario();
     }
@@ -143,7 +143,7 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
-    public void updateCiudades(@PathParam("id") Long id, CiudadDTO ciudad, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+    public void updateCiudad(@PathParam("id") Long id, CiudadDTO ciudad, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
 
         itinerarioLogic.updateCiudad(id, ciudad, idciudad);
     }
