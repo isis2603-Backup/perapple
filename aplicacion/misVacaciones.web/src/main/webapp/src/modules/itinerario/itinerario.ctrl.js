@@ -361,10 +361,12 @@
         this.detallesEvento=function($event){
 
             var idEvento = parseInt($event.currentTarget.name);
+            console.log("detalles evento id Ev: "+idEvento);
 
             return svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response){
                         $scope.currentEventoMostrar = response.data;
+                        console.log("detalles evento: "+$scope.currentEventoMostrar.nombre);
                     });
         };
 
