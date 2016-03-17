@@ -3,8 +3,6 @@
 
     mod.service("ciudadService", ["$http", "ciudadContext", function ($http, context) {
         
-        var self = this;
-        
         /**
          * Obtener la lista de ciudades.
          * Hace una petición GET con $http a /ciudades para obtener la lista
