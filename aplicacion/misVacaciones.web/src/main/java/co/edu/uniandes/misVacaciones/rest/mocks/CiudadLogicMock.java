@@ -53,6 +53,10 @@ public class CiudadLogicMock {
             ciudades.add(new CiudadDTO(3L, "Bucaramanga", "Ciudad de los parques", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", "", ""));
             ciudades.add(new CiudadDTO(4L, "Barranquilla", "Puerta de oro de Colombia", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", "", ""));
 
+            ArrayList<EventoDTO> eventos1 = new ArrayList<>();
+            eventos1.add(new EventoDTO(1L, "Prueba", "Detalles de Prueba", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg"));
+            ciudades.get(0).setEventos(eventos1);
+
         }
 
 
