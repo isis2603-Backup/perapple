@@ -14,10 +14,10 @@
          * Hace una petición GET con $http a /viajeros para obtener la lista
          * de viajeros
          * @returns {promise} promise para leer la respuesta del servidor}
-         * Devuelve una lista de objetos de viajeros con sus atributos 
+         * Devuelve una lista de objetos de viajeros con sus atributos
          */
-        this.fetchRecords = function () {
-            return $http.get(context);
+        this.fetchViajeros = function () {
+            return $http.get(context+"/"+"viajeros");
         };
 
         /**
@@ -25,42 +25,42 @@
          * Obtener un registro de viajero.
          * Hace una petición GET a /viajeros/:viajeroid para obtener
          * los datos de un registro específico de viajero
-         * @param {number} id del registro a obtener
+         * @param {number} idViajero del registro a obtener
          * @returns {promise} promise para leer la respuesta del servidor
-         * Devuelve un objeto de viajero con sus atributos 
+         * Devuelve un objeto de viajero con sus atributos
          */
-        this.fetchViajeros= function (id) {
-            return $http.get(context + "/" + id);
+        this.fetchViajero= function (idViajero) {
+            return $http.get(context + "/" + idViajero);
         };
 
         /**
          * POST
          * Guardar un registro de viajero.
-         * Si currentRecord tiene la propiedad id, hace un PUT a /viajeros/:viajeroid con los
+         * Si currentViajero tiene la propiedad id, hace un PUT a /viajeros/:viajeroid con los
          * nuevos datos de la instancia de viajero.
          * Si currentRecord no tiene la propiedad id, se hace un POST a /viajeros
          * para crear el nuevo registro de viajero
-         * @param {object} currentRecord instancia de viajero a guardar/actualizar
+         * @param {object} currentViajero instancia de viajero a guardar/actualizar
          * @returns {promise} promise para leer la respuesta del servidor
          * Devuelve un objeto de viajero con sus datos incluyendo el id si es creado
          */
-        this.saveRecord = function (currentRecord) {
-            if (currentRecord.id) {
-                return $http.put(context + "/" + currentRecord.id, currentRecord);
+        this.saveViajero = function (currentViajero) {
+            if (currentViajero.id) {
+                return $http.put(context + "/" + currentViajero.id, currentViajero);
             } else {
-                return $http.post(context, currentRecord);
+                return $http.post(context, currentViajero);
             }
         };
 
         /**
          * DELETE
          * Hace una petición DELETE a /viajeros/:viajerosid para eliminar un viajero
-         * @param {number} id identificador de la instancia de viajero a eliminar
+         * @param {number} idViajero identificador de la instancia de viajero a eliminar
          * @returns {promise} promise para leer la respuesta del servidor
          * No devuelve datos.
          */
-        this.deleteRecord = function (id) {
-            return $http.delete(context + "/" + id);
+        this.deleteViajero = function (idViajero) {
+            return $http.delete(context + "/" + idViajero);
         };
     }]);
 
