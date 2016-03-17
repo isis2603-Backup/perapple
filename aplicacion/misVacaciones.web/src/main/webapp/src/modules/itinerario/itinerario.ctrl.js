@@ -100,7 +100,7 @@
         this.itinerarioActual = function($event){
 
             var idItinerario = parseInt($event.currentTarget.name);
-
+            
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
@@ -109,10 +109,7 @@
                         svc.saveCurrentItinerario($scope.currentRecord);
                     }, responseError)
                     .then(function(){
-                        self.fetchCurrentRecord();
-                    }, responseError)
-                    .then(function(){
-                        self.fetchCurrentCiudades();
+                        self.fetchCurrents();
                     }, responseError);
         };
 
@@ -171,14 +168,13 @@
 
         this.fetchCurrents = function (){
             self.fetchCurrentRecord()
-                    .then(
-                        function(){
-                            if($scope.currentRecord.id)
+                    .then(function(){
+                            if($scope.currentRecord.id){
                                 self.fetchCurrentCiudades();
+                            }
                         }, responseError
                     )
-                    .then(
-                        function(){
+                    .then(function(){
                             if($scope.currentCiudadMostrar.id){
                                 self.fetchCurrentSitios();
                                 self.fetchCurrentEventos();}
@@ -374,9 +370,10 @@
 
         // al cargar cualquiera de las plantillas se
         // ejecutan estos
-        this.fetchRecordsViajero($scope.currentUser);
-        this.fetchCurrentRecord();
-        this.fetchCurrents();
+        this.fetchRecordsViajero($scope.currentUser)
+                .then(function(){
+                    self.fetchCurrents();
+                });
     }]);
 
 })(window.angular);
