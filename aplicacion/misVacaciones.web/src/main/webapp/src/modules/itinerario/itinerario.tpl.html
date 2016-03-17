@@ -69,7 +69,7 @@
 
     <div  id="detallesCiudad" class="col-sm-12 " style="justify-content: center " >
         <div class="col-sm-12 well" style="overflow: auto; ">
-            <div style="display:flex; justify-content: center; background-color:#ff9900; border-radius: 8px">
+            <div style="display:flex; justify-content: center; background-color:#FFFF00; border-radius: 8px">
                 <div style = "margin:0 auto;">
                     <h2 style="text-align: center"> {{currentCiudadMostrar.nombre}} </h2>
                     <p>{{currentCiudadMostrar.detalles}}</p>
@@ -78,6 +78,7 @@
                     <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.imagen}}" alt="" />
                 </div>
             </div>
+            
 
             <div class="col-sm-6" ng-app="eventos" style="overflow: auto; text-align: center">
                 <h3>Eventos </h3>
@@ -91,7 +92,7 @@
                     </tr>
                     <tr ng-repeat="evento in currentEventosMostrar track by $index">
                         <td>{{evento.nombre}}</td>
-                        <td><button id="button_detalles_evento" type="button" class="btn btn-success " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
+                        <td><button id="button_detalles_evento" type="button" class="btn btn-success " name="{{evento.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
                         <td><button id="button_calificar_evento" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
                         <td><button id="button_borrar_evento" type="button" class="btn btn-success" name="{{evento.id}}" ng-click="ctrl.borrarEvento($event);" > Borrar </button></td>
                     </tr>
@@ -324,8 +325,13 @@
                 <form>
                     <div class="well" style="display:flex; justify-content: center;">
                         <fieldset>
-                            <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:orange;">
+<<<<<<< HEAD
+                            <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:yellow;">
                                 <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.imagen}}" alt="">
+=======
+                            <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:orange;">
+                                <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentEventoMostrar.imagen}}" alt="">
+>>>>>>> origin/desarrollo
                             </div>
                             <br>
                              <div class="form-group col-md-11">
@@ -334,14 +340,14 @@
                                     <p>{{currentEventoMostrar.nombre}}</p>
                                 </div>
                             </div>
-                            <div class="form-group col-md-11">
+                            <!--<div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Fecha</label>
                                 <div class="col-md-8">
                                     <p>{{currentEventoMostrar.fecha|date}}</p>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group col-md-11">
-                                <label for="name" class="col-md-4 control-label">Descripción</label>
+                                <label for="name" class="col-md-4 control-label">Detalles</label>
                                 <div class="col-md-8">
                                     <p>{{currentEventoMostrar.detalles}}</p>
                                 </div>
@@ -380,7 +386,7 @@
                 <form>
                     <div class="well" style="display:flex; justify-content: center;">
                         <fieldset>
-                            <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:orange;">
+                            <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:yellow;">
                                 <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentSitioMostrar.imagen}}' alt="">
                             </div>
                             <br>

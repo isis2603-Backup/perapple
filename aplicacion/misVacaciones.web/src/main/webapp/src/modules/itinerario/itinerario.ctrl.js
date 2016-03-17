@@ -100,17 +100,16 @@
         this.itinerarioActual = function($event){
 
             var idItinerario = parseInt($event.currentTarget.name);
-
+            
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
                     }, responseError)
                     .then(function(){
                         svc.saveCurrentItinerario($scope.currentRecord);
-                        self.fetchCurrentRecord();
                     }, responseError)
                     .then(function(){
-                        self.fetchCurrentCiudades();
+                        self.fetchCurrents();
                     }, responseError);
         };
 
@@ -147,7 +146,6 @@
             return svc.fetchCiudades($scope.currentRecord.id)
                     .then(function (response) {
                         $scope.currentCiudadesMostrar = response.data;
-                        console.log("entro aca");
                     }, responseError)
                     .then(function () {
                         self.fetchCiudadesBD();
@@ -170,14 +168,13 @@
 
         this.fetchCurrents = function (){
             self.fetchCurrentRecord()
-                    .then(
-                        function(){
-                            if($scope.currentRecord.id)
+                    .then(function(){
+                            if($scope.currentRecord.id){
                                 self.fetchCurrentCiudades();
+                            }
                         }, responseError
                     )
-                    .then(
-                        function(){
+                    .then(function(){
                             if($scope.currentCiudadMostrar.id){
                                 self.fetchCurrentSitios();
                                 self.fetchCurrentEventos();}
@@ -276,7 +273,7 @@
             return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response) {
                         eventoBD = response.data;
-                        console.log("ctrl agregar evento eventoBD: "+eventoBD.name);
+                        //console.log("ctrl agregar evento eventoBD: "+eventoBD.name);
                         return response;
                     }, responseError)
                     .then(function () {
@@ -364,18 +361,21 @@
         this.detallesEvento=function($event){
 
             var idEvento = parseInt($event.currentTarget.name);
+            console.log("detalles evento id Ev: "+idEvento);
 
             return svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response){
                         $scope.currentEventoMostrar = response.data;
+                        console.log("detalles evento: "+$scope.currentEventoMostrar.nombre);
                     });
         };
 
         // al cargar cualquiera de las plantillas se
         // ejecutan estos
-        this.fetchRecordsViajero($scope.currentUser);
-        this.fetchCurrentRecord();
-        this.fetchCurrents();
+        this.fetchRecordsViajero($scope.currentUser)
+                .then(function(){
+                    self.fetchCurrents();
+                });
     }]);
 
 })(window.angular);
