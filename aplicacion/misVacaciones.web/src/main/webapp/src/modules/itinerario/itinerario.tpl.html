@@ -54,9 +54,11 @@
                             var mapDiv = document.getElementById('map');
                             var map = new google.maps.Map(mapDiv, {
                               center: {lat: 4.598889, lng: -74.080833},
-                              zoom: 10
+                              zoom: 10,
+
                             });
-                        };
+                           };
+
                     </script>
                     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
                  </div>
@@ -78,7 +80,7 @@
                     <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.imagen}}" alt="" />
                 </div>
             </div>
-            
+
 
             <div class="col-sm-6" ng-app="eventos" style="overflow: auto; text-align: center">
                 <h3>Eventos </h3>

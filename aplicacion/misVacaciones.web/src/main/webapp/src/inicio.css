@@ -29,6 +29,9 @@
     color: #0000CC;
     -webkit-border-radius: 1px;
     -webkit-transition: color 0.8s;
+     -moz-transition: color 0.8s;
+    -o-transition: color 0.8s;
+    -ms-transition: color 0.8s;
 
 
 
@@ -100,11 +103,16 @@
 
 #menuperfil > li > button
 {
+
+
     margin-left: 70px;
     margin-right: auto;
     margin-bottom: 10px;
 
+
 }
+
+
 
 li ul
 {
