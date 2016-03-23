@@ -253,16 +253,17 @@
                         return response;
                     }, responseError)
                     .then(function () {
-                        nSitio = {id:sitioBD.id,
-                                        nombre:sitioBD.nombre,
-                                        detalles:sitioBD.detalles,
-                                        imagen:sitioBD.imagen,
-                                        fecha:$scope.fechaSitio
-                                     };
+                        nSitio = {
+                            id:sitioBD.id,
+                            nombre:sitioBD.nombre,
+                            detalles:sitioBD.detalles,
+                            imagen:sitioBD.imagen,
+                            fechaSitio:$scope.fechaSitio
+                        };
                         svc.saveSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nSitio);
                     }, responseError)
                     .then(function () {
-                        self.fetchCurrentSitios();
+                        self.fetchCurrents();
                     }, responseError);
         };
 
@@ -275,23 +276,19 @@
             return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response) {
                         eventoBD = response.data;
-                        console.log("ctrl agregar evento eventoBD: "+eventoBD.nombre);
                     }, responseError)
                     .then(function () {
-                        console.log("2DO then");
                         nEvento = {
                             id:eventoBD.id,
                             nombre:eventoBD.nombre,
                             detalles:eventoBD.detalles,
-                            fecha:$scope.fechaEvento
-                          };
+                            imagen:eventoBD.imagen,
+                            fechaEvento:$scope.fechaEvento
+                        };
                         svc.saveEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nEvento);
                     }, responseError)
                     .then(function () {
                         self.fetchCurrents();
-                    }, responseError)
-                    .then(function () {
-                        console.log("ya debio actualizar eventos: "+$scope.currentEventosMostrar[0].nombre);
                     }, responseError);
         };
 
@@ -367,12 +364,10 @@
         this.detallesEvento=function($event){
 
             var idEvento = parseInt($event.currentTarget.name);
-            console.log("detalles evento id Ev: "+idEvento);
 
             return svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response){
                         $scope.currentEventoMostrar = response.data;
-                        console.log("detalles evento: "+$scope.currentEventoMostrar.nombre);
                     });
         };
 

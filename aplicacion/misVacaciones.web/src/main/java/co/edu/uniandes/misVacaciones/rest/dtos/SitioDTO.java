@@ -14,7 +14,7 @@ public class SitioDTO {
     private String nombre;
     private String detalles;
     private String imagen;
-
+    private String fechaSitio;
 
     /**
      * Constructor por defecto
@@ -23,11 +23,12 @@ public class SitioDTO {
 	}
 
 
-    public SitioDTO(Long id, String nombre, String detalles, String imagen) {
+    public SitioDTO(Long id, String nombre, String detalles, String imagen, String fechaSitio) {
         this.id = id;
         this.nombre = nombre;
         this.detalles = detalles;
         this.imagen = imagen;
+        this.fechaSitio = fechaSitio;
     }
 
 
@@ -64,7 +65,13 @@ public class SitioDTO {
         this.imagen = imagen;
     }
 
+    public String getFechaSitio() {
+        return fechaSitio;
+    }
 
+    public void setFechaSitio(String fechaSitio) {
+        this.fechaSitio = fechaSitio;
+    }
 
 
     /**
@@ -75,6 +82,7 @@ public class SitioDTO {
     	return "{ id : " + id
                 + ", nombre : \"" + nombre + "\" "
                 + ", descripcion: \""+ detalles+"\" "
+                + ", fechaSitio: \""+ fechaSitio+"\" "
                 + ", imagen : \""+imagen+"\"}" ;
     }
 }

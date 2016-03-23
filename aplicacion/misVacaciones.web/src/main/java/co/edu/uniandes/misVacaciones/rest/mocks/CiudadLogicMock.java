@@ -53,53 +53,53 @@ public class CiudadLogicMock {
             ciudades.add(new CiudadDTO(5L, "Cartagena", "Ajá de Colombia", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG", "", ""));
 
             ArrayList<EventoDTO> eventos1 = new ArrayList<>();
-            eventos1.add(new EventoDTO(1L, "Bogota Pub Craw", "Detalles Bogota Pub Craw", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg"));
-            eventos1.add(new EventoDTO(2L, "Carrera Zombie Survivor Race 5K", "Detalles Carrera Zombie Survivor Race 5K", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg"));
+            eventos1.add(new EventoDTO(1L, "Bogota Pub Craw", "Detalles Bogota Pub Craw", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg", ""));
+            eventos1.add(new EventoDTO(2L, "Carrera Zombie Survivor Race 5K", "Detalles Carrera Zombie Survivor Race 5K", "http://aiesec.org.mx/wp-content/uploads/2015/08/bogota.jpg", ""));
             ciudades.get(0).setEventos(eventos1);
 
             ArrayList<SitioDTO> sitios1 = new ArrayList<>();
-            sitios1.add(new SitioDTO(1L, "Museo del oro", "Detalles Museo del Oro", "https://upload.wikimedia.org/wikipedia/commons/d/dc/BOG_Museo_del_Oro.JPG"));
-            sitios1.add(new SitioDTO(2L, "Parque de la 93", "Detalles Parque de la 93.", "https://upload.wikimedia.org/wikipedia/commons/0/0d/Bogot%C3%A1barrio_El_Chic%C3%B3_Parque_de_la_93.JPG"));
+            sitios1.add(new SitioDTO(1L, "Museo del oro", "Detalles Museo del Oro", "https://upload.wikimedia.org/wikipedia/commons/d/dc/BOG_Museo_del_Oro.JPG", ""));
+            sitios1.add(new SitioDTO(2L, "Parque de la 93", "Detalles Parque de la 93.", "https://upload.wikimedia.org/wikipedia/commons/0/0d/Bogot%C3%A1barrio_El_Chic%C3%B3_Parque_de_la_93.JPG", ""));
             ciudades.get(0).setSitios(sitios1);
 
             ArrayList<EventoDTO> eventos2 = new ArrayList<>();
-            eventos2.add(new EventoDTO(1L, "Evento 1 Cali", "Detalles E1 Cali", "http://static.panoramio.com/photos/large/43907931.jpg"));
-            eventos2.add(new EventoDTO(2L, "Evento 2 Cali", "Detalles E2 Cali", "http://static.panoramio.com/photos/large/43907931.jpg"));
+            eventos2.add(new EventoDTO(1L, "Evento 1 Cali", "Detalles E1 Cali", "http://static.panoramio.com/photos/large/43907931.jpg", ""));
+            eventos2.add(new EventoDTO(2L, "Evento 2 Cali", "Detalles E2 Cali", "http://static.panoramio.com/photos/large/43907931.jpg", ""));
             ciudades.get(1).setEventos(eventos2);
 
             ArrayList<SitioDTO> sitios2 = new ArrayList<>();
-            sitios2.add(new SitioDTO(1L, "Zoologico de Cali", "Detalles Zoologico de Cali", "http://www.icesi.edu.co/blogs_estudiantes/zooincali/files/2012/09/mapa_final-1024x6401.jpg"));
-            sitios2.add(new SitioDTO(2L, "Teatro Municipal Enrique Buenaventura", "Detalles Teatro Municipal Enrique Buenaventura", "https://upload.wikimedia.org/wikipedia/commons/0/0b/CONTRASTES.JPG"));
+            sitios2.add(new SitioDTO(1L, "Zoologico de Cali", "Detalles Zoologico de Cali", "http://www.icesi.edu.co/blogs_estudiantes/zooincali/files/2012/09/mapa_final-1024x6401.jpg", ""));
+            sitios2.add(new SitioDTO(2L, "Teatro Municipal Enrique Buenaventura", "Detalles Teatro Municipal Enrique Buenaventura", "https://upload.wikimedia.org/wikipedia/commons/0/0b/CONTRASTES.JPG", ""));
             ciudades.get(1).setSitios(sitios2);
 
             ArrayList<EventoDTO> eventos3 = new ArrayList<>();
-            eventos3.add(new EventoDTO(1L, "Concierto de Manu Chao en Bucaramanga", "Detalles Concierto de Manu Chao en Bucaramanga.", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg"));
-            eventos3.add(new EventoDTO(2L, "Interpark Ciudad de la diversion", "Detalles Interpark", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg"));
+            eventos3.add(new EventoDTO(1L, "Concierto de Manu Chao en Bucaramanga", "Detalles Concierto de Manu Chao en Bucaramanga.", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", ""));
+            eventos3.add(new EventoDTO(2L, "Interpark Ciudad de la diversion", "Detalles Interpark", "https://c1.staticflickr.com/3/2724/4176942891_3f6d1f1dcf_b.jpg", ""));
             ciudades.get(2).setEventos(eventos3);
 
             ArrayList<SitioDTO> sitios3 = new ArrayList<>();
-            sitios3.add(new SitioDTO(1L, "Cañon del Chicamocha", "Detalles Cañon del Chicamocha.", "http://santanderalextremo.com/wp-content/uploads/2013/02/panachi_003.jpg"));
-            sitios3.add(new SitioDTO(2L, "Mirador de Palonegro", "Detalles Mirador de Palonegro.", "http://www.riojapacific.com/wp/TravelDemoSources/TravelDemoSources/Website/wp-content/plugins/thethe-image-slider/timthumb.php?w=960&h=398&zc=1&src=http%3A%2F%2Fwww.riojapacific.com%2Fwp%2FTravelDemoSources%2FTravelDemoSources%2FWebsite%2Fwp-content%2Fuploads%2F2015%2F04%2FBUCA RAMANGA-SLIDER1.jpg"));
+            sitios3.add(new SitioDTO(1L, "Cañon del Chicamocha", "Detalles Cañon del Chicamocha.", "http://santanderalextremo.com/wp-content/uploads/2013/02/panachi_003.jpg", ""));
+            sitios3.add(new SitioDTO(2L, "Mirador de Palonegro", "Detalles Mirador de Palonegro.", "http://www.riojapacific.com/wp/TravelDemoSources/TravelDemoSources/Website/wp-content/plugins/thethe-image-slider/timthumb.php?w=960&h=398&zc=1&src=http%3A%2F%2Fwww.riojapacific.com%2Fwp%2FTravelDemoSources%2FTravelDemoSources%2FWebsite%2Fwp-content%2Fuploads%2F2015%2F04%2FBUCA RAMANGA-SLIDER1.jpg", ""));
             ciudades.get(2).setSitios(sitios3);
 
             ArrayList<EventoDTO> eventos4 = new ArrayList<>();
-            eventos4.add(new EventoDTO(1L, "Evento 1 Barranquilla", "Detalles E1 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg"));
-            eventos4.add(new EventoDTO(1L, "Evento 2 Barranquilla", "Detalles E2 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg"));
+            eventos4.add(new EventoDTO(1L, "Evento 1 Barranquilla", "Detalles E1 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", ""));
+            eventos4.add(new EventoDTO(1L, "Evento 2 Barranquilla", "Detalles E2 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", ""));
             ciudades.get(3).setEventos(eventos4);
 
             ArrayList<SitioDTO> sitios4 = new ArrayList<>();
-            sitios4.add(new SitioDTO(1L, "Sitio 1 Barranquilla", "Detalles S1 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg"));
-            sitios4.add(new SitioDTO(1L, "Sitio 2 Barranquilla", "Detalles S2 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg"));
+            sitios4.add(new SitioDTO(1L, "Sitio 1 Barranquilla", "Detalles S1 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", ""));
+            sitios4.add(new SitioDTO(1L, "Sitio 2 Barranquilla", "Detalles S2 Barranquilla", "http://deborondo.com/wp-content/uploads/2015/04/identificador_de_barranquilla_4-800x500_c.jpg", ""));
             ciudades.get(3).setSitios(sitios4);
 
             ArrayList<EventoDTO> eventos5 = new ArrayList<>();
-            eventos5.add(new EventoDTO(1L, "Evento 1 Cartagena", "Detalles E1 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG"));
-            eventos5.add(new EventoDTO(1L, "Evento 2 Cartagena", "Detalles E2 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG"));
+            eventos5.add(new EventoDTO(1L, "Evento 1 Cartagena", "Detalles E1 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG", ""));
+            eventos5.add(new EventoDTO(1L, "Evento 2 Cartagena", "Detalles E2 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG", ""));
             ciudades.get(4).setEventos(eventos5);
 
             ArrayList<SitioDTO> sitios5 = new ArrayList<>();
-            sitios5.add(new SitioDTO(1L, "Sitio 1 Cartagena", "Detalles S1 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG"));
-            sitios5.add(new SitioDTO(1L, "Sitio 2 Cartagena", "Detalles S2 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG"));
+            sitios5.add(new SitioDTO(1L, "Sitio 1 Cartagena", "Detalles S1 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG", ""));
+            sitios5.add(new SitioDTO(1L, "Sitio 2 Cartagena", "Detalles S2 Cartagena", "http://www.babelschoolcartagena.com/sites/default/files/DSC06358_0.JPG", ""));
             ciudades.get(4).setSitios(sitios5);
 
         }
