@@ -163,7 +163,6 @@
             return svc.fetchEventos($scope.currentRecord.id, $scope.currentCiudadMostrar.id)
                     .then(function (response) {
                         $scope.currentEventosMostrar = response.data;
-                        console.log($scope.currentEventosMostrar[0].nombre);
                     }, responseError);
         };
 
@@ -244,8 +243,9 @@
 
         this.agregarSitio = function($event){
 
+            var sitioBD;
+            var nSitio;
             var idSitio = parseInt($event.currentTarget.name);
-            var sitioBD = {};
 
             return svcCiudad.fetchSitio($scope.currentCiudadMostrar.id, idSitio)
                     .then(function (response) {
@@ -253,7 +253,7 @@
                         return response;
                     }, responseError)
                     .then(function () {
-                        var nSitio = {id:sitioBD.id,
+                        nSitio = {id:sitioBD.id,
                                         nombre:sitioBD.nombre,
                                         detalles:sitioBD.detalles,
                                         imagen:sitioBD.imagen,
@@ -268,16 +268,18 @@
 
         this.agregarEvento = function($event){
 
+            var eventoBD;
+            var nEvento;
             var idEvento = parseInt($event.currentTarget.name);
             
             return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response) {
                         eventoBD = response.data;
-                        console.log("ctrl agregar evento eventoBD: "+eventoBD.name);
+                        console.log("ctrl agregar evento eventoBD: "+eventoBD.nombre);
                     }, responseError)
                     .then(function () {
                         console.log("2DO then");
-                        var nEvento = {
+                        nEvento = {
                             id:eventoBD.id,
                             nombre:eventoBD.nombre,
                             detalles:eventoBD.detalles,
@@ -286,8 +288,10 @@
                         svc.saveEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nEvento);
                     }, responseError)
                     .then(function () {
-                        console.log("3er then");
-                        self.fetchCurrentEventos();
+                        self.fetchCurrents();
+                    }, responseError)
+                    .then(function () {
+                        console.log("ya debio actualizar eventos: "+$scope.currentEventosMostrar[0].nombre);
                     }, responseError);
         };
 
