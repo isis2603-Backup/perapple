@@ -30,7 +30,7 @@
          * Devuelve un objeto de viajero con sus atributos
          */
         this.fetchViajero= function (idViajero) {
-            return $http.get(context + "/" + idViajero);
+            return $http.get(context + "/" +"viajeros"+"/"+idViajero);
         };
 
         /**
@@ -45,11 +45,9 @@
          * Devuelve un objeto de viajero con sus datos incluyendo el id si es creado
          */
         this.saveViajero = function (currentViajero) {
-            if (currentViajero.id) {
+
                 return $http.put(context + "/" + currentViajero.id, currentViajero);
-            } else {
-                return $http.post(context, currentViajero);
-            }
+
         };
 
         /**
