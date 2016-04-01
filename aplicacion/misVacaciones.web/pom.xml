@@ -24,6 +24,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>co.edu.uniandes.perapple</groupId>
+            <artifactId>misVacaciones.logic</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
             <dependency>
                 <groupId>org.glassfish.jersey.core</groupId>
                 <artifactId>jersey-server</artifactId>
