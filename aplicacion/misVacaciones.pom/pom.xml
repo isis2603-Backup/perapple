@@ -7,8 +7,16 @@
     <packaging>pom</packaging>
     <modules>
         <module>../misVacaciones.web</module>
+        <module>../misVacaciones.logic</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <repositories>
+        <repository>
+            <id>csw-releases</id>
+            <name>csw releases</name>
+            <url>http://157.253.238.75:8081/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 </project>
