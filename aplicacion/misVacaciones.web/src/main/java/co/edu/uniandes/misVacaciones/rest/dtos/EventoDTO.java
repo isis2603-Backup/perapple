@@ -16,7 +16,7 @@ public class EventoDTO {
     private String nombre;
     private String detalles;
     private String imagen;
-
+    private String fechaEvento;
 
     /**
      * Constructor por defecto
@@ -24,11 +24,12 @@ public class EventoDTO {
     public EventoDTO() {
 	}
 
-    public EventoDTO(Long id, String nombre, String detalles, String imagen) {
+    public EventoDTO(Long id, String nombre, String detalles, String imagen, String fechaEvento) {
         this.id = id;
         this.nombre = nombre;
         this.detalles = detalles;
         this.imagen = imagen;
+        this.fechaEvento = fechaEvento;
     }
 
     public Long getId() {
@@ -63,7 +64,13 @@ public class EventoDTO {
         this.imagen = imagen;
     }
 
+    public String getFechaEvento() {
+        return fechaEvento;
+    }
 
+    public void setFechaEvento(String fechaEvento) {
+        this.fechaEvento = fechaEvento;
+    }
 
     /**
      * Convierte el objeto a una cadena
@@ -73,6 +80,7 @@ public class EventoDTO {
     	return "{ id : " + id
                 + ", nombre : \"" + nombre + "\" "
                 + ", descripcion: \""+ detalles+"\" "
+                + ", fechaEvento: \""+ fechaEvento+"\" "
                 + ", imagen : \""+imagen+"\"}" ;
     }
 }

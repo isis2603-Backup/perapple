@@ -163,7 +163,6 @@
             return svc.fetchEventos($scope.currentRecord.id, $scope.currentCiudadMostrar.id)
                     .then(function (response) {
                         $scope.currentEventosMostrar = response.data;
-                        console.log($scope.currentEventosMostrar[0].nombre);
                     }, responseError);
         };
 
@@ -244,8 +243,9 @@
 
         this.agregarSitio = function($event){
 
+            var sitioBD;
+            var nSitio;
             var idSitio = parseInt($event.currentTarget.name);
-            var sitioBD = {};
 
             return svcCiudad.fetchSitio($scope.currentCiudadMostrar.id, idSitio)
                     .then(function (response) {
@@ -253,42 +253,42 @@
                         return response;
                     }, responseError)
                     .then(function () {
-                        var nSitio = {id:sitioBD.id,
-                                        nombre:sitioBD.nombre,
-                                        detalles:sitioBD.detalles,
-                                        imagen:sitioBD.imagen,
-                                        fecha:$scope.fechaSitio
-                                     };
+                        nSitio = {
+                            id:sitioBD.id,
+                            nombre:sitioBD.nombre,
+                            detalles:sitioBD.detalles,
+                            imagen:sitioBD.imagen,
+                            fechaSitio:$scope.fechaSitio
+                        };
                         svc.saveSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nSitio);
                     }, responseError)
                     .then(function () {
-                        self.fetchCurrentSitios();
+                        self.fetchCurrents();
                     }, responseError);
         };
 
         this.agregarEvento = function($event){
 
+            var eventoBD;
+            var nEvento;
             var idEvento = parseInt($event.currentTarget.name);
-            console.log("ctrl agregar evento idEve: "+idEvento);
-            var eventoBD = {};
-
+            
             return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response) {
                         eventoBD = response.data;
-                        console.log("ctrl agregar evento eventoBD: "+eventoBD.name);
-                        return response;
                     }, responseError)
                     .then(function () {
-                        var nEvento = {
+                        nEvento = {
                             id:eventoBD.id,
                             nombre:eventoBD.nombre,
                             detalles:eventoBD.detalles,
-                            fecha:$scope.fechaEvento
-                          };
+                            imagen:eventoBD.imagen,
+                            fechaEvento:$scope.fechaEvento
+                        };
                         svc.saveEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nEvento);
                     }, responseError)
                     .then(function () {
-                        self.fetchCurrentEventos();
+                        self.fetchCurrents();
                     }, responseError);
         };
 
@@ -364,12 +364,10 @@
         this.detallesEvento=function($event){
 
             var idEvento = parseInt($event.currentTarget.name);
-            console.log("detalles evento id Ev: "+idEvento);
 
             return svc.fetchEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response){
                         $scope.currentEventoMostrar = response.data;
-                        console.log("detalles evento: "+$scope.currentEventoMostrar.nombre);
                     });
         };
 

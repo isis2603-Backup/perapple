@@ -1,1 +1,1 @@
-Dos proyectos uno raiz (.pom con), otro web (.web)
+Tres proyectos uno raiz (.pom - .pom con los otros dos proyectos como modulos),  web (.web - .war), logic (.logic - .jar)

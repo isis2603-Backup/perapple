@@ -54,9 +54,11 @@
                             var mapDiv = document.getElementById('map');
                             var map = new google.maps.Map(mapDiv, {
                               center: {lat: 4.598889, lng: -74.080833},
-                              zoom: 10
+                              zoom: 10,
+
                             });
-                        };
+                           };
+
                     </script>
                     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
                  </div>
@@ -78,7 +80,7 @@
                     <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.imagen}}" alt="" />
                 </div>
             </div>
-            
+
 
             <div class="col-sm-6" ng-app="eventos" style="overflow: auto; text-align: center">
                 <h3>Eventos </h3>
@@ -86,12 +88,14 @@
                 <table border="1" class= "table table-bordered">
                     <tr>
                         <td ALIGN=center ><b>Mis Eventos</b></td>
+                        <td ALIGN=center ><b>Fecha</b></td>
                         <td ALIGN="center" ><b>Detalles</b></td>
                         <td ALIGN="center" ><b>Calificar</b></td>
                         <td ALIGN="center" ><b>Borrar</b></td>
                     </tr>
                     <tr ng-repeat="evento in currentEventosMostrar track by $index">
                         <td>{{evento.nombre}}</td>
+                        <td>{{evento.fecha|date}}</td>
                         <td><button id="button_detalles_evento" type="button" class="btn btn-success " name="{{evento.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
                         <td><button id="button_calificar_evento" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
                         <td><button id="button_borrar_evento" type="button" class="btn btn-success" name="{{evento.id}}" ng-click="ctrl.borrarEvento($event);" > Borrar </button></td>
@@ -110,11 +114,13 @@
                 <table border="1" class= "table table-bordered">
                     <tr>
                         <td ALIGN=center><b>Mis Sitios</b></td>
+                        <td ALIGN=center ><b>Fecha</b></td>
                         <td ALIGN="center" ><b>Detalles</b></td>
                         <td ALIGN="center" ><b>Calificación</b></td>
                         <td ALIGN="center" ><b>Borrar</b></td>
                     <tr ng-repeat="nc in currentSitiosMostrar track by $index">
                         <td>{{nc.nombre}}</td>
+                        <td>{{nc.fecha|date}}</td>
                         <td><button id="button_detalles_sitio" type="button" class="btn btn-success " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesSitio($event)" data-target="#popDetallesSitio"> Detalles </button></td>
                         <td><button id="button_calificar_sitio" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
                         <td><button id="button_borrar_sitio" type="button" class="btn btn-success" name="{{nc.id}}" ng-click="ctrl.borrarSitio($event)"> Borrar </button></td>
@@ -143,31 +149,31 @@
             </div>
             <div class="modal-body">
                 <form>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-5">
-                        <p>Ingrese fecha de inicio:</p>
-                        <input type="date" class="form-control" title="Fecha Inicio" ng-model = "fechaIni" name="ini"  max="2020-12-31">
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                            <div class="col-sm-5">
+                                <p>Ingrese fecha de inicio:</p>
+                                <input type="date" class="form-control" title="Fecha Inicio" ng-model = "fechaIni" name="ini"  max="2020-12-31">
+                            </div>
+                            <div class="col-sm-5">
+                                <p>Ingrese fecha de fin:</p>
+                                <input type="date" class="form-control" title="Fecha Fin" ng-model = "fechaFin" name="fin" max="2020-12-31">
+                            </div>
+                        <div class="col-sm-1"></div>
                     </div>
-                    <div class="col-sm-5">
-                        <p>Ingrese fecha de fin:</p>
-                        <input type="date" class="form-control" title="Fecha Fin" ng-model = "fechaFin" name="fin" max="2020-12-31">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                 <table border="1" class="table table-bordered" >
+                                    <tr ng-repeat="cBD in ciudadesBD">
+                                      <td align="left">{{cBD.nombre}}</td>
+                                      <td align="center"><button type="button" name="{{cBD.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        <div class="col-sm-1"></div>
                     </div>
-                    <div class="col-sm-1"></div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                        <div class="col-sm-10">
-                             <table border="1" class="table table-bordered" >
-                                <tr ng-repeat="cBD in ciudadesBD">
-                                  <td align="left">{{cBD.nombre}}</td>
-                                  <td align="center"><button type="button" name="{{cBD.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
-                                </tr>
-                            </table>
-                        </div>
-                    <div class="col-sm-1"></div>
-                 </div>
                 </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -184,12 +190,18 @@
             </div>
             <div class="modal-body">
                 <form>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-1"></div>
-                </div>
-                <br>
-                   <div class="row">
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                            <div class="col-sm-6">
+                                <p>Ingrese fecha en la que irá al evento:</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaEvento" name="eve"  max="2020-12-31"></p>
+                            </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                    <br>
+                    <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-10">
                             <br>
@@ -221,6 +233,12 @@
                 <form>
                 <div class="row">
                     <div class="col-sm-1"></div>
+                        <div class="col-sm-6">
+                            <p>Ingrese fecha en la que irá al sitio:</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaSitio" name="sit"  max="2020-12-31"></p>
+                        </div>
                     <div class="col-sm-1"></div>
                 </div>
                 <br>
@@ -335,12 +353,12 @@
                                     <p>{{currentEventoMostrar.nombre}} </p>
                                 </div>
                             </div>
-                            <!--<div class="form-group col-md-11">
+                            <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Fecha</label>
                                 <div class="col-md-8">
                                     <p>{{currentEventoMostrar.fecha|date}}</p>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Detalles</label>
                                 <div class="col-md-8">

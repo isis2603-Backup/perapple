@@ -1,7 +1,7 @@
 #body
 {
     background-image: url(../resources/imagenes/playa_blanco.png);
-    
+
 }
 
 .navbar{
@@ -19,21 +19,31 @@
 .navbar-default .navbar-brand
 {
     color: #fff;
-    
+    font-family: Arial;
+
 }
 
 .navbar-default .navbar-brand:hover
 {
+
     color: #0000CC;
-    
+    -webkit-border-radius: 1px;
+    -webkit-transition: color 0.8s;
+     -moz-transition: color 0.8s;
+    -o-transition: color 0.8s;
+    -ms-transition: color 0.8s;
+
+
 
 }
 
 .navbar-default .navbar-nav>li>a
 {
-    color: #fff;
-    
-    font-size: 120%;
+         color: #fff;
+         font-family:  Arial;
+         font-size: 120%;
+         font-weight: bold;
+
 
 }
 
@@ -42,21 +52,28 @@
 .navbar-default .navbar-nav>li>a:focus
 {
     background-color: #33CC33;
-    
+
+
 
 }
 
 .navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>li>a:focus
 {
+   font-family:  Arial;
+   font-size :140%;
     color:   #0000CC;
-    background-image: url(http://3.bp.blogspot.com/-WG-MOHo-sc4/T0MmKOXGgeI/AAAAAAAAG0c/KspSnnTbn8g/s1600/luces4.png);
-    background-repeat: no-repeat;
+     background-repeat: no-repeat;
     background-size: 20%;
     background-position: bottom;
-    margin:auto;
-    
-    
+    -webkit-transition: color 0.8s;
+    -moz-transition: color 0.8s;
+    -o-transition: color 0.8s;
+    -ms-transition: color 0.8s;
+        margin:auto;
+        border-top: 2px solid #005ab3;
+
+
 }
 
 .nav
@@ -86,11 +103,16 @@
 
 #menuperfil > li > button
 {
+
+
     margin-left: 70px;
     margin-right: auto;
     margin-bottom: 10px;
 
+
 }
+
+
 
 li ul
 {
