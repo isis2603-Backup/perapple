@@ -2,7 +2,7 @@
     <div style="justify-content: center; height: 100%">
         <div class="col-sm-12 well" style="text-align: center;height:100%">
 
-            <h2>Hoteles</h2>
+            <h2>Ciudades</h2>
 
             <br>
 
@@ -20,15 +20,15 @@
                 <tr ng-repeat="nc in ciudades">
                     <td>{{nc.nombre}}</td>
                     <td>{{nc.detalles}}</td>
-                    <td><button id="borrar" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Ver Sitios </button></td>
-                 <td><button id="borrar" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.deleteHotel($event); " > Ver Eventos </button></td>
+                    <td><button id="sitios" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.fetchSitios({{nc.id}}); " > Ver Sitios </button></td>
+                 <td><button id="eventos" type="button" class="btn btn-success" name="{{currentCiudad.id}}-{{nc.id}}"  ng-click="ctrl.fetchEventos({{nc.id}}); " > Ver Eventos </button></td>
 
                 </tr>
             </table>
 
             <br>
 
-            <button id="borrar" type="button" class="btn btn-success"  ng-click="ctrl.fetchHoteles(currentCiudad); " > Actualizar Hoteles </button>
+            <button id="button_agregar_nueva_ciudad" type="button" class="btn btn-success" data-toggle="modal" data-target="#popCiudad"> Agregar Nueva Ciudad </button>
 
         </div>
     </div>
@@ -126,4 +126,47 @@
 
         </div>
     </div>
+</div>
+
+<!--pop up agregar ciudad-->
+<div class="modal fade" id="popCiudad" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Agregar Ciudad</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                            <div class="col-sm-5">
+                                <p>Nombre:</p>
+                                <input type="text" class="form-control" title="Nombre" ng-model = "nombre" name="nombre" >
+                            </div>
+                        <div class="col-sm-5">
+                                <p>Descripcion:</p>
+                                <input type="text" class="form-control" title="Descripcion" ng-model = "descripcion" name="descripcion" >
+                            </div>
+                        <div class="col-sm-5">
+                                <p>Link imagen:</p>
+                                <input type="text" class="form-control" title="Imagen" ng-model = "imagen" name="imagen" >
+                            </div>
+
+                        <div class="col-sm-1"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+
+
+                                      <button type="button" name="Agregar" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.createCiudad();"> Agregar Ciudad </button>
+                            </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
