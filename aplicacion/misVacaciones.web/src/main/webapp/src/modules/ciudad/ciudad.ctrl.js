@@ -147,17 +147,32 @@
             }, responseError);
         };
 
-        this.saveSitio = function (sitio) {
-            return svc.saveSitio($scope.currentCiudad, sitio.id).then(function () {
-                self.fetchSitios();
+        this.saveSitio = function (nombre, detalles, imagen) {
+            $scope.currentSitio={
+
+                                    nombre: nombre ,
+                                   detalles: detalles ,
+                                    imagen: imagen,
+
+                                   };
+            return svc.saveSitio($scope.currentCiudad,$scope.currentSitio).then(function () {
+                self.fetchSitios($scope.currentCiudad.id);
+            }, responseError);
+        };
+         this.saveEvento = function (nombre, detalles, imagen) {
+            $scope.currentEvento={
+
+                                    nombre: nombre ,
+                                   detalles: detalles ,
+                                    imagen: imagen,
+
+                                   };
+            return svc.saveSitio($scope.currentCiudad,$scope.currentSitio).then(function () {
+                self.fetchEventos($scope.currentCiudad.id);
             }, responseError);
         };
 
-        this.saveEvento = function (evento) {
-            return svc.saveSitio($scope.currentCiudad, evento.id).then(function () {
-                self.fetchEventos();
-            }, responseError);
-        };
+
 
         this.saveHotel = function (hotel) {
             return svc.saveHotel($scope.currentCiudad, hotel.id).then(function () {
