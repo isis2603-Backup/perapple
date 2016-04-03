@@ -9,35 +9,15 @@ import java.util.Date;
  */
 public class EventoItinerarioDTO {
     private EventoDTO evento;
-    private ItinerarioDTO itinerario;
     private Date fechaIni;
     private Date fechaFin;
-    
-    public EventoItinerarioDTO(){
-        
-    }
-
-    public EventoItinerarioDTO(EventoDTO evento, ItinerarioDTO itinerario, Date fechaIni, Date fechaFin) {
-        this.evento = evento;
-        this.itinerario = itinerario;
-        this.fechaIni = fechaIni;
-        this.fechaFin = fechaFin;
-    }
-
+   
     public EventoDTO getEvento() {
         return evento;
     }
 
     public void setEvento(EventoDTO evento) {
         this.evento = evento;
-    }
-
-    public ItinerarioDTO getItinerario() {
-        return itinerario;
-    }
-
-    public void setItinerario(ItinerarioDTO itinerario) {
-        this.itinerario = itinerario;
     }
 
     public Date getFechaIni() {

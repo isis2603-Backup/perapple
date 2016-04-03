@@ -1,23 +1,23 @@
-package co.edu.uniandes.misVacaciones.rest.converters;
+package co.edu.uniandes.misVacaciones.rest.mappers;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
+import co.edu.uniandes.misVacaciones.rest.exceptions.ViajeroLogicException;
 
 /**
- * Convertidor de Excepciones CityLogicException a mensajes REST.
+ * Convertidor de Excepciones ViajeroLogicException a mensajes REST.
  */
 @Provider
-public class EventoLogicExceptionMapper implements ExceptionMapper<EventoLogicException> {
+public class ViajeroLogicExceptionMapper implements ExceptionMapper<ViajeroLogicException> {
 
 	/**
 	 * Generador de una respuesta a partir de una excepción
 	 * @param ex excecpión a convertir a una respuesta REST
 	 */
 	@Override
-	public Response toResponse(EventoLogicException ex) {
+	public Response toResponse(ViajeroLogicException ex) {
 		// retorna una respuesta
 		return Response
 				.status(Response.Status.NOT_FOUND)	// estado HTTP 404

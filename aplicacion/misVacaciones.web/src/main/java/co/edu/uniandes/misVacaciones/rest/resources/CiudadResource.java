@@ -6,17 +6,25 @@
 package co.edu.uniandes.misVacaciones.rest.resources;
 
 
+import co.edu.uniandes.misVacaciones.rest.converters.EventoConverter;
+import co.edu.uniandes.misVacaciones.rest.converters.SitioConverter;
+import co.edu.uniandes.misVacaciones.rest.converters.CiudadConverter;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.CiudadLogicMock;
+import co.edu.uniandes.perapple.api.ICiudadLogic;
+import co.edu.uniandes.perapple.entities.CiudadEntity;
+import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -25,6 +33,9 @@ import javax.ws.rs.PUT;
 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Clase que implementa el recurso REST correspondiente a "ciudades".
@@ -37,21 +48,23 @@ import javax.ws.rs.Produces;
  * @author Perapple
  */
 @Path("ciudades")
-@Produces("application/json")
-@RequestScoped
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class CiudadResource {
+    
+    private static final Logger logger = Logger.getLogger(CiudadResource.class.getName());
 
-	@Inject
-	CiudadLogicMock ciudadLogic;
+    @Inject
+    ICiudadLogic ciudadLogic;
 
-	/**
-	 * Obtiene el listado de ciudades.
-	 * @return lista de ciudades
-	 * @throws CiudadLogicException excepción retornada por la lógica
-	 */
+    /**
+     * Obtiene el listado de ciudades.
+     * @return lista de ciudades
+     * @throws CiudadLogicException excepción retornada por la lógica
+     */
     @GET
-    public List<CiudadDTO> getCiudades() throws CiudadLogicException {
-        return ciudadLogic.getCiudades();
+    public List<CiudadDTO> getCiudades() {
+        return CiudadConverter.listEntity2DTO(ciudadLogic.getCiudades());
     }
 
     /**
@@ -63,9 +76,8 @@ public class CiudadResource {
 
     @GET
      @Path("{id: \\d+}/sitios")
-    public List<SitioDTO> getSitios(@PathParam("id") Long idCiudad) throws CiudadLogicException
-    {
-        return ciudadLogic.getSitios(idCiudad);
+    public List<SitioDTO> getSitios(@PathParam("id") Long idCiudad) {
+        return SitioConverter.listEntity2DTO(ciudadLogic.getSitios(idCiudad));
     }
 
      /**
@@ -77,9 +89,8 @@ public class CiudadResource {
 
     @GET
      @Path("{id: \\d+}/eventos")
-    public List<EventoDTO> getEventos(@PathParam("id")Long idCiudad) throws CiudadLogicException
-    {
-        return ciudadLogic.getEventos(idCiudad);
+    public List<EventoDTO> getEventos(@PathParam("id")Long idCiudad) {
+        return EventoConverter.listEntity2DTO(ciudadLogic.getEventos(idCiudad));
     }
 
 
@@ -91,8 +102,13 @@ public class CiudadResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public CiudadDTO geCiudad(@PathParam("id") Long id) throws CiudadLogicException {
-        return ciudadLogic.getCiudad(id);
+    public CiudadDTO geCiudad(@PathParam("id") Long id){
+        try {
+            return CiudadConverter.fullEntity2DTO(ciudadLogic.getCiudad(id));
+        } catch (BusinessLogicException ex){
+            logger.log(Level.SEVERE, "La ciudad no existe", ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -105,8 +121,8 @@ public class CiudadResource {
      */
     @GET
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
-    public SitioDTO getSitio(@PathParam("id") Long id, @PathParam("idSitio")Long idSitio) throws CiudadLogicException,SitioLogicException {
-        return ciudadLogic.getSitio(idSitio, id);
+    public SitioDTO getSitio(@PathParam("id") Long id, @PathParam("idSitio")Long idSitio) {
+        return SitioConverter.fullEntity2DTO(ciudadLogic.getSitio(idSitio, id));
     }
 
     /**
@@ -119,8 +135,8 @@ public class CiudadResource {
      */
     @GET
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
-    public EventoDTO getEvento(@PathParam("id") Long id, @PathParam("idEvento")Long idEvento) throws CiudadLogicException,EventoLogicException {
-        return ciudadLogic.getEvento(idEvento, id);
+    public EventoDTO getEvento(@PathParam("id") Long id, @PathParam("idEvento")Long idEvento) {
+        return EventoConverter.fullEntity2DTO(ciudadLogic.getEvento(idEvento, id));
     }
 
 
@@ -131,8 +147,10 @@ public class CiudadResource {
      * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
-    public CiudadDTO agregarCiudad(CiudadDTO ciudad) throws CiudadLogicException {
-        return ciudadLogic.fundarCiudad(ciudad);
+    //@StatusCreated
+    public CiudadDTO agregarCiudad(CiudadDTO ciudad) {
+        CiudadEntity entity = CiudadConverter.fullDTO2Entity(ciudad);
+        return CiudadConverter.fullEntity2DTO(ciudadLogic.createCiudad(entity));
     }
 
      /**
@@ -143,8 +161,8 @@ public class CiudadResource {
      */
     @POST
      @Path("{id: \\d+}/sitios")
-    public void agregarSitio(@PathParam("id")Long idCiudad, SitioDTO sitio) throws CiudadLogicException {
-        ciudadLogic.crearSitioEnCiudad(idCiudad, sitio);
+    public SitioDTO agregarSitio(@PathParam("id")Long idCiudad, Long idSitio) {
+        ciudadLogic.addSitio(idCiudad, idSitio);
     }
 
      /**
@@ -155,7 +173,7 @@ public class CiudadResource {
      */
     @POST
      @Path("{id: \\d+}/eventos")
-    public void agregarEvento(@PathParam("id")Long idCiudad, EventoDTO evento) throws CiudadLogicException {
+    public void agregarEvento(@PathParam("id")Long idCiudad, EventoDTO evento) {
         ciudadLogic.crearEventoEnCiudad(idCiudad, evento);
     }
 
@@ -168,7 +186,7 @@ public class CiudadResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public CiudadDTO actualizarCiudad(@PathParam("id") Long id, CiudadDTO ciudad) throws CiudadLogicException {
+    public CiudadDTO actualizarCiudad(@PathParam("id") Long id, CiudadDTO ciudad) {
         return ciudadLogic.actualizarCiudad(id, ciudad);
     }
 
@@ -182,7 +200,7 @@ public class CiudadResource {
      */
     @PUT
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
-    public void actualizarSitio(@PathParam("id") Long id, SitioDTO sitio, @PathParam("idSitio") Long idSitio) throws SitioLogicException, CiudadLogicException {
+    public void actualizarSitio(@PathParam("id") Long id, SitioDTO sitio, @PathParam("idSitio") Long idSitio) {
        ciudadLogic.actualizarSitio(id, sitio, idSitio);
     }
 
@@ -196,7 +214,7 @@ public class CiudadResource {
      */
     @PUT
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
-    public void actualizarEvento(@PathParam("id") Long id, EventoDTO evento, @PathParam("idSitio") Long idEvento) throws EventoLogicException, CiudadLogicException {
+    public void actualizarEvento(@PathParam("id") Long id, EventoDTO evento, @PathParam("idSitio") Long idEvento) {
        ciudadLogic.actualizarEvento(id, evento, idEvento);
     }
 
@@ -207,7 +225,7 @@ public class CiudadResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void borrarCiudad(@PathParam("id") Long id) throws CiudadLogicException {
+    public void borrarCiudad(@PathParam("id") Long id) {
     	ciudadLogic.arrazarCiudad(id);
     }
 
@@ -220,7 +238,7 @@ public class CiudadResource {
      */
     @DELETE
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
-    public void borrarSitio(@PathParam("id") Long idCiudad,@PathParam("idSitio") Long idSitio) throws SitioLogicException, CiudadLogicException {
+    public void borrarSitio(@PathParam("id") Long idCiudad,@PathParam("idSitio") Long idSitio) {
     	ciudadLogic.borrarSitio(idCiudad, idSitio);
     }
 
@@ -233,7 +251,7 @@ public class CiudadResource {
      */
     @DELETE
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
-    public void borrarEvento(@PathParam("id") Long idCiudad,@PathParam("idEvento") Long idEvento) throws EventoLogicException, CiudadLogicException {
+    public void borrarEvento(@PathParam("id") Long idCiudad,@PathParam("idEvento") Long idEvento) {
     	ciudadLogic.borrarEvento(idCiudad, idEvento);
     }
     

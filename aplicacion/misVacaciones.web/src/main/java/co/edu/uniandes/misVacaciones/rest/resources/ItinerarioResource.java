@@ -14,7 +14,7 @@ import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
+import co.edu.uniandes.perapple.api.IItinerarioLogic;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +45,7 @@ import javax.ws.rs.Produces;
 public class ItinerarioResource {
 
 	@Inject
-	ItinerarioLogicMock itinerarioLogic;
+	IItinerarioLogic itinerarioLogic;
 
       /**
        * El itinerario que actualmente se este manejando

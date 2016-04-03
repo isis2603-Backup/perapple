@@ -1,5 +1,6 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -10,18 +11,10 @@ import java.util.Date;
 public class CiudadItinerarioDTO {
     private CiudadDTO ciudad;
     private ItinerarioDTO itinerario;
+    private ArrayList<EventoItinerarioDTO> eventos;
+    private ArrayList<SitioItinerarioDTO> sitios;
     private Date fechaIni;
     private Date fechaFin;
-    
-    public CiudadItinerarioDTO(){
-        
-    }
-    public CiudadItinerarioDTO(CiudadDTO ciudad, ItinerarioDTO itinerario, Date fechaIni, Date fechaFin) {
-        this.ciudad = ciudad;
-        this.itinerario = itinerario;
-        this.fechaIni = fechaIni;
-        this.fechaFin = fechaFin;
-    }
     
     public CiudadDTO getCiudad() {
         return ciudad;
@@ -53,5 +46,21 @@ public class CiudadItinerarioDTO {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public ArrayList<EventoItinerarioDTO> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(ArrayList<EventoItinerarioDTO> eventos) {
+        this.eventos = eventos;
+    }
+
+    public ArrayList<SitioItinerarioDTO> getSitios() {
+        return sitios;
+    }
+
+    public void setSitios(ArrayList<SitioItinerarioDTO> sitios) {
+        this.sitios = sitios;
     }
 }
