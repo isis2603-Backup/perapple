@@ -6,7 +6,7 @@
 
             <br>
 
-            <p>Ciudad: {{currentCiudad.nombre}}</p>
+
 
             <br>
 
@@ -146,11 +146,11 @@
                             </div>
                         <div class="col-sm-5">
                                 <p>Descripcion:</p>
-                                <input type="text" class="form-control" title="Descripcion" ng-model = "descripcion" name="descripcion" >
+                                <input type="text" class="form-control" title="Detalles" ng-model = "detalles" name="detalles" >
                             </div>
                         <div class="col-sm-5">
                                 <p>Link imagen:</p>
-                                <input type="text" class="form-control" title="Imagen" ng-model = "imagen" name="imagen" >
+                                <input type="text" class="form-control" title="imagen" ng-model = "imagen" name="imagen" >
                             </div>
 
                         <div class="col-sm-1"></div>
@@ -161,7 +161,49 @@
                             <div class="col-sm-10">
 
 
-                                      <button type="button" name="Agregar" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.createCiudad();"> Agregar Ciudad </button>
+                                      <button type="button" name="Agregar" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarCiudad(nombre, detalles, imagen);"> Agregar Ciudad </button>
+                            </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+<!--pop up agregar ciudad-->
+<div class="modal fade" id="popSitio" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Agregar Sitio</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                            <div class="col-sm-5">
+                                <p>Nombre:</p>
+                                <input type="text" class="form-control" title="Nombre" ng-model = "nombre" name="nombre" >
+                            </div>
+                        <div class="col-sm-5">
+                                <p>Descripcion:</p>
+                                <input type="text" class="form-control" title="Detalles" ng-model = "detalles" name="detalles" >
+                            </div>
+                        <div class="col-sm-5">
+                                <p>Link imagen:</p>
+                                <input type="text" class="form-control" title="imagen" ng-model = "imagen" name="imagen" >
+                            </div>
+
+                        <div class="col-sm-1"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+
+
+                                      <button type="button" name="Agregar" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarCiudad(nombre, detalles, imagen);"> Agregar Ciudad </button>
                             </div>
                         <div class="col-sm-1"></div>
                     </div>
