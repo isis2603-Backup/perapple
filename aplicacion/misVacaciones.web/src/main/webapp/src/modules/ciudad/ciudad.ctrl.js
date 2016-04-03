@@ -23,13 +23,13 @@
         $scope.currentHotel = {};
         //Hoteles
         $scope.hoteles = [];
-        
+
         //viajero actual
         $scope.currentViajero = {};
-            
+
         //Viajeros
         $scope.viajeros = [];
-        
+
         //Alertas
         $scope.alerts = [];
 
@@ -193,6 +193,23 @@
             }, responseError);
         };
 
+        this.agregarCiudad= function (nombre, detalles, imagen){
+
+            $scope.currentRecord = {
+
+                                    nombre: nombre ,
+                                   detalles: detalles ,
+                                    imagen: imagen,
+                                    sitios:[],
+                                    eventos: []
+                                   };
+
+            return svc.saveCiudad($scope.currentRecord)
+                    .then(function () {
+                        self.fetchCiudades();
+                    }, responseError);
+        };
+
 
         this.createViajero = function () {
             $scope.$broadcast("pre-create", $scope.currentViajero);
@@ -200,7 +217,7 @@
                 $scope.currentRecord = {};
                 $scope.$broadcast("post-create", $scope.currentViajero);
             };
-            
+
              this.editViajero = function (viajero) {
                 $scope.$broadcast("pre-edit", $scope.currentViajero);
                 return svc.fetchRecord(viajero.id).then(function (response) {
