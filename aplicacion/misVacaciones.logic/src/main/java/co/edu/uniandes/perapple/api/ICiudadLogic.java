@@ -32,7 +32,7 @@ public interface ICiudadLogic {
 
     public EventoEntity getEvento(Long eventoId, Long ciudadId);
 
-    public CiudadEntity addEvento(Long ciudadId, Long eventoId);
+    public EventoEntity addEvento(Long ciudadId, EventoEntity eventoId);
 
     public void removeEvento(Long eventoId, Long ciudadId);
 
@@ -42,9 +42,13 @@ public interface ICiudadLogic {
 
     public SitioEntity getSitio(Long sitioId, Long ciudadId);
 
-    public CiudadEntity addSitio(Long ciudadId, Long sitioId);
+    public SitioEntity addSitio(Long ciudadId, SitioEntity sitio);
 
     public void removeSitio(Long sitioId, Long ciudadId);
 
     public List<SitioEntity> replaceSitios(List<SitioEntity> sitios, Long ciudadId);
+
+    public SitioEntity updateSitio(Long id, Long idSitio, SitioEntity entity);
+
+    public EventoEntity updateEvento(Long id, Long idEvento, EventoEntity entity);
 }

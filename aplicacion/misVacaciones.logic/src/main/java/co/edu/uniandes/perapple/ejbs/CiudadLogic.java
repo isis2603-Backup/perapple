@@ -61,7 +61,7 @@ public class CiudadLogic implements ICiudadLogic {
     }
 
     @Override
-    public CiudadEntity addEvento(Long ciudadId, Long eventoId) {
+    public EventoEntity addEvento(Long ciudadId, EventoEntity evento) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -86,7 +86,7 @@ public class CiudadLogic implements ICiudadLogic {
     }
 
     @Override
-    public CiudadEntity addSitio(Long ciudadId, Long sitioId) {
+    public SitioEntity addSitio(Long ciudadId, SitioEntity sitio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -97,6 +97,16 @@ public class CiudadLogic implements ICiudadLogic {
 
     @Override
     public List<SitioEntity> replaceSitios(List<SitioEntity> sitios, Long ciudadId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public SitioEntity updateSitio(Long id, Long idSitio, SitioEntity entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public EventoEntity updateEvento(Long id, Long idEvento, EventoEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

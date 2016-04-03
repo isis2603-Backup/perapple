@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.perapple.api.IItinerarioLogic;
 import co.edu.uniandes.perapple.entities.CiudadEntity;
+import co.edu.uniandes.perapple.entities.CiudadItinerarioEntity;
 
 @Stateless
 public class ItinerarioLogic implements IItinerarioLogic {
@@ -36,12 +37,12 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public ItinerarioEntity createItinerario(ItinerarioEntity entity) throws BusinessLogicException {
+    public ItinerarioEntity createItinerario(ItinerarioEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItinerarioEntity updateItinerario(ItinerarioEntity entity) throws BusinessLogicException {
+    public ItinerarioEntity updateItinerario(ItinerarioEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -56,7 +57,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public CiudadEntity addCiudad(Long ciudadId, Long itinerarioId) throws BusinessLogicException {
+    public CiudadItinerarioEntity addCiudad(CiudadItinerarioEntity ciudad, Long itinerarioId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -66,7 +67,17 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public List<CiudadEntity> replaceCiudades(List<CiudadEntity> ciudades, Long itinerarioId) throws BusinessLogicException {
+    public List<CiudadItinerarioEntity> replaceCiudades(List<CiudadItinerarioEntity> ciudades, Long itinerarioId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItinerarioEntity getCurrentItinerario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItinerarioEntity setCurrentItinerario(ItinerarioEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
