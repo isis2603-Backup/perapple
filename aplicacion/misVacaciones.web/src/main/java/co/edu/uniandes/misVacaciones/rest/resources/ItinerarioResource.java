@@ -53,9 +53,9 @@ public class ItinerarioResource {
        * @throws ItinerarioLogicException
        */
 
-      @GET
-      @Path("current")
-    public ItinerarioDTO getCurrentItinerario() throws ItinerarioLogicException {
+    @GET
+    @Path("current")
+    public ItinerarioDTO getCurrentItinerario(){
         return itinerarioLogic.getCurrentItinerario();
     }
 
@@ -71,7 +71,7 @@ public class ItinerarioResource {
 	 * @throws ItinerarioLogicException excepción retornada por la lógica
 	 */
     @GET
-    public List<ItinerarioDTO> getItinerarios() throws ItinerarioLogicException {
+    public List<ItinerarioDTO> getItinerarios() {
         return itinerarioLogic.getItinerarios();
     }
 
@@ -83,7 +83,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ItinerarioDTO getItinerario(@PathParam("id") Long id) throws ItinerarioLogicException {
+    public ItinerarioDTO getItinerario(@PathParam("id") Long id) {
         return itinerarioLogic.getItinerario(id);
     }
 
@@ -94,7 +94,7 @@ public class ItinerarioResource {
      * @throws ItinerarioLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
-    public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) throws ItinerarioLogicException {
+    public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) {
         return itinerarioLogic.createItinerario(itinerario);
     }
 
@@ -107,7 +107,7 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public ItinerarioDTO updateItinerario(@PathParam("id") Long id, ItinerarioDTO itinerario) throws ItinerarioLogicException {
+    public ItinerarioDTO updateItinerario(@PathParam("id") Long id, ItinerarioDTO itinerario) {
         return itinerarioLogic.updateItinerario(id, itinerario);
     }
 
@@ -118,7 +118,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteItinerario(@PathParam("id") Long id) throws ItinerarioLogicException {
+    public void deleteItinerario(@PathParam("id") Long id) {
     	itinerarioLogic.deleteItinerario(id);
     }
 
@@ -130,8 +130,7 @@ public class ItinerarioResource {
      */
     @POST
     @Path("{id: \\d+}/ciudades")
-    public void createCiudad(@PathParam("id")Long id, CiudadDTO ciudad) throws ItinerarioLogicException
-    {
+    public void createCiudad(@PathParam("id")Long id, CiudadDTO ciudad) {
         itinerarioLogic.createCiudad(id, ciudad);
     }
     /**
@@ -143,7 +142,7 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
-    public void updateCiudades(@PathParam("id") Long id, CiudadDTO ciudad, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+    public void updateCiudades(@PathParam("id") Long id, CiudadDTO ciudad, @PathParam("idciudad") Long idciudad) {
 
         itinerarioLogic.updateCiudad(id, ciudad, idciudad);
     }
@@ -157,7 +156,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
-    public void deleteCiudad(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+    public void deleteCiudad(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad) {
     	itinerarioLogic.deleteCiudad(id, idciudad);
     }
 
@@ -169,7 +168,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades")
-    public List<CiudadDTO> getCiudades(@PathParam("id") Long id) throws ItinerarioLogicException {
+    public List<CiudadDTO> getCiudades(@PathParam("id") Long id) {
         return itinerarioLogic.getCiudades(id);
     }
 
@@ -183,7 +182,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad:\\d+}")
-    public CiudadDTO getCiudad(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+    public CiudadDTO getCiudad(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) {
         return itinerarioLogic.getCiudad(id, idciudad);
     }
 
@@ -199,8 +198,7 @@ public class ItinerarioResource {
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public SitioDTO createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) throws ItinerarioLogicException, CiudadLogicException
-    {
+    public SitioDTO createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) {
         return itinerarioLogic.createSitioDeInteres(id, idciudad, sitio);
     }
 
@@ -215,7 +213,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
-    public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
+    public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) {
     	itinerarioLogic.deleteSitioDeInteres(id, idciudad, idsitio);
     }
 
@@ -229,8 +227,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public ArrayList<SitioDTO> fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
-    {
+    public ArrayList<SitioDTO> fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws {
         return itinerarioLogic.fetchSitiosDeInteres(id, idciudad);
     }
 
@@ -246,7 +243,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
-    public SitioDTO fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
+    public SitioDTO fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) {
     	return itinerarioLogic.fetchSitioDeInteres(id, idciudad, idsitio);
     }
 
@@ -261,8 +258,7 @@ public class ItinerarioResource {
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
-    public EventoDTO createEvento(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, EventoDTO evento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException
-    {
+    public EventoDTO createEvento(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, EventoDTO evento) throws {
         return itinerarioLogic.createEvento(id, idciudad, evento);
     }
 
@@ -277,7 +273,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
-    public void deleteEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException, SitioLogicException {
+    public void deleteEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) {
     	itinerarioLogic.deleteEvento(id, idciudad, idevento);
     }
 
@@ -291,8 +287,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
-    public ArrayList<EventoDTO> fetchEventos(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
-    {
+    public ArrayList<EventoDTO> fetchEventos(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws {
         return itinerarioLogic.fetchEventos(id, idciudad);
     }
 
@@ -308,7 +303,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
-    public EventoDTO fetchEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException {
+    public EventoDTO fetchEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento)                                                                                                                                                                                                                                   {
     	return itinerarioLogic.fetchEvento(id, idciudad, idevento);
     }
 

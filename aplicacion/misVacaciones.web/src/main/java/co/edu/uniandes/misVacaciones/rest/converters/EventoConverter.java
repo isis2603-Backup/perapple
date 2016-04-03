@@ -17,5 +17,9 @@ public abstract class EventoConverter {
     public static EventoDTO fullEntity2DTO(EventoEntity evento) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public static EventoEntity fullDTO2Entity(EventoDTO evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

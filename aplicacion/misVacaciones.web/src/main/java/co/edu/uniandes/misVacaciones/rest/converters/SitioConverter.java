@@ -17,5 +17,9 @@ public abstract class SitioConverter {
     public static SitioDTO fullEntity2DTO(SitioEntity sitio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public static SitioEntity fullDTO2Entity(SitioDTO sitio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

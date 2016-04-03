@@ -12,17 +12,15 @@ import co.edu.uniandes.misVacaciones.rest.converters.CiudadConverter;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
-import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
-import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
-import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
 import co.edu.uniandes.perapple.api.ICiudadLogic;
 import co.edu.uniandes.perapple.entities.CiudadEntity;
+import co.edu.uniandes.perapple.entities.EventoEntity;
+import co.edu.uniandes.perapple.entities.SitioEntity;
 import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -60,7 +58,6 @@ public class CiudadResource {
     /**
      * Obtiene el listado de ciudades.
      * @return lista de ciudades
-     * @throws CiudadLogicException excepción retornada por la lógica
      */
     @GET
     public List<CiudadDTO> getCiudades() {
@@ -68,11 +65,10 @@ public class CiudadResource {
     }
 
     /**
-	 * Obtiene el listado de sitios de una ciudad.
-         * @param idCiudad id de la ciudad en la que se quieren consultar los sitios
-	 * @return lista de sitios de una ciudad
-	 * @throws CiudadLogicException excepción retornada por la lógica
-	 */
+        * Obtiene el listado de sitios de una ciudad.
+        * @param idCiudad id de la ciudad en la que se quieren consultar los sitios
+        * @return lista de sitios de una ciudad
+        */
 
     @GET
      @Path("{id: \\d+}/sitios")
@@ -84,7 +80,6 @@ public class CiudadResource {
 	 * Obtiene el listado de eventos de una ciudad.
          * @param idCiudad id de la ciudad en la que se quieren consultar los eventos
 	 * @return lista de eventos de una ciudad
-	 * @throws CiudadLogicException excepción retornada por la lógica
 	 */
 
     @GET
@@ -98,7 +93,6 @@ public class CiudadResource {
      * Obtiene una ciudad
      * @param id identificador de la ciudad
      * @return ciudad encontrada
-     * @throws CiudadLogicException cuando la ciudad no existe
      */
     @GET
     @Path("{id: \\d+}")
@@ -116,8 +110,6 @@ public class CiudadResource {
      * @param id identificador de la ciudad
      * @param idSitio identficador del sitio
      * @return ciudad encontrada
-     * @throws CiudadLogicException cuando la ciudad no existe
-     * @throws SitioLogicException cuando el sitio no existe
      */
     @GET
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
@@ -130,8 +122,6 @@ public class CiudadResource {
      * @param id identificador de la ciudad
      * @param idEvento identficador del evento
      * @return ciudad encontrada
-     * @throws CiudadLogicException cuando la ciudad no existe
-     * @throws EventoLogicException cuando el evento no existe
      */
     @GET
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
@@ -144,7 +134,6 @@ public class CiudadResource {
      * Agrega una ciudad
      * @param ciudad ciudad a agregar
      * @return datos de la ciudad a agregar
-     * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
     //@StatusCreated
@@ -157,37 +146,49 @@ public class CiudadResource {
      * Agrega un sitio a una ciudad
      * @param idCiudad id de la ciudad donde se agrega el sitio
      * @param sitio sitio que se agrega a la ciudad
-     * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
+     * @return datos del sitio agregado
      */
     @POST
-     @Path("{id: \\d+}/sitios")
-    public SitioDTO agregarSitio(@PathParam("id")Long idCiudad, Long idSitio) {
-        ciudadLogic.addSitio(idCiudad, idSitio);
+    @Path("{id: \\d+}/sitios")
+    public SitioDTO agregarSitio(@PathParam("id")Long idCiudad, SitioDTO sitio) {
+        SitioEntity entity = SitioConverter.fullDTO2Entity(sitio);
+        return SitioConverter.fullEntity2DTO(ciudadLogic.addSitio(idCiudad, entity));
     }
 
      /**
-     * Agrega un sitio a una ciudad
+     * Agrega un evento a una ciudad
      * @param idCiudad id de la ciudad donde se agrega el evento
      * @param evento evento que se agrega a la ciudad
-     * @throws CiudadLogicException cuando ya existe una ciudad con el id suministrado
+     * @return datos del evento agregado
      */
     @POST
      @Path("{id: \\d+}/eventos")
-    public void agregarEvento(@PathParam("id")Long idCiudad, EventoDTO evento) {
-        ciudadLogic.crearEventoEnCiudad(idCiudad, evento);
+    public EventoDTO agregarEvento(@PathParam("id")Long idCiudad, EventoDTO evento) {
+        EventoEntity entity = EventoConverter.fullDTO2Entity(evento);
+        return EventoConverter.fullEntity2DTO(ciudadLogic.addEvento(idCiudad, entity));
     }
 
     /**
      * Actualiza los datos de una ciudad
      * @param id identificador de la ciudad a modificar
      * @param ciudad ciudad a modificar
-     * @return datos de la ciudad modificada
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
+     * @return datos de la ciudad modificadao
      */
     @PUT
     @Path("{id: \\d+}")
     public CiudadDTO actualizarCiudad(@PathParam("id") Long id, CiudadDTO ciudad) {
-        return ciudadLogic.actualizarCiudad(id, ciudad);
+        CiudadEntity entity = CiudadConverter.fullDTO2Entity(ciudad);
+        entity.setId(id);
+        try {
+            CiudadEntity oldEntity = ciudadLogic.getCiudad(id);
+            // TODO
+            //entity.setEventos(oldEntity.getEventos());
+            //entity.setSitios(oldEntity.getSitios());
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, "La ciudad no existe", ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
+        return CiudadConverter.fullEntity2DTO(ciudadLogic.updateCiudad(entity));
     }
 
        /**
@@ -195,13 +196,16 @@ public class CiudadResource {
      * @param id identificador de la ciudad donde se encuentra el sitio
      * @param sitio sitio a modificar
      * @param idSitio id del sitio a modificar
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
-     * @throws SitioLogicException cuando no existe un sitio con el idSitio suministrado
+     * @return el sitio modificado
      */
     @PUT
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
-    public void actualizarSitio(@PathParam("id") Long id, SitioDTO sitio, @PathParam("idSitio") Long idSitio) {
-       ciudadLogic.actualizarSitio(id, sitio, idSitio);
+    public SitioDTO actualizarSitio(@PathParam("id") Long id, SitioDTO sitio, @PathParam("idSitio") Long idSitio) {
+        SitioEntity entity = SitioConverter.fullDTO2Entity(sitio);
+        entity.setId(id);
+        SitioEntity oldEntity = ciudadLogic.getSitio(idSitio, id);
+        // TODO agregar atributos de oldEntity en entity
+        return SitioConverter.fullEntity2DTO(ciudadLogic.updateSitio(id, idSitio, entity));
     }
 
        /**
@@ -209,50 +213,48 @@ public class CiudadResource {
      * @param id identificador de la ciudad donde se encuentra el sitio
      * @param evento evento a modificar
      * @param idEvento id del evento a modificar
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
-     * @throws EventoLogicException cuando no existe un evento con el idEvento suministrado
+     * @return el evento modificado
      */
     @PUT
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
-    public void actualizarEvento(@PathParam("id") Long id, EventoDTO evento, @PathParam("idSitio") Long idEvento) {
-       ciudadLogic.actualizarEvento(id, evento, idEvento);
+    public EventoDTO actualizarEvento(@PathParam("id") Long id, EventoDTO evento, @PathParam("idEvento") Long idEvento) {
+        EventoEntity entity = EventoConverter.fullDTO2Entity(evento);
+        entity.setId(id);
+        EventoEntity oldEntity = ciudadLogic.getEvento(idEvento, id);
+        // TODO agregar atributos de oldEntity en entity
+        return EventoConverter.fullEntity2DTO(ciudadLogic.updateEvento(id, idEvento, entity));
     }
 
     /**
      * Elimina los datos de una ciudad
      * @param id identificador de la ciudad a eliminar
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
      */
     @DELETE
     @Path("{id: \\d+}")
     public void borrarCiudad(@PathParam("id") Long id) {
-    	ciudadLogic.arrazarCiudad(id);
+    	ciudadLogic.deleteCiudad(id);
     }
 
     /**
      * Elimina los datos de un sitio
      * @param idCiudad identificador de la ciudad donde se encuentra el sitio a eliminar
      * @param idSitio identificador del sitio a eliminar
-     * @throws SitioLogicException cuando no existe un sitio con el idSitio suministrado
-     * @throws CiudadLogicException cuando no existe una ciudad con el idCiudad suministrado
      */
     @DELETE
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
     public void borrarSitio(@PathParam("id") Long idCiudad,@PathParam("idSitio") Long idSitio) {
-    	ciudadLogic.borrarSitio(idCiudad, idSitio);
+    	ciudadLogic.removeSitio(idCiudad, idSitio);
     }
 
     /**
      * Elimina los datos de un sitio
      * @param idCiudad identificador de la ciudad donde se encuentra el evento a eliminar
      * @param idEvento identificador del evento a eliminar
-     * @throws EventoLogicException cuando no existe un evento con el idEvento suministrado
-     * @throws CiudadLogicException cuando no existe una ciudad con el idCiudad suministrado
      */
     @DELETE
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
     public void borrarEvento(@PathParam("id") Long idCiudad,@PathParam("idEvento") Long idEvento) {
-    	ciudadLogic.borrarEvento(idCiudad, idEvento);
+    	ciudadLogic.removeEvento(idCiudad, idEvento);
     }
     
 
