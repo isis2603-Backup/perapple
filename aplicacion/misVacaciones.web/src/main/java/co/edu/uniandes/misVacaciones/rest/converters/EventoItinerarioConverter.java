@@ -1,25 +1,23 @@
 package co.edu.uniandes.misVacaciones.rest.converters;
 
-import co.edu.uniandes.misVacaciones.rest.dtos.CiudadItinerarioDTO;
-import co.edu.uniandes.perapple.entities.CiudadItinerarioEntity;
+import co.edu.uniandes.misVacaciones.rest.dtos.EventoItinerarioDTO;
+import co.edu.uniandes.perapple.entities.EventoItinerarioEntity;
 import java.util.List;
 
 /**
  *
  * @author camen
  */
-public abstract class CiudadItinerarioConverter {
-    
-    public static List<CiudadItinerarioDTO> listEntity2DTO(List<CiudadItinerarioEntity> eventos) {
+public abstract class EventoItinerarioConverter {
+    public static List<EventoItinerarioDTO> listEntity2DTO(List<EventoItinerarioEntity> eventos) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static CiudadItinerarioEntity fullDTO2Entity(CiudadItinerarioDTO ciudad) {
+    public static EventoItinerarioDTO fullEntity2DTO(EventoItinerarioEntity evento) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static CiudadItinerarioDTO fullEntity2DTO(CiudadItinerarioEntity addCiudad) {
+    public static EventoItinerarioEntity fullDTO2Entity(EventoItinerarioDTO evento) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

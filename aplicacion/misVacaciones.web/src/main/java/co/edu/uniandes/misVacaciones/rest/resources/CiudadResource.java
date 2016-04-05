@@ -202,7 +202,7 @@ public class CiudadResource {
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
     public SitioDTO actualizarSitio(@PathParam("id") Long id, SitioDTO sitio, @PathParam("idSitio") Long idSitio) {
         SitioEntity entity = SitioConverter.fullDTO2Entity(sitio);
-        entity.setId(id);
+        entity.setId(idSitio);
         SitioEntity oldEntity = ciudadLogic.getSitio(idSitio, id);
         // TODO agregar atributos de oldEntity en entity
         return SitioConverter.fullEntity2DTO(ciudadLogic.updateSitio(id, idSitio, entity));
