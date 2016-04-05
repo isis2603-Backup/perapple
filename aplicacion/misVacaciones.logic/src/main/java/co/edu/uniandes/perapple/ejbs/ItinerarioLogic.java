@@ -3,17 +3,15 @@ package co.edu.uniandes.perapple.ejbs;
 import co.edu.uniandes.perapple.entities.ViajeroEntity;
 import co.edu.uniandes.perapple.entities.ItinerarioEntity;
 import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
-import co.edu.uniandes.perapple.persistence.ViajeroPersistence;
 import co.edu.uniandes.perapple.persistence.ItinerarioPersistence;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.perapple.api.IItinerarioLogic;
-import co.edu.uniandes.perapple.entities.CiudadEntity;
 import co.edu.uniandes.perapple.entities.CiudadItinerarioEntity;
+import co.edu.uniandes.perapple.entities.EventoItinerarioEntity;
+import co.edu.uniandes.perapple.entities.SitioItinerarioEntity;
 
 @Stateless
 public class ItinerarioLogic implements IItinerarioLogic {
@@ -62,7 +60,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public void removeCiudad(Long ciudadId, Long itinerarioId) {
+    public void deleteCiudad(Long ciudadId, Long itinerarioId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -78,6 +76,71 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
     @Override
     public ItinerarioEntity setCurrentItinerario(ItinerarioEntity entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CiudadItinerarioEntity updateCiudad(CiudadItinerarioEntity ciudad, Long itinerarioId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CiudadItinerarioEntity getCiudad(Long itinerarioId, Long ciudadId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CiudadItinerarioEntity> getCiudades(Long itinerarioId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public SitioItinerarioEntity updateSitio(Long itinerarioId, Long ciudadId, Long sitioId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public SitioItinerarioEntity createSitio(Long itinerarioId, Long ciudadId, SitioItinerarioEntity sitio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteSitio(Long itinerarioId, Long ciudadId, Long sitioId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<SitioItinerarioEntity> getSitios(Long itinerarioId, Long ciudadId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public SitioItinerarioEntity getSitio(Long itinerarioId, Long ciudadId, Long sitioId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public EventoItinerarioEntity createEvento(Long itinerarioId, Long ciudadId, EventoItinerarioEntity evento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteEvento(Long itinerarioId, Long ciudadId, Long eventoId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<EventoItinerarioEntity> getEventos(Long itinerarioId, Long ciudadId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public EventoItinerarioEntity getEvento(Long itinerarioId, Long ciudadId, Long eventoId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<ItinerarioEntity> getItinerariosViajero(Long viajeroId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
