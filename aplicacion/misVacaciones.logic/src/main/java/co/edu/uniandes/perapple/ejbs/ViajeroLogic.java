@@ -87,22 +87,36 @@ public class ViajeroLogic implements IViajeroLogic {
 
     @Override
     public ItinerarioEntity addItinerario(Long bookId, Long authorId) throws BusinessLogicException {
+        //Validaciones
+        //1. el itinerario no existe
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void removeItinerario(Long bookId, Long authorId) {
+        //Validaciones
+        //1. El itinerario ya existe.
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> books, Long authorId) throws BusinessLogicException {
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<ItinerarioEntity> getItinerarios(Long viajeroId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Validaciones
+        //1. La ciudad ya existe.
+        logger.log(Level.INFO, "Inicia proceso de obtener itinerarios del viajero con id={0}", viajeroId);
+        if (!validateViajeroExiste(viajeroId)) {
+            throw new BusinessLogicException("El viajero del que se quieren saber los itinerarios no existe.");
+        }
+        List<ViajeroEntity> itinerarios = persistence.find(viajeroId).getItinerarios();
+        logger.log(Level.INFO, "Termina proceso de obtener itinerarios del viajero con id={0}", viajeroId);
+
+        return itinerarios;
     }
 
     @Override
@@ -110,5 +124,15 @@ public class ViajeroLogic implements IViajeroLogic {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+     private boolean validateViajeroExiste(int viajeroId) {
+
+        ViajeroEntity ciudad = persistence.find(viajeroId);
+
+        if (ciudad == null) {
+            return false;
+        }
+
+        return true;
+    }
 
 }
