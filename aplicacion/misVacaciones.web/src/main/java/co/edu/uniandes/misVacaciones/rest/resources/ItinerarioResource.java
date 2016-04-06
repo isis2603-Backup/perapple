@@ -6,20 +6,37 @@
 package co.edu.uniandes.misVacaciones.rest.resources;
 
 
+import co.edu.uniandes.misVacaciones.rest.converters.EventoItinerarioConverter;
+import co.edu.uniandes.misVacaciones.rest.converters.SitioItinerarioConverter;
+import co.edu.uniandes.misVacaciones.rest.converters.CiudadItinerarioConverter;
+import co.edu.uniandes.misVacaciones.rest.converters.CiudadConverter;
+import co.edu.uniandes.misVacaciones.rest.converters.ItinerarioConverter;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.EventoItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.SitioItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.EventoLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException;
 import co.edu.uniandes.misVacaciones.rest.exceptions.SitioLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.ItinerarioLogicMock;
+import co.edu.uniandes.perapple.api.IItinerarioLogic;
+import co.edu.uniandes.perapple.entities.CiudadEntity;
+import co.edu.uniandes.perapple.entities.CiudadItinerarioEntity;
+import co.edu.uniandes.perapple.entities.EventoItinerarioEntity;
+import co.edu.uniandes.perapple.entities.ItinerarioEntity;
+import co.edu.uniandes.perapple.entities.SitioItinerarioEntity;
+import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,6 +45,9 @@ import javax.ws.rs.PUT;
 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Clase que implementa el recurso REST correspondiente a "itinerarios".
@@ -40,12 +60,13 @@ import javax.ws.rs.Produces;
  * @author Perapple
  */
 @Path("itinerarios")
-@Produces("application/json")
-@RequestScoped
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ItinerarioResource {
-
+        private static final Logger logger = Logger.getLogger(CiudadResource.class.getName());
+    
 	@Inject
-	ItinerarioLogicMock itinerarioLogic;
+	IItinerarioLogic itinerarioLogic;
 
       /**
        * El itinerario que actualmente se este manejando
@@ -53,16 +74,17 @@ public class ItinerarioResource {
        * @throws ItinerarioLogicException
        */
 
-      @GET
-      @Path("current")
-    public ItinerarioDTO getCurrentItinerario() throws ItinerarioLogicException {
-        return itinerarioLogic.getCurrentItinerario();
+    @GET
+    @Path("current")
+    public ItinerarioDTO getCurrentItinerario(){
+        return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.getCurrentItinerario());
     }
 
     @PUT
     @Path("current")
     public ItinerarioDTO setCurrentItinerario(ItinerarioDTO nuevoCurrent){
-        return itinerarioLogic.setCurrentItinerario(nuevoCurrent);
+        ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(nuevoCurrent);
+        return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.setCurrentItinerario(entity));
     }
 
 	/**
@@ -71,8 +93,8 @@ public class ItinerarioResource {
 	 * @throws ItinerarioLogicException excepción retornada por la lógica
 	 */
     @GET
-    public List<ItinerarioDTO> getItinerarios() throws ItinerarioLogicException {
-        return itinerarioLogic.getItinerarios();
+    public List<ItinerarioDTO> getItinerarios() {
+        return ItinerarioConverter.listEntity2DTO(itinerarioLogic.getItinerarios());
     }
 
     /**
@@ -83,8 +105,13 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ItinerarioDTO getItinerario(@PathParam("id") Long id) throws ItinerarioLogicException {
-        return itinerarioLogic.getItinerario(id);
+    public ItinerarioDTO getItinerario(@PathParam("id") Long id) {
+        try {
+            return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.getItinerario(id));
+        } catch (BusinessLogicException ex){
+            logger.log(Level.SEVERE, "La ciudad no existe", ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -94,8 +121,9 @@ public class ItinerarioResource {
      * @throws ItinerarioLogicException cuando ya existe una ciudad con el id suministrado
      */
     @POST
-    public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) throws ItinerarioLogicException {
-        return itinerarioLogic.createItinerario(itinerario);
+    public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) {
+        ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
+        return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.createItinerario(entity));
     }
 
     /**
@@ -107,8 +135,18 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public ItinerarioDTO updateItinerario(@PathParam("id") Long id, ItinerarioDTO itinerario) throws ItinerarioLogicException {
-        return itinerarioLogic.updateItinerario(id, itinerario);
+    public ItinerarioDTO updateItinerario(@PathParam("id") Long id, ItinerarioDTO itinerario) {
+        ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
+        entity.setId(id);
+        try {
+            ItinerarioEntity oldEntity = itinerarioLogic.getItinerario(id);
+            // TODO
+            //entity.setCiudades(oldEntity.getCiudades());
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, "El itinerario no existe", ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
+        return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateItinerario(entity));
     }
 
     /**
@@ -118,7 +156,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteItinerario(@PathParam("id") Long id) throws ItinerarioLogicException {
+    public void deleteItinerario(@PathParam("id") Long id) {
     	itinerarioLogic.deleteItinerario(id);
     }
 
@@ -126,13 +164,12 @@ public class ItinerarioResource {
      * Crea ciudad en el itinerario con id dado
      * @param id identificador del itinerario a agregar ciudad
      * @param ciudad dto de ciudad a agregar
-     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.ItinerarioLogicException
      */
     @POST
     @Path("{id: \\d+}/ciudades")
-    public void createCiudad(@PathParam("id")Long id, CiudadDTO ciudad) throws ItinerarioLogicException
-    {
-        itinerarioLogic.createCiudad(id, ciudad);
+    public CiudadItinerarioDTO createCiudad(@PathParam("id")Long id, CiudadItinerarioDTO ciudad) {
+        CiudadItinerarioEntity entity = CiudadItinerarioConverter.fullDTO2Entity(ciudad);
+        return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.addCiudad(entity, id));
     }
     /**
      * Actualiza los datos de una ciudad de un itineario
@@ -143,21 +180,22 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
-    public void updateCiudades(@PathParam("id") Long id, CiudadDTO ciudad, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
-
-        itinerarioLogic.updateCiudad(id, ciudad, idciudad);
+    public CiudadItinerarioDTO updateCiudades(@PathParam("id") Long id, CiudadItinerarioDTO ciudad, @PathParam("idciudad") Long idciudad) {
+        CiudadItinerarioEntity entity = CiudadItinerarioConverter.fullDTO2Entity(ciudad);
+        entity.setId(idciudad);
+        CiudadItinerarioEntity oldEntity = itinerarioLogic.getCiudad(id, idciudad);
+        // TODO agregar atributos de oldEntity en entity
+        return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateCiudad(entity, idciudad));
     }
 
     /**
      * Elimina los datos de un itinerario
      * @param id identificador del itinerario a eliminar
      * @param idciudad
-     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
-     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
-    public void deleteCiudad(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
+    public void deleteCiudad(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad) {
     	itinerarioLogic.deleteCiudad(id, idciudad);
     }
 
@@ -169,8 +207,8 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades")
-    public List<CiudadDTO> getCiudades(@PathParam("id") Long id) throws ItinerarioLogicException {
-        return itinerarioLogic.getCiudades(id);
+    public List<CiudadItinerarioDTO> getCiudades(@PathParam("id") Long id) {
+        return CiudadItinerarioConverter.listEntity2DTO(itinerarioLogic.getCiudades(id));
     }
 
     /**
@@ -183,8 +221,8 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad:\\d+}")
-    public CiudadDTO getCiudad(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException {
-        return itinerarioLogic.getCiudad(id, idciudad);
+    public CiudadItinerarioDTO getCiudad(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) {
+        return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.getCiudad(id, idciudad));
     }
 
 
@@ -194,14 +232,12 @@ public class ItinerarioResource {
      * @param idciudad identificador de la ciudad
      * @param sitio el sitio a agregar
      * @return el sitio que agregó
-     * @throws ItinerarioLogicException cuando no existe -----
-     * @throws co.edu.uniandes.misVacaciones.rest.exceptions.CiudadLogicException
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public SitioDTO createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioDTO sitio) throws ItinerarioLogicException, CiudadLogicException
-    {
-        return itinerarioLogic.createSitioDeInteres(id, idciudad, sitio);
+    public SitioItinerarioDTO createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioItinerarioDTO sitio) {
+        SitioItinerarioEntity entity = SitioItinerarioConverter.fullDTO2Entity(sitio);
+        return SitioItinerarioConverter.fullEntity2DTO(itinerarioLogic.createSitio(id, idciudad, entity));
     }
 
      /**
@@ -209,14 +245,11 @@ public class ItinerarioResource {
      * @param id identificador del itinerario
      * @param idciudad identificador de la ciudad en el itinerario
      * @param idsitio identificador del sitio a eliminar
-     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
-     * @throws CiudadLogicException cuando no existe una ciudad con el id suministrado
-     * @throws SitioLogicException cuando no existe un sitio con el id sumunistrado
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
-    public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
-    	itinerarioLogic.deleteSitioDeInteres(id, idciudad, idsitio);
+    public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) {
+    	itinerarioLogic.deleteSitio(id, idciudad, idsitio);
     }
 
      /**
@@ -229,9 +262,8 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public ArrayList<SitioDTO> fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
-    {
-        return itinerarioLogic.fetchSitiosDeInteres(id, idciudad);
+    public List<SitioItinerarioDTO> fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) {
+        return SitioItinerarioConverter.listEntity2DTO(itinerarioLogic.getSitios(id, idciudad));
     }
 
          /**
@@ -246,8 +278,8 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
-    public SitioDTO fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) throws ItinerarioLogicException, CiudadLogicException, SitioLogicException {
-    	return itinerarioLogic.fetchSitioDeInteres(id, idciudad, idsitio);
+    public SitioItinerarioDTO fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) {
+    	return SitioItinerarioConverter.fullEntity2DTO(itinerarioLogic.getSitio(id, idciudad, idsitio));
     }
 
      /**
@@ -261,9 +293,9 @@ public class ItinerarioResource {
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
-    public EventoDTO createEvento(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, EventoDTO evento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException
-    {
-        return itinerarioLogic.createEvento(id, idciudad, evento);
+    public EventoItinerarioDTO createEvento(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, EventoItinerarioDTO evento){
+        EventoItinerarioEntity entity = EventoItinerarioConverter.fullDTO2Entity(evento);
+        return EventoItinerarioConverter.fullEntity2DTO(itinerarioLogic.createEvento(id, idciudad, entity));
     }
 
      /**
@@ -277,7 +309,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
-    public void deleteEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException, SitioLogicException {
+    public void deleteEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) {
     	itinerarioLogic.deleteEvento(id, idciudad, idevento);
     }
 
@@ -291,9 +323,8 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
-    public ArrayList<EventoDTO> fetchEventos(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) throws ItinerarioLogicException, CiudadLogicException
-    {
-        return itinerarioLogic.fetchEventos(id, idciudad);
+    public List<EventoItinerarioDTO> fetchEventos(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) {
+        return EventoItinerarioConverter.listEntity2DTO(itinerarioLogic.getEventos(id, idciudad));
     }
 
     /**
@@ -308,8 +339,8 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
-    public EventoDTO fetchEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) throws ItinerarioLogicException, CiudadLogicException, EventoLogicException {
-    	return itinerarioLogic.fetchEvento(id, idciudad, idevento);
+    public EventoItinerarioDTO fetchEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) {
+    	return EventoItinerarioConverter.fullEntity2DTO(itinerarioLogic.getEvento(id, idciudad, idevento));
     }
 
     /**
@@ -319,7 +350,8 @@ public class ItinerarioResource {
      */
     @GET
     @Path("viajero/{idviajero: }")
-    public ArrayList<ItinerarioDTO> getItinerariosViajero(@PathParam("idviajero") String id){
-    	return itinerarioLogic.getItinerariosViajero(id);
+    //Id como String o Long?
+    public List<ItinerarioDTO> getItinerariosViajero(@PathParam("idviajero") Long id){
+    	return ItinerarioConverter.listEntity2DTO(itinerarioLogic.getItinerariosViajero(id));
     }
 }

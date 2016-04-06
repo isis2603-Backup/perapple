@@ -17,7 +17,7 @@ public class ItinerarioDTO {
     private String viajero;
     private String fechaInicio;
     private String fechaFin;
-    private ArrayList<CiudadDTO> ciudades;
+    private ArrayList<CiudadItinerarioDTO> ciudades;
 
     /**
      * Constructor por defecto
@@ -83,11 +83,11 @@ public class ItinerarioDTO {
         this.fechaFin = fechaFin;
     }
 
-    public ArrayList<CiudadDTO> getCiudades() {
+    public ArrayList<CiudadItinerarioDTO> getCiudades() {
         return ciudades;
     }
 
-    public void setCiudades(ArrayList<CiudadDTO> ciudades) {
+    public void setCiudades(ArrayList<CiudadItinerarioDTO> ciudades) {
         this.ciudades = ciudades;
     }
 

@@ -23,13 +23,13 @@
         $scope.currentHotel = {};
         //Hoteles
         $scope.hoteles = [];
-        
+
         //viajero actual
         $scope.currentViajero = {};
-            
+
         //Viajeros
         $scope.viajeros = [];
-        
+
         //Alertas
         $scope.alerts = [];
 
@@ -147,17 +147,32 @@
             }, responseError);
         };
 
-        this.saveSitio = function (sitio) {
-            return svc.saveSitio($scope.currentCiudad, sitio.id).then(function () {
-                self.fetchSitios();
+        this.saveSitio = function (nombre, detalles, imagen) {
+            $scope.currentSitio={
+
+                                    nombre: nombre ,
+                                   detalles: detalles ,
+                                    imagen: imagen,
+
+                                   };
+            return svc.saveSitio($scope.currentCiudad,$scope.currentSitio).then(function () {
+                self.fetchSitios($scope.currentCiudad.id);
+            }, responseError);
+        };
+         this.saveEvento = function (nombre, detalles, imagen) {
+            $scope.currentEvento={
+
+                                    nombre: nombre ,
+                                   detalles: detalles ,
+                                    imagen: imagen,
+
+                                   };
+            return svc.saveSitio($scope.currentCiudad,$scope.currentSitio).then(function () {
+                self.fetchEventos($scope.currentCiudad.id);
             }, responseError);
         };
 
-        this.saveEvento = function (evento) {
-            return svc.saveSitio($scope.currentCiudad, evento.id).then(function () {
-                self.fetchEventos();
-            }, responseError);
-        };
+
 
         this.saveHotel = function (hotel) {
             return svc.saveHotel($scope.currentCiudad, hotel.id).then(function () {
@@ -193,6 +208,23 @@
             }, responseError);
         };
 
+        this.agregarCiudad= function (nombre, detalles, imagen){
+
+            $scope.currentRecord = {
+
+                                    nombre: nombre ,
+                                   detalles: detalles ,
+                                    imagen: imagen,
+                                    sitios:[],
+                                    eventos: []
+                                   };
+
+            return svc.saveCiudad($scope.currentRecord)
+                    .then(function () {
+                        self.fetchCiudades();
+                    }, responseError);
+        };
+
 
         this.createViajero = function () {
             $scope.$broadcast("pre-create", $scope.currentViajero);
@@ -200,7 +232,7 @@
                 $scope.currentRecord = {};
                 $scope.$broadcast("post-create", $scope.currentViajero);
             };
-            
+
              this.editViajero = function (viajero) {
                 $scope.$broadcast("pre-edit", $scope.currentViajero);
                 return svc.fetchRecord(viajero.id).then(function (response) {
