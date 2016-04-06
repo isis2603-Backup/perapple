@@ -22,9 +22,9 @@ public interface ICiudadLogic {
 
     public CiudadEntity getCiudad(Long id) throws BusinessLogicException;
 
-    public CiudadEntity createCiudad(CiudadEntity entity);
+    public CiudadEntity createCiudad(CiudadEntity entity) throws BusinessLogicException;
 
-    public CiudadEntity updateCiudad(CiudadEntity entity);
+    public CiudadEntity updateCiudad(CiudadEntity entity) throws BusinessLogicException;
 
     public void deleteCiudad(Long id);
 

@@ -10,5 +10,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class CiudadEntity extends BaseEntity implements Serializable {
 
-  //TODO implementar metodos get y set por todos los atributos de la entidad -- agregar relaciones con otras entidades utilizando anotaciones
+    //TODO implementar metodos get y set por todos los atributos de la entidad -- agregar relaciones con otras entidades utilizando anotaciones
+  
+    //Hay que crear: 
+    //getId()
 }
