@@ -29,13 +29,13 @@ public class CiudadPersistence {
         return em.merge(entity);
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         logger.log(Level.INFO, "Borrando ciudad con id={0}", id);
         CiudadEntity entity = em.find(CiudadEntity.class, id);
         em.remove(entity);
     }
 
-    public CiudadEntity find(Long id) {
+    public CiudadEntity find(int id) {
         logger.log(Level.INFO, "Consultando ciudad con id={0}", id);
         return em.find(CiudadEntity.class, id);
     }

@@ -9,5 +9,8 @@ import javax.persistence.ManyToOne;
 public class EventoEntity extends BaseEntity implements Serializable {
 
 
-  //TODO implementar metodos get y set por todos los atributos de la entidad -- agregar relaciones con otras entidades utilizando anotaciones
+    //TODO implementar metodos get y set por todos los atributos de la entidad -- agregar relaciones con otras entidades utilizando anotaciones
+    
+    //Hacer:
+    //getEventos()
 }

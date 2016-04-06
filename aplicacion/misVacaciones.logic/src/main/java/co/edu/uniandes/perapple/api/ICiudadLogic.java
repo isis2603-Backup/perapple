@@ -20,35 +20,35 @@ public interface ICiudadLogic {
 
     public List<CiudadEntity> getCiudades();
 
-    public CiudadEntity getCiudad(Long id) throws BusinessLogicException;
+    public CiudadEntity getCiudad(int id) throws BusinessLogicException;
 
     public CiudadEntity createCiudad(CiudadEntity entity) throws BusinessLogicException;
 
     public CiudadEntity updateCiudad(CiudadEntity entity) throws BusinessLogicException;
 
-    public void deleteCiudad(Long id);
+    public void deleteCiudad(int id) throws BusinessLogicException ;
 
-    public List<EventoEntity> getEventos(Long ciudadId);
+    public List<EventoEntity> getEventos(int ciudadId) throws BusinessLogicException;
 
-    public EventoEntity getEvento(Long eventoId, Long ciudadId);
+    public EventoEntity getEvento(int eventoId, int ciudadId) throws BusinessLogicException;
 
-    public EventoEntity addEvento(Long ciudadId, EventoEntity eventoId);
+    public EventoEntity addEvento(int ciudadId, EventoEntity eventoId) throws BusinessLogicException;
 
-    public void removeEvento(Long eventoId, Long ciudadId);
+    public void removeEvento(int eventoId, int ciudadId) throws BusinessLogicException;
 
-    public List<EventoEntity> replaceEventos(List<EventoEntity> eventos, Long ciudadId);
+    public List<EventoEntity> replaceEventos(List<EventoEntity> eventos, int ciudadId) throws BusinessLogicException;
 
-    public List<SitioEntity> getSitios(Long ciudadId);
+    public List<SitioEntity> getSitios(int ciudadId) throws BusinessLogicException;
 
-    public SitioEntity getSitio(Long sitioId, Long ciudadId);
+    public SitioEntity getSitio(int sitioId, int ciudadId) throws BusinessLogicException;
 
-    public SitioEntity addSitio(Long ciudadId, SitioEntity sitio);
+    public SitioEntity addSitio(int ciudadId, SitioEntity sitio) throws BusinessLogicException;
 
-    public void removeSitio(Long sitioId, Long ciudadId);
+    public void removeSitio(int sitioId, int ciudadId) throws BusinessLogicException;
 
-    public List<SitioEntity> replaceSitios(List<SitioEntity> sitios, Long ciudadId);
+    public List<SitioEntity> replaceSitios(List<SitioEntity> sitios, int ciudadId) throws BusinessLogicException;
 
-    public SitioEntity updateSitio(Long id, Long idSitio, SitioEntity entity);
+    public SitioEntity updateSitio(int id, int idSitio, SitioEntity entity) throws BusinessLogicException;
 
-    public EventoEntity updateEvento(Long id, Long idEvento, EventoEntity entity);
+    public EventoEntity updateEvento(int id, int idEvento, EventoEntity entity) throws BusinessLogicException;
 }
