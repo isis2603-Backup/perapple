@@ -1,6 +1,9 @@
 package co.edu.uniandes.perapple.entities;
 
+import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -9,7 +12,8 @@ import javax.persistence.TemporalType;
  *
  * @author camen
  */
-public class SitioItinerarioEntity {
+@Entity
+public class SitioItinerarioEntity extends BaseEntity implements Serializable{
     @ManyToOne
     private SitioEntity sitio;
     
