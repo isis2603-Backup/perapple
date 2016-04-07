@@ -23,4 +23,5 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
     {
         return id;
     }
+
 }
