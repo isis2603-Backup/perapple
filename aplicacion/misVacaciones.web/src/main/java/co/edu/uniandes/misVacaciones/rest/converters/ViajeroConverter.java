@@ -70,79 +70,26 @@ private ViajeroConverter {
     }
 
 
-/*
-private CiudadConverter() {
 
-    }
 
-    public static ViajeroDTO basicEntity2DTO(Viajeroentity entity) {
-        if (entity != null) {
-            ViajeroDTO dto = new ViajeroDTO();
-            dto.setId(entity.getIdentificador());
-            dto.setNombre(entity.getName());
-            dto.setDetalles(entity.getDetalles());
-            dto.setImagen(entity.getImagen());
-            return dto;
-        } else {
-            return null;
-        }
-    }
 
-    private static ViajeroEntity basicDTO2Entity(ViajeroDTO dto) {
-        if (dto != null) {
-            ViajeroEntity entity = new ViajeroEntity();
-            entity.setId(dto.getIdentificador());
-            entity.setName(dto.getName());
-            entity.setEmail(dto.getEmail());
-            entity.setPassword(dto.getPassword());
-            entity.setImagen(dto.getImagen());
-
-            return entity;
-
-        } else {
-            return null;
-        }
-    }
-
-    public static List<ViajeroDTO> listEntity2DTO(List<ViajeroEntity> entities) {
-        List<ViajeroDTO> dtos = new ArrayList<>();
-        if (entities != null) {
-            for (ViajeroEntity entity : entities) {
-                dtos.add(basicEntity2DTO(entity));
-            }
-        }
-        return dtos;
-    }
-
-    public static List<ViajeroEntity> listDTO2Entity(List<ViajeroDTO> dtos) {
-        List<ViajeroEntity> entities = new ArrayList<>();
-        if (dtos != null) {
-            for (ViajeroDTO dto : dtos) {
-                entities.add(basicDTO2Entity(dto));
-            }
-        }
-        return entities;
-    }
-
-    public static ViajeroDTO fullEntity2DTO(CiudadEntity entity) {
+    public static ViajeroDTO fullEntity2DTO(ViajeroEntity entity) {
         if (entity != null) {
             ViajeroDTO dto = basicEntity2DTO(entity);
-            dto.setEventos(EventoConverter.listEntity2DTO(entity.getEventos()));
-            dto.setSitios(SitioConverter.listEntity2DTO(entity.getSitios()));
+            dto.setItinerarios(ItinerarioConverter.listEntity2DTO(entity.getItinerarios()));
             return dto;
         } else {
             return null;
         }
     }
 
-    public static CiudadEntity fullDTO2Entity(CiudadDTO dto) {
+    public static ViajeroEntity fullDTO2Entity(ViajeroDTO dto) {
         if (dto != null) {
-            CiudadEntity entity = basicDTO2Entity(dto);
-            entity.setEventos(EventoConverter.listDTO2Entity(dto.getEventos()));
-            entity.setSitios(SitioConverter.listDTO2Entity(dto.getSitios()));
+            ViajeroEntity entity = basicDTO2Entity(dto);
+            entity.setItinerarios(ItinerarioConverter.listDTO2Entity(dto.getItinerarios()));
             return entity;
         } else {
             return null;
         }
-*/
     }
+}
