@@ -29,13 +29,13 @@ public class ViajeroPersistence {
         return em.merge(entity);
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         logger.log(Level.INFO, "Borrando viajero con id={0}", id);
         ViajeroEntity entity = em.find(ViajeroEntity.class, id);
         em.remove(entity);
     }
 
-    public ViajeroEntity find(Long id) {
+    public ViajeroEntity find(int id) {
         logger.log(Level.INFO, "Consultando viajero con id={0}", id);
         return em.find(ViajeroEntity.class, id);
     }

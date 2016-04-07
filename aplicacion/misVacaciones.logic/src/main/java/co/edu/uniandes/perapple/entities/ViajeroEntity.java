@@ -9,10 +9,18 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Id;
 
 @Entity
 public class ViajeroEntity extends BaseEntity implements Serializable {
 
 
   //TODO implementar metodos get y set por todos los atributos de la entidad -- agregar relaciones con otras entidades utilizando anotaciones
+    @Id
+    private int id;
+
+    public int getIdentificador()
+    {
+        return id;
+    }
 }

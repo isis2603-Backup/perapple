@@ -7,15 +7,17 @@ import java.util.List;
 
 public interface IViajeroLogic {
 
+
+
     public List<ViajeroEntity> getItinerarios();
 
-    public ViajeroEntity getViajero(Long id) throws BusinessLogicException;
+    public ViajeroEntity getViajero(int id) throws BusinessLogicException;
 
-    public ViajeroEntity createViajero(ViajeroEntity entity);
+    public ViajeroEntity createViajero(ViajeroEntity entity) throws BusinessLogicException;
 
-    public ViajeroEntity updateViajero(ViajeroEntity entity);
+    public ViajeroEntity updateViajero(ViajeroEntity entity)throws BusinessLogicException;
 
-    public void deleteViajero(Long id);
+    public void deleteViajero(int id) throws BusinessLogicException;
 
     public ItinerarioEntity addItinerario(Long bookId, Long authorId) throws BusinessLogicException;
 
@@ -23,7 +25,7 @@ public interface IViajeroLogic {
 
     public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> books, Long authorId) throws BusinessLogicException;
 
-    public List<ItinerarioEntity> getItinerarios(Long viajeroId);
+    public List<ItinerarioEntity> getItinerarios(int viajeroId)throws BusinessLogicException;
 
-    public ItinerarioEntity getItinerario(Long viajeroId, Long itinerarioId);
+    public ItinerarioEntity getItinerario(int viajeroId, int itinerarioId);
 }

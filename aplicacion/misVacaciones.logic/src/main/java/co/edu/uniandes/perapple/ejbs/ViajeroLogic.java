@@ -4,14 +4,12 @@ import co.edu.uniandes.perapple.entities.ViajeroEntity;
 import co.edu.uniandes.perapple.entities.ItinerarioEntity;
 import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import co.edu.uniandes.perapple.persistence.ViajeroPersistence;
-import co.edu.uniandes.perapple.persistence.ItinerarioPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.perapple.api.IViajeroLogic;
-import co.edu.uniandes.perapple.api.IItinerarioLogic;
 
 @Stateless
 public class ViajeroLogic implements IViajeroLogic {
@@ -34,7 +32,7 @@ public class ViajeroLogic implements IViajeroLogic {
     }
 
     @Override
-    public ViajeroEntity getViajero(Long id) throws BusinessLogicException {
+    public ViajeroEntity getViajero(int id) throws BusinessLogicException {
     logger.log(Level.INFO, "Inicia proceso de consultar viajero con id={0}", id);
         ViajeroEntity viajero = persistence.find(id);
         if (viajero == null) {
@@ -51,7 +49,7 @@ public class ViajeroLogic implements IViajeroLogic {
         //1. El viajero a crear no existe.
         //2. El nuevo ID a asignar al viajero está disponible.
         logger.info("Inicia proceso de creación de un viajero");
-        if (validateViajeroExiste(entity.getId())) {
+        if (validateViajeroExiste(entity.getIdentificador())) {
             throw new BusinessLogicException("Ya existe un viajero con ese id. No se puede crear. ");
         }
         persistence.create(entity);
@@ -65,7 +63,7 @@ public class ViajeroLogic implements IViajeroLogic {
         //1. El viajero ya existe.
         //2. No se actualiza el ID.
         logger.log(Level.INFO, "Inicia proceso de actualizar viajero con id={0}", entity.getId());
-        if (!validateViajeroExiste(entity.getId())) {
+        if (!validateViajeroExiste(entity.getIdentificador())) {
             throw new BusinessLogicException("el viajero que se quiere actualizar no existe.");
         }
         ViajeroEntity newEntity = persistence.update(entity);
@@ -74,7 +72,7 @@ public class ViajeroLogic implements IViajeroLogic {
     }
 
     @Override
-    public void deleteViajero(Long id) {
+    public void deleteViajero(int id) throws BusinessLogicException {
         //Validaciones
         //1. El viajero ya existe.
         logger.log(Level.INFO, "Inicia proceso de borrar viajero con id={0}", id);
@@ -106,7 +104,7 @@ public class ViajeroLogic implements IViajeroLogic {
     }
 
     @Override
-    public List<ItinerarioEntity> getItinerarios(Long viajeroId) {
+    public List<ItinerarioEntity> getItinerarios(int viajeroId)throws BusinessLogicException {
         //Validaciones
         //1. La ciudad ya existe.
         logger.log(Level.INFO, "Inicia proceso de obtener itinerarios del viajero con id={0}", viajeroId);
@@ -120,7 +118,7 @@ public class ViajeroLogic implements IViajeroLogic {
     }
 
     @Override
-    public ItinerarioEntity getItinerario(Long viajeroId, Long itinerarioId) {
+    public ItinerarioEntity getItinerario(int viajeroId, int itinerarioId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
