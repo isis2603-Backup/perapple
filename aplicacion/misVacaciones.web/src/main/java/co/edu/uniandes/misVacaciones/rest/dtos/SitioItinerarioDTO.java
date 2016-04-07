@@ -9,8 +9,18 @@ import java.util.Date;
  */
 public class SitioItinerarioDTO {
     private SitioDTO sitio;
+    private CiudadItinerarioDTO ciudad;
+    private Long id;
     private Date fechaIni;
     private Date fechaFin;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public SitioDTO getSitio() {
         return sitio;
@@ -18,6 +28,14 @@ public class SitioItinerarioDTO {
 
     public void setSitio(SitioDTO sitio) {
         this.sitio = sitio;
+    }
+
+    public CiudadItinerarioDTO getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(CiudadItinerarioDTO ciudad) {
+        this.ciudad = ciudad;
     }
 
     public Date getFechaIni() {

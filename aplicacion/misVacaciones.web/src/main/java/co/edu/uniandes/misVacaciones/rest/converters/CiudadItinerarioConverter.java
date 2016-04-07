@@ -21,5 +21,13 @@ public abstract class CiudadItinerarioConverter {
     public static CiudadItinerarioDTO fullEntity2DTO(CiudadItinerarioEntity addCiudad) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public static CiudadItinerarioEntity refDTO2Entity(CiudadItinerarioDTO ciudad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static CiudadItinerarioDTO refEntity2DTO(CiudadItinerarioEntity ciudad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

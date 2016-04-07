@@ -1,6 +1,5 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -9,13 +8,20 @@ import java.util.Date;
  * Los DTO especifican los mensajes que se envían entre el cliente y el servidor.
  */
 public class CiudadItinerarioDTO {
+    private int id;
     private CiudadDTO ciudad;
     private ItinerarioDTO itinerario;
-    private ArrayList<EventoItinerarioDTO> eventos;
-    private ArrayList<SitioItinerarioDTO> sitios;
     private Date fechaIni;
     private Date fechaFin;
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+        
     public CiudadDTO getCiudad() {
         return ciudad;
     }
@@ -46,21 +52,5 @@ public class CiudadItinerarioDTO {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
-    }
-
-    public ArrayList<EventoItinerarioDTO> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(ArrayList<EventoItinerarioDTO> eventos) {
-        this.eventos = eventos;
-    }
-
-    public ArrayList<SitioItinerarioDTO> getSitios() {
-        return sitios;
-    }
-
-    public void setSitios(ArrayList<SitioItinerarioDTO> sitios) {
-        this.sitios = sitios;
     }
 }

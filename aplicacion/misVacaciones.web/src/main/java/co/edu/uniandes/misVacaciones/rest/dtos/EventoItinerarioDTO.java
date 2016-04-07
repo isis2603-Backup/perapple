@@ -8,9 +8,19 @@ import java.util.Date;
  * Los DTO especifican los mensajes que se envían entre el cliente y el servidor.
  */
 public class EventoItinerarioDTO {
+    private int id;
     private EventoDTO evento;
+    private CiudadItinerarioDTO ciudad;
     private Date fechaIni;
     private Date fechaFin;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
    
     public EventoDTO getEvento() {
         return evento;
@@ -34,5 +44,13 @@ public class EventoItinerarioDTO {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public CiudadItinerarioDTO getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(CiudadItinerarioDTO ciudad) {
+        this.ciudad = ciudad;
     }
 }
