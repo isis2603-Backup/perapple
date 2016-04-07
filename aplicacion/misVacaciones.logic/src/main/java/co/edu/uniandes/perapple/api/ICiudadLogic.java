@@ -32,11 +32,11 @@ public interface ICiudadLogic {
 
     public EventoEntity getEvento(int eventoId, int ciudadId) throws BusinessLogicException;
 
-    public EventoEntity addEvento(int ciudadId, EventoEntity eventoId) throws BusinessLogicException;
+    public EventoEntity addEvento(int ciudadId, EventoEntity evento) throws BusinessLogicException;
 
     public void removeEvento(int eventoId, int ciudadId) throws BusinessLogicException;
-
-    public List<EventoEntity> replaceEventos(List<EventoEntity> eventos, int ciudadId) throws BusinessLogicException;
+    
+    public EventoEntity updateEvento(int ciudadId, EventoEntity evento) throws BusinessLogicException;
 
     public List<SitioEntity> getSitios(int ciudadId) throws BusinessLogicException;
 
@@ -46,9 +46,5 @@ public interface ICiudadLogic {
 
     public void removeSitio(int sitioId, int ciudadId) throws BusinessLogicException;
 
-    public List<SitioEntity> replaceSitios(List<SitioEntity> sitios, int ciudadId) throws BusinessLogicException;
-
-    public SitioEntity updateSitio(int id, int idSitio, SitioEntity entity) throws BusinessLogicException;
-
-    public EventoEntity updateEvento(int id, int idEvento, EventoEntity entity) throws BusinessLogicException;
+    public SitioEntity updateSitio(int ciudadId, SitioEntity sitio) throws BusinessLogicException;
 }
