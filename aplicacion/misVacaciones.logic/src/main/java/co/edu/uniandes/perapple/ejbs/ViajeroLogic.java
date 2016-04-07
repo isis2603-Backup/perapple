@@ -1,7 +1,6 @@
 package co.edu.uniandes.perapple.ejbs;
 
 import co.edu.uniandes.perapple.entities.ViajeroEntity;
-import co.edu.uniandes.perapple.entities.ItinerarioEntity;
 import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import co.edu.uniandes.perapple.persistence.ViajeroPersistence;
 import java.util.List;
@@ -23,7 +22,7 @@ public class ViajeroLogic implements IViajeroLogic {
      //Posibilidad de inyectar mas instancias de las otras persistencias de ser necesario
 
     @Override
-    public List<ViajeroEntity> getItinerarios() {
+    public List<ViajeroEntity> getViajeros() {
         logger.info("Inicia proceso de consultar todas los viajeros.");
         List<ViajeroEntity> viajeros = persistence.findAll();
         logger.info("Termina proceso de consultar todos los libros");
@@ -83,46 +82,7 @@ public class ViajeroLogic implements IViajeroLogic {
         logger.log(Level.INFO, "Termina proceso de borrar viajero con id={0}", id);
     }
 
-    @Override
-    public ItinerarioEntity addItinerario(Long bookId, Long authorId) throws BusinessLogicException {
-        //Validaciones
-        //1. el itinerario no existe
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeItinerario(Long bookId, Long authorId) {
-        //Validaciones
-        //1. El itinerario ya existe.
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<ItinerarioEntity> replaceItinerarios(List<ItinerarioEntity> books, Long authorId) throws BusinessLogicException {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<ItinerarioEntity> getItinerarios(int viajeroId)throws BusinessLogicException {
-        //Validaciones
-        //1. La ciudad ya existe.
-        logger.log(Level.INFO, "Inicia proceso de obtener itinerarios del viajero con id={0}", viajeroId);
-        if (!validateViajeroExiste(viajeroId)) {
-            throw new BusinessLogicException("El viajero del que se quieren saber los itinerarios no existe.");
-        }
-        List<ViajeroEntity> itinerarios = persistence.find(viajeroId).getItinerarios();
-        logger.log(Level.INFO, "Termina proceso de obtener itinerarios del viajero con id={0}", viajeroId);
-
-        return itinerarios;
-    }
-
-    @Override
-    public ItinerarioEntity getItinerario(int viajeroId, int itinerarioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-     private boolean validateViajeroExiste(int viajeroId) {
+    private boolean validateViajeroExiste(int viajeroId) {
 
         ViajeroEntity ciudad = persistence.find(viajeroId);
 
