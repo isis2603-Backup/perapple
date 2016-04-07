@@ -5,16 +5,18 @@
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
+import java.util.Date;
+
 /**
  * Objeto de transferencia de datos de Eventos.
  * @author Perapple
  */
 public class SitioDTO {
-    private Long id;
+    private int id;
     private String nombre;
     private String detalles;
     private String imagen;
-    private String fechaSitio;
+    private Date fechaSitio;
 
     /**
      * Constructor por defecto
@@ -23,7 +25,7 @@ public class SitioDTO {
 	}
 
 
-    public SitioDTO(Long id, String nombre, String detalles, String imagen, String fechaSitio) {
+    public SitioDTO(int id, String nombre, String detalles, String imagen, Date fechaSitio) {
         this.id = id;
         this.nombre = nombre;
         this.detalles = detalles;
@@ -33,11 +35,11 @@ public class SitioDTO {
 
 
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -65,11 +67,11 @@ public class SitioDTO {
         this.imagen = imagen;
     }
 
-    public String getFechaSitio() {
+    public Date getFechaSitio() {
         return fechaSitio;
     }
 
-    public void setFechaSitio(String fechaSitio) {
+    public void setFechaSitio(Date fechaSitio) {
         this.fechaSitio = fechaSitio;
     }
 

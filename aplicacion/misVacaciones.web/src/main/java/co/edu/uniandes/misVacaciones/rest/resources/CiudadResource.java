@@ -72,8 +72,13 @@ public class CiudadResource {
 
     @GET
      @Path("{id: \\d+}/sitios")
-    public List<SitioDTO> getSitios(@PathParam("id") Long idCiudad) {
-        return SitioConverter.listEntity2DTO(ciudadLogic.getSitios(idCiudad));
+    public List<SitioDTO> getSitios(@PathParam("id") int idCiudad) {
+        try {
+            return SitioConverter.listEntity2DTO(ciudadLogic.getSitios(idCiudad));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
      /**
@@ -84,8 +89,13 @@ public class CiudadResource {
 
     @GET
      @Path("{id: \\d+}/eventos")
-    public List<EventoDTO> getEventos(@PathParam("id")Long idCiudad) {
-        return EventoConverter.listEntity2DTO(ciudadLogic.getEventos(idCiudad));
+    public List<EventoDTO> getEventos(@PathParam("id")int idCiudad) {
+        try {
+            return EventoConverter.listEntity2DTO(ciudadLogic.getEventos(idCiudad));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
 
@@ -96,11 +106,11 @@ public class CiudadResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public CiudadDTO geCiudad(@PathParam("id") Long id){
+    public CiudadDTO geCiudad(@PathParam("id") int id){
         try {
             return CiudadConverter.fullEntity2DTO(ciudadLogic.getCiudad(id));
         } catch (BusinessLogicException ex){
-            logger.log(Level.SEVERE, "La ciudad no existe", ex);
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -113,8 +123,13 @@ public class CiudadResource {
      */
     @GET
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
-    public SitioDTO getSitio(@PathParam("id") Long id, @PathParam("idSitio")Long idSitio) {
-        return SitioConverter.fullEntity2DTO(ciudadLogic.getSitio(idSitio, id));
+    public SitioDTO getSitio(@PathParam("id") int id, @PathParam("idSitio")int idSitio) {
+        try {
+            return SitioConverter.fullEntity2DTO(ciudadLogic.getSitio(idSitio, id));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -125,8 +140,13 @@ public class CiudadResource {
      */
     @GET
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
-    public EventoDTO getEvento(@PathParam("id") Long id, @PathParam("idEvento")Long idEvento) {
-        return EventoConverter.fullEntity2DTO(ciudadLogic.getEvento(idEvento, id));
+    public EventoDTO getEvento(@PathParam("id") int id, @PathParam("idEvento")int idEvento) {
+        try {
+            return EventoConverter.fullEntity2DTO(ciudadLogic.getEvento(idEvento, id));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
 
@@ -139,7 +159,12 @@ public class CiudadResource {
     //@StatusCreated
     public CiudadDTO agregarCiudad(CiudadDTO ciudad) {
         CiudadEntity entity = CiudadConverter.fullDTO2Entity(ciudad);
-        return CiudadConverter.fullEntity2DTO(ciudadLogic.createCiudad(entity));
+        try {
+            return CiudadConverter.fullEntity2DTO(ciudadLogic.createCiudad(entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
      /**
@@ -150,9 +175,14 @@ public class CiudadResource {
      */
     @POST
     @Path("{id: \\d+}/sitios")
-    public SitioDTO agregarSitio(@PathParam("id")Long idCiudad, SitioDTO sitio) {
+    public SitioDTO agregarSitio(@PathParam("id")int idCiudad, SitioDTO sitio) {
         SitioEntity entity = SitioConverter.fullDTO2Entity(sitio);
-        return SitioConverter.fullEntity2DTO(ciudadLogic.addSitio(idCiudad, entity));
+        try {
+            return SitioConverter.fullEntity2DTO(ciudadLogic.addSitio(idCiudad, entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
      /**
@@ -163,9 +193,14 @@ public class CiudadResource {
      */
     @POST
      @Path("{id: \\d+}/eventos")
-    public EventoDTO agregarEvento(@PathParam("id")Long idCiudad, EventoDTO evento) {
+    public EventoDTO agregarEvento(@PathParam("id")int idCiudad, EventoDTO evento) {
         EventoEntity entity = EventoConverter.fullDTO2Entity(evento);
-        return EventoConverter.fullEntity2DTO(ciudadLogic.addEvento(idCiudad, entity));
+        try {
+            return EventoConverter.fullEntity2DTO(ciudadLogic.addEvento(idCiudad, entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -176,7 +211,7 @@ public class CiudadResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public CiudadDTO actualizarCiudad(@PathParam("id") Long id, CiudadDTO ciudad) {
+    public CiudadDTO actualizarCiudad(@PathParam("id") int id, CiudadDTO ciudad) {
         CiudadEntity entity = CiudadConverter.fullDTO2Entity(ciudad);
         entity.setId(id);
         try {
@@ -188,7 +223,12 @@ public class CiudadResource {
             logger.log(Level.SEVERE, "La ciudad no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
-        return CiudadConverter.fullEntity2DTO(ciudadLogic.updateCiudad(entity));
+        try {
+            return CiudadConverter.fullEntity2DTO(ciudadLogic.updateCiudad(entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
        /**
@@ -200,12 +240,14 @@ public class CiudadResource {
      */
     @PUT
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
-    public SitioDTO actualizarSitio(@PathParam("id") Long id, SitioDTO sitio, @PathParam("idSitio") Long idSitio) {
+    public SitioDTO actualizarSitio(@PathParam("id") int id, @PathParam("idSitio") int idSitio, SitioDTO sitio) {
         SitioEntity entity = SitioConverter.fullDTO2Entity(sitio);
-        entity.setId(idSitio);
-        SitioEntity oldEntity = ciudadLogic.getSitio(idSitio, id);
-        // TODO agregar atributos de oldEntity en entity
-        return SitioConverter.fullEntity2DTO(ciudadLogic.updateSitio(id, idSitio, entity));
+        try {
+            return SitioConverter.fullEntity2DTO(ciudadLogic.updateSitio(id, idSitio, entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
        /**
@@ -217,12 +259,14 @@ public class CiudadResource {
      */
     @PUT
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
-    public EventoDTO actualizarEvento(@PathParam("id") Long id, EventoDTO evento, @PathParam("idEvento") Long idEvento) {
+    public EventoDTO actualizarEvento(@PathParam("id") int id, @PathParam("idEvento") int idEvento, EventoDTO evento) {
         EventoEntity entity = EventoConverter.fullDTO2Entity(evento);
-        entity.setId(id);
-        EventoEntity oldEntity = ciudadLogic.getEvento(idEvento, id);
-        // TODO agregar atributos de oldEntity en entity
-        return EventoConverter.fullEntity2DTO(ciudadLogic.updateEvento(id, idEvento, entity));
+        try {
+            return EventoConverter.fullEntity2DTO(ciudadLogic.updateEvento(id, idEvento, entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -231,8 +275,13 @@ public class CiudadResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void borrarCiudad(@PathParam("id") Long id) {
-    	ciudadLogic.deleteCiudad(id);
+    public void borrarCiudad(@PathParam("id") int id) {
+        try {
+            ciudadLogic.deleteCiudad(id);
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -242,8 +291,13 @@ public class CiudadResource {
      */
     @DELETE
     @Path("{id: \\d+}/sitios/{idSitio: \\d+}")
-    public void borrarSitio(@PathParam("id") Long idCiudad,@PathParam("idSitio") Long idSitio) {
-    	ciudadLogic.removeSitio(idCiudad, idSitio);
+    public void borrarSitio(@PathParam("id") int idCiudad,@PathParam("idSitio") int idSitio) {
+        try {
+            ciudadLogic.removeSitio(idCiudad, idSitio);
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -253,8 +307,13 @@ public class CiudadResource {
      */
     @DELETE
     @Path("{id: \\d+}/eventos/{idEvento: \\d+}")
-    public void borrarEvento(@PathParam("id") Long idCiudad,@PathParam("idEvento") Long idEvento) {
-    	ciudadLogic.removeEvento(idCiudad, idEvento);
+    public void borrarEvento(@PathParam("id") int idCiudad,@PathParam("idEvento") int idEvento) {
+        try {
+            ciudadLogic.removeEvento(idCiudad, idEvento);
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
     
 

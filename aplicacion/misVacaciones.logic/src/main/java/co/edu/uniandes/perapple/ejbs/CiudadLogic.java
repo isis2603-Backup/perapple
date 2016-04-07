@@ -182,7 +182,7 @@ public class CiudadLogic implements ICiudadLogic {
     }
 
     @Override
-    public EventoEntity updateEvento(int ciudadId, EventoEntity evento) throws BusinessLogicException {
+    public EventoEntity updateEvento(int ciudadId, int eventoId, EventoEntity evento) throws BusinessLogicException {
         //Validaciones
         //1. El evento ya existe.
         //2. El evento existe en la ciudad determinada.
@@ -190,11 +190,15 @@ public class CiudadLogic implements ICiudadLogic {
         
         logger.log(Level.INFO, "Inicia proceso de actualizar un evento a la ciudad con id={0}",ciudadId);
         
+        if (eventoId != evento.getIdentificador()){
+            throw new BusinessLogicException("No se puede actualizar el ID.");
+        }
+        
         if (!validateCiudadExiste(ciudadId)) {
             throw new BusinessLogicException("La ciudad a la que se le quiere actualizar el evento no existe.");
         }
         
-        if (!validateEventoExiste(ciudadId, evento.getIdentificador())){
+        if (!validateEventoExiste(ciudadId, eventoId)){
             throw new BusinessLogicException("El evento no existe en esa ciudad.");
         }
         
@@ -204,15 +208,15 @@ public class CiudadLogic implements ICiudadLogic {
         
         for (int i=0; i<eventos.size(); i++){
             EventoEntity e = eventos.get(i);
-            if(e.getIdentificador()==evento.getIdentificador()){
+            if(e.getIdentificador()==eventoId){
                 eventos.set(i, evento);
                 ciudadEntity.setEventos(eventos);
-                logger.log(Level.INFO, "Termina el proceso de actualizar evento con id="+evento.getIdentificador()+" de la ciudad con id="+ciudadId);
+                logger.log(Level.INFO, "Termina el proceso de actualizar evento con id="+eventoId+" de la ciudad con id="+ciudadId);
                 return evento;
             }
         }
         
-        throw new BusinessLogicException("El evento con id="+evento.getIdentificador()+" de la ciudad con id="+ciudadId+" no se pudo actualizar.");
+        throw new BusinessLogicException("El evento con id="+eventoId+" de la ciudad con id="+ciudadId+" no se pudo actualizar.");
     }
     
     @Override
@@ -312,7 +316,7 @@ public class CiudadLogic implements ICiudadLogic {
     }
 
     @Override
-    public SitioEntity updateSitio(int ciudadId, SitioEntity sitio) throws BusinessLogicException {
+    public SitioEntity updateSitio(int ciudadId, int sitioId, SitioEntity sitio) throws BusinessLogicException {
         //Validaciones
         //1. El sitio ya existe.
         //2. El sitio existe en la ciudad determinada.
@@ -320,11 +324,15 @@ public class CiudadLogic implements ICiudadLogic {
         
         logger.log(Level.INFO, "Inicia proceso de actualizar un sitio a la ciudad con id={0}",ciudadId);
         
+        if (sitioId != sitio.getIdentificador()){
+            throw new BusinessLogicException("No se puede actualizar el ID.");
+        }
+        
         if (!validateCiudadExiste(ciudadId)) {
             throw new BusinessLogicException("La ciudad a la que se le quiere actualizar el sitio no existe.");
         }
         
-        if (!validateEventoExiste(ciudadId, sitio.getIdentificador())){
+        if (!validateEventoExiste(ciudadId, sitioId)){
             throw new BusinessLogicException("El evento no existe en esa ciudad.");
         }
         
@@ -334,15 +342,15 @@ public class CiudadLogic implements ICiudadLogic {
         
         for (int i=0; i<sitios.size(); i++){
             SitioEntity s = sitios.get(i);
-            if(s.getIdentificador()==sitio.getIdentificador()){
+            if(s.getIdentificador()==sitioId){
                 sitios.set(i, sitio);
                 ciudadEntity.setSitios(sitios);
-                logger.log(Level.INFO, "Termina el proceso de actualizar sitio con id="+sitio.getIdentificador()+" de la ciudad con id="+ciudadId);
+                logger.log(Level.INFO, "Termina el proceso de actualizar sitio con id="+sitioId+" de la ciudad con id="+ciudadId);
                 return sitio;
             }
         }
         
-        throw new BusinessLogicException("El sitio con id="+sitio.getIdentificador()+" de la ciudad con id="+ciudadId+" no se pudo actualizar.");
+        throw new BusinessLogicException("El sitio con id="+sitioId+" de la ciudad con id="+ciudadId+" no se pudo actualizar.");
     }
 
     

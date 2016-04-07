@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
+import java.util.Date;
+
 
 
 /**
@@ -12,19 +14,20 @@ package co.edu.uniandes.misVacaciones.rest.dtos;
  * @author Perapple
  */
 public class EventoDTO {
-    private Long id;
+    private int id;
     private String nombre;
     private String detalles;
     private String imagen;
-    private String fechaEvento;
+    private Date fechaEvento;
 
     /**
      * Constructor por defecto
      */
     public EventoDTO() {
-	}
+	
+    }
 
-    public EventoDTO(Long id, String nombre, String detalles, String imagen, String fechaEvento) {
+    public EventoDTO(int id, String nombre, String detalles, String imagen, Date fechaEvento) {
         this.id = id;
         this.nombre = nombre;
         this.detalles = detalles;
@@ -32,11 +35,11 @@ public class EventoDTO {
         this.fechaEvento = fechaEvento;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,11 +67,11 @@ public class EventoDTO {
         this.imagen = imagen;
     }
 
-    public String getFechaEvento() {
+    public Date getFechaEvento() {
         return fechaEvento;
     }
 
-    public void setFechaEvento(String fechaEvento) {
+    public void setFechaEvento(Date fechaEvento) {
         this.fechaEvento = fechaEvento;
     }
 

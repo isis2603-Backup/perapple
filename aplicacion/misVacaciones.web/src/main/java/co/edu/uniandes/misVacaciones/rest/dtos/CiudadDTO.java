@@ -5,7 +5,9 @@
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -13,20 +15,21 @@ import java.util.ArrayList;
  * @author Perappple
  */
 public class CiudadDTO {
-    private Long id;
+    private int id;
     private String nombre;
     private String detalles;
-    private String fechaInicio;
-    private String fechaFin;
-    private ArrayList<SitioDTO> sitios;
-    private ArrayList<EventoDTO> eventos;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private List<SitioDTO> sitios;
+    private List<EventoDTO> eventos;
     private String imagen;
 
     /**
      * Constructor por defecto
      */
     public CiudadDTO() {
-	}
+        
+    }
 
     /**
      * Constructor con parámetros.
@@ -37,29 +40,29 @@ public class CiudadDTO {
      * @param fechaInicio fecha de inicio visita ciudad
      * @param fechaFin fecha fin visita ciudad
      */
-    public CiudadDTO(Long id, String nombre, String detalles, String imagen, String fechaInicio, String fechaFin) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-                this.detalles=detalles;
-                this.imagen=imagen;
-                this.fechaInicio=fechaInicio;
-                this.fechaFin= fechaFin;
-                this.eventos= new ArrayList<>();
-                this.sitios= new ArrayList<>();
-	}
+    public CiudadDTO(int id, String nombre, String detalles, String imagen, Date fechaInicio, Date fechaFin) {
+        super();
+        this.id = id;
+        this.nombre = nombre;
+        this.detalles=detalles;
+        this.imagen=imagen;
+        this.fechaInicio=fechaInicio;
+        this.fechaFin= fechaFin;
+        this.eventos= new ArrayList<>();
+        this.sitios= new ArrayList<>();
+    }
 
-	/**
+    /**
      * @return El id de la ciudad
      */
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id El nuevo id de la ciudad ?
      */
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,38 +76,38 @@ public class CiudadDTO {
      /**
      * @return La fecha inicio visita en la ciudad
      */
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
      /**
      * @return La fecha fin de visita en la ciudad
      */
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
      /**
      * @return Lista de sitios de la ciudad
      */
-    public ArrayList<SitioDTO> getSitios() {
+    public List<SitioDTO> getSitios() {
         return sitios;
     }
 
-   public void setSitios(ArrayList<SitioDTO> sitios)
-   {
-       this.sitios = sitios;
-   }
+    public void setSitios(List<SitioDTO> sitios)
+    {
+        this.sitios = sitios;
+    }
 
     public void setDetalles(String detalles) {
         this.detalles = detalles;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -114,11 +117,11 @@ public class CiudadDTO {
     /**
      * @return Lista de eventos de la ciudad
      */
-    public ArrayList<EventoDTO> getEventos() {
+    public List<EventoDTO> getEventos() {
         return eventos;
     }
 
-    public void setEventos(ArrayList<EventoDTO> eventos)
+    public void setEventos(List<EventoDTO> eventos)
     {
         this.eventos = eventos;
     }
