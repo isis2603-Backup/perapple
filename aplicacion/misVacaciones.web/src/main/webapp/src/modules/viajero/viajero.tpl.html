@@ -6,19 +6,19 @@
                 <div class=" well" style="margin:5px; overflow: auto">
                     <div class="col-md-10" style="margin:0px 50px 0px 50px; text-align: center; text-align: center; ">
                         <h1 class="text-center">
-                            <strong>Viajeros </strong>
+                            <strong>Mis itinerarios </strong>
                         </h1>
                         <br>
                     </div>
-                    <div class="col-md-10 list-group" ng-repeat="viajero in records track by $index;">
-                        <a class="list-group-item" name="{{viajero.id}}" ui-sref="viajero" ng-click="ctrl.viajeroActual($event)" style="width:120%;">
-                            <strong>{{viajero.nombre}}</strong>
+                    <div class="col-md-10 list-group" ng-repeat="iter in records track by $index;">
+                        <a class="list-group-item" name="{{iter.id}}" ui-sref="itinerario" ng-click="ctrl.itinerarioActual($event)" style="width:120%;">
+                            <strong>{{iter.nombre}}</strong>
                         </a>
-                        <button ng-controller = "viajeroCtrl" class="btn btn-success" name = "{{viajero.id}}" ng-click="ctrl.borrarItinerario($event)">Borrar</button>
+                        <button ng-controller = "itinerarioCtrl" class="btn btn-success" name = "{{iter.id}}" ng-click="ctrl.borrarItinerario($event)">Borrar</button>
                     </div>
                     <div class="collapse navbar-collapse" id="agregar-button" style="float:right;">
                         <!--en false list-->
-                        <button id="create-viajero" class="btn btn-success navbar-btn" ng-show="list" ng-click="list = false; ">
+                        <button id="create-itinerario" class="btn btn-success navbar-btn" ng-show="list" ng-click="list = false; ">
                            <span class="glyphicon glyphicon-plus"></span>
                             Agregar
                         </button>
@@ -26,12 +26,12 @@
                 </div>
                 <div class="well" style="margin:5px; overflow: auto;" ng-show="!list">
                     <h1 class="text-center">
-                        <strong>Creación de viajero</strong>
+                        <strong>Creación de itinerario</strong>
                     </h1>
                     <!--formulario y creacion de itnerarios-->
                     <!--si list es falso se oprimio boton create-->
                     <div  class="well" style="background:#99FF00">
-                        <!--<form novalidate="" name="form" id="viajero-form" role="form">-->
+                        <!--<form novalidate="" name="form" id="itinerario-form" role="form">-->
                         <fieldset>
                             <div class="form-group col-md-12">
                                 <label for="name" class="col-md-2 control-label">Nombre</label>
@@ -40,37 +40,31 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="email" class="col-md-2 control-label" >correo</label>
+                                <label for="date" class="col-md-2 control-label" >Fecha inicial</label>
                                 <div class="col-md-10">
-                                    <input type="email" name="correo" id="date-ini" class="form-control" ng-model="correo" required="" />
+                                    <input type="date" name="date-ini" id="date-ini" class="form-control" ng-model="fechaIni" required="" />
                                 </div>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="password" class="col-md-2 control-label" >Contraseña</label>
+                                <label for="date" class="col-md-2 control-label" >Fecha final</label>
                                 <div class="col-md-10">
-                                    <input type="password" name="contrasena" id="date-fin" class="form-control" ng-model="contrasena" required="" />
-                                </div>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="link" class="col-md-2 control-label" >Link a imagen</label>
-                                <div class="col-md-10">
-                                    <input type="String" name="inamgen" id="date-fin" class="form-control" ng-model="imagen" required="" />
+                                    <input type="date" name="date-fin" id="date-fin" class="form-control" ng-model="fechaFin" required="" />
                                 </div>
                             </div>
                         </fieldset>
                         <!--</form>-->
                     </div>
-                    <div class="collapse navbar-collapse" id="viajero-buttons" style="float:right;">
+                    <div class="collapse navbar-collapse" id="itinerario-buttons" style="float:right;">
                         <!--en false list-->
-                        <!--<button id="create-viajero" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false; ">
+                        <!--<button id="create-itinerario" class="btn btn-default navbar-btn" ng-show="list" ng-click="list = false; ">
                         <span class="glyphicon glyphicon-plus"></span>
                         Agregar</button>-->
                         <!--en true list-->
-                        <button id="save-viajero" class="btn btn-success navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregarItinerario(nombreNuevoItinerario,fechaIni,fechaFin); ">
+                        <button id="save-itinerario" class="btn btn-success navbar-btn" ng-show="!list" ng-click="list = true; ctrl.agregarItinerario(nombreNuevoItinerario,fechaIni,fechaFin); ">
                             <span class="glyphicon glyphicon-save"></span>
                             Salvar
                         </button>
-                        <button id="cancel-viajero" class="btn btn-success navbar-btn" ng-show="!list" ng-click="list = true">
+                        <button id="cancel-itinerario" class="btn btn-success navbar-btn" ng-show="!list" ng-click="list = true">
                             <span class="glyphicon glyphicon-remove"></span>
                             Cancelar
                         </button>
