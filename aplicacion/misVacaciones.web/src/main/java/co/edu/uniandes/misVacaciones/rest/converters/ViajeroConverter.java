@@ -22,7 +22,7 @@ private ViajeroConverter {
     public static ViajeroDTO basicEntity2DTO(ViajeroEntity entity) {
         if (entity != null) {
             ViajeroDTO dto = new ViajeroDTO();
-            dto.setId(entity.getIdentificador());
+            dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setEmail(entity.getEmail());
             dto.setPassword(entity.getPassword());
@@ -37,7 +37,7 @@ private ViajeroConverter {
     private static ViajeroEntity basicDTO2Entity(ViajeroDTO dto) {
         if (dto != null) {
             ViajeroEntity entity = new ViajeroEntity();
-            entity.setId(dto.getIdentificador());
+            entity.setId(dto.getId());
             entity.setName(dto.getName());
             entity.setEmail(dto.getEmail());
             entity.setPassword(dto.getPassword());
