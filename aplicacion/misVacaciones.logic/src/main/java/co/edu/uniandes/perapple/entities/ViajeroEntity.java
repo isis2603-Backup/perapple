@@ -8,10 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Id;
-import sun.security.util.Password;
+import javax.persistence.OneToMany;
+
 
 
 public class ViajeroEntity  implements Serializable {
@@ -79,4 +78,12 @@ public class ViajeroEntity  implements Serializable {
     {
         this.image=image;
     }
+
+    @OneToMany
+    private List<ItinerarioEntity> itinerarios;
+
+        public List<ItinerarioEntity> getItinerarios() {
+        return itinerarios;
+    }
+
 }
