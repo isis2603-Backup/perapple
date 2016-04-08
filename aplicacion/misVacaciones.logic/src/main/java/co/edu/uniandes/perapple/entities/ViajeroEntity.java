@@ -1,23 +1,25 @@
 package co.edu.uniandes.perapple.entities;
 
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Id;
 import sun.security.util.Password;
 
-@Entity
-public class ViajeroEntity extends BaseEntity implements Serializable {
+
+public class ViajeroEntity  implements Serializable {
 
 
   //TODO  -- agregar relaciones con otras entidades utilizando anotaciones
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
 
     public int getId()
@@ -29,7 +31,7 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
         this.id=id;
     }
 
-    @Name
+    //Name
     private String name;
 
     public String getName()
@@ -41,8 +43,8 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
         this.name=name;
     }
 
-    @Email
-    private String email
+    //Email
+    private String email;
 
      public String getEmail()
      {
@@ -53,7 +55,7 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
          this.email=email;
      }
 
-    @Password
+    //Password
     private String password;
 
     public String getPassword()
@@ -66,7 +68,7 @@ public class ViajeroEntity extends BaseEntity implements Serializable {
         this.password=password;
     }
 
-    @Image
+    //Imagen
     private String image;
 
     public String getImage()
