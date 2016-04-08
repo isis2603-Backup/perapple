@@ -64,7 +64,7 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class ItinerarioResource {
         private static final Logger logger = Logger.getLogger(CiudadResource.class.getName());
-    
+
 	@Inject
 	IItinerarioLogic itinerarioLogic;
 
@@ -105,10 +105,10 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ItinerarioDTO getItinerario(@PathParam("id") Long id) {
+    public ItinerarioDTO getItinerario(@PathParam("id") int id) {
         try {
             return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.getItinerario(id));
-        } catch (BusinessLogicException ex){
+        } catch (Exception ex){
             logger.log(Level.SEVERE, "La ciudad no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
@@ -123,7 +123,13 @@ public class ItinerarioResource {
     @POST
     public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) {
         ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
-        return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.createItinerario(entity));
+        ItinerarioDTO iter = null;
+            try {
+                iter = ItinerarioConverter.fullEntity2DTO(itinerarioLogic.createItinerario(entity));
+            } catch (BusinessLogicException ex) {
+                Logger.getLogger(ItinerarioResource.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    return iter;
     }
 
     /**
@@ -135,18 +141,25 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public ItinerarioDTO updateItinerario(@PathParam("id") Long id, ItinerarioDTO itinerario) {
+    public ItinerarioDTO updateItinerario(@PathParam("id") int id, ItinerarioDTO itinerario) {
         ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
         entity.setId(id);
         try {
             ItinerarioEntity oldEntity = itinerarioLogic.getItinerario(id);
             // TODO
             //entity.setCiudades(oldEntity.getCiudades());
-        } catch (BusinessLogicException ex) {
+        } catch (Exception ex) {
             logger.log(Level.SEVERE, "El itinerario no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
-        return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateItinerario(entity));
+        ItinerarioDTO dto = null;
+            try {
+                dto = ItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateItinerario(entity));
+            } catch (BusinessLogicException ex) {
+                Logger.getLogger(ItinerarioResource.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        return dto;
     }
 
     /**
@@ -156,8 +169,12 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteItinerario(@PathParam("id") Long id) {
-    	itinerarioLogic.deleteItinerario(id);
+    public void deleteItinerario(@PathParam("id") int id) {
+            try {
+                itinerarioLogic.deleteItinerario(id);
+            } catch (BusinessLogicException ex) {
+                Logger.getLogger(ItinerarioResource.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     /**
@@ -167,7 +184,7 @@ public class ItinerarioResource {
      */
     @POST
     @Path("{id: \\d+}/ciudades")
-    public CiudadItinerarioDTO createCiudad(@PathParam("id")Long id, CiudadItinerarioDTO ciudad) {
+    public CiudadItinerarioDTO createCiudad(@PathParam("id")int id, CiudadItinerarioDTO ciudad) {
         CiudadItinerarioEntity entity = CiudadItinerarioConverter.fullDTO2Entity(ciudad);
         return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.addCiudad(entity, id));
     }
@@ -180,9 +197,16 @@ public class ItinerarioResource {
      */
     @PUT
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
-    public CiudadItinerarioDTO updateCiudades(@PathParam("id") Long id, CiudadItinerarioDTO ciudad, @PathParam("idciudad") Long idciudad) {
+    public CiudadItinerarioDTO updateCiudades(@PathParam("id") int id, CiudadItinerarioDTO ciudad, @PathParam("idciudad") int idciudad) {
         CiudadItinerarioEntity entity = CiudadItinerarioConverter.fullDTO2Entity(ciudad);
-        entity.setId(idciudad);
+
+
+
+        //TODO: TODOS CON INT O TODOS CON LONG
+
+
+
+//entity.setId(idciudad);
         CiudadItinerarioEntity oldEntity = itinerarioLogic.getCiudad(id, idciudad);
         // TODO agregar atributos de oldEntity en entity
         return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateCiudad(entity, idciudad));
@@ -195,7 +219,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
-    public void deleteCiudad(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad) {
+    public void deleteCiudad(@PathParam("id") int id,@PathParam("idciudad") int idciudad) {
     	itinerarioLogic.deleteCiudad(id, idciudad);
     }
 
@@ -207,7 +231,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades")
-    public List<CiudadItinerarioDTO> getCiudades(@PathParam("id") Long id) {
+    public List<CiudadItinerarioDTO> getCiudades(@PathParam("id") int id) {
         return CiudadItinerarioConverter.listEntity2DTO(itinerarioLogic.getCiudades(id));
     }
 
@@ -221,7 +245,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad:\\d+}")
-    public CiudadItinerarioDTO getCiudad(@PathParam("id") Long id, @PathParam("idciudad") Long idciudad) {
+    public CiudadItinerarioDTO getCiudad(@PathParam("id") int id, @PathParam("idciudad") int idciudad) {
         return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.getCiudad(id, idciudad));
     }
 
@@ -235,7 +259,7 @@ public class ItinerarioResource {
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public SitioItinerarioDTO createSitioInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, SitioItinerarioDTO sitio) {
+    public SitioItinerarioDTO createSitioInteres(@PathParam("id")int id, @PathParam("idciudad") int idciudad, SitioItinerarioDTO sitio) {
         SitioItinerarioEntity entity = SitioItinerarioConverter.fullDTO2Entity(sitio);
         return SitioItinerarioConverter.fullEntity2DTO(itinerarioLogic.createSitio(id, idciudad, entity));
     }
@@ -248,7 +272,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
-    public void deleteSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) {
+    public void deleteSitioDeInteres(@PathParam("id") int id,@PathParam("idciudad") int idciudad, @PathParam("idsitio") int idsitio) {
     	itinerarioLogic.deleteSitio(id, idciudad, idsitio);
     }
 
@@ -262,7 +286,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios")
-    public List<SitioItinerarioDTO> fetchSitiosInteres(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) {
+    public List<SitioItinerarioDTO> fetchSitiosInteres(@PathParam("id")int id, @PathParam("idciudad") int idciudad) {
         return SitioItinerarioConverter.listEntity2DTO(itinerarioLogic.getSitios(id, idciudad));
     }
 
@@ -278,7 +302,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/sitios/{idsitio: \\d+}")
-    public SitioItinerarioDTO fetchSitioDeInteres(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idsitio") Long idsitio) {
+    public SitioItinerarioDTO fetchSitioDeInteres(@PathParam("id") int id,@PathParam("idciudad") int idciudad, @PathParam("idsitio") int idsitio) {
     	return SitioItinerarioConverter.fullEntity2DTO(itinerarioLogic.getSitio(id, idciudad, idsitio));
     }
 
@@ -293,7 +317,7 @@ public class ItinerarioResource {
      */
     @POST
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
-    public EventoItinerarioDTO createEvento(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad, EventoItinerarioDTO evento){
+    public EventoItinerarioDTO createEvento(@PathParam("id")int id, @PathParam("idciudad") int idciudad, EventoItinerarioDTO evento){
         EventoItinerarioEntity entity = EventoItinerarioConverter.fullDTO2Entity(evento);
         return EventoItinerarioConverter.fullEntity2DTO(itinerarioLogic.createEvento(id, idciudad, entity));
     }
@@ -309,7 +333,7 @@ public class ItinerarioResource {
      */
     @DELETE
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
-    public void deleteEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) {
+    public void deleteEvento(@PathParam("id") int id,@PathParam("idciudad") int idciudad, @PathParam("idevento") int idevento) {
     	itinerarioLogic.deleteEvento(id, idciudad, idevento);
     }
 
@@ -323,7 +347,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos")
-    public List<EventoItinerarioDTO> fetchEventos(@PathParam("id")Long id, @PathParam("idciudad") Long idciudad) {
+    public List<EventoItinerarioDTO> fetchEventos(@PathParam("id")int id, @PathParam("idciudad") int idciudad) {
         return EventoItinerarioConverter.listEntity2DTO(itinerarioLogic.getEventos(id, idciudad));
     }
 
@@ -339,7 +363,7 @@ public class ItinerarioResource {
      */
     @GET
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}/eventos/{idevento: \\d+}")
-    public EventoItinerarioDTO fetchEvento(@PathParam("id") Long id,@PathParam("idciudad") Long idciudad, @PathParam("idevento") Long idevento) {
+    public EventoItinerarioDTO fetchEvento(@PathParam("id") int id,@PathParam("idciudad") int idciudad, @PathParam("idevento") int idevento) {
     	return EventoItinerarioConverter.fullEntity2DTO(itinerarioLogic.getEvento(id, idciudad, idevento));
     }
 
@@ -351,7 +375,7 @@ public class ItinerarioResource {
     @GET
     @Path("viajero/{idviajero: }")
     //Id como String o Long?
-    public List<ItinerarioDTO> getItinerariosViajero(@PathParam("idviajero") Long id){
+    public List<ItinerarioDTO> getItinerariosViajero(@PathParam("idviajero") int id){
     	return ItinerarioConverter.listEntity2DTO(itinerarioLogic.getItinerariosViajero(id));
     }
 }

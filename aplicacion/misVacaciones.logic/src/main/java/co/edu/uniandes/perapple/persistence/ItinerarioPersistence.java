@@ -17,7 +17,7 @@ public class ItinerarioPersistence {
     @PersistenceContext(unitName = "MisVacacionesPU")
     protected EntityManager em;
 
-    public ItinerarioEntity find(Long id) {
+    public ItinerarioEntity find(int id) {
         logger.log(Level.INFO, "Consultando Itinerario con id={0}", id);
         return em.find(ItinerarioEntity.class, id);
     }
@@ -27,6 +27,14 @@ public class ItinerarioPersistence {
         Query q = em.createQuery("select u from ItinerarioEntity u");
         return q.getResultList();
     }
+
+    /**Creacion de metodos con sentencia de busqueda sql para encontrar cosas mas rapido
+    *   public List<ItinerarioEntity> findByViajero(String nombreViajero) {
+    *   logger.info("Consultando todos los itinerarios");
+    *   Query q = em.createQuery("select u from ItinerarioEntity u");
+    *   return q.getResultList();
+    *}
+    */
 
     public ItinerarioEntity create(ItinerarioEntity entity) {
         logger.info("Creando un itinerario nuevo");
@@ -40,7 +48,7 @@ public class ItinerarioPersistence {
         return em.merge(entity);
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         logger.log(Level.INFO, "Borrando itinerario con id={0}", id);
         ItinerarioEntity entity = em.find(ItinerarioEntity.class, id);
         em.remove(entity);
