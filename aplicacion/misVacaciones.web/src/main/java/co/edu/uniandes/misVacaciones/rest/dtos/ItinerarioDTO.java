@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Asistente
  */
 public class ItinerarioDTO {
-    private Long id;
+    private int id;
     private String nombre;
     private String viajero;
     private String fechaInicio;
@@ -35,7 +35,7 @@ public class ItinerarioDTO {
      * @param fechaFin
      */
 
-    public ItinerarioDTO(Long id, String nombre, String viajero, String fechaInicio, String fechaFin) {
+    public ItinerarioDTO(int id, String nombre, String viajero, String fechaInicio, String fechaFin) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -47,14 +47,14 @@ public class ItinerarioDTO {
 	/**
      * @return the id
      */
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
