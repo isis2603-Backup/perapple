@@ -37,13 +37,13 @@ public class ViajeroLogicMock {
 
     	if (viajeros == null) {
             viajeros = new ArrayList<>();
-            viajeros.add(new ViajeroDTO(1L, "Perapple", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
-            viajeros.add(new ViajeroDTO(2L, "Camilo Mendoza", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
-            viajeros.add(new ViajeroDTO(3L, "Harold Gonzalez", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
-            viajeros.add(new ViajeroDTO(4L, "María Remolina", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
-            viajeros.add(new ViajeroDTO(5L, "Esteban Dalel", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
-            viajeros.add(new ViajeroDTO(6L, "Nicolas Galvis", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
-            viajeros.add(new ViajeroDTO(7L, "Daniel Althviz", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(1, "Perapple", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(2, "Camilo Mendoza", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(3, "Harold Gonzalez", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(4, "María Remolina", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(5, "Esteban Dalel", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(6, "Nicolas Galvis", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
+            viajeros.add(new ViajeroDTO(7, "Daniel Althviz", "p@erapple", "perapple","http://cdnstatic.visualizeus.com/thumbs/03/03/apple,colorful,logos,pear-0303435d1a5f1f8f70a1ea3429f072cb_h.jpg"));
 
         }
 
@@ -102,7 +102,7 @@ public class ViajeroLogicMock {
     	logger.info("recibiendo solicitud de agregar viajero " + newViajero);
 
     	// el nuevo viajero tiene id
-    	if ( newViajero.getId() != null ) {
+    	if ( newViajero.getId() != 0 ) {
 	    	// busca la ciudad con el id suministrado
 	        for (ViajeroDTO viajero : viajeros) {
 	        	// si existe una ciudad con ese id
@@ -117,7 +117,7 @@ public class ViajeroLogicMock {
 
     		// genera un id para el viajero
     		logger.info("Generando id para el nuevo viajero");
-    		long newId = 1;
+    		int newId = 1;
 	        for (ViajeroDTO viajero : viajeros) {
 	            if (newId <= viajero.getId()){
 	                newId =  viajero.getId() + 1;

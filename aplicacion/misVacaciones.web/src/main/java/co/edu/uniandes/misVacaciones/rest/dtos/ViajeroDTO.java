@@ -5,16 +5,27 @@
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
+import java.util.List;
+
 /**
  * Objeto de transferencia de datos de Viajeros.
  * @author Perapple
  */
 public class ViajeroDTO {
-    private Long id;
+    private int id;
     private String name;
     private String email;
     private String password;
     private String image;
+    private List<ItinerarioDTO> itinerarios;
+
+    public void setItinerarios(List<ItinerarioDTO> itinerarios) {
+        this.itinerarios = itinerarios;
+    }
+
+    public List<ItinerarioDTO> getItinerarios() {
+        return itinerarios;
+    }
 
     /**
      * Constructor por defecto
@@ -30,7 +41,7 @@ public class ViajeroDTO {
      * @param password contraseña del viajero
      * @param image imagen de perfil del viajero
      */
-    public ViajeroDTO(Long id, String name, String email, String password, String image) {
+    public ViajeroDTO(int id, String name, String email, String password, String image) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,7 +54,7 @@ public class ViajeroDTO {
      * Retorna el id del viajero
      * @return el id del viajero
      */
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -51,7 +62,7 @@ public class ViajeroDTO {
      * Modifica el id del viajero
      * @param id el id a modificar
      */
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

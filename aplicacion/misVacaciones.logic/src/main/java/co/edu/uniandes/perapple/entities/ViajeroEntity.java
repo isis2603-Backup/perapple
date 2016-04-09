@@ -86,4 +86,8 @@ public class ViajeroEntity  implements Serializable {
         return itinerarios;
     }
 
+    public void setItinerarios(List<ItinerarioEntity> listDTO2Entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

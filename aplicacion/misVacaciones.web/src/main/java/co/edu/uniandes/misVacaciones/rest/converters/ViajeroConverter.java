@@ -16,9 +16,9 @@ public abstract class ViajeroConverter {
      * Constructor privado para evitar la creación del constructor implícito de
      * Java
      */
-private ViajeroConverter {
+    private ViajeroConverter (){
 
-}
+    }
     public static ViajeroDTO basicEntity2DTO(ViajeroEntity entity) {
         if (entity != null) {
             ViajeroDTO dto = new ViajeroDTO();
@@ -26,7 +26,7 @@ private ViajeroConverter {
             dto.setName(entity.getName());
             dto.setEmail(entity.getEmail());
             dto.setPassword(entity.getPassword());
-            dto.setImagen(entity.getImagen());
+            dto.setImage(entity.getImage());
             return dto;
         }
         else {
@@ -41,7 +41,7 @@ private ViajeroConverter {
             entity.setName(dto.getName());
             entity.setEmail(dto.getEmail());
             entity.setPassword(dto.getPassword());
-            entity.setImagen(dto.getImagen());
+            entity.setImage(dto.getImage());
 
             return entity;
 

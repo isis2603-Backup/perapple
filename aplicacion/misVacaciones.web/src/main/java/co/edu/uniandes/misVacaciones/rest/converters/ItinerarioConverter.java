@@ -21,5 +21,9 @@ public abstract class ItinerarioConverter {
     public static ItinerarioEntity fullDTO2Entity(ItinerarioDTO nuevoCurrent) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public static List<ItinerarioEntity> listDTO2Entity(List<ItinerarioDTO> currentItinerario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

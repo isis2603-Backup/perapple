@@ -48,7 +48,7 @@ public class ViajeroLogic implements IViajeroLogic {
         //1. El viajero a crear no existe.
         //2. El nuevo ID a asignar al viajero está disponible.
         logger.info("Inicia proceso de creación de un viajero");
-        if (validateViajeroExiste(entity.getIdentificador())) {
+        if (validateViajeroExiste(entity.getId())) {
             throw new BusinessLogicException("Ya existe un viajero con ese id. No se puede crear. ");
         }
         persistence.create(entity);
@@ -62,7 +62,7 @@ public class ViajeroLogic implements IViajeroLogic {
         //1. El viajero ya existe.
         //2. No se actualiza el ID.
         logger.log(Level.INFO, "Inicia proceso de actualizar viajero con id={0}", entity.getId());
-        if (!validateViajeroExiste(entity.getIdentificador())) {
+        if (!validateViajeroExiste(entity.getId())) {
             throw new BusinessLogicException("el viajero que se quiere actualizar no existe.");
         }
         ViajeroEntity newEntity = persistence.update(entity);
