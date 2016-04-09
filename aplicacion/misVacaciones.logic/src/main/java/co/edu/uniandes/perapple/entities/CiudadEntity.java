@@ -10,11 +10,14 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
-public class CiudadEntity extends BaseEntity implements Serializable {
+public class CiudadEntity  implements Serializable {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -38,7 +41,7 @@ public class CiudadEntity extends BaseEntity implements Serializable {
     @Column
     private String imagen;
 
-    public int getIdentificador()
+    public int getId()
     {
         return id;
     }

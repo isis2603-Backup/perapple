@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -12,10 +14,11 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class EventoEntity extends BaseEntity implements Serializable {
+public class EventoEntity implements Serializable {
 
 
   @Id
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
   private int id;
 
   @Column
@@ -33,7 +36,7 @@ public class EventoEntity extends BaseEntity implements Serializable {
   @ManyToOne
   private CiudadEntity ciudad;
 
-    public int getIdentificador() {
+    public int getId() {
         return id;
     }
 
