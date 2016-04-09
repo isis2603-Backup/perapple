@@ -1,9 +1,11 @@
 package co.edu.uniandes.perapple.entities;
 
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,7 +15,11 @@ import javax.persistence.TemporalType;
  * @author camen
  */
 @Entity
-public class SitioItinerarioEntity extends BaseEntity implements Serializable{
+public class SitioItinerarioEntity implements Serializable{
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private int id;
+    
     @ManyToOne
     private SitioEntity sitio;
     
@@ -25,6 +31,14 @@ public class SitioItinerarioEntity extends BaseEntity implements Serializable{
     
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public SitioEntity getSitio() {
         return sitio;

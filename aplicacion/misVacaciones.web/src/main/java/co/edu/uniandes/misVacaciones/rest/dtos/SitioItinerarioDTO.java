@@ -10,15 +10,15 @@ import java.util.Date;
 public class SitioItinerarioDTO {
     private SitioDTO sitio;
     private CiudadItinerarioDTO ciudad;
-    private Long id;
+    private int id;
     private Date fechaIni;
     private Date fechaFin;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

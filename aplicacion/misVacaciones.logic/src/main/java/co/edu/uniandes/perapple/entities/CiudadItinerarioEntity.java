@@ -1,11 +1,13 @@
 package co.edu.uniandes.perapple.entities;
 
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -16,7 +18,11 @@ import javax.persistence.TemporalType;
  * @author camen
  */
 @Entity
-public class CiudadItinerarioEntity extends BaseEntity implements Serializable{
+public class CiudadItinerarioEntity implements Serializable{
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private int id;
+    
     @ManyToOne
     private CiudadEntity ciudad;
     
@@ -34,6 +40,14 @@ public class CiudadItinerarioEntity extends BaseEntity implements Serializable{
     
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public CiudadEntity getCiudad() {
         return ciudad;
