@@ -6,6 +6,8 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Objeto de transferencia de datos de Itinerarios.
@@ -14,10 +16,10 @@ import java.util.ArrayList;
 public class ItinerarioDTO {
     private int id;
     private String nombre;
-    private String viajero;
-    private String fechaInicio;
-    private String fechaFin;
-    private ArrayList<CiudadItinerarioDTO> ciudades;
+    private ViajeroDTO viajero;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private List<CiudadItinerarioDTO> ciudades;
 
     /**
      * Constructor por defecto
@@ -35,7 +37,7 @@ public class ItinerarioDTO {
      * @param fechaFin
      */
 
-    public ItinerarioDTO(int id, String nombre, String viajero, String fechaInicio, String fechaFin) {
+    public ItinerarioDTO(int id, String nombre, ViajeroDTO viajero, Date fechaInicio, Date fechaFin) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -59,35 +61,35 @@ public class ItinerarioDTO {
     }
 
 
-    public String getViajero() {
+    public ViajeroDTO getViajero() {
         return viajero;
     }
 
-    public void setViajero(String viajero) {
+    public void setViajero(ViajeroDTO viajero) {
         this.viajero = viajero;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 
-    public ArrayList<CiudadItinerarioDTO> getCiudades() {
+    public List<CiudadItinerarioDTO> getCiudades() {
         return ciudades;
     }
 
-    public void setCiudades(ArrayList<CiudadItinerarioDTO> ciudades) {
+    public void setCiudades(List<CiudadItinerarioDTO> ciudades) {
         this.ciudades = ciudades;
     }
 

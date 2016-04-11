@@ -24,7 +24,7 @@ public class ItinerarioEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private String nombre;
 
     @OneToMany (mappedBy = "itinerario")
     private List<CiudadItinerarioEntity> ciudades = new ArrayList<>();
@@ -42,8 +42,8 @@ public class ItinerarioEntity implements Serializable {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setCiudades(List<CiudadItinerarioEntity> ciudades) {
@@ -66,8 +66,8 @@ public class ItinerarioEntity implements Serializable {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
     public List<CiudadItinerarioEntity> getCiudades() {

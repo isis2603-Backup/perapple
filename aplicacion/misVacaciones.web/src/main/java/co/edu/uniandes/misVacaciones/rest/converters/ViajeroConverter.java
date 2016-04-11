@@ -34,7 +34,7 @@ public abstract class ViajeroConverter {
         }
     }
 
-    private static ViajeroEntity basicDTO2Entity(ViajeroDTO dto) {
+    public static ViajeroEntity basicDTO2Entity(ViajeroDTO dto) {
         if (dto != null) {
             ViajeroEntity entity = new ViajeroEntity();
             entity.setId(dto.getId());

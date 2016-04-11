@@ -18,8 +18,8 @@ public abstract class CiudadConverter {
     public static CiudadDTO basicEntity2DTO(CiudadEntity entity) {
         if (entity != null) {
             CiudadDTO dto = new CiudadDTO();
-            dto.setId(entity.getIdentificador());
-            dto.setNombre(entity.getName());
+            dto.setId(entity.getId());
+            dto.setNombre(entity.getNombre());
             dto.setDetalles(entity.getDetalles());
             dto.setImagen(entity.getImagen());
             dto.setFechaInicio(entity.getFechaInicio());
@@ -30,7 +30,7 @@ public abstract class CiudadConverter {
         }
     }
     
-    private static CiudadEntity basicDTO2Entity(CiudadDTO dto) {
+    public static CiudadEntity basicDTO2Entity(CiudadDTO dto) {
         if (dto != null) {
             CiudadEntity entity = new CiudadEntity();
             entity.setId(dto.getId());
@@ -86,5 +86,4 @@ public abstract class CiudadConverter {
             return null;
         }
     }
-    
 }

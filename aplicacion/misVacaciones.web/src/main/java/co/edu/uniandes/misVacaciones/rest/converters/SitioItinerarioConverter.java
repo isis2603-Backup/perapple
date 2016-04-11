@@ -40,7 +40,7 @@ public abstract class SitioItinerarioConverter {
             entity.setFechaIni(dto.getFechaIni());
             entity.setFechaFin(dto.getFechaFin());
             entity.setSitio(SitioConverter.fullDTO2Entity(dto.getSitio())); //Revisar
-            entity.setCiudad(CiudadItinerarioConverter.refDTO2Entity(dto.getCiudad()));
+            entity.setCiudad(CiudadItinerarioConverter.basicDTO2Entity(dto.getCiudad()));
             return entity;
         } else {
             return null;
@@ -54,7 +54,7 @@ public abstract class SitioItinerarioConverter {
             dto.setFechaIni(entity.getFechaIni());
             dto.setFechaFin(entity.getFechaFin());
             dto.setSitio(SitioConverter.fullEntity2DTO(entity.getSitio())); //Revisar
-            dto.setCiudad(CiudadItinerarioConverter.refEntity2DTO(entity.getCiudad()));
+            dto.setCiudad(CiudadItinerarioConverter.basicEntity2DTO(entity.getCiudad()));
             return dto;
         } else {
             return null;

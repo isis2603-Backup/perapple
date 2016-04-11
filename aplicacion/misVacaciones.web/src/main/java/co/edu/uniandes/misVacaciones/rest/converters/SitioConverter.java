@@ -14,8 +14,8 @@ public abstract class SitioConverter {
     public static SitioDTO basicEntity2DTO(SitioEntity entity) {
         if (entity != null) {
             SitioDTO dto = new SitioDTO();
-            dto.setId(entity.getIdentificador());
-            dto.setNombre(entity.getName());
+            dto.setId(entity.getId());
+            dto.setNombre(entity.getNombre());
             dto.setDetalles(entity.getDetalles());
             dto.setImagen(entity.getImagen());
             dto.setFechaSitio(entity.getFechaSitio());

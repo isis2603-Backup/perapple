@@ -14,8 +14,8 @@ public abstract class EventoConverter {
     public static EventoDTO basicEntity2DTO(EventoEntity entity) {
         if (entity != null) {
             EventoDTO dto = new EventoDTO();
-            dto.setId(entity.getIdentificador());
-            dto.setNombre(entity.getName());
+            dto.setId(entity.getId());
+            dto.setNombre(entity.getNombre());
             dto.setDetalles(entity.getDetalles());
             dto.setImagen(entity.getImagen());
             dto.setFechaEvento(entity.getFechaEvento());
