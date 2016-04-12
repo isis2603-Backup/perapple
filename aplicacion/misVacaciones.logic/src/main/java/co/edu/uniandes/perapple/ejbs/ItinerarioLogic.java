@@ -60,13 +60,13 @@ public class ItinerarioLogic implements IItinerarioLogic {
         if (entity.getFechaInicio().compareTo(entity.getFechaFin())>0) {
             throw new BusinessLogicException("Las fechas no son inválidas, fecha de inicio posterior a la fecha finalización");
         }
-        if(entity.getName().equals("")|| entity.getName() == null)
+        if(entity.getNombre().equals("")|| entity.getNombre() == null)
         {
             throw new BusinessLogicException("El nombre proporcionado para el itinerario no es válido");
 
         }
         String viajero = entity.getViajero().getName();
-        String nombreItinerario = entity.getName();
+        String nombreItinerario = entity.getNombre();
         if(!validacionNombreUnico(viajero,nombreItinerario))
         {
             throw new BusinessLogicException("El viajero ya cuenta con un itinerario con el nombre dado");
@@ -90,7 +90,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
         for(int i = 0; i< itinerarios.size() && !respuesta; i++)
         {
-            if(itinerarios.get(i).getName().equals(nombreItinerario)
+            if(itinerarios.get(i).getNombre().equals(nombreItinerario)
                     && itinerarios.get(i).getViajero().getName().equals(viajero))
             {
              respuesta  = true;
