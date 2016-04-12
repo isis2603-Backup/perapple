@@ -2,6 +2,7 @@ package co.edu.uniandes.perapple.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -76,15 +77,17 @@ public class ViajeroEntity  implements Serializable {
         this.image=image;
     }
 
-    @OneToMany
+    @OneToMany (mappedBy = "viajero",
+                        cascade = CascadeType.ALL,
+                    orphanRemoval = true)
     private List<ItinerarioEntity> itinerarios;
 
         public List<ItinerarioEntity> getItinerarios() {
         return itinerarios;
     }
 
-    public void setItinerarios(List<ItinerarioEntity> listDTO2Entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setItinerarios(List<ItinerarioEntity> itinerarios) {
+        this.itinerarios = itinerarios;
     }
 
 }
