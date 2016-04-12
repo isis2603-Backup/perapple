@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class ItinerarioEntity implements Serializable {
 
     private String nombre;
 
-    @OneToMany (mappedBy = "itinerario")
+    @OneToMany (mappedBy = "itinerario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CiudadItinerarioEntity> ciudades = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
