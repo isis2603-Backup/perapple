@@ -27,6 +27,9 @@ public class CiudadEntity  implements Serializable {
     @Column
     private String detalles;
 
+    @Column
+    private String imagen;
+
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
@@ -39,8 +42,7 @@ public class CiudadEntity  implements Serializable {
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventoEntity> eventos;
 
-    @Column
-    private String imagen;
+
 
     public int getId()
     {

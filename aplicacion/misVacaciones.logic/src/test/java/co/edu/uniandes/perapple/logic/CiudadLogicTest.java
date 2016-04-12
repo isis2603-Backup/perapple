@@ -43,7 +43,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class CiudadLogicTest {
 
     /**
-     * Generador de info aleatoria
+     * Generador de info aleatoria con Podam
      */
     private PodamFactory factory = new PodamFactoryImpl();
 
@@ -143,12 +143,16 @@ public class CiudadLogicTest {
         CiudadEntity result = em.find(CiudadEntity.class, created.getId());
 
 
-        Assert.assertNotNull(result);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(expected.getId(), result.getId());
-        Assert.assertEquals(expected.getNombre(), result.getNombre());
+        assertNotNull(result);
+        assertNotNull(expected);
+        assertEquals(expected.getId(), result.getId());
+        assertEquals(expected.getNombre(), result.getNombre());
+        assertEquals(expected.getDetalles(),result.getDetalles() );
+        assertEquals(expected.getImagen(),result.getImagen() );
+        assertEquals(expected.getFechaInicio(),result.getFechaInicio());
+            assertEquals(expected.getFechaFin(), result.getFechaFin());
         }catch (BusinessLogicException ex) {
-            Assert.fail(ex.getLocalizedMessage());
+            fail(ex.getLocalizedMessage());
         }
     }
     @Test
@@ -156,7 +160,7 @@ public class CiudadLogicTest {
     {
          List<CiudadEntity> resultList=  ciudadLogic.getCiudades();
         List<CiudadEntity> expectedList = em.createQuery("SELECT u from CiudadEntity u").getResultList();
-        Assert.assertEquals(expectedList.size(), resultList.size());
+       assertEquals(expectedList.size(), resultList.size());
         for (CiudadEntity expected : expectedList) {
             boolean found = false;
             for (CiudadEntity result : resultList) {
@@ -165,7 +169,7 @@ public class CiudadLogicTest {
                 } else {
                 }
             }
-            Assert.assertTrue(found);
+           assertTrue(found);
         }
     }
 
@@ -176,36 +180,96 @@ public class CiudadLogicTest {
         CiudadEntity result= ciudadLogic.getCiudad(data.get(0).getId());
         CiudadEntity expected= em.find(CiudadEntity.class,data.get(0).getId());
 
-        Assert.assertNotNull(expected);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(expected.getId(), result.getId());
-        Assert.assertEquals(expected.getNombre(), result.getNombre());
-        Assert.assertEquals(expected.getDetalles(), result.getDetalles());
-        Assert.assertEquals(expected.getFechaInicio(), result.getFechaInicio());
-        Assert.assertEquals(expected.getFechaFin(), result.getFechaFin());
+        assertNotNull(expected);
+        assertNotNull(result);
+        assertEquals(expected.getId(), result.getId());
+        assertEquals(expected.getNombre(), result.getNombre());
+        assertEquals(expected.getDetalles(), result.getDetalles());
+        assertEquals(expected.getImagen(), result.getImagen());
+        assertEquals(expected.getFechaInicio(), result.getFechaInicio());
+        assertEquals(expected.getFechaFin(), result.getFechaFin());
 
         //Mirar si faltan atributos y si van las listas
 
         }catch(BusinessLogicException ex) {
-            Assert.fail(ex.getLocalizedMessage());
+           fail(ex.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void deleteCiudadTest()
+    {try{
+        CiudadEntity ciudad_entity= data.get(1);
+        ciudadLogic.deleteCiudad(ciudad_entity.getId());
+        CiudadEntity deleted=em.find(CiudadEntity.class, ciudad_entity.getId());
+        assertNull(deleted);
+
+    }catch(BusinessLogicException ex) {
+           fail(ex.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void updateCiudadTest()
+    {
+        try{
+            CiudadEntity entity = data.get(0);
+            CiudadEntity pojoEntity = factory.manufacturePojo(CiudadEntity.class);
+            pojoEntity.setNombre("Nueva_Ciudad_prueba");
+            pojoEntity.setId(entity.getId());
+            ciudadLogic.updateCiudad(pojoEntity);
+
+            CiudadEntity resp = em.find(CiudadEntity.class, entity.getId());
+
+            assertEquals(pojoEntity.getId(), resp.getId());
+           assertEquals(pojoEntity.getNombre(), resp.getNombre());
+            assertEquals(pojoEntity.getDetalles(), resp.getDetalles());
+            assertEquals(pojoEntity.getImagen(), resp.getImagen());
+           assertEquals(pojoEntity.getFechaInicio(), resp.getFechaInicio());
+           assertEquals(pojoEntity.getFechaFin(), resp.getFechaFin());
+
+        }catch(BusinessLogicException ex) {
+           fail(ex.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void getEventoTest() {
+        try{
+        CiudadEntity entity = data.get(0);
+        EventoEntity eventoEntity = eventosData.get(0);
+        EventoEntity response = ciudadLogic.getEvento(entity.getId(), eventoEntity.getId());
+
+        //EventoEntity expected = getCiudadEvento(entity.getId(), eventoEntity.getId());  //Hay que crear el metodo getCiudadEvento()
+
+     // assertNotNull(expected);
+        assertNotNull(response);
+       // assertEquals(expected.getId(), response.getId());
+      // assertEquals(expected.getNombre(), response.getNombre());
+       // assertEquals(expected.getDetalles(), response.getDetalles());
+       //assertEquals(expected.getImagen(), response.getImagen());
+       //assertEquals(expected.getFechaEvento(), response.getFechaEvento());
+        }catch(BusinessLogicException ex) {
+           fail(ex.getLocalizedMessage());
         }
     }
 
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
 
-    @AfterClass
-    public static void tearDownClass() {
-    }
+   // @BeforeClass
+    //public static void setUpClass() {
+    //}
 
-    @Before
-    public void setUp() {
-    }
+    //@AfterClass
+    //public static void tearDownClass() {
+    //}
 
-    @After
-    public void tearDown() {
-    }
+    //@Before
+    //public void setUp() {
+    //}
+
+    //@After
+    //public void tearDown() {
+    //}
 
 }
