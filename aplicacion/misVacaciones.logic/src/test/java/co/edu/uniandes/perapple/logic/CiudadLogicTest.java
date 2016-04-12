@@ -58,8 +58,8 @@ public class CiudadLogicTest {
      */
     @PersistenceContext
     private EntityManager em;
-    
-    
+
+
     @Inject
     private UserTransaction utx;
 
@@ -80,9 +80,9 @@ public class CiudadLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     //TODO definir que estrutura vamos a seguir @Before @Test @After o @Before con utx y metodos privados para crear y borrar
-   
+
      @Before
     public void configTest() {
         try {
@@ -99,15 +99,15 @@ public class CiudadLogicTest {
             }
         }
     }
-    
+
     private void clearData()
     {
          em.createQuery("delete from SitioEntity").executeUpdate();
          em.createQuery("delete from EventoEntity").executeUpdate();
         em.createQuery("delete from CiudadEntity").executeUpdate();
-        
+
     }
-    
+
     private void insertData()
     {
         for (int i = 0; i < 3; i++) {
@@ -129,11 +129,11 @@ public class CiudadLogicTest {
             em.persist(entity);
             data.add(entity);
 
-            sitiosData.get(0).setCiudad(entity); //ésto está bien? 
+            sitiosData.get(0).setCiudad(entity); //ésto está bien?
             eventosData.get(0).setCiudad(entity); //ésto está bien?
         }
     }
-    
+
      @Test
     public void createCiudadTest()  {
         try{
@@ -141,8 +141,8 @@ public class CiudadLogicTest {
        CiudadEntity created= ciudadLogic.createCiudad(expected);
 
         CiudadEntity result = em.find(CiudadEntity.class, created.getId());
-             
-        
+
+
         Assert.assertNotNull(result);
         Assert.assertNotNull(result);
         Assert.assertEquals(expected.getId(), result.getId());
@@ -151,8 +151,46 @@ public class CiudadLogicTest {
             Assert.fail(ex.getLocalizedMessage());
         }
     }
-    
-    
+    @Test
+    public void getCiudadesTest()
+    {
+         List<CiudadEntity> resultList=  ciudadLogic.getCiudades();
+        List<CiudadEntity> expectedList = em.createQuery("SELECT u from CiudadEntity u").getResultList();
+        Assert.assertEquals(expectedList.size(), resultList.size());
+        for (CiudadEntity expected : expectedList) {
+            boolean found = false;
+            for (CiudadEntity result : resultList) {
+                if (result.getId()==expected.getId()) {
+                    found = true;
+                } else {
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    @Test
+    public void getCiudadTest()
+    {
+        try{
+        CiudadEntity result= ciudadLogic.getCiudad(data.get(0).getId());
+        CiudadEntity expected= em.find(CiudadEntity.class,data.get(0).getId());
+
+        Assert.assertNotNull(expected);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(expected.getId(), result.getId());
+        Assert.assertEquals(expected.getNombre(), result.getNombre());
+        Assert.assertEquals(expected.getDetalles(), result.getDetalles());
+        Assert.assertEquals(expected.getFechaInicio(), result.getFechaInicio());
+        Assert.assertEquals(expected.getFechaFin(), result.getFechaFin());
+
+        //Mirar si faltan atributos y si van las listas
+
+        }catch(BusinessLogicException ex) {
+            Assert.fail(ex.getLocalizedMessage());
+        }
+    }
+
 
     @BeforeClass
     public static void setUpClass() {
