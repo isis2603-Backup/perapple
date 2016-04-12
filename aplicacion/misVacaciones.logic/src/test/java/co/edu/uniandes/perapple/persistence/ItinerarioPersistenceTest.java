@@ -68,7 +68,7 @@ public class ItinerarioPersistenceTest {
     UserTransaction utx;
     //TODO definir que estrutura vamos a seguir @Before @Test @After o @Before con utx y metodos privados para crear y borrar
 
- @Before
+    @Before
     public void configTest() {
         try {
             utx.begin();

@@ -28,7 +28,30 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
     @Override
     public List<ItinerarioEntity> getItinerarios() {
-        return persistence.findAll();
+        logger.info("Inicia proceso de consultar todos los itinerarios.");
+        List<ItinerarioEntity> itinerarios = persistence.findAll();
+        logger.info("Termina proceso de consultar todos los itinerarios");
+
+        return itinerarios;
+    }
+    
+    @Override
+    public List<ItinerarioEntity> getItinerariosViajero(int idViajero) {
+        logger.info("Inicia proceso de consultar todos los itinerarios asociados a ese viajero");
+        
+        List<ItinerarioEntity> itinerarios = getItinerarios();
+        List<ItinerarioEntity> itinerarios_v = new ArrayList<>();
+        
+        for (int i=0; i<itinerarios.size(); i++){
+            ItinerarioEntity iti = itinerarios.get(i);
+            if(iti.getViajero().getId() == idViajero){
+                itinerarios_v.add(iti);
+            }
+        }
+        
+        logger.info("Termina proceso de consultar todos los itinerarios asociados a ese viajero");
+
+        return itinerarios_v;
     }
 
     @Override
@@ -52,7 +75,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
     @Override
     public ItinerarioEntity createItinerario(ItinerarioEntity entity) throws BusinessLogicException{
 
-      logger.info("Inicia proceso de creación de itinerario");
+        logger.info("Inicia proceso de creación de itinerario");
+        
         if(entity.getFechaInicio() == null || entity.getFechaFin() == null)
         {
             throw new BusinessLogicException("Las fechas no son inválidas, fechas nulas");
@@ -63,41 +87,19 @@ public class ItinerarioLogic implements IItinerarioLogic {
         if(entity.getNombre().equals("")|| entity.getNombre() == null)
         {
             throw new BusinessLogicException("El nombre proporcionado para el itinerario no es válido");
-
         }
-        String viajero = entity.getViajero().getName();
+        
+        int idViajero = entity.getViajero().getId();
         String nombreItinerario = entity.getNombre();
-        if(!validacionNombreUnico(viajero,nombreItinerario))
+        
+        if(!validacionNombreUnico(idViajero, nombreItinerario))
         {
             throw new BusinessLogicException("El viajero ya cuenta con un itinerario con el nombre dado");
-
         }
 
         persistence.create(entity);
         logger.info("Termina proceso de creación de itinerario");
         return entity;
-    }
-
-    /**
-     * Comprobación de validez de nombre para un itinerario de manera poco eficiente
-     * @param viajero
-     * @return si el nombre es válido o no
-     */
-    private boolean validacionNombreUnico(String viajero, String nombreItinerario) {
-
-        List<ItinerarioEntity> itinerarios = persistence.findAll();
-        boolean respuesta = false;
-
-        for(int i = 0; i< itinerarios.size() && !respuesta; i++)
-        {
-            if(itinerarios.get(i).getNombre().equals(nombreItinerario)
-                    && itinerarios.get(i).getViajero().getName().equals(viajero))
-            {
-             respuesta  = true;
-            }
-        }
-
-    return respuesta;
     }
 
      private boolean validarExistenciaItinerario(int id) {
@@ -220,15 +222,26 @@ public class ItinerarioLogic implements IItinerarioLogic {
     public EventoItinerarioEntity getEvento(int itinerarioId, int ciudadId, int eventoId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    /**
+     * Comprobación de validez de nombre para un itinerario de manera poco eficiente
+     * @param viajero
+     * @return false si el viajero ya tiene un itinerario con ese nombre
+     */
+    private boolean validacionNombreUnico(int idViajero, String nombreItinerario) {
 
-    @Override
-    public List<ItinerarioEntity> getItinerariosViajero(int viajeroId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<ItinerarioEntity> itinerarios = getItinerariosViajero(idViajero);
+        boolean respuesta = true;
+
+        for(int i = 0; i< itinerarios.size() && !respuesta; i++)
+        {
+            ItinerarioEntity iti = itinerarios.get(i);
+            if(iti.getNombre().equals(nombreItinerario))
+            {
+                respuesta  = false;
+                break;
+            }
+        }
+        return respuesta;
     }
-
-
-
-
-
-
 }
