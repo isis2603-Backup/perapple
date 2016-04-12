@@ -66,7 +66,7 @@ public class ItinerarioPersistenceTest {
     UserTransaction utx;
     //TODO definir que estrutura vamos a seguir @Before @Test @After o @Before con utx y metodos privados para crear y borrar
 
- @Before
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -98,7 +98,7 @@ public class ItinerarioPersistenceTest {
     }
 
     @Test
-    public void createItinearioTest() {
+    public void createItinerarioTest() {
         ItinerarioEntity newEntity = factory.manufacturePojo(ItinerarioEntity.class);
         ItinerarioEntity result = itinerarioPersistence.create(newEntity);
 

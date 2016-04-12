@@ -88,7 +88,5 @@ public abstract class CiudadItinerarioConverter {
         } else {
             return null;
         }
-    }
-
-    
+    }    
 }
