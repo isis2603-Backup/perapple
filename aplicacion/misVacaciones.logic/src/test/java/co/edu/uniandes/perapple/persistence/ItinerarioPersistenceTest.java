@@ -118,7 +118,7 @@ public class ItinerarioPersistenceTest {
         Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getCiudades(), entity.getCiudades());
 
-        }catch(Exception e)
+        }catch(UnsupportedOperationException e)
         {
             fail("No deberia generar excepcion");
         }
