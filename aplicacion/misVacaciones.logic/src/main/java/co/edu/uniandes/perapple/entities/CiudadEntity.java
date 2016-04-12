@@ -32,10 +32,10 @@ public class CiudadEntity  implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
-    @OneToMany(mappedBy="ciudades")
+    @OneToMany(mappedBy="ciudad")
     private List<SitioEntity> sitios;
 
-    @OneToMany(mappedBy="ciudades")
+    @OneToMany(mappedBy="ciudad")
     private List<EventoEntity> eventos;
 
     @Column
