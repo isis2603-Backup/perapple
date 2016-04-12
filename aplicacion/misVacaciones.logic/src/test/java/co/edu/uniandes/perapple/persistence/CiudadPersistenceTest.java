@@ -19,6 +19,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,6 +43,7 @@ public class CiudadPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
+
 
     /**
      * Generador de info aleatoria
@@ -70,10 +72,7 @@ public class CiudadPersistenceTest {
     @Inject
     UserTransaction utx;
 
-    @Before
-    public static void setUpClass() {
-
-    }
+  
 
     @AfterClass
     public static void tearDownClass() {
@@ -101,11 +100,27 @@ public class CiudadPersistenceTest {
       private List<CiudadEntity> data;
 
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             CiudadEntity entity = factory.manufacturePojo(CiudadEntity.class);
             em.persist(entity);
             data.add(entity);
         }
+    }
+     @Test
+    public void createCiudadTest() {
+        CiudadEntity newEntity = factory.manufacturePojo(CiudadEntity.class);
+        CiudadEntity result = ciudadPersistence.create(newEntity);
+
+        Assert.assertNotNull(result);
+
+        CiudadEntity entity = em.find(CiudadEntity.class, result.getId());
+
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getDetalles(), entity.getDetalles());
+
+
+
     }
 
     @After
