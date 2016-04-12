@@ -28,7 +28,7 @@ public class CiudadLogic implements ICiudadLogic {
     public List<CiudadEntity> getCiudades() {
         logger.info("Inicia proceso de consultar todas las ciudades.");
         List<CiudadEntity> ciudades = persistence.findAll();
-        logger.info("Termina proceso de consultar todos los libros");
+        logger.info("Termina proceso de consultar todas las ciudades");
 
         return ciudades;
     }
