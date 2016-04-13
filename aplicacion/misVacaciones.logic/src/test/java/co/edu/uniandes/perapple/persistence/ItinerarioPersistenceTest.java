@@ -101,7 +101,7 @@ public class ItinerarioPersistenceTest {
 
     @Test
     public void createItinearioTest() {
-        try{
+      //  try{
         ItinerarioEntity newEntity = factory.manufacturePojo(ItinerarioEntity.class);
         ItinerarioEntity result = itinerarioPersistence.create(newEntity);
 
@@ -118,10 +118,10 @@ public class ItinerarioPersistenceTest {
         Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getCiudades(), entity.getCiudades());
 
-        }catch(UnsupportedOperationException e)
-        {
-            fail("No deberia generar excepcion");
-        }
+      //  }catch(UnsupportedOperationException e)
+      //  {
+      //      fail("No deberia generar excepcion");
+      //  }
     }
 
     @Test
@@ -143,7 +143,7 @@ public class ItinerarioPersistenceTest {
 
     @Test
     public void getItinerarioTest() {
-        try{
+       // try{
         ItinerarioEntity entity = data.get(0);
         ItinerarioEntity newEntity = itinerarioPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
@@ -153,31 +153,31 @@ public class ItinerarioPersistenceTest {
         Assert.assertEquals(newEntity.getFechaInicio(), entity.getFechaInicio());
         Assert.assertEquals(newEntity.getViajero(), entity.getViajero());
         Assert.assertEquals(newEntity.getCiudades(), entity.getCiudades());
-        }
-    catch(IndexOutOfBoundsException e)
-    {
-        fail("No deberia generar excepcion");
-    }
+      //  }
+    //catch(IndexOutOfBoundsException e)
+    //{
+      //  fail("No deberia generar excepcion");
+    //}
 
     }
 
     @Test
     public void deleteItinerarioTest() {
-        try{
+      //  try{
         ItinerarioEntity entity = data.get(0);
         itinerarioPersistence.delete(entity.getId());
         ItinerarioEntity deleted = em.find(ItinerarioEntity.class, entity.getId());
         //el itinerario con id que se borro no deberia existir
         Assert.assertNull(deleted);
-        }catch(IndexOutOfBoundsException e)
-        {
-            fail("No deberia generar excepción");
-        }
+      //  }catch(IndexOutOfBoundsException e)
+      //  {
+      //      fail("No deberia generar excepción");
+      //  }
     }
 
     @Test
     public void updateItinerarioTest() {
-        try{
+      //  try{
         ItinerarioEntity entity = data.get(0);
         ItinerarioEntity newEntity = factory.manufacturePojo(ItinerarioEntity.class);
         newEntity.setId(entity.getId());
@@ -192,10 +192,10 @@ public class ItinerarioPersistenceTest {
         Assert.assertEquals(newEntity.getFechaInicio(), resp.getFechaInicio());
         Assert.assertEquals(newEntity.getViajero(), resp.getViajero());
         Assert.assertEquals(newEntity.getCiudades(), resp.getCiudades());
-        }catch(IndexOutOfBoundsException e)
-        {
-            fail("No deberia generar excepcion");
-        }
+      //  }catch(IndexOutOfBoundsException e)
+      //  {
+      //      fail("No deberia generar excepcion");
+      //  }
 
         }
 
