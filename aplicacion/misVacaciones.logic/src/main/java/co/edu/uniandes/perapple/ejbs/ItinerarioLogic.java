@@ -284,6 +284,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         return itinerario.getCiudades();
     }
    
+    
+    
     @Override
     public List<SitioItinerarioEntity> getSitios(int itinerarioId, int ciudadId) throws BusinessLogicException {
         CiudadItinerarioEntity ciudad = getCiudad(itinerarioId, ciudadId);
@@ -292,13 +294,47 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     @Override
-    public SitioItinerarioEntity createSitio(int itinerarioId, int ciudadId, SitioItinerarioEntity sitio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public SitioItinerarioEntity getSitio(int itinerarioId, int ciudadId, int sitioId) throws BusinessLogicException {
+        List<SitioItinerarioEntity> sitios = getSitios(itinerarioId, ciudadId);
+        
+        for (int i=0; i<sitios.size(); i++){
+            SitioItinerarioEntity sitio = sitios.get(i);
+            if (sitio.getId()==sitioId){
+                return sitio;
+            }
+        }
+     
+        throw new BusinessLogicException("El sitio que se quiere obtener no existe en ese itinerario.");
     }
     
     @Override
-    public SitioItinerarioEntity getSitio(int itinerarioId, int ciudadId, int sitioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public SitioItinerarioEntity createSitio(int itinerarioId, int ciudadId, SitioItinerarioEntity sitio) throws BusinessLogicException {
+        //Validaciones
+        //1. El viajero es el creador del itinerario.
+        //2. La fecha de visita al sitio de interés está dentro de la fecha de visita a la ciudad.
+        //3. En la fecha ingresada no hay otro sitio de interés o evento.
+        //4. El sitio de interés no se encuentra ya en esa ciudad.
+        
+        CiudadItinerarioEntity ciudad = getCiudad(itinerarioId, ciudadId);
+        
+        if(!validarFechasSitio(sitio, ciudad)){
+            throw new BusinessLogicException("Las fechas del sitio no concuerdan con las fechas de la ciudad");
+        }
+        
+        //if (validarSitioExisteEnCiudad(itinerario, ciudad.getId())){
+            //throw new BusinessLogicException("Ya existe esa misma ciudad en el itinerario.");
+        //}
+        
+        
+        List<SitioItinerarioEntity> sitios = ciudad.getSitios();
+        
+        sitios.add(sitio);
+        
+        ciudad.setSitios(sitios);
+        
+        updateCiudad(ciudad, itinerarioId);
+        
+        return sitio;
     }
     
     @Override
@@ -412,5 +448,15 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
         
         return false;
+    }
+
+    private boolean validarFechasSitio(SitioItinerarioEntity sitio, CiudadItinerarioEntity ciudad) {
+        if(sitio.getFechaIni().after(sitio.getFechaFin())){
+            return false;
+        }
+        if(sitio.getFechaIni().before(ciudad.getFechaIni()) && sitio.getFechaFin().after(ciudad.getFechaFin())){
+            return false;
+        }
+        return true;
     }
 }
