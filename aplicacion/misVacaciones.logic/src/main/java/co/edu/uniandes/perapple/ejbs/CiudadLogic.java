@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import co.edu.uniandes.perapple.api.ICiudadLogic;
 import co.edu.uniandes.perapple.entities.EventoEntity;
 import co.edu.uniandes.perapple.entities.SitioEntity;
-import java.util.ArrayList;
 
 @Stateless
 public class CiudadLogic implements ICiudadLogic {
