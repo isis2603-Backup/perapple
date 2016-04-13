@@ -13,6 +13,7 @@ import co.edu.uniandes.perapple.entities.CiudadItinerarioEntity;
 import co.edu.uniandes.perapple.entities.EventoItinerarioEntity;
 import co.edu.uniandes.perapple.entities.SitioItinerarioEntity;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 
 @Stateless
@@ -102,12 +103,6 @@ public class ItinerarioLogic implements IItinerarioLogic {
         return entity;
     }
 
-     private boolean validarExistenciaItinerario(int id) {
-
-    return (persistence.find(id)!= null);
-
-    }
-
     @Override
     public ItinerarioEntity updateItinerario(ItinerarioEntity entity) throws BusinessLogicException{
 
@@ -119,72 +114,195 @@ public class ItinerarioLogic implements IItinerarioLogic {
         return entity;
     }
 
-
-
     @Override
-    public void deleteItinerario(int id)throws BusinessLogicException{
+    public void deleteItinerario(int id) throws BusinessLogicException{
 
-         if(!validarExistenciaItinerario(id))
+        if(!validarExistenciaItinerario(id))
         {
             throw new BusinessLogicException("El itinerario con el id suministrado no existe");
         }
-    persistence.delete(id);
-
-    }
-
-
-    @Override
-    public ViajeroEntity getViajero(int itinerarioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        persistence.delete(id);
     }
 
     @Override
-    public CiudadItinerarioEntity addCiudad(CiudadItinerarioEntity ciudad, int itinerarioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ViajeroEntity getViajero(int itinerarioId) throws BusinessLogicException {
+        if(!validarExistenciaItinerario(itinerarioId))
+        {
+            throw new BusinessLogicException("El itinerario con el id suministrado no existe");
+        }
+        return persistence.find(itinerarioId).getViajero();
     }
 
     @Override
-    public void deleteCiudad(int ciudadId, int itinerarioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CiudadItinerarioEntity addCiudad(CiudadItinerarioEntity ciudad, int itinerarioId) throws BusinessLogicException{
+        
+        //Validaciones
+        //1. El itinerario ya existe y fue creado por el viajero.
+        //2. La fecha inicial es anterior a la fecha final.
+        //3. La fecha de visita a la ciudad está dentro de la fecha de visita del itinerario.
+        //4. En las fechas ingresada no hay otra ciudad.
+        //5. La ciudad no se encuentra ya en ese itinerario.
+        
+        if (!validarExistenciaItinerario(itinerarioId)) {
+            throw new BusinessLogicException("El itinerario al que se le quiere agregar la ciudad no existe.");
+        }
+        
+        ItinerarioEntity itinerario = persistence.find(itinerarioId);
+        
+        if (!validarFechas(itinerario, ciudad)) {
+            throw new BusinessLogicException("Las fechas del la ciudad o del itinerario+ciudad no concuerdan.");
+        }
+        
+        if (!validarNoHayOtraCiudadEnEsasFechas(itinerario, ciudad)){
+            throw new BusinessLogicException("Ya hay otra ciudad en esas fechas.");
+        }
+        
+        if (validarCiudadExisteEnItinerario(itinerario, ciudad.getId())){
+            throw new BusinessLogicException("Ya existe esa misma ciudad en el itinerario.");
+        }
+        
+        List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();
+
+        ciudades.add(ciudad);
+
+        itinerario.setCiudades(ciudades);
+        
+        persistence.update(itinerario);
+
+        return ciudad;
     }
 
     @Override
-    public List<CiudadItinerarioEntity> replaceCiudades(List<CiudadItinerarioEntity> ciudades, int itinerarioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteCiudad(int ciudadId, int itinerarioId) throws BusinessLogicException {
+        if (!validarExistenciaItinerario(itinerarioId)) {
+            throw new BusinessLogicException("El itinerario al que se le quiere eliminar la ciudad no existe.");
+        }
+
+        ItinerarioEntity itinerario = persistence.find(itinerarioId);
+        
+        List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();
+        
+        boolean encontro = false;
+        int indice = -1;
+        
+        for (int i=0; i<ciudades.size() && !encontro; i++){
+            CiudadItinerarioEntity c_i = ciudades.get(i);
+            if(c_i.getId() == ciudadId){
+                encontro = true;
+                indice = i;
+            }
+        }
+        
+        if (!encontro){
+            throw new BusinessLogicException("La ciudad que se quiere borrar no existe en ese itinerario.");
+        }
+        
+        ciudades.remove(indice);
+
+        itinerario.setCiudades(ciudades);
+        
+        persistence.update(itinerario);
     }
 
     @Override
-    public ItinerarioEntity getCurrentItinerario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<CiudadItinerarioEntity> replaceCiudades(List<CiudadItinerarioEntity> ciudades, int itinerarioId) throws BusinessLogicException {
+        if (!validarExistenciaItinerario(itinerarioId)) {
+            throw new BusinessLogicException("El itinerario al que se le quiere agregar la ciudad no existe.");
+        }
+
+        ItinerarioEntity itinerario = persistence.find(itinerarioId);
+        
+        itinerario.setCiudades(ciudades);
+        
+        persistence.update(itinerario);
+
+        return ciudades;
     }
 
     @Override
-    public ItinerarioEntity setCurrentItinerario(ItinerarioEntity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CiudadItinerarioEntity updateCiudad(CiudadItinerarioEntity ciudad, int itinerarioId) throws BusinessLogicException {
+        if (!validarExistenciaItinerario(itinerarioId)) {
+            throw new BusinessLogicException("El itinerario al que se le quiere actualizar la ciudad no existe.");
+        }
+
+        ItinerarioEntity itinerario = persistence.find(itinerarioId);
+        
+        List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();      
+        
+        boolean encontro = false;
+        
+        for (int i=0; i<ciudades.size() && !encontro; i++){
+            CiudadItinerarioEntity c_i = ciudades.get(i);
+            if(c_i.getId() == ciudad.getId()){
+                encontro = true;
+                ciudades.remove(i);
+                ciudades.add(ciudad);
+            }
+        }
+        
+        if (!encontro){
+            throw new BusinessLogicException("La ciudad que se quiere actualizar no existe en ese itinerario.");
+        }
+        
+        itinerario.setCiudades(ciudades);
+        
+        persistence.update(itinerario);
+
+        return ciudad;
     }
 
     @Override
-    public CiudadItinerarioEntity updateCiudad(CiudadItinerarioEntity ciudad, int itinerarioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CiudadItinerarioEntity getCiudad(int itinerarioId, int ciudadId) throws BusinessLogicException {
+        if (!validarExistenciaItinerario(itinerarioId)) {
+            throw new BusinessLogicException("El itinerario del que se queire obtener la ciudad no existe.");
+        }
+
+        ItinerarioEntity itinerario = persistence.find(itinerarioId);
+        
+        List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();
+        
+        boolean encontro = false;
+        
+        for (int i=0; i<ciudades.size() && !encontro; i++){
+            CiudadItinerarioEntity c_i = ciudades.get(i);
+            if(c_i.getId() == ciudadId){
+                return c_i;
+            }
+        }
+        
+        throw new BusinessLogicException("La ciudad que se quiere borrar no existe en ese itinerario.");
     }
 
     @Override
-    public CiudadItinerarioEntity getCiudad(int itinerarioId, int ciudadId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public List<CiudadItinerarioEntity> getCiudades(int itinerarioId) throws BusinessLogicException {
+        if (!validarExistenciaItinerario(itinerarioId)) {
+            throw new BusinessLogicException("El itinerario del que se queire obtener la ciudad no existe.");
+        }
 
-    @Override
-    public List<CiudadItinerarioEntity> getCiudades(int itinerarioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ItinerarioEntity itinerario = persistence.find(itinerarioId);
+        
+        return itinerario.getCiudades();
     }
-
+   
     @Override
-    public SitioItinerarioEntity updateSitio(int itinerarioId, int ciudadId, int sitioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<SitioItinerarioEntity> getSitios(int itinerarioId, int ciudadId) throws BusinessLogicException {
+        CiudadItinerarioEntity ciudad = getCiudad(itinerarioId, ciudadId);
+        
+        return ciudad.getSitios();
     }
 
     @Override
     public SitioItinerarioEntity createSitio(int itinerarioId, int ciudadId, SitioItinerarioEntity sitio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public SitioItinerarioEntity getSitio(int itinerarioId, int ciudadId, int sitioId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public SitioItinerarioEntity updateSitio(int itinerarioId, int ciudadId, int sitioId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -192,16 +310,10 @@ public class ItinerarioLogic implements IItinerarioLogic {
     public void deleteSitio(int itinerarioId, int ciudadId, int sitioId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public List<SitioItinerarioEntity> getSitios(int itinerarioId, int ciudadId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public SitioItinerarioEntity getSitio(int itinerarioId, int ciudadId, int sitioId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    
+    
+    
 
     @Override
     public EventoItinerarioEntity createEvento(int itinerarioId, int ciudadId, EventoItinerarioEntity evento) {
@@ -220,6 +332,16 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
     @Override
     public EventoItinerarioEntity getEvento(int itinerarioId, int ciudadId, int eventoId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public ItinerarioEntity getCurrentItinerario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItinerarioEntity setCurrentItinerario(ItinerarioEntity entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -243,5 +365,52 @@ public class ItinerarioLogic implements IItinerarioLogic {
             }
         }
         return respuesta;
+    }
+    
+    private boolean validarExistenciaItinerario(int id) {
+        return (persistence.find(id)!= null);
+    }
+
+    private boolean validarFechas(ItinerarioEntity itinerario, CiudadItinerarioEntity ciudad) {
+        //2. La fecha inicial es anterior a la fecha final.
+        //3. La fecha de visita a la ciudad está dentro de la fecha de visita del itinerario.
+        if(ciudad.getFechaIni().after(ciudad.getFechaFin())){
+            return false;
+        }
+        if(ciudad.getFechaIni().before(itinerario.getFechaInicio()) && ciudad.getFechaFin().after(itinerario.getFechaFin())){
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean validarNoHayOtraCiudadEnEsasFechas(ItinerarioEntity itinerario, CiudadItinerarioEntity ciudad) {
+        //4. En las fechas ingresada no hay otra ciudad.
+        List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();
+        
+        Date fI = ciudad.getFechaIni();
+        Date fF = ciudad.getFechaFin();
+        
+        for (int i=0; i<ciudades.size(); i++){
+            CiudadItinerarioEntity c_i = ciudades.get(i);
+            if(c_i.getFechaFin().after(fI) || c_i.getFechaIni().before(fF)){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    private boolean validarCiudadExisteEnItinerario(ItinerarioEntity itinerario, int id) {
+        
+        List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();
+        
+        for (int i=0; i<ciudades.size(); i++){
+            CiudadItinerarioEntity c_i = ciudades.get(i);
+            if(c_i.getId() == id){
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
