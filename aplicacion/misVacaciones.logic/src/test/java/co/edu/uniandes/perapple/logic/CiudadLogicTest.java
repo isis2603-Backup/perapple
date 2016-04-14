@@ -14,21 +14,18 @@ import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import co.edu.uniandes.perapple.persistence.CiudadPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -240,21 +237,126 @@ public class CiudadLogicTest {
         EventoEntity eventoEntity = eventosData.get(0);
         EventoEntity response = ciudadLogic.getEvento(entity.getId(), eventoEntity.getId());
 
-        //EventoEntity expected = getCiudadEvento(entity.getId(), eventoEntity.getId());  //Hay que crear el metodo getCiudadEvento()
+       EventoEntity expected = getCiudadEvento(entity.getId(), eventoEntity.getId()); 
 
-     // assertNotNull(expected);
+      assertNotNull(expected);
         assertNotNull(response);
-       // assertEquals(expected.getId(), response.getId());
-      // assertEquals(expected.getNombre(), response.getNombre());
-       // assertEquals(expected.getDetalles(), response.getDetalles());
-       //assertEquals(expected.getImagen(), response.getImagen());
-       //assertEquals(expected.getFechaEvento(), response.getFechaEvento());
+       assertEquals(expected.getId(), response.getId());
+      assertEquals(expected.getNombre(), response.getNombre());
+        assertEquals(expected.getDetalles(), response.getDetalles());
+       assertEquals(expected.getImagen(), response.getImagen());
+       assertEquals(expected.getFechaEvento(), response.getFechaEvento());
         }catch(BusinessLogicException ex) {
            fail(ex.getLocalizedMessage());
         }
     }
+    
+    
+    @Test
+    public void getSitioTest()
+    {
+         try{
+        CiudadEntity entity = data.get(0);
+        SitioEntity sitioEntity = sitiosData.get(0);
+        SitioEntity response = ciudadLogic.getSitio(entity.getId(), sitioEntity.getId());
 
+       SitioEntity expected = getCiudadSitio(entity.getId(), sitioEntity.getId()); 
 
+      assertNotNull(expected);
+        assertNotNull(response);
+       assertEquals(expected.getId(), response.getId());
+      assertEquals(expected.getNombre(), response.getNombre());
+        assertEquals(expected.getDetalles(), response.getDetalles());
+       assertEquals(expected.getImagen(), response.getImagen());
+       assertEquals(expected.getFechaSitio(), response.getFechaSitio());
+        }catch(BusinessLogicException ex) {
+           fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    
+    
+    @Test
+    public void replaceEventoTest()
+    {
+        try{ CiudadEntity entity = data.get(0);
+            List<EventoEntity> list = eventosData.subList(1, 3);
+            ciudadLogic.updateEvento(entity.getId(),list.get(0).getId(),list.get(0));
+
+            CiudadEntity expected = em.find(CiudadEntity.class, entity.getId());
+
+            Assert.assertNotNull(expected);
+            Assert.assertFalse(expected.getEventos().contains(eventosData.get(0)));
+            Assert.assertTrue(expected.getEventos().contains(eventosData.get(1)));
+            Assert.assertTrue(expected.getEventos().contains(eventosData.get(2)));
+        
+        }catch(BusinessLogicException ex){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    
+    @Test
+    public void replaceSitioTest()
+    {
+         try{ CiudadEntity entity = data.get(0);
+            List<SitioEntity> list = sitiosData.subList(1, 3);
+            ciudadLogic.updateSitio(entity.getId(),list.get(0).getId(),list.get(0));
+
+            CiudadEntity expected = em.find(CiudadEntity.class, entity.getId());
+
+            Assert.assertNotNull(expected);
+            Assert.assertFalse(expected.getSitios().contains(sitiosData.get(0)));
+            Assert.assertTrue(expected.getSitios().contains(sitiosData.get(1)));
+            Assert.assertTrue(expected.getSitios().contains(sitiosData.get(2)));
+        
+        }catch(BusinessLogicException ex){
+            fail(ex.getLocalizedMessage());
+        }
+        
+    }
+    
+    @Test(expected= NoResultException.class)
+    public void removeEventoTest()
+    {
+        try{
+        ciudadLogic.removeEvento(eventosData.get(0).getId(), data.get(0).getId());
+        
+        }catch(BusinessLogicException ex)
+        {
+            fail(ex.getLocalizedMessage());
+        }
+    }
+
+    @Test(expected= NoResultException.class)
+    public void removeSitioTest()
+    {
+         try{
+        ciudadLogic.removeSitio(sitiosData.get(0).getId(), data.get(0).getId());
+        
+        }catch(BusinessLogicException ex)
+        {
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    private EventoEntity getCiudadEvento(int ciudadId, int eventoId)
+    {
+        Query q = em.createQuery("Select DISTINCT a from CiudadEntity c join c.eventos e where c.id = :ciudadId and e.id=:eventoId");
+        q.setParameter("ciudadId", ciudadId);
+        q.setParameter("eventoId", eventoId);
+
+        return (EventoEntity) q.getSingleResult(); 
+    }
+
+    private SitioEntity getCiudadSitio(int ciudadId, int sitioId)
+    {
+        Query q = em.createQuery("Select DISTINCT a from CiudadEntity c join c.sitios s where c.id = :ciudadId and s.id=:sitioId");
+        q.setParameter("ciudadId", ciudadId);
+        q.setParameter("sitioId", sitioId);
+
+        return (SitioEntity) q.getSingleResult();
+    }
 
    // @BeforeClass
     //public static void setUpClass() {

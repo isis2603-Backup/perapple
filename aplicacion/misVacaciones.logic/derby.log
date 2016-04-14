@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Tue Apr 12 14:09:16 COT 2016:
- Iniciando instancia a816c00e-0154-0be0-b594-00000763d8f8 de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
-en el directorio de base de datos C:\Users\estudiante\AppData\Local\Temp\gfembed7386867163497372700tmp\lib\databases\embedded_default con el cargador de clases sun.misc.Launcher$AppClassLoader@75b84c92
-Cargado desde file:/C:/Users/estudiante/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/4.1.1/glassfish-embedded-all-4.1.1.jar
+Wed Apr 13 19:57:00 COT 2016:
+ Iniciando instancia a816c00e-0154-1245-6bf8-000003f53a68 de Derby, versión The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): 
+en el directorio de base de datos C:\Users\haes_\AppData\Local\Temp\gfembed8900697890458823255tmp\lib\databases\embedded_default con el cargador de clases sun.misc.Launcher$AppClassLoader@75b84c92
+Cargado desde file:/C:/Users/haes_/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/4.1.1/glassfish-embedded-all-4.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_66-b18
-user.dir=C:\Users\estudiante\Documents\NetBeansProjects\misvacaciones2\perapple\aplicacion\misVacaciones.logic
-os.name=Windows 7
+java.runtime.version=1.8.0_73-b02
+user.dir=C:\Users\haes_\Documents\NetBeansProjects\perapple\aplicacion\misVacaciones.logic
+os.name=Windows 10
 os.arch=amd64
-os.version=6.1
+os.version=10.0
 derby.system.home=null
 Cargador de clases de base de datos iniciado - derby.database.classpath=''
