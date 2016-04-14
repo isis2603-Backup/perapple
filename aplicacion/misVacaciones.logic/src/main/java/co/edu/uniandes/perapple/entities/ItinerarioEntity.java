@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 @Entity
 public class ItinerarioEntity implements Serializable {
@@ -24,6 +25,7 @@ public class ItinerarioEntity implements Serializable {
 
     private String nombre;
 
+    @PodamExclude
     @OneToMany (mappedBy = "itinerario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CiudadItinerarioEntity> ciudades = new ArrayList<>();
 
