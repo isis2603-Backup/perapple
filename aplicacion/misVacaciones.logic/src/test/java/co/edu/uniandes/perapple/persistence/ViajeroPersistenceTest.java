@@ -78,13 +78,13 @@ public class ViajeroPersistenceTest {
             }
         }
     }
-    
+
     private void clearData() {
         em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
-    
+
     private List<ViajeroEntity> data = new ArrayList<>();
-    
+
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
@@ -92,7 +92,7 @@ public class ViajeroPersistenceTest {
             data.add(entity);
         }
     }
-    
+
      @Test
     public void createViajeroTest() {
         ViajeroEntity newEntity = factory.manufacturePojo(ViajeroEntity.class);
@@ -108,7 +108,7 @@ public class ViajeroPersistenceTest {
          Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
          Assert.assertEquals(newEntity.getItinerarios(), entity.getItinerarios());
     }
-    
+
      @Test
     public void getViajerosTest() {
         List<ViajeroEntity> list = viajeroPersistence.findAll();
@@ -123,7 +123,7 @@ public class ViajeroPersistenceTest {
             Assert.assertTrue(found);
         }
     }
-    
+
     @Test
     public void getViajeroTest() {
         ViajeroEntity entity = data.get(0);
@@ -136,16 +136,16 @@ public class ViajeroPersistenceTest {
         Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
         Assert.assertEquals(newEntity.getItinerarios(), entity.getItinerarios());
     }
-    
+
     @Test
     public void deleteViajeroTest() {
         ViajeroEntity entity = data.get(0);
         viajeroPersistence.delete(entity.getId());
         ViajeroEntity deleted = em.find(ViajeroEntity.class, entity.getId());
-        
+
         Assert.assertNull(deleted);
     }
-    
+
     @Test
     public void updateItinerarioTest() {
         ViajeroEntity entity = data.get(0);
@@ -156,10 +156,10 @@ public class ViajeroPersistenceTest {
 
         ViajeroEntity resp = em.find(ViajeroEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getName(), entity.getName());
-        Assert.assertEquals(newEntity.getImage(), entity.getImage());
-        Assert.assertEquals(newEntity.getEmail(), entity.getEmail());
-        Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
-        Assert.assertEquals(newEntity.getItinerarios(), entity.getItinerarios());
+        Assert.assertEquals(newEntity.getName(), resp.getName());
+        Assert.assertEquals(newEntity.getImage(), resp.getImage());
+        Assert.assertEquals(newEntity.getEmail(), resp.getEmail());
+        Assert.assertEquals(newEntity.getPassword(), resp.getPassword());
+        Assert.assertEquals(newEntity.getItinerarios(), resp.getItinerarios());
     }
 }

@@ -77,12 +77,12 @@ public class ViajeroEntity  implements Serializable {
     {
         this.image=image;
     }
-    
+
     @PodamExclude
     @OneToMany (mappedBy = "viajero", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItinerarioEntity> itinerarios;
 
-        public List<ItinerarioEntity> getItinerarios() {
+    public List<ItinerarioEntity> getItinerarios() {
         return itinerarios;
     }
 

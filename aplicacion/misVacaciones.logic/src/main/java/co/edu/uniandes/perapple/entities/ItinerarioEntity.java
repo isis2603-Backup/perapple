@@ -1,6 +1,7 @@
 package co.edu.uniandes.perapple.entities;
 
 
+import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 @Entity
 public class ItinerarioEntity implements Serializable {
@@ -24,19 +26,23 @@ public class ItinerarioEntity implements Serializable {
     private int id;
 
     private String nombre;
-    
+
     private boolean esCurrent;
+
 
     @PodamExclude
     @OneToMany (mappedBy = "itinerario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CiudadItinerarioEntity> ciudades = new ArrayList<>();
 
+    @PodamStrategyValue(DateStrategy.class)
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
+    @PodamStrategyValue(DateStrategy.class)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
+    @PodamExclude
     @ManyToOne
     private ViajeroEntity viajero;
 
@@ -47,7 +53,7 @@ public class ItinerarioEntity implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     public void setEsCurrent(boolean esCurrent) {
         this.esCurrent = esCurrent;
     }
@@ -79,7 +85,7 @@ public class ItinerarioEntity implements Serializable {
     public boolean getEsCurrent() {
         return esCurrent;
     }
-    
+
     public List<CiudadItinerarioEntity> getCiudades() {
         return ciudades;
     }
