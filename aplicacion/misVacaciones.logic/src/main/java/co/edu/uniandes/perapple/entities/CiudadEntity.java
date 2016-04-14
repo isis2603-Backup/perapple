@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 @Entity
 public class CiudadEntity  implements Serializable {
@@ -35,14 +36,25 @@ public class CiudadEntity  implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-
+    @PodamExclude
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SitioEntity> sitios;
 
+    @PodamExclude
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventoEntity> eventos;
 
+    @PodamExclude
+    @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CiudadItinerarioEntity> ciudadesItinerario;
 
+    public void setCiudadesItinerario(List<CiudadItinerarioEntity> ciudadesItinerario) {
+        this.ciudadesItinerario = ciudadesItinerario;
+    }
+
+    public List<CiudadItinerarioEntity> getCiudadesItinerario() {
+        return ciudadesItinerario;
+    }
 
     public int getId()
     {

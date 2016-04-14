@@ -3,14 +3,18 @@ package co.edu.uniandes.perapple.entities;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 @Entity
 public class SitioEntity implements Serializable {
@@ -31,9 +35,22 @@ private String imagen;
 @Temporal(TemporalType.DATE)
 private Date fechaSitio;
 
+@PodamExclude
 @ManyToOne
 private CiudadEntity ciudad;
 
+@PodamExclude
+@OneToMany (mappedBy = "sitio", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<SitioItinerarioEntity> sitiosItinerario;
+
+
+    public void setSitiosItinerario(List<SitioItinerarioEntity> sitiosItinerario) {
+        this.sitiosItinerario = sitiosItinerario;
+    }
+
+    public List<SitioItinerarioEntity> getSitiosItinerario() {
+        return sitiosItinerario;
+    }
     public int getId() {
         return id;
     }

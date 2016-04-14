@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -23,22 +24,26 @@ public class CiudadItinerarioEntity implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
-    
+
+    @PodamExclude
     @ManyToOne
     private CiudadEntity ciudad;
-    
+
+    @PodamExclude
     @ManyToOne
     private ItinerarioEntity itinerario;
-    
+
+    @PodamExclude
     @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventoItinerarioEntity> eventos = new ArrayList<>();
-    
+
+    @PodamExclude
     @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SitioItinerarioEntity> sitios = new ArrayList<>();
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaIni;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 

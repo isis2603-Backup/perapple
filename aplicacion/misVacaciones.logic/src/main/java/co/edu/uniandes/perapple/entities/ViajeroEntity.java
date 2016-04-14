@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 
 @Entity
@@ -76,10 +77,9 @@ public class ViajeroEntity  implements Serializable {
     {
         this.image=image;
     }
-
-    @OneToMany (mappedBy = "viajero",
-                        cascade = CascadeType.ALL,
-                    orphanRemoval = true)
+    
+    @PodamExclude
+    @OneToMany (mappedBy = "viajero", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItinerarioEntity> itinerarios;
 
         public List<ItinerarioEntity> getItinerarios() {

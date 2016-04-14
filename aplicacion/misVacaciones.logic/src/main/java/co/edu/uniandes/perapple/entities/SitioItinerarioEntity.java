@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -19,16 +20,18 @@ public class SitioItinerarioEntity implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
-    
+
+    @PodamExclude
     @ManyToOne
     private SitioEntity sitio;
-    
+
+    @PodamExclude
     @ManyToOne
     private CiudadItinerarioEntity ciudad;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaIni;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 

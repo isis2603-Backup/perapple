@@ -3,6 +3,8 @@ package co.edu.uniandes.perapple.entities;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 
 @Entity
@@ -33,8 +37,22 @@ public class EventoEntity implements Serializable {
   @Temporal(TemporalType.DATE)
   private Date fechaEvento;
 
+  @PodamExclude
   @ManyToOne
   private CiudadEntity ciudad;
+
+  @PodamExclude
+@OneToMany (mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<EventoItinerarioEntity> eventosItinerario;
+
+    public void setEventosItinerario(List<EventoItinerarioEntity> eventosItinerario) {
+        this.eventosItinerario = eventosItinerario;
+    }
+
+    public List<EventoItinerarioEntity> getEventosItinerario() {
+        return eventosItinerario;
+    }
+
 
     public int getId() {
         return id;
