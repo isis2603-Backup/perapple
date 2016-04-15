@@ -146,6 +146,8 @@ public class CiudadLogicTest {
         assertEquals(expected.getId(), result.getId());
         assertEquals(expected.getNombre(), result.getNombre());
         assertEquals(expected.getDetalles(),result.getDetalles() );
+        assertEquals(expected.getFechaInicio(),result.getFechaInicio() );
+        assertEquals(expected.getFechaFin(),result.getFechaFin() );
         assertEquals(expected.getImagen(),result.getImagen() );
 
         }catch (BusinessLogicException ex) {
