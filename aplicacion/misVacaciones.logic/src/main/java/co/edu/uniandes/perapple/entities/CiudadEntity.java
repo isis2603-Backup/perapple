@@ -1,5 +1,6 @@
 package co.edu.uniandes.perapple.entities;
 
+import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 @Entity
 public class CiudadEntity  implements Serializable {
@@ -31,11 +33,14 @@ public class CiudadEntity  implements Serializable {
     @Column
     private String imagen;
 
+    @PodamStrategyValue(DateStrategy.class)
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
+    @PodamStrategyValue(DateStrategy.class)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
+    
     @PodamExclude
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SitioEntity> sitios;
