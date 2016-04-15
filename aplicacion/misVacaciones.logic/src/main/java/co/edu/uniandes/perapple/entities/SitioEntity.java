@@ -1,5 +1,6 @@
 package co.edu.uniandes.perapple.entities;
 
+import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 @Entity
 public class SitioEntity implements Serializable {
@@ -32,6 +34,7 @@ private String detalles;
 @Column
 private String imagen;
 
+@PodamStrategyValue(DateStrategy.class)
 @Temporal(TemporalType.DATE)
 private Date fechaSitio;
 
