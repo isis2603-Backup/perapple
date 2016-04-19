@@ -128,6 +128,7 @@ public class CiudadLogicTest {
 
             sitiosData.get(0).setCiudad(entity); //ésto está bien?
             eventosData.get(0).setCiudad(entity); //ésto está bien?
+            
         }
     }
 
@@ -301,18 +302,33 @@ public class CiudadLogicTest {
     @Test
     public void replaceSitioTest()
     {
-         try{ CiudadEntity entity = data.get(1);
-            List<SitioEntity> list = sitiosData.subList(1, 3);
-            ciudadLogic.updateSitio(entity.getId(),list.get(0).getId(),list.get(0));
+         try{
 
+            // obtiene una ciudad de los
+            CiudadEntity entity = data.get(1);
+
+            // reviso que la ciudad exista antes de la prueba
             CiudadEntity expected = em.find(CiudadEntity.class, entity.getId());
+            Assert.assertNotNull("no existe una ciudad con el id de " + entity.getId(), expected);
 
-            Assert.assertNotNull(expected);
+            // modifica el sitio
+            List<SitioEntity> list = sitiosData.subList(1, 3);
+            SitioEntity sitio = list.get(0);
+            sitio.setNombre("nuevo sitio");
+
+            // actualiza el sitio en la ciudad
+            ciudadLogic.updateSitio(entity.getId(),sitio.getId(),sitio);
+
+            // leo de nuevo la ciudad
+            expected = em.find(CiudadEntity.class, entity.getId());
+
             Assert.assertFalse(expected.getSitios().contains(sitiosData.get(0)));
             Assert.assertTrue(expected.getSitios().contains(sitiosData.get(1)));
             Assert.assertTrue(expected.getSitios().contains(sitiosData.get(2)));
 
         }catch(BusinessLogicException ex){
+            System.out.println(ex.getMessage());
+
             fail(ex.getLocalizedMessage());
         }
 

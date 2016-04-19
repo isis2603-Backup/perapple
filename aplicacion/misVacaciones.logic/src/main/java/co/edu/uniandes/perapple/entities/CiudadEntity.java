@@ -22,6 +22,7 @@ public class CiudadEntity  implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @PodamExclude
     private int id;
 
     @Column
@@ -40,7 +41,7 @@ public class CiudadEntity  implements Serializable {
     @PodamStrategyValue(DateStrategy.class)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
     @PodamExclude
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SitioEntity> sitios;
