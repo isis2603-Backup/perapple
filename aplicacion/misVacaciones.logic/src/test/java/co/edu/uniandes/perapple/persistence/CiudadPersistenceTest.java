@@ -109,7 +109,7 @@ public class CiudadPersistenceTest {
      @Test
     public void createCiudadTest() {
         Assert.assertTrue(true);
-        /*CiudadEntity newEntity = factory.manufacturePojo(CiudadEntity.class);
+        CiudadEntity newEntity = factory.manufacturePojo(CiudadEntity.class);
         CiudadEntity result = ciudadPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
@@ -119,7 +119,7 @@ public class CiudadPersistenceTest {
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
-        Assert.assertEquals(newEntity.getDetalles(), entity.getDetalles());*/
+        Assert.assertEquals(newEntity.getDetalles(), entity.getDetalles());
 
 
 
@@ -157,8 +157,6 @@ public class CiudadPersistenceTest {
     }
 
 
-    @After
-    public void tearDown() {
-    }
+  
 
 }
