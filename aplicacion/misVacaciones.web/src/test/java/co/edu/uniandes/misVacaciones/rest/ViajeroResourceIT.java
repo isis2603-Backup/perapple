@@ -1,5 +1,9 @@
 package co.edu.uniandes.misVacaciones.rest;
 
+import co.edu.uniandes.misVacaciones.rest.converters.ViajeroConverter;
+import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
+import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misVacaciones.rest.resources.ViajeroResource;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,12 +40,14 @@ public class ViajeroResourceIT {
     private final int OK = Status.OK.getStatusCode();
     private final int CREATED = Status.CREATED.getStatusCode();
     private final int NO_CONTENT = Status.NO_CONTENT.getStatusCode();
+    private final String viajeroPath = "viajeros";
 
 //    private final String bookPath = "books";
 //    private final String authorsPath = "authors";
 
 //    private final static List<BookDTO> oraculo = new ArrayList<>();
 //    private final static List<AuthorDTO> oraculoAuthors = new ArrayList<>();
+    private final static List<ViajeroDTO> oraculo = new ArrayList<>();
 
     private WebTarget target;
     private final String apiPath = "api";
@@ -50,28 +56,62 @@ public class ViajeroResourceIT {
     @ArquillianResource
     private URL deploymentURL;
 
-//    @Deployment(testable = false)
-//    public static WebArchive createDeployment() {
-//        return ShrinkWrap.create(WebArchive.class)
-//                // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
-//                .addAsLibraries(Maven.resolver()
-//                        .resolve("co.edu.uniandes.csw.bookstore:bookstore-logic:1.0-SNAPSHOT")
-//                        .withTransitivity().asFile())
-//                // Se agregan los compilados de los paquetes de servicios
-//                .addPackage(BookResource.class.getPackage())
-//                .addPackage(BookDTO.class.getPackage())
-//                .addPackage(BookConverter.class.getPackage())
-//                .addPackage(EJBExceptionMapper.class.getPackage())
-//                .addPackage(DateAdapter.class.getPackage())
-//                .addPackage(CreatedFilter.class.getPackage())
-//                // El archivo que contiene la configuracion a la base de datos.
-//                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-//                // El archivo beans.xml es necesario para injeccion de dependencias.
-//                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"))
-//                // El archivo web.xml es necesario para el despliegue de los servlets
-//                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
-//    }
-//
+      @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class)
+                // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
+                .addAsLibraries(Maven.resolver()
+                        .resolve("co.edu.uniandes.perapple:misVacaciones.logic:1.0-SNAPSHOT")
+                        .withTransitivity().asFile())
+                // Se agregan los compilados de los paquetes de servicios
+                .addPackage(ViajeroResource.class.getPackage())
+                .addPackage(ViajeroDTO.class.getPackage())
+                .addPackage(ViajeroConverter.class.getPackage())
+                .addPackage(EJBExceptionMapper.class.getPackage())
+
+                // El archivo que contiene la configuracion a la base de datos.
+                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                // El archivo beans.xml es necesario para injeccion de dependencias.
+                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"))
+                // El archivo web.xml es necesario para el despliegue de los servlets
+                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
+    }
+
+@Before
+    public void setUpTest() {
+        target = ClientBuilder.newClient().target(deploymentURL.toString()).path(apiPath);
+    }
+
+    @BeforeClass
+    public static void setUp() {
+        insertData();
+    }
+    public static void insertData() {
+        for (int i = 0; i < 5; i++) {
+            ViajeroDTO book = factory.manufacturePojo(ViajeroDTO.class);
+
+            book.setId(i *3);
+
+            oraculo.add(book);
+
+
+        }
+    }
+
+    @Test
+    @InSequence(1)
+    public void createBookTest() {
+        ViajeroDTO viajero = oraculo.get(0);
+        Response response = target.path(viajeroPath).request()
+                .post(Entity.entity(viajero, MediaType.APPLICATION_JSON));
+
+        ViajeroDTO viajeroTest = (ViajeroDTO) response.readEntity(ViajeroDTO.class);
+
+        Assert.assertEquals(CREATED, response.getStatus());
+
+        Assert.assertEquals(viajero.getName(), viajeroTest.getName());
+
+    }
 //    @Before
 //    public void setUpTest() {
 //        target = ClientBuilder.newClient().target(deploymentURL.toString()).path(apiPath);
