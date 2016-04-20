@@ -31,6 +31,7 @@ import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -105,6 +106,7 @@ public class CiudadLogicTest {
 
     }
 
+    
     private void insertData()
     {
         for (int i = 0; i < 3; i++) {
@@ -126,8 +128,8 @@ public class CiudadLogicTest {
             em.persist(entity);
             data.add(entity);
 
-            sitiosData.get(0).setCiudad(entity); //ésto está bien?
-            eventosData.get(0).setCiudad(entity); //ésto está bien?
+            sitiosData.get(0).setCiudad(entity);
+            eventosData.get(0).setCiudad(entity); 
         }
     }
 
