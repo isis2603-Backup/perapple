@@ -17,11 +17,14 @@ import co.edu.uniandes.perapple.entities.SitioItinerarioEntity;
 import co.edu.uniandes.perapple.entities.ViajeroEntity;
 import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import co.edu.uniandes.perapple.persistence.ItinerarioPersistence;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -276,9 +279,14 @@ public class ItinerarioLogicTest {
             System.out.println("fI expected "+expected.getFechaInicio().toString());
             System.out.println("fI expected "+expected.getNombre());
             
+            // utx.begin();
             ItinerarioEntity created = itinerarioLogic.createItinerario(expected);
+            // utx.commit();
             
+            // utx.begin();
             ItinerarioEntity result = em.find(ItinerarioEntity.class, created.getId());
+            // em.refresh(result);
+            // utx.commit();
             
             System.out.println("fI result "+result.getFechaInicio().toString());
             System.out.println("fI result "+result.getNombre());
@@ -287,9 +295,19 @@ public class ItinerarioLogicTest {
             assertNotNull(expected);
             assertEquals(expected.getId(), result.getId());
             assertEquals(expected.getNombre(), result.getNombre());
-            assertEquals(expected.getFechaInicio(),result.getFechaInicio());
-            assertEquals(expected.getFechaFin(),result.getFechaFin() );
+            
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String expectedFI = df.format(expected.getFechaInicio());
+            String expectedFF = df.format(expected.getFechaFin());
+            String resultFI = df.format(result.getFechaInicio());
+            String resultFF = df.format(result.getFechaFin());
+            
+            assertEquals(expectedFI, resultFI);
+            assertEquals(expectedFF, resultFF);
+            
         }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
             fail(ex.getLocalizedMessage());
         }
     }
