@@ -9,10 +9,13 @@ import co.edu.uniandes.perapple.api.IItinerarioLogic;
 import co.edu.uniandes.perapple.ejbs.ItinerarioLogic;
 import co.edu.uniandes.perapple.entities.CiudadEntity;
 import co.edu.uniandes.perapple.entities.CiudadItinerarioEntity;
+import co.edu.uniandes.perapple.entities.EventoEntity;
 import co.edu.uniandes.perapple.entities.EventoItinerarioEntity;
 import co.edu.uniandes.perapple.entities.ItinerarioEntity;
+import co.edu.uniandes.perapple.entities.SitioEntity;
 import co.edu.uniandes.perapple.entities.SitioItinerarioEntity;
 import co.edu.uniandes.perapple.entities.ViajeroEntity;
+import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import co.edu.uniandes.perapple.persistence.ItinerarioPersistence;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,16 +66,13 @@ public class ItinerarioLogicTest {
     private UserTransaction utx;
 
     private List<ItinerarioEntity> itinerariosData = new ArrayList<>();
-
     private List<CiudadItinerarioEntity> ciudadesItinerarioData = new ArrayList<>();
-
     private List<EventoItinerarioEntity> eventosItinerarioData = new ArrayList<>();
-    
     private List<SitioItinerarioEntity> sitiosItinerarioData = new ArrayList<>();
-    
     private List<ViajeroEntity> viajerosData = new ArrayList<>();
-    
     private List<CiudadEntity> ciudadesData = new ArrayList<>();
+    private List<EventoEntity> eventosData = new ArrayList<>();
+    private List<SitioEntity> sitiosData = new ArrayList<>();
     
     @Deployment
     public static JavaArchive createDeployment() {
@@ -113,62 +113,179 @@ public class ItinerarioLogicTest {
         em.createQuery("delete from EventoItinerarioEntity").executeUpdate();
         em.createQuery("delete from ViajeroEntity").executeUpdate();
         em.createQuery("delete from CiudadEntity").executeUpdate();
+        em.createQuery("delete from SitioEntity").executeUpdate();
+        em.createQuery("delete from EventoEntity").executeUpdate();
     }
 
     private void insertData() {
         for (int i = 0; i < 2; i++) {
-            ViajeroEntity viajeros = factory.manufacturePojo(ViajeroEntity.class);
-            System.out.println(viajeros.getEmail());
-            em.persist(viajeros);
-            viajerosData.add(viajeros);
+            ViajeroEntity viajero = factory.manufacturePojo(ViajeroEntity.class);
+            viajero.setEmail(viajero.getName().split(" ")[0]+"@perapple.com");
+            em.persist(viajero);
+            viajerosData.add(viajero);
+        }
+        
+        for (int i = 0; i < 5; i++) {
+            SitioEntity sitios = factory.manufacturePojo(SitioEntity.class);
+            em.persist(sitios);
+            sitiosData.add(sitios);
+        }
+        for (int i = 0; i < 5; i++) {
+            EventoEntity eventos = factory.manufacturePojo(EventoEntity.class);
+            em.persist(eventos);
+            eventosData.add(eventos);
         }
 
         for (int i = 0; i < 5; i++) {
             CiudadEntity ciudad = factory.manufacturePojo(CiudadEntity.class);
+            ciudad.setEventos(eventosData); //Mismos sitios para todas las ciudades
+            ciudad.setSitios(sitiosData); //Mismos eventos para todas las ciudades
             System.out.println(ciudad.getNombre());
             em.persist(ciudad);
             ciudadesData.add(ciudad);
         }
 
         for (int i = 0; i < 3; i++) {
+            
             ItinerarioEntity entity = factory.manufacturePojo(ItinerarioEntity.class);
             System.out.println(entity.getNombre());
+            
+            Date fecha = new Date();
+            long hoy = fecha.getTime();
+            int unDia = (1000 * 60 * 60 * 24);
             
             //2 itinerarios iguales con diferente viajero (i==0 e i==1)
             //2 itinerarios diferente con igual viajero (i==1 e i==2)
             if (i==0){
+                
                 entity.setViajero(viajerosData.get(0));
+                fecha.setTime(hoy);
+                entity.setFechaInicio(fecha);
+                fecha.setTime(hoy+30*unDia);
+                entity.setFechaFin(fecha);
                 
                 List<CiudadItinerarioEntity> ciudadesI = new ArrayList<>();
                 
                 CiudadItinerarioEntity cIE;
                 
-                Date fecha = new Date();
                 cIE= new CiudadItinerarioEntity();
-                int unDia = (1000 * 60 * 60 * 24);
-                
+                cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(0));
                 fecha.setTime(entity.getFechaInicio().getTime() + unDia);
                 cIE.setFechaIni(fecha);
-                fecha.setTime(entity.getFechaFin().getTime() - unDia);
-                cIE.setFechaFin(entity.getFechaInicio());
+                fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
+                cIE.setFechaFin(fecha);
+                ciudadesI.add(cIE);
+                
+                cIE= new CiudadItinerarioEntity();
+                cIE.setItinerario(entity);
+                cIE.setCiudad(ciudadesData.get(1));
+                fecha.setTime(entity.getFechaInicio().getTime() + 5*unDia);
+                cIE.setFechaIni(fecha);
+                fecha.setTime(entity.getFechaInicio().getTime() + 10*unDia);
+                cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
                 
 		entity.setCiudades(ciudadesI);
             }
-            else if(i==2){
-                entity.setViajero(viajerosData.get(0));
+            else if(i==1){
+                entity.setViajero(viajerosData.get(1));
+                
+                fecha.setTime(hoy);
+                entity.setFechaInicio(fecha);
+                fecha.setTime(hoy+30*unDia);
+                entity.setFechaFin(fecha);
+                
+                List<CiudadItinerarioEntity> ciudadesI = new ArrayList<>();
+                
+                CiudadItinerarioEntity cIE;
+                
+                cIE= new CiudadItinerarioEntity();
+                cIE.setItinerario(entity);
+                cIE.setCiudad(ciudadesData.get(0));
+                fecha.setTime(entity.getFechaInicio().getTime() + unDia);
+                cIE.setFechaIni(fecha);
+                fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
+                cIE.setFechaFin(fecha);
+                ciudadesI.add(cIE);
+                
+                cIE= new CiudadItinerarioEntity();
+                cIE.setItinerario(entity);
+                cIE.setCiudad(ciudadesData.get(1));
+                fecha.setTime(entity.getFechaInicio().getTime() + 5*unDia);
+                cIE.setFechaIni(fecha);
+                fecha.setTime(entity.getFechaInicio().getTime() + 10*unDia);
+                cIE.setFechaFin(fecha);
+                ciudadesI.add(cIE);
+                
+		entity.setCiudades(ciudadesI);
             }
             else{
-                entity.setViajero(viajerosData.get(1));
+                entity.setViajero(viajerosData.get(0));
+                
+                fecha.setTime(hoy+2*unDia);
+                entity.setFechaInicio(fecha);
+                fecha.setTime(hoy+20*unDia);
+                entity.setFechaFin(fecha);
+                
+                List<CiudadItinerarioEntity> ciudadesI = new ArrayList<>();
+                
+                CiudadItinerarioEntity cIE;
+                
+                cIE= new CiudadItinerarioEntity();
+                cIE.setItinerario(entity);
+                cIE.setCiudad(ciudadesData.get(1));
+                fecha.setTime(entity.getFechaInicio().getTime() + unDia);
+                cIE.setFechaIni(fecha);
+                fecha.setTime(entity.getFechaInicio().getTime() + 3*unDia);
+                cIE.setFechaFin(fecha);
+                ciudadesI.add(cIE);
+                
+                cIE= new CiudadItinerarioEntity();
+                cIE.setItinerario(entity);
+                cIE.setCiudad(ciudadesData.get(2));
+                fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
+                cIE.setFechaIni(fecha);
+                fecha.setTime(entity.getFechaInicio().getTime() + 8*unDia);
+                cIE.setFechaFin(fecha);
+                ciudadesI.add(cIE);
+                
+		entity.setCiudades(ciudadesI);
             }
+            
             em.persist(entity);
             itinerariosData.add(entity);
         }
     }
 
-    @After
-    public void tearDown() {
+    @Test
+    public void createItinerarioTest(){
+        try{
+            ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
+            
+            Date fecha = new Date();
+            long hoy = fecha.getTime();
+            int unDia = (1000 * 60 * 60 * 24);
+            
+            expected.setViajero(viajerosData.get(1));
+            fecha.setTime(hoy);
+            expected.setFechaInicio(fecha);
+            fecha.setTime(hoy+30*unDia);
+            expected.setFechaFin(fecha);
+            
+            ItinerarioEntity created= itinerarioLogic.createItinerario(expected);
+
+            ItinerarioEntity result = em.find(ItinerarioEntity.class, created.getId());
+
+            assertNotNull(result);
+            assertNotNull(expected);
+            assertEquals(expected.getId(), result.getId());
+            assertEquals(expected.getNombre(), result.getNombre());
+            assertEquals(expected.getFechaInicio(),result.getFechaInicio() );
+            assertEquals(expected.getFechaFin(),result.getFechaFin() );
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        }
     }
 
 }

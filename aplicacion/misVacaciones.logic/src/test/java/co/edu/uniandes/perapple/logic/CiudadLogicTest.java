@@ -100,8 +100,8 @@ public class CiudadLogicTest {
 
     private void clearData()
     {
-         em.createQuery("delete from SitioEntity").executeUpdate();
-         em.createQuery("delete from EventoEntity").executeUpdate();
+        em.createQuery("delete from SitioEntity").executeUpdate();
+        em.createQuery("delete from EventoEntity").executeUpdate();
         em.createQuery("delete from CiudadEntity").executeUpdate();
 
     }
@@ -116,7 +116,7 @@ public class CiudadLogicTest {
         }
         for (int i = 0; i < 5; i++) {
             EventoEntity eventos = factory.manufacturePojo(EventoEntity.class);
-             em.persist(eventos);
+            em.persist(eventos);
             eventosData.add(eventos);
         }
 
