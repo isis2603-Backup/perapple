@@ -34,9 +34,6 @@ private String detalles;
 @Column
 private String imagen;
 
-@PodamStrategyValue(DateStrategy.class)
-@Temporal(TemporalType.DATE)
-private Date fechaSitio;
 
 @PodamExclude
 @ManyToOne
@@ -84,14 +81,6 @@ private List<SitioItinerarioEntity> sitiosItinerario;
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public Date getFechaSitio() {
-        return fechaSitio;
-    }
-
-    public void setFechaSitio(Date fechaSitio) {
-        this.fechaSitio = fechaSitio;
     }
 
     public CiudadEntity getCiudad() {

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
@@ -31,7 +30,7 @@ import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
-import uk.co.jemos.podam.common.PodamExclude;
+
 
 /**
  *
@@ -108,28 +107,31 @@ public class CiudadLogicTest {
 
     private void insertData()
     {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             SitioEntity sitios = factory.manufacturePojo(SitioEntity.class);
 
             em.persist(sitios);
             sitiosData.add(sitios);
+
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             EventoEntity eventos = factory.manufacturePojo(EventoEntity.class);
+
             em.persist(eventos);
             eventosData.add(eventos);
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             CiudadEntity entity = factory.manufacturePojo(CiudadEntity.class);
-
             em.persist(entity);
             data.add(entity);
 
-            sitiosData.get(0).setCiudad(entity); //ésto está bien?
-            eventosData.get(0).setCiudad(entity); //ésto está bien?
-            
+            sitiosData.get(0).setCiudad(entity);
+            eventosData.get(0).setCiudad(entity);
+
         }
+
+
     }
 
      @Test
@@ -147,8 +149,7 @@ public class CiudadLogicTest {
         assertEquals(expected.getId(), result.getId());
         assertEquals(expected.getNombre(), result.getNombre());
         assertEquals(expected.getDetalles(),result.getDetalles() );
-        assertEquals(expected.getFechaInicio(),result.getFechaInicio() );
-        assertEquals(expected.getFechaFin(),result.getFechaFin() );
+
         assertEquals(expected.getImagen(),result.getImagen() );
 
         }catch (BusinessLogicException ex) {
@@ -186,8 +187,6 @@ public class CiudadLogicTest {
         assertEquals(expected.getNombre(), result.getNombre());
         assertEquals(expected.getDetalles(), result.getDetalles());
         assertEquals(expected.getImagen(), result.getImagen());
-        assertEquals(expected.getFechaInicio(), result.getFechaInicio());
-        assertEquals(expected.getFechaFin(), result.getFechaFin());
 
         //Mirar si faltan atributos y si van las listas
 
@@ -259,6 +258,7 @@ public class CiudadLogicTest {
     public void getSitioTest()
     {
          try{
+
         CiudadEntity entity = data.get(0);
         SitioEntity sitioEntity = sitiosData.get(0);
         SitioEntity response = ciudadLogic.getSitio(entity.getId(), sitioEntity.getId());
@@ -271,8 +271,7 @@ public class CiudadLogicTest {
       assertEquals(expected.getNombre(), response.getNombre());
         assertEquals(expected.getDetalles(), response.getDetalles());
        assertEquals(expected.getImagen(), response.getImagen());
-       assertEquals(expected.getFechaSitio(), response.getFechaSitio());
-        }catch(BusinessLogicException ex) {
+       }catch(BusinessLogicException ex) {
            fail(ex.getLocalizedMessage());
         }
     }
@@ -305,7 +304,7 @@ public class CiudadLogicTest {
          try{
 
             // obtiene una ciudad de los
-            CiudadEntity entity = data.get(1);
+            CiudadEntity entity = data.get(0);
 
             // reviso que la ciudad exista antes de la prueba
             CiudadEntity expected = em.find(CiudadEntity.class, entity.getId());
@@ -376,20 +375,6 @@ public class CiudadLogicTest {
         return (SitioEntity) q.getSingleResult();
     }
 
-   // @BeforeClass
-    //public static void setUpClass() {
-    //}
 
-    //@AfterClass
-    //public static void tearDownClass() {
-    //}
-
-    //@Before
-    //public void setUp() {
-    //}
-
-    //@After
-    //public void tearDown() {
-    //}
 
 }
