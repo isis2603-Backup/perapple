@@ -140,7 +140,7 @@ public class ItinerarioLogicTest {
             CiudadEntity ciudad = factory.manufacturePojo(CiudadEntity.class);
             ciudad.setEventos(eventosData); //Mismos sitios para todas las ciudades
             ciudad.setSitios(sitiosData); //Mismos eventos para todas las ciudades
-            System.out.println(ciudad.getNombre());
+            //System.out.println(ciudad.getNombre());
             em.persist(ciudad);
             ciudadesData.add(ciudad);
         }
@@ -148,7 +148,7 @@ public class ItinerarioLogicTest {
         for (int i = 0; i < 3; i++) {
             
             ItinerarioEntity entity = factory.manufacturePojo(ItinerarioEntity.class);
-            System.out.println(entity.getNombre());
+            System.out.println("Nombre Itinerario: "+entity.getNombre());
             
             Date fecha = new Date();
             long hoy = fecha.getTime();
@@ -273,15 +273,21 @@ public class ItinerarioLogicTest {
             fecha.setTime(hoy+30*unDia);
             expected.setFechaFin(fecha);
             
-            ItinerarioEntity created= itinerarioLogic.createItinerario(expected);
-
+            System.out.println("fI expected "+expected.getFechaInicio().toString());
+            System.out.println("fI expected "+expected.getNombre());
+            
+            ItinerarioEntity created = itinerarioLogic.createItinerario(expected);
+            
             ItinerarioEntity result = em.find(ItinerarioEntity.class, created.getId());
+            
+            System.out.println("fI result "+result.getFechaInicio().toString());
+            System.out.println("fI result "+result.getNombre());
 
             assertNotNull(result);
             assertNotNull(expected);
             assertEquals(expected.getId(), result.getId());
             assertEquals(expected.getNombre(), result.getNombre());
-            assertEquals(expected.getFechaInicio(),result.getFechaInicio() );
+            assertEquals(expected.getFechaInicio(),result.getFechaInicio());
             assertEquals(expected.getFechaFin(),result.getFechaFin() );
         }catch (BusinessLogicException ex) {
             fail(ex.getLocalizedMessage());
