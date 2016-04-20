@@ -5,7 +5,7 @@
     mod.controller("itinerarioCtrl", ["$scope","itinerarioService","ciudadService",function ($scope, svc, svcCiudad) {
 
         //Variables current
-        $scope.currentUser = 'p@earpple.com';
+        $scope.currentUser = 1; //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
         $scope.records=[]; //itinerarios a mostrar según el currentUser
         $scope.currentRecord = {}; //itinerario del que se muestra todo
         $scope.currentCiudadesMostrar = []; //ciudades que se muestran en la lista
@@ -81,17 +81,17 @@
             $scope.tab = tab;
         };
 
-        this.fetchRecordsViajero = function (emailViajero) {
-            return svc.fetchItinerariosViajero(emailViajero).then(function (response) {
+        this.fetchRecordsViajero = function (idViajero) {
+            return svc.fetchItinerariosViajero(idViajero).then(function (response) {
                 $scope.records = response.data;
-                $scope.currentUser = emailViajero;
+                $scope.currentUser = idViajero;
                 self.editMode = false;
                 return response;
             }, responseError);
         };
 
         this.fetchCurrentRecord = function () {
-            return svc.fetchCurrentItinerario().then(function (response) {
+            return svc.fetchCurrentItinerario($scope.currentUser).then(function (response) {
                 $scope.currentRecord = response.data;
                 return response;
             }, responseError);
@@ -106,7 +106,7 @@
                         $scope.currentRecord = response.data;
                     }, responseError)
                     .then(function(){
-                        svc.saveCurrentItinerario($scope.currentRecord);
+                        svc.saveCurrentItinerario($scope.currentUser, $scope.currentRecord);
                     }, responseError)
                     .then(function(){
                         self.fetchCurrents();

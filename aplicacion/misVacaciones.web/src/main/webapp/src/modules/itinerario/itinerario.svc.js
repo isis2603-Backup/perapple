@@ -15,8 +15,8 @@
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un array de objetos de itinerario (solo los itinerarios de ese usuario).
          */
-        this.fetchItinerariosViajero = function (emailViajero) {
-            return $http.get(context + "/viajero/" + emailViajero);
+        this.fetchItinerariosViajero = function (idViajero) {
+            return $http.get(context + "/viajero/" + idViajero);
         };
 
         /**
@@ -63,11 +63,12 @@
         /**
          * Obtener el itinerario actual.
          * Hace una petición GET con $http a /itinerario/current para obtener el itinerario actual
+         * @param {object} idViajero id del current del viajero
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un objeto de itinerario
          */
-        this.fetchCurrentItinerario = function () {
-            return $http.get(context+"/current");
+        this.fetchCurrentItinerario = function (idViajero) {
+            return $http.get(context+"/current/"+idViajero);
         };
 
         /**
@@ -131,12 +132,13 @@
          * Guardar un registro de itinerario.
          * Se hace un PUT a /itinerario/current/ con los
          * nuevos datos de la instancia de itinerario.
+         * @param {object} idViajero id del current del viajero
          * @param {object} nItinerario instancia de itineraio a guardar/actualizar
          * @returns {promise} promise para leer la respuesta del servidor.
          * Se recibe un objeto de itinerario con su nuevo viajero
          */
-        this.saveCurrentItinerario = function (nItinerario) {
-            return $http.put(context + "/current", nItinerario);
+        this.saveCurrentItinerario = function (idViajero, nItinerario) {
+            return $http.put(context + "/current/"+idViajero, nItinerario);
         };
 
         /**

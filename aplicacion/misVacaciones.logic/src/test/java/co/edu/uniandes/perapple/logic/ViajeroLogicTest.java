@@ -59,14 +59,14 @@ public class ViajeroLogicTest {
      */
     @PersistenceContext
     private EntityManager em;
-    
+
     @Inject
     private UserTransaction utx;
-    
+
     private List<ViajeroEntity> data = new ArrayList<>();
 
     private List<ItinerarioEntity> itinerariosData = new ArrayList<>();
-    
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -77,7 +77,7 @@ public class ViajeroLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     @Before
     public void configTest() {
         try {
@@ -94,12 +94,12 @@ public class ViajeroLogicTest {
             }
         }
     }
-    
+
     private void clearData() {
         em.createQuery("delete from ItinerarioEntity").executeUpdate();
         em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
-    
+
        private void insertData() {
         for (int i = 0; i < 3; i++) {
             ItinerarioEntity itinerarios = factory.manufacturePojo(ItinerarioEntity.class);
@@ -112,14 +112,17 @@ public class ViajeroLogicTest {
 
         for (int i = 0; i < 3; i++) {
             ViajeroEntity entity = factory.manufacturePojo(ViajeroEntity.class);
+            ArrayList<ItinerarioEntity> iti = new ArrayList<>();
+            iti.add(itinerariosData.get(i));
+            entity.setItinerarios(iti);
 
             em.persist(entity);
             data.add(entity);
 
-            itinerariosData.get(0).setViajero(entity);
+            itinerariosData.get(i).setViajero(entity);
         }
     }
-       
+
     @Test
     public void getViajerosTest() {
         List<ViajeroEntity> resultList = viajeroLogic.getViajeros();
@@ -135,7 +138,7 @@ public class ViajeroLogicTest {
             Assert.assertTrue(found);
         }
     }
-    
+
     @Test
     public void getViajeroTest() {
         try {
@@ -153,7 +156,7 @@ public class ViajeroLogicTest {
             Assert.fail(be.getMessage());
         }
     }
-    
+
     @Test
     public void createViajeroTest() {
         try {
@@ -173,7 +176,7 @@ public class ViajeroLogicTest {
             Assert.fail(be.getMessage());
         }
     }
-    
+
     @Test
     public void updateAuthorTest() {
         try {

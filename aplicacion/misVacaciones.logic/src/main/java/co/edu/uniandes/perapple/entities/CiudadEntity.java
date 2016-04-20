@@ -1,25 +1,24 @@
 package co.edu.uniandes.perapple.entities;
 
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
+
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import uk.co.jemos.podam.common.PodamExclude;
+
 
 @Entity
 public class CiudadEntity  implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @PodamExclude
     private int id;
 
     @Column
@@ -31,11 +30,7 @@ public class CiudadEntity  implements Serializable {
     @Column
     private String imagen;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
     @PodamExclude
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SitioEntity> sitios;
@@ -70,15 +65,6 @@ public class CiudadEntity  implements Serializable {
         return detalles;
     }
 
-    public Date getFechaInicio()
-    {
-        return fechaInicio;
-    }
-
-    public Date getFechaFin()
-    {
-        return fechaFin;
-    }
 
     public List<SitioEntity> getSitios() {
         return sitios;
@@ -109,16 +95,6 @@ public class CiudadEntity  implements Serializable {
         this.detalles=Detalles;
     }
 
-
-    public void setFechaInicio(Date fecha)
-    {
-        this.fechaInicio=fecha;
-    }
-
-    public void setFechaFin(Date fecha)
-    {
-        this.fechaFin=fecha;
-    }
 
     public void setSitios(List<SitioEntity> sitios)
     {

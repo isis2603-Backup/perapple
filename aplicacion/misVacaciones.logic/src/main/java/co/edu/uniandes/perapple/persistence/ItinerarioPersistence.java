@@ -19,6 +19,7 @@ public class ItinerarioPersistence {
 
     public ItinerarioEntity find(int id) {
         logger.log(Level.INFO, "Consultando Itinerario con id={0}", id);
+        System.out.println("debería imprimirme 2 veces");
         return em.find(ItinerarioEntity.class, id);
     }
 
@@ -40,7 +41,7 @@ public class ItinerarioPersistence {
         logger.info("Creando un itinerario nuevo");
         em.persist(entity);
         logger.info("Itinerario creado");
-        return entity;
+        return find(entity.getId());
     }
 
     public ItinerarioEntity update(ItinerarioEntity entity) {

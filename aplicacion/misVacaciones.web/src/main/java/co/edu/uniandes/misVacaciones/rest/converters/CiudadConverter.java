@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CiudadConverter {
-    
+
     /**
      * Constructor privado para evitar la creación del constructor implícito de
      * Java
      */
     private CiudadConverter() {
-        
+
     }
-    
+
     public static CiudadDTO basicEntity2DTO(CiudadEntity entity) {
         if (entity != null) {
             CiudadDTO dto = new CiudadDTO();
@@ -22,14 +22,13 @@ public abstract class CiudadConverter {
             dto.setNombre(entity.getNombre());
             dto.setDetalles(entity.getDetalles());
             dto.setImagen(entity.getImagen());
-            dto.setFechaInicio(entity.getFechaInicio());
-            dto.setFechaFin(entity.getFechaFin());
+
             return dto;
         } else {
             return null;
         }
     }
-    
+
     public static CiudadEntity basicDTO2Entity(CiudadDTO dto) {
         if (dto != null) {
             CiudadEntity entity = new CiudadEntity();
@@ -37,8 +36,7 @@ public abstract class CiudadConverter {
             entity.setNombre(dto.getNombre());
             entity.setDetalles(dto.getDetalles());
             entity.setImagen(dto.getImagen());
-            entity.setFechaInicio(dto.getFechaInicio());
-            entity.setFechaFin(dto.getFechaFin());
+
             return entity;
         } else {
             return null;
@@ -54,7 +52,7 @@ public abstract class CiudadConverter {
         }
         return dtos;
     }
-    
+
     public static List<CiudadEntity> listDTO2Entity(List<CiudadDTO> dtos) {
         List<CiudadEntity> entities = new ArrayList<>();
         if (dtos != null) {

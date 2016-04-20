@@ -18,13 +18,13 @@ public abstract class SitioConverter {
             dto.setNombre(entity.getNombre());
             dto.setDetalles(entity.getDetalles());
             dto.setImagen(entity.getImagen());
-            dto.setFechaSitio(entity.getFechaSitio());
+           
             return dto;
         } else {
             return null;
         }
     }
-    
+
     private static SitioEntity basicDTO2Entity(SitioDTO dto) {
         if (dto != null) {
             SitioEntity entity = new SitioEntity();
@@ -32,7 +32,7 @@ public abstract class SitioConverter {
             entity.setNombre(dto.getNombre());
             entity.setDetalles(dto.getDetalles());
             entity.setImagen(dto.getImagen());
-            entity.setFechaSitio(dto.getFechaSitio());
+
             return entity;
         } else {
             return null;
@@ -48,7 +48,7 @@ public abstract class SitioConverter {
         }
         return dtos;
     }
-    
+
     public static List<SitioEntity> listDTO2Entity(List<SitioDTO> dtos) {
         List<SitioEntity> entities = new ArrayList<>();
         if (dtos != null) {
@@ -80,5 +80,5 @@ public abstract class SitioConverter {
             return null;
         }
     }
-    
+
 }

@@ -1,5 +1,6 @@
 package co.edu.uniandes.perapple.entities;
 
+import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  *
@@ -29,9 +31,11 @@ public class EventoItinerarioEntity implements Serializable{
     @ManyToOne
     private CiudadItinerarioEntity ciudad;
 
+    @PodamStrategyValue(DateStrategy.class)
     @Temporal(TemporalType.DATE)
     private Date fechaIni;
 
+    @PodamStrategyValue(DateStrategy.class)
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
