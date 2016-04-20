@@ -18,8 +18,6 @@ public class CiudadDTO {
     private int id;
     private String nombre;
     private String detalles;
-    private Date fechaInicio;
-    private Date fechaFin;
     private List<SitioDTO> sitios;
     private List<EventoDTO> eventos;
     private String imagen;
@@ -28,7 +26,7 @@ public class CiudadDTO {
      * Constructor por defecto
      */
     public CiudadDTO() {
-        
+
     }
 
     /**
@@ -37,17 +35,13 @@ public class CiudadDTO {
      * @param nombre nombre de la ciudad
      * @param detalles detalles de la ciudad
      * @param imagen imagen respresentativa de la ciudad
-     * @param fechaInicio fecha de inicio visita ciudad
-     * @param fechaFin fecha fin visita ciudad
      */
-    public CiudadDTO(int id, String nombre, String detalles, String imagen, Date fechaInicio, Date fechaFin) {
+    public CiudadDTO(int id, String nombre, String detalles, String imagen) {
         super();
         this.id = id;
         this.nombre = nombre;
         this.detalles=detalles;
         this.imagen=imagen;
-        this.fechaInicio=fechaInicio;
-        this.fechaFin= fechaFin;
         this.eventos= new ArrayList<>();
         this.sitios= new ArrayList<>();
     }
@@ -74,20 +68,6 @@ public class CiudadDTO {
     }
 
      /**
-     * @return La fecha inicio visita en la ciudad
-     */
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-     /**
-     * @return La fecha fin de visita en la ciudad
-     */
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-     /**
      * @return Lista de sitios de la ciudad
      */
     public List<SitioDTO> getSitios() {
@@ -101,14 +81,6 @@ public class CiudadDTO {
 
     public void setDetalles(String detalles) {
         this.detalles = detalles;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
     }
 
     public void setImagen(String imagen) {
@@ -158,8 +130,6 @@ public class CiudadDTO {
 
         ciudad = "{ id : " + id
                 + ", nombre : \"" + nombre
-                + "\" , fechaInicio: "+fechaInicio
-                +" , fechaFin: "+fechaFin
                 +" , sitios: [";
 
         if(sitios!=null){
