@@ -11,7 +11,9 @@ import co.edu.uniandes.perapple.entities.ItinerarioEntity;
 import co.edu.uniandes.perapple.entities.ViajeroEntity;
 import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import co.edu.uniandes.perapple.persistence.ViajeroPersistence;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,7 +68,11 @@ public class ViajeroLogicTest {
     private List<ViajeroEntity> data = new ArrayList<>();
 
     private List<ItinerarioEntity> itinerariosData = new ArrayList<>();
-
+    
+    private final static Date FECHA_FIN = Date.from(LocalDateTime.of(2016, Month.DECEMBER, 25, 12, 0).toInstant(ZoneOffset.UTC));
+    
+    private final static Date FECHA_INI = Date.from(LocalDateTime.of(2016, Month.APRIL, 20, 12, 0).toInstant(ZoneOffset.UTC));
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -103,8 +109,8 @@ public class ViajeroLogicTest {
        private void insertData() {
         for (int i = 0; i < 3; i++) {
             ItinerarioEntity itinerarios = factory.manufacturePojo(ItinerarioEntity.class);
-            itinerarios.setFechaFin(Date.from(LocalDateTime.MAX.toInstant(ZoneOffset.UTC)));
-            itinerarios.setFechaInicio(Date.from(LocalDateTime.MIN.toInstant(ZoneOffset.UTC)));
+            itinerarios.setFechaFin(FECHA_FIN);
+            itinerarios.setFechaInicio(FECHA_INI);
             itinerarios.setNombre("Itinerario " + i);
             em.persist(itinerarios);
             itinerariosData.add(itinerarios);
