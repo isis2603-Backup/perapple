@@ -8,15 +8,12 @@ import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
 import co.edu.uniandes.misVacaciones.rest.providers.CreatedFilter;
 import co.edu.uniandes.misVacaciones.rest.resources.ItinerarioResource;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -200,7 +197,7 @@ public class ItinerarioResourceIT {
 
     @Test
     @InSequence(4)
-    public void updateBookTest() {
+    public void updateItinerarioTest() {
         ItinerarioDTO itinerario = oraculo.get(2);
         ItinerarioDTO itinerarioChanged = factory.manufacturePojo(ItinerarioDTO.class);
 
@@ -247,21 +244,31 @@ public class ItinerarioResourceIT {
 
     }
 
-//    @Test
-//    @InSequence(5)
-//    public void addCiudadTest() {
-//
-//        CiudadItinerarioDTO ciudad = oraculoCiudadesItinerario.get(0);
-//        ItinerarioDTO itinerario = oraculo.get(0);
-//
-//        Response response = target.path("ciudades").request()
-//                .post(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
-//
-//        AuthorDTO authorsTest = (AuthorDTO) response.readEntity(AuthorDTO.class);
-//        Assert.assertEquals(authors.getId(), authorsTest.getId());
-//        Assert.assertEquals(authors.getName(), authorsTest.getName());
-//        Assert.assertEquals(authors.getBirthDate(), authorsTest.getBirthDate());
-//        Assert.assertEquals(CREATED, response.getStatus());
+    @Test
+    @InSequence(5)
+    public void addCiudadTest() {
+        CiudadDTO ciudadDTO = oraculoCiudadesDTO.get(0);
+        CiudadItinerarioDTO ciudadItinerario = oraculoCiudadesItinerario.get(0);
+        ItinerarioDTO itinerario = oraculo.get(0);
+
+        //Creacion de una ciudad
+        Response response = target.path("ciudades").request()
+                .post(Entity.entity(ciudadDTO, MediaType.APPLICATION_JSON));
+
+        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
+        Assert.assertEquals("la ciudad no tine el mismo id ",ciudadDTO.getId(), ciudadTest.getId());
+        Assert.assertEquals(ciudadDTO.getDetalles(), ciudadTest.getDetalles());
+        Assert.assertEquals(ciudadDTO.getEventos(), ciudadTest.getEventos());
+        Assert.assertEquals(ciudadDTO.getSitios(), ciudadTest.getSitios());
+        Assert.assertEquals(ciudadDTO.getImagen(), ciudadTest.getImagen());
+        Assert.assertEquals(ciudadDTO.getNombre(), ciudadTest.getNombre());
+
+        //creacion del itinerario
+        response = target.path("itinerarios").request()
+                .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
+
+
+        Assert.assertEquals(CREATED, response.getStatus());
 //
 //        response = target.path(bookPath).path(book.getId().toString())
 //                .path(authorsPath).path(authors.getId().toString()).request()
@@ -270,8 +277,8 @@ public class ItinerarioResourceIT {
 //        authorsTest = (AuthorDTO) response.readEntity(AuthorDTO.class);
 //        Assert.assertEquals(OK, response.getStatus());
 //        Assert.assertEquals(authors.getId(), authorsTest.getId());
-//    }
-//
+    }
+
 //    @Test
 //    @InSequence(6)
 //    public void listAuthorsTest() {
