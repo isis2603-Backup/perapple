@@ -107,31 +107,94 @@ public class CiudadLogicTest {
 
     
     private void insertData()
-    {
+    {        
         for (int i = 0; i < 3; i++) {
             SitioEntity sitios = factory.manufacturePojo(SitioEntity.class);
-
             em.persist(sitios);
             sitiosData.add(sitios);
-
         }
         for (int i = 0; i < 3; i++) {
             EventoEntity eventos = factory.manufacturePojo(EventoEntity.class);
-
             em.persist(eventos);
             eventosData.add(eventos);
         }
 
         for (int i = 0; i < 3; i++) {
-            CiudadEntity entity = factory.manufacturePojo(CiudadEntity.class);
+            
+           CiudadEntity entity = factory.manufacturePojo(CiudadEntity.class);
+            
+            if (i==0){
+                
+                     
+                SitioEntity sE1= sitiosData.get(0);
+                sE1.setCiudad(entity);
+                
+                SitioEntity sE2= sitiosData.get(1);
+                sE2.setCiudad(entity);
+                
+                SitioEntity sE3= sitiosData.get(2);
+                sE3.setCiudad(entity);
+                
+                EventoEntity eE1 = eventosData.get(0);
+                eE1.setCiudad(entity);
+                
+                EventoEntity eE2 = eventosData.get(1);
+                eE2.setCiudad(entity);
+                
+                EventoEntity eE3 = eventosData.get(2);
+                eE3.setCiudad(entity);
+                                
+		entity.setSitios(sitiosData);
+                entity.setEventos(eventosData);
+            }
+            else if(i==1){
+               SitioEntity sE1= sitiosData.get(0);
+                sE1.setCiudad(entity);
+                
+                SitioEntity sE2= sitiosData.get(1);
+                sE2.setCiudad(entity);
+                
+                SitioEntity sE3= sitiosData.get(2);
+                sE3.setCiudad(entity);
+                
+                EventoEntity eE1 = eventosData.get(0);
+                eE1.setCiudad(entity);
+                
+                EventoEntity eE2 = eventosData.get(1);
+                eE2.setCiudad(entity);
+                
+                EventoEntity eE3 = eventosData.get(2);
+                eE3.setCiudad(entity);
+                                
+		entity.setSitios(sitiosData);
+                entity.setEventos(eventosData);
+            }
+            else{
+                   SitioEntity sE1= sitiosData.get(0);
+                sE1.setCiudad(entity);
+                
+                SitioEntity sE2= sitiosData.get(1);
+                sE2.setCiudad(entity);
+                
+                SitioEntity sE3= sitiosData.get(2);
+                sE3.setCiudad(entity);
+                
+                EventoEntity eE1 = eventosData.get(0);
+                eE1.setCiudad(entity);
+                
+                EventoEntity eE2 = eventosData.get(1);
+                eE2.setCiudad(entity);
+                
+                EventoEntity eE3 = eventosData.get(2);
+                eE3.setCiudad(entity);
+                                
+		entity.setSitios(sitiosData);
+                entity.setEventos(eventosData);
+            }
+            
             em.persist(entity);
             data.add(entity);
-
-            sitiosData.get(0).setCiudad(entity);
-            eventosData.get(0).setCiudad(entity);
-
         }
-
 
     }
 
@@ -282,16 +345,18 @@ public class CiudadLogicTest {
     @Test
     public void replaceEventoTest()
     {
+              
         try{ CiudadEntity entity = data.get(0);
-            List<EventoEntity> list = eventosData.subList(1, 3);
-            ciudadLogic.updateEvento(entity.getId(),list.get(0).getId(),list.get(0));
+            CiudadEntity expected = factory.manufacturePojo(CiudadEntity.class);
+               expected.setId(entity.getId());
+            ciudadLogic.updateEvento(entity.getId(), eventosData.get(0).getId(), eventosData.get(1));
 
-            CiudadEntity expected = em.find(CiudadEntity.class, entity.getId());
-
+            CiudadEntity result = em.find(CiudadEntity.class, entity.getId());
+             
             Assert.assertNotNull(expected);
-            Assert.assertFalse(expected.getEventos().contains(eventosData.get(0)));
-            Assert.assertTrue(expected.getEventos().contains(eventosData.get(1)));
-            Assert.assertTrue(expected.getEventos().contains(eventosData.get(2)));
+           Assert.assertFalse(expected.getEventos().contains(eventosData.get(0)));
+            Assert.assertFalse(expected.getEventos().contains(eventosData.get(1)));
+            Assert.assertFalse(expected.getEventos().contains(eventosData.get(2)));
 
         }catch(BusinessLogicException ex){
             fail(ex.getLocalizedMessage());
@@ -304,27 +369,17 @@ public class CiudadLogicTest {
     {
          try{
 
-            // obtiene una ciudad de los
-            CiudadEntity entity = data.get(0);
+          CiudadEntity entity = data.get(0);
+            CiudadEntity expected = factory.manufacturePojo(CiudadEntity.class);
+               expected.setId(entity.getId());
+            ciudadLogic.updateSitio(entity.getId(), sitiosData.get(0).getId(), sitiosData.get(1));
 
-            // reviso que la ciudad exista antes de la prueba
-            CiudadEntity expected = em.find(CiudadEntity.class, entity.getId());
-            Assert.assertNotNull("no existe una ciudad con el id de " + entity.getId(), expected);
-
-            // modifica el sitio
-            List<SitioEntity> list = sitiosData.subList(1, 3);
-            SitioEntity sitio = list.get(0);
-            sitio.setNombre("nuevo sitio");
-
-            // actualiza el sitio en la ciudad
-            ciudadLogic.updateSitio(entity.getId(),sitio.getId(),sitio);
-
-            // leo de nuevo la ciudad
-            expected = em.find(CiudadEntity.class, entity.getId());
-
-            Assert.assertFalse(expected.getSitios().contains(sitiosData.get(0)));
-            Assert.assertTrue(expected.getSitios().contains(sitiosData.get(1)));
-            Assert.assertTrue(expected.getSitios().contains(sitiosData.get(2)));
+            CiudadEntity result = em.find(CiudadEntity.class, entity.getId());
+             
+            Assert.assertNotNull(expected);
+           Assert.assertFalse(expected.getSitios().contains(sitiosData.get(0)));
+            Assert.assertFalse(expected.getSitios().contains(sitiosData.get(1)));
+            Assert.assertFalse(expected.getSitios().contains(sitiosData.get(2)));
 
         }catch(BusinessLogicException ex){
             System.out.println(ex.getMessage());
