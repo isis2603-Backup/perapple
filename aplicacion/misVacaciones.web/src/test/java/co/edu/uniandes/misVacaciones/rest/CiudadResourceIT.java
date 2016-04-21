@@ -1,5 +1,9 @@
 package co.edu.uniandes.misVacaciones.rest;
 
+import co.edu.uniandes.misVacaciones.rest.converters.CiudadConverter;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misVacaciones.rest.resources.CiudadResource;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,6 +54,25 @@ public class CiudadResourceIT {
     @ArquillianResource
     private URL deploymentURL;
 
+        @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class)
+                // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
+                .addAsLibraries(Maven.resolver()
+                        .resolve("co.edu.uniandes.perapple:misVacaciones.logic:1.0-SNAPSHOT")
+                        .withTransitivity().asFile())
+                // Se agregan los compilados de los paquetes de servicios
+                .addPackage(CiudadResource.class.getPackage())
+                .addPackage(CiudadDTO.class.getPackage())
+                .addPackage(CiudadConverter.class.getPackage())
+                .addPackage(EJBExceptionMapper.class.getPackage())
+                // El archivo que contiene la configuracion a la base de datos.
+                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                // El archivo beans.xml es necesario para injeccion de dependencias.
+                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"))
+                // El archivo web.xml es necesario para el despliegue de los servlets
+                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
+    }
 //    @Deployment(testable = false)
 //    public static WebArchive createDeployment() {
 //        return ShrinkWrap.create(WebArchive.class)
