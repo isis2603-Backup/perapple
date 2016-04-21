@@ -1,5 +1,12 @@
 package co.edu.uniandes.misVacaciones.rest;
 
+import co.edu.uniandes.misVacaciones.rest.adapters.DateAdapter;
+import co.edu.uniandes.misVacaciones.rest.converters.ItinerarioConverter;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadItinerarioDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
+import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misVacaciones.rest.providers.CreatedFilter;
+import co.edu.uniandes.misVacaciones.rest.resources.ItinerarioResource;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,12 +43,13 @@ public class ItinerarioResourceIT {
     private final int OK = Status.OK.getStatusCode();
     private final int CREATED = Status.CREATED.getStatusCode();
     private final int NO_CONTENT = Status.NO_CONTENT.getStatusCode();
+    private final int ERROR = Status.INTERNAL_SERVER_ERROR.getStatusCode();
 
-//    private final String bookPath = "books";
-//    private final String authorsPath = "authors";
+    private final String itinerarioPath = "itinerarios";
+    private final String ciudadesPath = "ciudades";
 
-//    private final static List<BookDTO> oraculo = new ArrayList<>();
-//    private final static List<AuthorDTO> oraculoAuthors = new ArrayList<>();
+    private final static List<ItinerarioDTO> oraculo = new ArrayList<>();
+    private final static List<CiudadItinerarioDTO> oraculoCiudades = new ArrayList<>();
 
     private WebTarget target;
     private final String apiPath = "api";
@@ -50,89 +58,124 @@ public class ItinerarioResourceIT {
     @ArquillianResource
     private URL deploymentURL;
 
-//    @Deployment(testable = false)
-//    public static WebArchive createDeployment() {
-//        return ShrinkWrap.create(WebArchive.class)
-//                // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
-//                .addAsLibraries(Maven.resolver()
-//                        .resolve("co.edu.uniandes.csw.bookstore:bookstore-logic:1.0-SNAPSHOT")
-//                        .withTransitivity().asFile())
-//                // Se agregan los compilados de los paquetes de servicios
-//                .addPackage(BookResource.class.getPackage())
-//                .addPackage(BookDTO.class.getPackage())
-//                .addPackage(BookConverter.class.getPackage())
-//                .addPackage(EJBExceptionMapper.class.getPackage())
-//                .addPackage(DateAdapter.class.getPackage())
-//                .addPackage(CreatedFilter.class.getPackage())
-//                // El archivo que contiene la configuracion a la base de datos.
-//                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-//                // El archivo beans.xml es necesario para injeccion de dependencias.
-//                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"))
-//                // El archivo web.xml es necesario para el despliegue de los servlets
-//                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
-//    }
-//
-//    @Before
-//    public void setUpTest() {
-//        target = ClientBuilder.newClient().target(deploymentURL.toString()).path(apiPath);
-//    }
-//
-//    @BeforeClass
-//    public static void setUp() {
-//        insertData();
-//    }
-//
-//    public static void insertData() {
-//        for (int i = 0; i < 5; i++) {
-//            BookDTO book = factory.manufacturePojo(BookDTO.class);
-//            book.setPublishDate(getMaxDate());
-//            book.setId(i + 1L);
-//            List<ReviewDTO> reviewsList = new ArrayList<>();
-//            for (int j = 0; j < 5; j++) {
-//                ReviewDTO reviews = factory.manufacturePojo(ReviewDTO.class);
-//                reviews.setId(i + 1L);
-//                reviewsList.add(reviews);
-//            }
-//
-//            book.setReviews(reviewsList);
-//
-//            oraculo.add(book);
-//
-//            AuthorDTO authors = factory.manufacturePojo(AuthorDTO.class);
-//            authors.setId(i + 1L);
-//            oraculoAuthors.add(authors);
-//        }
-//    }
-//
-//    @Test
-//    @InSequence(1)
-//    public void createBookTest() {
-//        BookDTO book = oraculo.get(0);
-//        Response response = target.path(bookPath).request()
-//                .post(Entity.entity(book, MediaType.APPLICATION_JSON));
-//
-//        BookDTO bookTest = (BookDTO) response.readEntity(BookDTO.class);
-//
-//        Assert.assertEquals(CREATED, response.getStatus());
-//
-//        Assert.assertEquals(book.getName(), bookTest.getName());
-//        Assert.assertEquals(book.getDescription(), bookTest.getDescription());
-//        Assert.assertEquals(book.getIsbn(), bookTest.getIsbn());
-//        Assert.assertEquals(book.getImage(), bookTest.getImage());
-//    }
-//
-//    @Test
-//    @InSequence(2)
-//    public void getBookById() {
-//        BookDTO bookTest = target.path(bookPath)
-//                .path(oraculo.get(0).getId().toString())
-//                .request().get(BookDTO.class);
-//        Assert.assertEquals(bookTest.getId(), oraculo.get(0).getId());
-//        Assert.assertEquals(bookTest.getName(), oraculo.get(0).getName());
-//        Assert.assertEquals(bookTest.getDescription(), oraculo.get(0).getDescription());
-//        Assert.assertEquals(bookTest.getIsbn(), oraculo.get(0).getIsbn());
-//        Assert.assertEquals(bookTest.getImage(), oraculo.get(0).getImage());
-//    }
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class)
+                // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
+                    .addAsLibraries(Maven.resolver()
+                        .resolve("co.edu.uniandes.perapple:misVacaciones.logic:1.0-SNAPSHOT")
+                        .withTransitivity().asFile())
+                // Se agregan los compilados de los paquetes de servicios
+                .addPackage(ItinerarioResource.class.getPackage())
+                .addPackage(ItinerarioDTO.class.getPackage())
+                .addPackage(ItinerarioConverter.class.getPackage())
+                .addPackage(EJBExceptionMapper.class.getPackage())
+                .addPackage(DateAdapter.class.getPackage())
+                .addPackage(CreatedFilter.class.getPackage())
+                // El archivo que contiene la configuracion a la base de datos.
+                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                // El archivo beans.xml es necesario para injeccion de dependencias.
+                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"))
+                // El archivo web.xml es necesario para el despliegue de los servlets
+                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
+    }
+
+    @Before
+    public void setUpTest() {
+        target = ClientBuilder.newClient().target(deploymentURL.toString()).path(apiPath);
+    }
+
+    @BeforeClass
+    public static void setUp() {
+        insertData();
+    }
+
+    public static void insertData() {
+
+        for (int i = 0; i < 5; i++) {
+            ItinerarioDTO itinerario = factory.manufacturePojo(ItinerarioDTO.class);
+
+            //modificar dto con @podamExclude para poder poner las fechas, el viajero correctamente
+            itinerario.setFechaInicio(getDate(0));
+            itinerario.setFechaFin(getDate(1));
+            //itinerario.setViajero(null);
+
+            //itinerario.setId(i + 1L);
+            List<CiudadItinerarioDTO> ciudadItinerarioList = new ArrayList<>();
+            for (int j = 0; j < 5; j++) {
+                CiudadItinerarioDTO ciudadItinerario = factory.manufacturePojo(CiudadItinerarioDTO.class);
+                //ciudadItinerario.setId(i + 1L);
+                ciudadItinerarioList.add(ciudadItinerario);
+                oraculoCiudades.add(ciudadItinerario);
+            }
+            if(i > 1 )
+            {
+            itinerario.setCiudades(ciudadItinerarioList);
+            }
+            oraculo.add(itinerario);
+
+        }
+    }
+
+    @Test
+    @InSequence(1)
+    public void createItinerarioTest() {
+        ItinerarioDTO itinerario = oraculo.get(0);
+
+        //Prueba itinerario con fechas correctas
+
+        Response response = target.path(itinerarioPath).request()
+                .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
+
+        ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
+
+        Assert.assertEquals("No se creo el itinerario", CREATED, response.getStatus());
+        Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);
+        Assert.assertEquals("No coincide el nombre del itinerario",itinerario.getNombre(), itinerarioTest.getNombre());
+        Assert.assertEquals("No coincide la fecha fin del itinerario",itinerario.getFechaFin(), itinerarioTest.getFechaFin());
+        Assert.assertEquals("No coincide la fecha inicio del itinerario",itinerario.getFechaInicio(), itinerarioTest.getFechaInicio());
+        Assert.assertEquals("No coincide el id del itinerario",itinerario.getId(), itinerarioTest.getId());
+        Assert.assertEquals("No coinciden las ciudades del itinerario",itinerario.getCiudades(), itinerarioTest.getCiudades());
+
+        //Prueba volver a crear el itinerario
+
+         response = target.path(itinerarioPath).request()
+                .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
+
+         //revisar que status recibe asociado a que se genera un error
+          Assert.assertEquals("Se creo el itinerario", ERROR, response.getStatus());
+
+          //prueba con fechas invertidas
+          itinerario = oraculo.get(1);
+          Date ini = itinerario.getFechaInicio();
+          Date fin = itinerario.getFechaFin();
+          itinerario.setFechaInicio(fin);
+          itinerario.setFechaFin(ini);
+
+         response = target.path(itinerarioPath).request()
+                .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
+
+         //revisar que status recibe asociado a que se genera un error
+          Assert.assertEquals("Se creo el itinerario", ERROR, response.getStatus());
+
+
+    }
+
+    @Test
+    @InSequence(2)
+    public void getItinerarioById() {
+        ItinerarioDTO itinerarioTest = target.path(itinerarioPath)
+                .path(oraculo.get(0).getId()+"")
+                .request().get(ItinerarioDTO.class);
+
+        Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);
+        Assert.assertEquals("No coincide el nombre del itinerario",oraculo.get(0).getNombre(), itinerarioTest.getNombre());
+        Assert.assertEquals("No coincide la fecha fin del itinerario",oraculo.get(0).getFechaFin(), itinerarioTest.getFechaFin());
+        Assert.assertEquals("No coincide la fecha inicio del itinerario",oraculo.get(0).getFechaInicio(), itinerarioTest.getFechaInicio());
+        Assert.assertEquals("No coincide el id del itinerario",oraculo.get(0).getId(), itinerarioTest.getId());
+        Assert.assertEquals("No coinciden las ciudades del itinerario",oraculo.get(0).getCiudades(), itinerarioTest.getCiudades());
+
+    }
 //
 //    @Test
 //    @InSequence(3)
@@ -245,14 +288,25 @@ public class ItinerarioResourceIT {
 //        Assert.assertEquals(NO_CONTENT, response.getStatus());
 //    }
 //
-//    private static Date getMaxDate() {
-//        Calendar c = Calendar.getInstance();
-//        c.set(Calendar.YEAR, 9999);
-//        c.set(Calendar.DAY_OF_YEAR, c.getActualMaximum(Calendar.DAY_OF_YEAR));
-//        c.set(Calendar.HOUR_OF_DAY, c.getActualMinimum(Calendar.HOUR_OF_DAY));
-//        c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
-//        c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));
-//        c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
-//        return c.getTime();
-//    }
+    private static Date getDate( int type) {
+        Calendar c = Calendar.getInstance();
+        if(type == 0){
+        c.set(Calendar.YEAR, 1999);
+        c.set(Calendar.DAY_OF_YEAR, c.getActualMinimum(Calendar.DAY_OF_YEAR));
+        c.set(Calendar.HOUR_OF_DAY, c.getActualMinimum(Calendar.HOUR_OF_DAY));
+        c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
+        c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));
+        c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
+        }
+        else
+        {c.set(Calendar.YEAR, 9999);
+        c.set(Calendar.DAY_OF_YEAR, c.getActualMaximum(Calendar.DAY_OF_YEAR));
+        c.set(Calendar.HOUR_OF_DAY, c.getActualMinimum(Calendar.HOUR_OF_DAY));
+        c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
+        c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));
+        c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
+
+        }
+        return c.getTime();
+    }
 }
