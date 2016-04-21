@@ -2,6 +2,8 @@ package co.edu.uniandes.misVacaciones.rest;
 
 import co.edu.uniandes.misVacaciones.rest.converters.CiudadConverter;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
 import co.edu.uniandes.misVacaciones.rest.resources.CiudadResource;
 import java.io.File;
@@ -41,12 +43,14 @@ public class CiudadResourceIT {
     private final int CREATED = Status.CREATED.getStatusCode();
     private final int NO_CONTENT = Status.NO_CONTENT.getStatusCode();
 
-//    private final String bookPath = "books";
-//    private final String authorsPath = "authors";
+    private final String ciudadPath = "ciudades";
+    private final String sitiosPath = "sitios";
+    private final String eventosPath= "eventos";
 
-//    private final static List<BookDTO> oraculo = new ArrayList<>();
-//    private final static List<AuthorDTO> oraculoAuthors = new ArrayList<>();
-
+    private final static List<CiudadDTO> oraculo = new ArrayList<>();
+    private final static List<SitioDTO> oraculoSitios = new ArrayList<>();
+    private final static List<EventoDTO> oraculoEventos= new ArrayList<>();
+ 
     private WebTarget target;
     private final String apiPath = "api";
     private static PodamFactory factory = new PodamFactoryImpl();
@@ -73,60 +77,42 @@ public class CiudadResourceIT {
                 // El archivo web.xml es necesario para el despliegue de los servlets
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
     }
-//    @Deployment(testable = false)
-//    public static WebArchive createDeployment() {
-//        return ShrinkWrap.create(WebArchive.class)
-//                // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
-//                .addAsLibraries(Maven.resolver()
-//                        .resolve("co.edu.uniandes.csw.bookstore:bookstore-logic:1.0-SNAPSHOT")
-//                        .withTransitivity().asFile())
-//                // Se agregan los compilados de los paquetes de servicios
-//                .addPackage(BookResource.class.getPackage())
-//                .addPackage(BookDTO.class.getPackage())
-//                .addPackage(BookConverter.class.getPackage())
-//                .addPackage(EJBExceptionMapper.class.getPackage())
-//                .addPackage(DateAdapter.class.getPackage())
-//                .addPackage(CreatedFilter.class.getPackage())
-//                // El archivo que contiene la configuracion a la base de datos.
-//                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-//                // El archivo beans.xml es necesario para injeccion de dependencias.
-//                .addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"))
-//                // El archivo web.xml es necesario para el despliegue de los servlets
-//                .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
-//    }
-//
-//    @Before
-//    public void setUpTest() {
-//        target = ClientBuilder.newClient().target(deploymentURL.toString()).path(apiPath);
-//    }
-//
-//    @BeforeClass
-//    public static void setUp() {
-//        insertData();
-//    }
-//
-//    public static void insertData() {
-//        for (int i = 0; i < 5; i++) {
-//            BookDTO book = factory.manufacturePojo(BookDTO.class);
-//            book.setPublishDate(getMaxDate());
-//            book.setId(i + 1L);
-//            List<ReviewDTO> reviewsList = new ArrayList<>();
-//            for (int j = 0; j < 5; j++) {
-//                ReviewDTO reviews = factory.manufacturePojo(ReviewDTO.class);
-//                reviews.setId(i + 1L);
-//                reviewsList.add(reviews);
-//            }
-//
-//            book.setReviews(reviewsList);
-//
-//            oraculo.add(book);
-//
-//            AuthorDTO authors = factory.manufacturePojo(AuthorDTO.class);
-//            authors.setId(i + 1L);
-//            oraculoAuthors.add(authors);
-//        }
-//    }
-//
+
+    @Before
+    public void setUpTest() {
+        target = ClientBuilder.newClient().target(deploymentURL.toString()).path(apiPath);
+    }
+
+    @BeforeClass
+    public static void setUp() {
+        insertData();
+    }
+
+    public static void insertData() {
+        for (int i = 0; i < 5; i++) {
+            CiudadDTO ciudad = factory.manufacturePojo(CiudadDTO.class);
+            ciudad.setId(i);
+            List<SitioDTO> sitiosList = new ArrayList<>();
+            List<EventoDTO> eventosList = new ArrayList<>();
+            for (int j = 0; j < 5; j++) {
+                SitioDTO sitios = factory.manufacturePojo(SitioDTO.class);
+                sitios.setId(i);
+                sitiosList.add(sitios);
+                
+                EventoDTO eventos = factory.manufacturePojo(EventoDTO.class);
+                eventos.setId(i);
+                eventosList.add(eventos);
+             }
+           
+
+            ciudad.setSitios(sitiosList);
+            ciudad.setEventos(eventosList);
+
+            oraculo.add(ciudad);
+
+        }
+    }
+    
 //    @Test
 //    @InSequence(1)
 //    public void createBookTest() {
