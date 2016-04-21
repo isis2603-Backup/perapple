@@ -2,11 +2,13 @@ package co.edu.uniandes.misVacaciones.rest;
 
 import co.edu.uniandes.misVacaciones.rest.adapters.DateAdapter;
 import co.edu.uniandes.misVacaciones.rest.converters.ItinerarioConverter;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
 import co.edu.uniandes.misVacaciones.rest.providers.CreatedFilter;
 import co.edu.uniandes.misVacaciones.rest.resources.ItinerarioResource;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,7 +51,8 @@ public class ItinerarioResourceIT {
     private final String ciudadesPath = "ciudades";
 
     private final static List<ItinerarioDTO> oraculo = new ArrayList<>();
-    private final static List<CiudadItinerarioDTO> oraculoCiudades = new ArrayList<>();
+    private final static List<CiudadItinerarioDTO> oraculoCiudadesItinerario = new ArrayList<>();
+    private final static List<CiudadDTO> oraculoCiudadesDTO = new ArrayList<>();
 
     private WebTarget target;
     private final String apiPath = "api";
@@ -93,6 +96,11 @@ public class ItinerarioResourceIT {
     public static void insertData() {
 
         for (int i = 0; i < 5; i++) {
+
+            CiudadDTO ciudad = factory.manufacturePojo(CiudadDTO.class);
+
+            oraculoCiudadesDTO.add(ciudad);
+
             ItinerarioDTO itinerario = factory.manufacturePojo(ItinerarioDTO.class);
 
             //modificar dto con @podamExclude para poder poner las fechas, el viajero correctamente
@@ -106,13 +114,14 @@ public class ItinerarioResourceIT {
                 CiudadItinerarioDTO ciudadItinerario = factory.manufacturePojo(CiudadItinerarioDTO.class);
                 //ciudadItinerario.setId(i + 1L);
                 ciudadItinerarioList.add(ciudadItinerario);
-                oraculoCiudades.add(ciudadItinerario);
+                oraculoCiudadesItinerario.add(ciudadItinerario);
             }
             if(i > 1 )
             {
             itinerario.setCiudades(ciudadItinerarioList);
             }
             oraculo.add(itinerario);
+
 
         }
     }
@@ -176,58 +185,77 @@ public class ItinerarioResourceIT {
         Assert.assertEquals("No coinciden las ciudades del itinerario",oraculo.get(0).getCiudades(), itinerarioTest.getCiudades());
 
     }
-//
-//    @Test
-//    @InSequence(3)
-//    public void listBookTest() {
-//        Response response = target.path(bookPath)
-//                .request().get();
-//
-//        List<BookDTO> listBookTest = response.readEntity(new GenericType<List<BookDTO>>() {
-//        });
-//        Assert.assertEquals(OK, response.getStatus());
-//        Assert.assertEquals(1, listBookTest.size());
-//    }
-//
-//    @Test
-//    @InSequence(4)
-//    public void updateBookTest() {
-//        BookDTO book = oraculo.get(0);
-//        BookDTO bookChanged = factory.manufacturePojo(BookDTO.class);
-//        bookChanged.setPublishDate(getMaxDate());
-//        book.setName(bookChanged.getName());
-//        book.setDescription(bookChanged.getDescription());
-//        book.setIsbn(bookChanged.getIsbn());
-//        book.setImage(bookChanged.getImage());
-//        book.setPublishDate(bookChanged.getPublishDate());
-//        Response response = target.path(bookPath).path(book.getId().toString())
-//                .request().put(Entity.entity(book, MediaType.APPLICATION_JSON));
-//        BookDTO bookTest = (BookDTO) response.readEntity(BookDTO.class);
-//        Assert.assertEquals(OK, response.getStatus());
-//        Assert.assertEquals(book.getName(), bookTest.getName());
-//        Assert.assertEquals(book.getDescription(), bookTest.getDescription());
-//        Assert.assertEquals(book.getIsbn(), bookTest.getIsbn());
-//        Assert.assertEquals(book.getImage(), bookTest.getImage());
-//    }
-//
-//    @Test
-//    @InSequence(9)
-//    public void deleteBookTest() {
-//        BookDTO book = oraculo.get(0);
-//        Response response = target.path(bookPath).path(book.getId().toString())
+
+    @Test
+    @InSequence(3)
+    public void listItinerarioTest() {
+        Response response = target.path(itinerarioPath)
+                .request().get();
+
+        List<ItinerarioDTO> listItinerarioTest = response.readEntity(new GenericType<List<ItinerarioDTO>>() {
+        });
+        Assert.assertEquals(OK, response.getStatus());
+        Assert.assertEquals(1, listItinerarioTest.size());
+    }
+
+    @Test
+    @InSequence(4)
+    public void updateBookTest() {
+        ItinerarioDTO itinerario = oraculo.get(2);
+        ItinerarioDTO itinerarioChanged = factory.manufacturePojo(ItinerarioDTO.class);
+
+        //itinerario.setFechaInicio(getDate(0));
+        //itinerario.setFechaFin(getDate(1));
+
+        itinerario.setNombre(itinerarioChanged.getNombre());
+        itinerario.setViajero(itinerarioChanged.getViajero());
+        itinerario.setCiudades(itinerarioChanged.getCiudades());
+
+        Response response = target.path(itinerarioPath).path(itinerario.getId()+"")
+                .request().put(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
+        ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
+
+        //Logro hacer la actualización - según status
+        Assert.assertEquals(OK, response.getStatus());
+
+        //Prueba de modificación
+        Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);
+        Assert.assertEquals("No coincide el nombre del itinerario",itinerario.getNombre(), itinerarioTest.getNombre());
+        Assert.assertEquals("No coincide la fecha fin del itinerario",itinerario.getFechaFin(), itinerarioTest.getFechaFin());
+        Assert.assertEquals("No coincide la fecha inicio del itinerario",itinerario.getFechaInicio(), itinerarioTest.getFechaInicio());
+        Assert.assertEquals("No coincide el id del itinerario",itinerario.getId(), itinerarioTest.getId());
+        Assert.assertEquals("No coinciden las ciudades del itinerario",itinerario.getCiudades(), itinerarioTest.getCiudades());
+
+    }
+
+    @Test
+    @InSequence(9)
+    public void deleteItinerarioTest() {
+        ItinerarioDTO itinerario = oraculo.get(0);
+
+        //prueba de borrado
+        Response response = target.path(itinerarioPath).path(itinerario.getId()+"")
+                .request().delete();
+        Assert.assertEquals(NO_CONTENT, response.getStatus());
+
+//        //prueba de borrado de nuevo
+//         response = target.path(itinerarioPath).path(itinerario.getId()+"")
 //                .request().delete();
-//        Assert.assertEquals(NO_CONTENT, response.getStatus());
-//    }
+//        Assert.assertEquals(ERROR, response.getStatus());
 //
+
+
+    }
+
 //    @Test
 //    @InSequence(5)
-//    public void addAuthorsTest() {
+//    public void addCiudadTest() {
 //
-//        AuthorDTO authors = oraculoAuthors.get(0);
-//        BookDTO book = oraculo.get(0);
+//        CiudadItinerarioDTO ciudad = oraculoCiudadesItinerario.get(0);
+//        ItinerarioDTO itinerario = oraculo.get(0);
 //
-//        Response response = target.path("authors").request()
-//                .post(Entity.entity(authors, MediaType.APPLICATION_JSON));
+//        Response response = target.path("ciudades").request()
+//                .post(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
 //
 //        AuthorDTO authorsTest = (AuthorDTO) response.readEntity(AuthorDTO.class);
 //        Assert.assertEquals(authors.getId(), authorsTest.getId());
