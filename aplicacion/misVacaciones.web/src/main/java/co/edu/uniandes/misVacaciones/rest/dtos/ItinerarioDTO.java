@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
-import java.util.ArrayList;
+import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import java.util.Date;
 import java.util.List;
+import uk.co.jemos.podam.common.PodamExclude;
+import uk.co.jemos.podam.common.PodamStrategyValue;
 
 /**
  * Objeto de transferencia de datos de Itinerarios.
@@ -16,36 +18,14 @@ import java.util.List;
 public class ItinerarioDTO {
     private int id;
     private String nombre;
+    @PodamExclude
     private ViajeroDTO viajero;
+    @PodamStrategyValue(DateStrategy.class)
     private Date fechaInicio;
+    @PodamStrategyValue(DateStrategy.class)
     private Date fechaFin;
     private List<CiudadItinerarioDTO> ciudades;
-
-    /**
-     * Constructor por defecto
-     */
-    public ItinerarioDTO() {
-	}
-
-
-    /**
-     * Constructor con parámetros.
-     * @param id identificador de la ciudad
-     * @param nombre nombre de la ciudad
-     * @param viajero
-     * @param fechaInicio
-     * @param fechaFin
-     */
-
-    public ItinerarioDTO(int id, String nombre, ViajeroDTO viajero, Date fechaInicio, Date fechaFin) {
-        super();
-        this.id = id;
-        this.nombre = nombre;
-        this.viajero = viajero;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.ciudades = new ArrayList<>();
-    }
+    
 	/**
      * @return the id
      */
@@ -100,39 +80,4 @@ public class ItinerarioDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    /**
-     * Convierte el objeto a una cadena
-     * @return objeto
-     */
-    @Override
-    public String toString() {
-
-        String objeto = " ";
-        objeto = "{ id : " + id
-                + ", nombre : \"" + nombre
-                + "\" , fechaInicio: "+fechaInicio
-                +" , fechaFin: "+fechaFin
-                +" , ciudades: [";
-        //for \(*0*)/
-        if(ciudades!=null){
-        for(int i = 0; i<ciudades.size();i++)
-        {
-            if(i<ciudades.size()-1)
-            {
-
-                objeto += ciudades.get(i).toString()+" , ";
-            }
-            else
-            {
-                objeto += ciudades.get(i).toString();
-            }
-        }}
-
-         objeto +="]"
-                + " }" ;
-
-        return objeto;
-    }
-
 }
