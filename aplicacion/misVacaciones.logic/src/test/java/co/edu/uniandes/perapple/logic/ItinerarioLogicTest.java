@@ -189,7 +189,7 @@ public class ItinerarioLogicTest {
                 cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
                 
-		entity.setCiudades(ciudadesI);
+		entity.setCiudades(ciudadesI);  
             }
             else if(i==1){
                 entity.setViajero(viajerosData.get(1));
