@@ -43,6 +43,7 @@ public class ItinerarioResourceIT {
     private final int CREATED = Status.CREATED.getStatusCode();
     private final int NO_CONTENT = Status.NO_CONTENT.getStatusCode();
     private final int ERROR = Status.INTERNAL_SERVER_ERROR.getStatusCode();
+    private final int NOT_FOUND = Status.NOT_FOUND.getStatusCode();
 
     private final String itinerarioPath = "itinerarios";
     private final String ciudadesPath = "ciudades";
@@ -52,7 +53,7 @@ public class ItinerarioResourceIT {
     private final static List<CiudadDTO> oraculoCiudadesDTO = new ArrayList<>();
 
     private WebTarget target;
-    private final String apiPath = "api";
+    private final String apiPath = "/api";
     private static PodamFactory factory = new PodamFactoryImpl();
 
     @ArquillianResource
@@ -112,8 +113,8 @@ public class ItinerarioResourceIT {
                 //ciudadItinerario.setId(i + 1L);
                 ciudadItinerario.setFechaIni(getDate(2016, Calendar.APRIL, Calendar.MONDAY));
                 ciudadItinerario.setFechaIni(getDate(2016, Calendar.APRIL, Calendar.FRIDAY));
-                
-                
+
+
                 ciudadItinerarioList.add(ciudadItinerario);
                 oraculoCiudadesItinerario.add(ciudadItinerario);
             }
@@ -134,12 +135,14 @@ public class ItinerarioResourceIT {
 
         //Prueba itinerario con fechas correctas
 
+        System.out.println(Entity.entity(itinerario, MediaType.APPLICATION_JSON).toString());
         Response response = target.path(itinerarioPath).request()
                 .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
 
-        ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
 
         Assert.assertEquals("No se creo el itinerario", CREATED, response.getStatus());
+        ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
+
         Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);
         Assert.assertEquals("No coincide el nombre del itinerario",itinerario.getNombre(), itinerarioTest.getNombre());
         Assert.assertEquals("No coincide la fecha fin del itinerario",itinerario.getFechaFin(), itinerarioTest.getFechaFin());
@@ -174,9 +177,19 @@ public class ItinerarioResourceIT {
     @Test
     @InSequence(2)
     public void getItinerarioById() {
+
+         Response response =target.path(itinerarioPath)
+                .path(oraculo.get(0).getId()+"")
+                .request().get();
+
+         Assert.assertNotEquals("No se encontro el itinerario",NOT_FOUND, response.getStatus());
+
         ItinerarioDTO itinerarioTest = target.path(itinerarioPath)
                 .path(oraculo.get(0).getId()+"")
                 .request().get(ItinerarioDTO.class);
+
+
+
 
         Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);
         Assert.assertEquals("No coincide el nombre del itinerario",oraculo.get(0).getNombre(), itinerarioTest.getNombre());
@@ -193,9 +206,10 @@ public class ItinerarioResourceIT {
         Response response = target.path(itinerarioPath)
                 .request().get();
 
+        Assert.assertEquals(OK, response.getStatus());
         List<ItinerarioDTO> listItinerarioTest = response.readEntity(new GenericType<List<ItinerarioDTO>>() {
         });
-        Assert.assertEquals(OK, response.getStatus());
+
         Assert.assertEquals(1, listItinerarioTest.size());
     }
 
@@ -214,10 +228,13 @@ public class ItinerarioResourceIT {
 
         Response response = target.path(itinerarioPath).path(itinerario.getId()+"")
                 .request().put(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
-        ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
 
         //Logro hacer la actualización - según status
         Assert.assertEquals(OK, response.getStatus());
+
+        ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
+
+
 
         //Prueba de modificación
         Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);
@@ -230,7 +247,7 @@ public class ItinerarioResourceIT {
     }
 
     @Test
-    @InSequence(9)
+    @InSequence(5)
     public void deleteItinerarioTest() {
         ItinerarioDTO itinerario = oraculo.get(0);
 
@@ -249,7 +266,7 @@ public class ItinerarioResourceIT {
     }
 
     @Test
-    @InSequence(5)
+    @InSequence(6)
     public void addCiudadTest() {
         CiudadDTO ciudadDTO = oraculoCiudadesDTO.get(0);
         CiudadItinerarioDTO ciudadItinerario = oraculoCiudadesItinerario.get(0);
@@ -258,9 +275,9 @@ public class ItinerarioResourceIT {
         //Creacion de una ciudad
         Response response = target.path("ciudades").request()
                 .post(Entity.entity(ciudadDTO, MediaType.APPLICATION_JSON));
-        
+
         Assert.assertEquals("No se creo la ciudad",CREATED, response.getStatus());
-           
+
         CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
         Assert.assertEquals("la ciudad no tiene el mismo id ",ciudadDTO.getId(), ciudadTest.getId());
         Assert.assertEquals("la ciudad no tiene los mismos detalles",ciudadDTO.getDetalles(), ciudadTest.getDetalles());
@@ -268,17 +285,17 @@ public class ItinerarioResourceIT {
         Assert.assertEquals("la ciudad no tiene los mismos sitios",ciudadDTO.getSitios(), ciudadTest.getSitios());
         Assert.assertEquals("la ciudad no tiene la misma imagen",ciudadDTO.getImagen(), ciudadTest.getImagen());
         Assert.assertEquals("la ciudad no tiene el mismo nombre",ciudadDTO.getNombre(), ciudadTest.getNombre());
-        
+
         //creacion del itinerario
         response = target.path("itinerarios").request()
                 .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
 
 
         Assert.assertEquals("No se creo el itinerario",CREATED, response.getStatus());
-        
+
         //adiciona a ciudadItinerario la ciudad creada
-        ciudadItinerario.setCiudad(ciudadDTO);           
-                        
+        ciudadItinerario.setCiudad(ciudadDTO);
+
         //operacion de adicion de la ciudadItinerario
         response = target.path(itinerarioPath).path(itinerario.getId()+"")
                 .path(ciudadesPath).request()
@@ -291,18 +308,18 @@ public class ItinerarioResourceIT {
         adicion.add(ciudadItinerario);
         //adiciona la lista de ciudadesItinerario al itinerario
         itinerario.setCiudades(adicion);
-        
+
         //itinerario de respuesta
         ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
-        
+
         Assert.assertEquals("Respuesta del servidor no fue OK",OK, response.getStatus());
         Assert.assertEquals("No hay el numero de ciudadItinerario correcto",  adicion.size(), itinerarioTest.getCiudades().size() );
         Assert.assertEquals("No se agrego la ciudad correctamente",ciudadItinerario.getCiudad(), itinerarioTest.getCiudades().get(0).getCiudad());
-        
+
     }
 
     @Test
-    @InSequence(6)
+    @InSequence(7)
     public void listCiudadesTest() {
         ItinerarioDTO itinerario = oraculo.get(0);
 
@@ -311,15 +328,16 @@ public class ItinerarioResourceIT {
                 .path(ciudadesPath)
                 .request().get();
 
+        Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
+
         List<CiudadItinerarioDTO> ciudadItinerarioListTest = response.readEntity(new GenericType<List<CiudadItinerarioDTO>>() {
         });
-        Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
         Assert.assertEquals("No hay el numero correcto de ciudadesitinerarios",itinerario.getCiudades().size(), ciudadItinerarioListTest.size());
         Assert.assertEquals("No es la ciudad correcta", itinerario.getCiudades().get(0).getCiudad() , ciudadItinerarioListTest.get(0).getCiudad());
     }
 
 //    @Test
-//    @InSequence(7)
+//    @InSequence(8)
 //    public void getAuthorsTest() {
 //        AuthorDTO authors = oraculoAuthors.get(0);
 //        BookDTO book = oraculo.get(0);
@@ -335,7 +353,7 @@ public class ItinerarioResourceIT {
 //    }
 //
 //    @Test
-//    @InSequence(8)
+//    @InSequence(9)
 //    public void removeAuthorsTest() {
 //        AuthorDTO authors = oraculoAuthors.get(0);
 //        BookDTO book = oraculo.get(0);
@@ -369,7 +387,7 @@ public class ItinerarioResourceIT {
     }
     private static Date getDate( int year, int month, int day  ) {
         Calendar c = Calendar.getInstance();
-        
+
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_YEAR, day);
@@ -377,7 +395,7 @@ public class ItinerarioResourceIT {
         c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
         c.set(Calendar.SECOND, c.getActualMinimum(Calendar.SECOND));
         c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
-        
+
         return c.getTime();
     }
 }
