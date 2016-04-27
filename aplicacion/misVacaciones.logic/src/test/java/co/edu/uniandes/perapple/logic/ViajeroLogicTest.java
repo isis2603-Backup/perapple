@@ -178,7 +178,7 @@ public class ViajeroLogicTest {
     }
 
     @Test
-    public void updateAuthorTest() {
+    public void updateViajeroTest() {
         try {
             ViajeroEntity entity = data.get(0);
             ViajeroEntity expected = factory.manufacturePojo(ViajeroEntity.class);
@@ -201,7 +201,7 @@ public class ViajeroLogicTest {
     }
 
     @Test
-    public void deleteAuthorTest() {
+    public void deleteViajeroTest() {
         try {
             ViajeroEntity entity = data.get(1);
             viajeroLogic.deleteViajero(entity.getId());

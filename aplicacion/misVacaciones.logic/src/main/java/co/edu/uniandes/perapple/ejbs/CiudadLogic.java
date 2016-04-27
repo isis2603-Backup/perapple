@@ -209,7 +209,6 @@ public class CiudadLogic implements ICiudadLogic {
             EventoEntity e = eventos.get(i);
             if(e.getId()==eventoId){
                 eventos.set(i, evento);
-                ciudadEntity.setEventos(eventos);
                 logger.log(Level.INFO, "Termina el proceso de actualizar evento con id="+eventoId+" de la ciudad con id="+ciudadId);
                 return evento;
             }
@@ -294,7 +293,7 @@ public class CiudadLogic implements ICiudadLogic {
             throw new BusinessLogicException("La ciudad a la que se le quiere eliminar el sitio no existe.");
         }
 
-        if (!validateEventoExiste(ciudadId, sitioId)){
+        if (!validateSitioExiste(ciudadId, sitioId)){
             throw new BusinessLogicException("El sitio no existe en esa ciudad.");
         }
 
@@ -331,8 +330,8 @@ public class CiudadLogic implements ICiudadLogic {
             throw new BusinessLogicException("La ciudad a la que se le quiere actualizar el sitio no existe.");
         }
 
-        if (!validateEventoExiste(ciudadId, sitioId)){
-            throw new BusinessLogicException("El evento no existe en esa ciudad.");
+        if (!validateSitioExiste(ciudadId, sitioId)){
+            throw new BusinessLogicException("El sitio no existe en esa ciudad.");
         }
 
         CiudadEntity ciudadEntity = persistence.find(ciudadId);
@@ -343,7 +342,6 @@ public class CiudadLogic implements ICiudadLogic {
             SitioEntity s = sitios.get(i);
             if(s.getId()==sitioId){
                 sitios.set(i, sitio);
-                ciudadEntity.setSitios(sitios);
                 logger.log(Level.INFO, "Termina el proceso de actualizar sitio con id="+sitioId+" de la ciudad con id="+ciudadId);
                 return sitio;
             }
@@ -371,10 +369,10 @@ public class CiudadLogic implements ICiudadLogic {
         for(int i=0; i<eventos.size(); i++){
             EventoEntity e = eventos.get(i);
             if(e.getId() == eventoId){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean validateSitioExiste(int ciudadId, int sitioId) {
@@ -384,9 +382,9 @@ public class CiudadLogic implements ICiudadLogic {
         for(int i=0; i<sitios.size(); i++){
             SitioEntity s = sitios.get(i);
             if(s.getId() == sitioId){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
