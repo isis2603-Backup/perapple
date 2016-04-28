@@ -270,7 +270,7 @@ public class CiudadLogicTest {
         try {
             EventoEntity entity = eventosData.get(0);
             EventoEntity expected = factory.manufacturePojo(EventoEntity.class);
-
+            expected.setCiudad(data.get(0));
             expected.setId(entity.getId());
 
             ciudadLogic.updateEvento(data.get(0).getId(), entity.getId(), expected);
@@ -280,7 +280,7 @@ public class CiudadLogicTest {
             Assert.assertNotNull(expected);
 
             assertEquals(expected.getId(), result.getId());
-            assertEquals(expected.getCiudad(), result.getCiudad());
+            assertEquals(expected.getCiudad().getId(), result.getCiudad().getId());
             assertEquals(expected.getDetalles(), result.getDetalles());
             assertEquals(expected.getImagen(), result.getImagen());
             assertEquals(expected.getNombre(), result.getNombre());
@@ -295,7 +295,7 @@ public class CiudadLogicTest {
         try {
             SitioEntity entity = sitiosData.get(0);
             SitioEntity expected = factory.manufacturePojo(SitioEntity.class);
-
+            expected.setCiudad(data.get(0));
             expected.setId(entity.getId());
 
             ciudadLogic.updateSitio(data.get(0).getId(), entity.getId(), expected);
@@ -305,7 +305,7 @@ public class CiudadLogicTest {
             Assert.assertNotNull(expected);
 
             assertEquals(expected.getId(), result.getId());
-            assertEquals(expected.getCiudad(), result.getCiudad());
+            assertEquals(expected.getCiudad().getId(), result.getCiudad().getId());
             assertEquals(expected.getDetalles(), result.getDetalles());
             assertEquals(expected.getImagen(), result.getImagen());
             assertEquals(expected.getNombre(), result.getNombre());

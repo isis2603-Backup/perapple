@@ -1,6 +1,7 @@
 package co.edu.uniandes.perapple.persistence;
 
 import co.edu.uniandes.perapple.entities.CiudadEntity;
+import co.edu.uniandes.perapple.entities.SitioEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,5 +45,10 @@ public class CiudadPersistence {
         logger.info("Consultando todas las ciudades");
         Query q = em.createQuery("select u from CiudadEntity u");
         return q.getResultList();
+    }
+    
+    public SitioEntity updateSitio(SitioEntity entity){
+        logger.log(Level.INFO, "Actualizando sitio con id={0}", entity.getId());
+        return em.merge(entity);
     }
 }

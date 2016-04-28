@@ -209,6 +209,7 @@ public class CiudadLogic implements ICiudadLogic {
             EventoEntity e = eventos.get(i);
             if(e.getId()==eventoId){
                 eventos.set(i, evento);
+                persistence.update(ciudadEntity);
                 logger.log(Level.INFO, "Termina el proceso de actualizar evento con id="+eventoId+" de la ciudad con id="+ciudadId);
                 return evento;
             }
@@ -342,6 +343,7 @@ public class CiudadLogic implements ICiudadLogic {
             SitioEntity s = sitios.get(i);
             if(s.getId()==sitioId){
                 sitios.set(i, sitio);
+                persistence.update(ciudadEntity);
                 logger.log(Level.INFO, "Termina el proceso de actualizar sitio con id="+sitioId+" de la ciudad con id="+ciudadId);
                 return sitio;
             }
