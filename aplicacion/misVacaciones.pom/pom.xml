@@ -83,6 +83,10 @@
                      <name>derby.stream.error.file</name>
                 <value>target/derby.log</value>
             </property>
+            <property>
+                     <name>failIfNoTests</name>
+                <value>false</value>
+            </property>
         </systemProperties>
     </configuration>
 </plugin>
