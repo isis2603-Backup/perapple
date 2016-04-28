@@ -11,11 +11,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -44,6 +41,8 @@ public class ViajeroResourceIT {
     private final int OK = Status.OK.getStatusCode();
     private final int CREATED = Status.CREATED.getStatusCode();
     private final int NO_CONTENT = Status.NO_CONTENT.getStatusCode();
+    private final int ERROR = Status.INTERNAL_SERVER_ERROR.getStatusCode();
+    private final int NOT_FOUND = Status.NOT_FOUND.getStatusCode();
     
     private final String viajeroPath = "viajeros";
 
@@ -116,9 +115,8 @@ public class ViajeroResourceIT {
         Response response = target.path(viajeroPath).request()
                 .post(Entity.entity(viajero, MediaType.APPLICATION_JSON));
 
+        Assert.assertEquals("No se creo el viajero", CREATED, response.getStatus());
         ViajeroDTO viajeroTest = (ViajeroDTO) response.readEntity(ViajeroDTO.class);
-
-        Assert.assertEquals(CREATED, response.getStatus());
 
         Assert.assertEquals(viajero.getName(), viajeroTest.getName());
         Assert.assertEquals(viajero.getEmail(), viajeroTest.getEmail());
@@ -129,7 +127,12 @@ public class ViajeroResourceIT {
     
     @Test
     @InSequence(2)
-    public void getBookById() {
+    public void getViajeroById() {
+        Response response = target.path(viajeroPath)
+                .path(String.valueOf(oraculo.get(0).getId()))
+                .request().get();
+        Assert.assertNotEquals("No se encontró el viajero", NOT_FOUND, response.getStatus());
+
         ViajeroDTO viajeroTest = target.path(viajeroPath)
                 .path(String.valueOf(oraculo.get(0).getId()))
                 .request().get(ViajeroDTO.class);
@@ -145,10 +148,10 @@ public class ViajeroResourceIT {
     public void listViajeroTest() {
         Response response = target.path(viajeroPath)
                 .request().get();
-
+        
+        Assert.assertEquals("No se encontró los viajeros", OK, response.getStatus());
         List<ViajeroDTO> listViajerosTest = response.readEntity(new GenericType<List<ViajeroDTO>>() {
         });
-        Assert.assertEquals(OK, response.getStatus());
         Assert.assertEquals(1, listViajerosTest.size());
     }
 
@@ -163,8 +166,8 @@ public class ViajeroResourceIT {
         viajero.setPassword(viajeroCambiado.getPassword());
         Response response = target.path(viajeroPath).path(String.valueOf(viajero.getId()))
                 .request().put(Entity.entity(viajero, MediaType.APPLICATION_JSON));
-        ViajeroDTO viajeroTest = (ViajeroDTO) response.readEntity(ViajeroDTO.class);
-        Assert.assertEquals(OK, response.getStatus());
+        Assert.assertEquals("No se actualizó el viajero", OK, response.getStatus());
+        ViajeroDTO viajeroTest = (ViajeroDTO) response.readEntity(ViajeroDTO.class);;
         Assert.assertEquals(viajero.getName(), viajeroTest.getName());
         Assert.assertEquals(viajero.getEmail(), viajeroTest.getEmail());
         Assert.assertEquals(viajero.getImage(), viajeroTest.getImage());
