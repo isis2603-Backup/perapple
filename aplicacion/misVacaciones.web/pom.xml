@@ -48,6 +48,12 @@
                 <version>7.0</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>1.1</version>
+                <scope>provided</scope>
+            </dependency>
     </dependencies>
 
     <build>
@@ -111,8 +117,13 @@
                 </executions>
                 <configuration>
                     <skipITs>true</skipITs>
+                    <systemProperties>
+                       <property>
+                <name>derby.stream.error.file</name>
+                <value>target/derby.log</value>
+                         </property>
+                    </systemProperties>
                 </configuration>
-
             </plugin>
         </plugins>
     </build>
