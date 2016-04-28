@@ -72,6 +72,13 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                        <systemProperties>
+            <!-- Get rid of that missplaced derby.log. -->
+            <systemProperty>
+                <name>derby.stream.error.file</name>
+                <value>${project.build.directory}/derby.log</value>
+            </systemProperty>
+        </systemProperties>
                     </configuration>
                 </plugin>
                 <plugin>

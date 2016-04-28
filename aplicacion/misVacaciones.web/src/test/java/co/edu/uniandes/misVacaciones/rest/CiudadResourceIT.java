@@ -115,7 +115,7 @@ public class CiudadResourceIT {
 
     @Test
     @InSequence(1)
-    public void createBookTest() {
+    public void createCiudadTest() {
         CiudadDTO ciudad = oraculo.get(0);
         Response response = target.path(ciudadPath).request()
                 .post(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
