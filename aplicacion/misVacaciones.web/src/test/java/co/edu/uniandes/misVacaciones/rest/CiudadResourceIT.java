@@ -50,9 +50,9 @@ public class CiudadResourceIT {
     private final static List<CiudadDTO> oraculo = new ArrayList<>();
     private final static List<SitioDTO> oraculoSitios = new ArrayList<>();
     private final static List<EventoDTO> oraculoEventos= new ArrayList<>();
- 
+
     private WebTarget target;
-    private final String apiPath = "api";
+    private final String apiPath = "/api";
     private static PodamFactory factory = new PodamFactoryImpl();
 
     @ArquillianResource
@@ -98,12 +98,12 @@ public class CiudadResourceIT {
                 SitioDTO sitios = factory.manufacturePojo(SitioDTO.class);
                 sitios.setId(i);
                 sitiosList.add(sitios);
-                
+
                 EventoDTO eventos = factory.manufacturePojo(EventoDTO.class);
                 eventos.setId(i);
                 eventosList.add(eventos);
              }
-           
+
 
             ciudad.setSitios(sitiosList);
             ciudad.setEventos(eventosList);
@@ -112,24 +112,22 @@ public class CiudadResourceIT {
 
         }
     }
-    
-//    @Test
-//    @InSequence(1)
-//    public void createBookTest() {
-//        BookDTO book = oraculo.get(0);
-//        Response response = target.path(bookPath).request()
-//                .post(Entity.entity(book, MediaType.APPLICATION_JSON));
-//
-//        BookDTO bookTest = (BookDTO) response.readEntity(BookDTO.class);
-//
-//        Assert.assertEquals(CREATED, response.getStatus());
-//
-//        Assert.assertEquals(book.getName(), bookTest.getName());
-//        Assert.assertEquals(book.getDescription(), bookTest.getDescription());
-//        Assert.assertEquals(book.getIsbn(), bookTest.getIsbn());
-//        Assert.assertEquals(book.getImage(), bookTest.getImage());
-//    }
-//
+
+    @Test
+    @InSequence(1)
+    public void createBookTest() {
+        CiudadDTO ciudad = oraculo.get(0);
+        Response response = target.path(ciudadPath).request()
+                .post(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
+
+
+        Assert.assertEquals(CREATED, response.getStatus());
+
+        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
+
+        Assert.assertEquals(ciudad.getNombre(), ciudadTest.getNombre());
+    }
+
 //    @Test
 //    @InSequence(2)
 //    public void getBookById() {
