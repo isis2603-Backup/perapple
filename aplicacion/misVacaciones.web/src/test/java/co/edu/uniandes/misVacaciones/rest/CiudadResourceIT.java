@@ -21,6 +21,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -59,7 +60,7 @@ public class CiudadResourceIT {
     private URL deploymentURL;
 
         @Deployment(testable = false)
-    public static WebArchive createDeployment() {
+public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
                 .addAsLibraries(Maven.resolver()
@@ -127,7 +128,24 @@ public class CiudadResourceIT {
 
         Assert.assertEquals(ciudad.getNombre(), ciudadTest.getNombre());
     }
+    @Test
+    @InSequence(2)
+    public void getCiudadById() {
+        Response response = target.path(ciudadPath)
+                .path(String.valueOf(oraculo.get(0).getId()))
+                .request().get();
+        Assert.assertNotEquals("No se encontróla ciudad", NOT_FOUND, response.getStatus());
 
+        CiudadDTO ciudadTest = target.path(ciudadPath)
+                .path(String.valueOf(oraculo.get(0).getId()))
+                .request().get(CiudadDTO.class);
+        Assert.assertEquals(ciudadTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals(ciudadTest.getNombre(), oraculo.get(0).getNombre());
+        Assert.assertEquals(ciudadTest.getDetalles(), oraculo.get(0).getDetalles());
+
+
+
+    }
 //    @Test
 //    @InSequence(2)
 //    public void getBookById() {
