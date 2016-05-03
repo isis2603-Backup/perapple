@@ -6,10 +6,15 @@
 package co.edu.uniandes.misVacaciones.rest.resources;
 
 
+import co.edu.uniandes.misVacaciones.rest.converters.ViajeroConverter;
 import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ViajeroLogicException;
-import co.edu.uniandes.misVacaciones.rest.mocks.ViajeroLogicMock;
+import co.edu.uniandes.perapple.api.IViajeroLogic;
+import co.edu.uniandes.perapple.entities.ViajeroEntity;
+import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -21,6 +26,8 @@ import javax.ws.rs.PUT;
 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 /**
  * Clase que implementa el recurso REST correspondiente a "viajeros".
@@ -37,17 +44,19 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class ViajeroResource {
 
-	@Inject
-	ViajeroLogicMock viajeroLogic;
+    private static final Logger logger = Logger.getLogger(ViajeroResource.class.getName());
 
-	/**
-	 * Obtiene el listado de viajeros.
-	 * @return lista de viajeros
-	 * @throws CiudadLogicException excepción retornada por la lógica
-	 */
+    @Inject
+    IViajeroLogic viajeroLogic;
+
+    /**
+     * Obtiene el listado de viajeros.
+     *
+     * @return lista de viajeros
+     */
     @GET
-    public List<ViajeroDTO> getViajeros() throws ViajeroLogicException {
-        return viajeroLogic.getViajeros();
+    public List<ViajeroDTO> getViajeros() {
+        return ViajeroConverter.listEntity2DTO(viajeroLogic.getViajeros());
     }
 
     /**
@@ -58,19 +67,31 @@ public class ViajeroResource {
      */
     @GET
     @Path("{id: \\d+}")
-    public ViajeroDTO getViajero(@PathParam("id") Long id) throws ViajeroLogicException {
-        return viajeroLogic.getViajero(id);
+    public ViajeroDTO getViajero(@PathParam("id") int id) throws ViajeroLogicException {
+        try {
+            return ViajeroConverter.fullEntity2DTO(viajeroLogic.getViajero(id));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
      * Agrega un viajero
+     *
      * @param viajero viajero a agregar
      * @return datos del viajero a agregar
-     * @throws ViajeroLogicException cuando ya existe un viajero con el id suministrado
      */
     @POST
-    public ViajeroDTO createViajero(ViajeroDTO viajero) throws ViajeroLogicException {
-        return viajeroLogic.createViajero(viajero);
+    public ViajeroDTO createViajero(ViajeroDTO viajero) {
+        ViajeroEntity entity = ViajeroConverter.fullDTO2Entity(viajero);
+        try {
+            return ViajeroConverter.fullEntity2DTO(viajeroLogic.createViajero(entity));
+
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -82,8 +103,22 @@ public class ViajeroResource {
      */
     @PUT
     @Path("{id: \\d+}")
-    public ViajeroDTO updateViajero(@PathParam("id") Long id, ViajeroDTO viajero) throws ViajeroLogicException {
-        return viajeroLogic.updateViajero(id, viajero);
+    public ViajeroDTO updateViajero(@PathParam("id") int id, ViajeroDTO viajero) throws ViajeroLogicException {
+        ViajeroEntity entity = ViajeroConverter.fullDTO2Entity(viajero);
+        entity.setId(id);
+        try {
+            ViajeroEntity oldEntity = viajeroLogic.getViajero(id);
+            // TODO
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, "El viajero no existe", ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
+        try {
+            return ViajeroConverter.fullEntity2DTO(viajeroLogic.updateViajero(entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
     /**
@@ -93,8 +128,13 @@ public class ViajeroResource {
      */
     @DELETE
     @Path("{id: \\d+}")
-    public void deleteViajero(@PathParam("id") Long id) throws ViajeroLogicException {
-    	viajeroLogic.deleteViajero(id);
+    public void deleteViajero(@PathParam("id") int id) throws ViajeroLogicException {
+    	try {
+            viajeroLogic.deleteViajero(id);
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
     }
 
 }
