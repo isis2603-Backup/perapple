@@ -90,9 +90,9 @@ public class CiudadEntity  implements Serializable {
         this.nombre=nombre;
     }
 
-    public void setDetalles(String Detalles)
+    public void setDetalles(String detalles)
     {
-        this.detalles=Detalles;
+        this.detalles=detalles;
     }
 
 

@@ -10,77 +10,62 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
-
 @Entity
-public class ViajeroEntity  implements Serializable {
+public class ViajeroEntity implements Serializable {
 
-
-  //TODO  -- agregar relaciones con otras entidades utilizando anotaciones
+    //TODO  -- agregar relaciones con otras entidades utilizando anotaciones
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String image;
 
-    public int getId()
-    {
+    @PodamExclude
+    @OneToMany(mappedBy = "viajero", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItinerarioEntity> itinerarios;
+
+    public int getId() {
         return id;
     }
-    public void setId(int id)
-    {
-        this.id=id;
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    //Name
-    private String name;
-
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
-    public void setName(String name)
-    {
-        this.name=name;
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    //Email
-    private String email;
+    public String getEmail() {
+        return email;
+    }
 
-     public String getEmail()
-     {
-         return email;
-     }
-     public void setEmail(String email)
-     {
-         this.email=email;
-     }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    //Password
-    private String password;
-
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
 
     }
-    public void setPassword(String password)
-    {
-        this.password=password;
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    //Imagen
-    private String image;
-
-    public String getImage()
-    {
+    public String getImage() {
         return image;
     }
-    public void setImage(String image)
-    {
-        this.image=image;
-    }
 
-    @PodamExclude
-    @OneToMany (mappedBy = "viajero", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItinerarioEntity> itinerarios;
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public List<ItinerarioEntity> getItinerarios() {
         return itinerarios;
@@ -89,5 +74,4 @@ public class ViajeroEntity  implements Serializable {
     public void setItinerarios(List<ItinerarioEntity> itinerarios) {
         this.itinerarios = itinerarios;
     }
-
 }

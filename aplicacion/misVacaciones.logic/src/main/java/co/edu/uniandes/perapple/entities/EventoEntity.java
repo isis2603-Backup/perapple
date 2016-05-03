@@ -1,7 +1,6 @@
 package co.edu.uniandes.perapple.entities;
 
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
