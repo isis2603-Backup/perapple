@@ -152,7 +152,7 @@
 
                                     nombre: nombre ,
                                    detalles: detalles ,
-                                    imagen: imagen,
+                                    imagen: imagen
 
                                    };
             return svc.saveSitio($scope.currentCiudad,$scope.currentSitio).then(function () {
@@ -164,7 +164,7 @@
 
                                     nombre: nombre ,
                                    detalles: detalles ,
-                                    imagen: imagen,
+                                    imagen: imagen
 
                                    };
             return svc.saveSitio($scope.currentCiudad,$scope.currentSitio).then(function () {
