@@ -146,6 +146,17 @@ public static WebArchive createDeployment() {
 
 
     }
+    @Test
+    @InSequence(3)
+    public void listCiudadesTest() {
+        Response response = target.path(ciudadPath)
+                .request().get();
+
+        Assert.assertEquals("No se encontraron las ciudades, OK, response.getStatus());
+        List<CiudadDTO> listCiudadesTest = response.readEntity(new GenericType<List<CiudadDTO>>() {
+        });
+        Assert.assertEquals(1, listCiudadesTest.size());
+    }
 //    @Test
 //    @InSequence(2)
 //    public void getBookById() {
