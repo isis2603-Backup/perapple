@@ -12,7 +12,6 @@ public abstract class CiudadConverter {
      * Java
      */
     private CiudadConverter() {
-
     }
 
     public static CiudadDTO basicEntity2DTO(CiudadEntity entity) {

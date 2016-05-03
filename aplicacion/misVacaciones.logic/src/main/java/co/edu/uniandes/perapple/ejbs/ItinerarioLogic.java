@@ -186,8 +186,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         int indice = -1;
 
         for (int i=0; i<ciudades.size() && !encontro; i++){
-            CiudadItinerarioEntity c_i = ciudades.get(i);
-            if(c_i.getId() == ciudadId){
+            CiudadItinerarioEntity cIti = ciudades.get(i);
+            if(cIti.getId() == ciudadId){
                 encontro = true;
                 indice = i;
             }
@@ -232,8 +232,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         boolean encontro = false;
 
         for (int i=0; i<ciudades.size() && !encontro; i++){
-            CiudadItinerarioEntity c_i = ciudades.get(i);
-            if(c_i.getId() == ciudad.getId()){
+            CiudadItinerarioEntity cIti = ciudades.get(i);
+            if(cIti.getId() == ciudad.getId()){
                 encontro = true;
                 ciudades.remove(i);
                 ciudades.add(ciudad);
@@ -264,9 +264,9 @@ public class ItinerarioLogic implements IItinerarioLogic {
         boolean encontro = false;
 
         for (int i=0; i<ciudades.size() && !encontro; i++){
-            CiudadItinerarioEntity c_i = ciudades.get(i);
-            if(c_i.getId() == ciudadId){
-                return c_i;
+            CiudadItinerarioEntity cIti = ciudades.get(i);
+            if(cIti.getId() == ciudadId){
+                return cIti;
             }
         }
 
@@ -346,8 +346,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         boolean encontro = false;
 
         for (int i=0; i<sitios.size() && !encontro; i++){
-            SitioItinerarioEntity s_i = sitios.get(i);
-            if(s_i.getId() == sitio.getId()){
+            SitioItinerarioEntity sIti = sitios.get(i);
+            if(sIti.getId() == sitio.getId()){
                 encontro = true;
                 sitios.remove(i);
                 sitios.add(sitio);
@@ -376,8 +376,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         int indice = -1;
 
         for (int i=0; i<sitios.size() && !encontro; i++){
-            SitioItinerarioEntity s_i = sitios.get(i);
-            if(s_i.getId() == sitioId){
+            SitioItinerarioEntity sIti = sitios.get(i);
+            if(sIti.getId() == sitioId){
                 encontro = true;
                 indice = i;
             }
@@ -455,8 +455,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         boolean encontro = false;
 
         for (int i=0; i<eventos.size() && !encontro; i++){
-            EventoItinerarioEntity s_i = eventos.get(i);
-            if(s_i.getId() == evento.getId()){
+            EventoItinerarioEntity eIti = eventos.get(i);
+            if(eIti.getId() == evento.getId()){
                 encontro = true;
                 eventos.remove(i);
                 eventos.add(evento);
@@ -485,8 +485,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         int indice = -1;
 
         for (int i=0; i<eventos.size() && !encontro; i++){
-            EventoItinerarioEntity s_i = eventos.get(i);
-            if(s_i.getId() == eventoId){
+            EventoItinerarioEntity eIti = eventos.get(i);
+            if(eIti.getId() == eventoId){
                 encontro = true;
                 indice = i;
             }
@@ -506,12 +506,12 @@ public class ItinerarioLogic implements IItinerarioLogic {
     @Override
     public ItinerarioEntity getCurrentItinerario(int idViajero) throws BusinessLogicException {
 
-        List<ItinerarioEntity> itinerarios_v = getItinerariosViajero(idViajero);
+        List<ItinerarioEntity> itinerarios = getItinerariosViajero(idViajero);
 
-        for (int i=0; i<itinerarios_v.size(); i++){
-            ItinerarioEntity iv_i = itinerarios_v.get(i);
-            if(iv_i.getEsCurrent()){
-                return iv_i;
+        for (int i=0; i<itinerarios.size(); i++){
+            ItinerarioEntity itinerario = itinerarios.get(i);
+            if(itinerario.getEsCurrent()){
+                return itinerario;
             }
         }
 
@@ -521,20 +521,20 @@ public class ItinerarioLogic implements IItinerarioLogic {
     @Override
     public ItinerarioEntity setCurrentItinerario(int idViajero, int idItinerario) throws BusinessLogicException {
 
-        List<ItinerarioEntity> itinerarios_v = getItinerariosViajero(idViajero);
+        List<ItinerarioEntity> itinerarios = getItinerariosViajero(idViajero);
         ItinerarioEntity current = null;
         boolean encontro = false;
 
-        for (int i=0; i<itinerarios_v.size(); i++){
-            ItinerarioEntity iv_i = itinerarios_v.get(i);
-            if(iv_i.getEsCurrent()){
-                iv_i.setEsCurrent(false);
-                persistence.update(iv_i);
+        for (int i=0; i<itinerarios.size(); i++){
+            ItinerarioEntity itinerario = itinerarios.get(i);
+            if(itinerario.getEsCurrent()){
+                itinerario.setEsCurrent(false);
+                persistence.update(itinerario);
             }
-            if(iv_i.getId()==idItinerario){
+            if(itinerario.getId()==idItinerario){
                 encontro = true;
-                iv_i.setEsCurrent(true);
-                current = iv_i;
+                itinerario.setEsCurrent(true);
+                current = itinerario;
                 persistence.update(current);
             }
         }
@@ -566,7 +566,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     }
 
     private boolean validarExistenciaItinerario(int id) {
-        return (persistence.find(id)!= null);
+        return persistence.find(id)!= null;
     }
 
     private boolean validarFechas(ItinerarioEntity itinerario, CiudadItinerarioEntity ciudad) {
@@ -589,8 +589,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         Date fF = ciudad.getFechaFin();
 
         for (int i=0; i<ciudades.size(); i++){
-            CiudadItinerarioEntity c_i = ciudades.get(i);
-            if(c_i.getFechaFin().after(fI) || c_i.getFechaIni().before(fF)){
+            CiudadItinerarioEntity cIti = ciudades.get(i);
+            if(cIti.getFechaFin().after(fI) || cIti.getFechaIni().before(fF)){
                 return false;
             }
         }
@@ -603,8 +603,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();
 
         for (int i=0; i<ciudades.size(); i++){
-            CiudadItinerarioEntity c_i = ciudades.get(i);
-            if(c_i.getId() == id){
+            CiudadItinerarioEntity cIti = ciudades.get(i);
+            if(cIti.getId() == id){
                 return true;
             }
         }
@@ -626,8 +626,8 @@ public class ItinerarioLogic implements IItinerarioLogic {
         List<SitioItinerarioEntity> sitios = ciudad.getSitios();
 
         for (int i=0; i<sitios.size(); i++){
-            SitioItinerarioEntity s_i = sitios.get(i);
-            if(s_i.getId() == sitioId){
+            SitioItinerarioEntity sIti = sitios.get(i);
+            if(sIti.getId() == sitioId){
                 return true;
             }
         }
@@ -638,18 +638,15 @@ public class ItinerarioLogic implements IItinerarioLogic {
         if(evento.getFechaIni().after(evento.getFechaFin())){
             return false;
         }
-        if(evento.getFechaIni().before(ciudad.getFechaIni()) && evento.getFechaFin().after(ciudad.getFechaFin())){
-            return false;
-        }
-        return true;
+        return !(evento.getFechaIni().before(ciudad.getFechaIni()) && evento.getFechaFin().after(ciudad.getFechaFin()));
     }
 
     private boolean validarEventoExisteEnCiudad(CiudadItinerarioEntity ciudad, int eventoId) {
         List<EventoItinerarioEntity> eventos = ciudad.getEventos();
 
         for (int i=0; i<eventos.size(); i++){
-            EventoItinerarioEntity e_i = eventos.get(i);
-            if(e_i.getId() == eventoId){
+            EventoItinerarioEntity eIti = eventos.get(i);
+            if(eIti.getId() == eventoId){
                 return true;
             }
         }
