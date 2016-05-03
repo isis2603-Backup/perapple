@@ -21,7 +21,6 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -51,16 +50,16 @@ public class CiudadResourceIT {
     private final static List<CiudadDTO> oraculo = new ArrayList<>();
     private final static List<SitioDTO> oraculoSitios = new ArrayList<>();
     private final static List<EventoDTO> oraculoEventos= new ArrayList<>();
-
+ 
     private WebTarget target;
-    private final String apiPath = "/api";
+    private final String apiPath = "api";
     private static PodamFactory factory = new PodamFactoryImpl();
 
     @ArquillianResource
     private URL deploymentURL;
 
         @Deployment(testable = false)
-public static WebArchive createDeployment() {
+    public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
                 .addAsLibraries(Maven.resolver()
@@ -99,12 +98,12 @@ public static WebArchive createDeployment() {
                 SitioDTO sitios = factory.manufacturePojo(SitioDTO.class);
                 sitios.setId(i);
                 sitiosList.add(sitios);
-
+                
                 EventoDTO eventos = factory.manufacturePojo(EventoDTO.class);
                 eventos.setId(i);
                 eventosList.add(eventos);
              }
-
+           
 
             ciudad.setSitios(sitiosList);
             ciudad.setEventos(eventosList);
@@ -113,169 +112,194 @@ public static WebArchive createDeployment() {
 
         }
     }
-
+    
     @Test
     @InSequence(1)
-    public void createCiudadTest() {
+    public void ciudadTest() {
         CiudadDTO ciudad = oraculo.get(0);
         Response response = target.path(ciudadPath).request()
                 .post(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
 
-
-        Assert.assertEquals(CREATED, response.getStatus());
-
         CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
 
-        Assert.assertEquals(ciudad.getNombre(), ciudadTest.getNombre());
+        Assert.assertEquals("No se creo la ciudad",CREATED, response.getStatus());
+
+        Assert.assertNotNull("No hubo resouesta de ciudad creada", ciudadTest);
+        Assert.assertEquals("No coincide el nombre de la ciudad",ciudad.getNombre(), ciudadTest.getNombre());
+        Assert.assertEquals("No coinciden los detalles de la ciudad",ciudad.getDetalles(), ciudadTest.getDetalles());
+        Assert.assertEquals("No coincide la imagen de la ciudad",ciudad.getImagen(), ciudadTest.getImagen());
+        Assert.assertEquals("No coincide el id de la ciudad",ciudad.getId(), ciudadTest.getId());
+        Assert.assertEquals("No coinciden los eventos de la ciudad",ciudad.getEventos(), ciudadTest.getEventos());
+        Assert.assertEquals("No coinciden los sitios de la ciudad",ciudad.getSitios(), ciudadTest.getSitios());
+        
     }
+
     @Test
     @InSequence(2)
     public void getCiudadById() {
-        Response response = target.path(ciudadPath)
-                .path(String.valueOf(oraculo.get(0).getId()))
-                .request().get();
-        Assert.assertNotEquals("No se encontróla ciudad", NOT_FOUND, response.getStatus());
-
         CiudadDTO ciudadTest = target.path(ciudadPath)
-                .path(String.valueOf(oraculo.get(0).getId()))
+                .path(oraculo.get(0).getId()+" ")
                 .request().get(CiudadDTO.class);
-        Assert.assertEquals(ciudadTest.getId(), oraculo.get(0).getId());
-        Assert.assertEquals(ciudadTest.getNombre(), oraculo.get(0).getNombre());
-        Assert.assertEquals(ciudadTest.getDetalles(), oraculo.get(0).getDetalles());
-
-
-
+        
+        Assert.assertNotNull("No hubo respuesta de ciudad creada", ciudadTest );
+        Assert.assertEquals("No coincide el id de la ciudad ",ciudadTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals("No coicide el nombre de la ciudad",ciudadTest.getNombre(), oraculo.get(0).getNombre());
+        Assert.assertEquals("No coinciden los detalles de la ciudad",ciudadTest.getDetalles(), oraculo.get(0).getDetalles());
+        Assert.assertEquals("No coincide la imagen de la ciudad ",ciudadTest.getImagen(), oraculo.get(0).getImagen());
+        Assert.assertEquals("No coinciden los eventos de la ciudad",ciudadTest.getEventos(),oraculo.get(0).getEventos());
+        Assert.assertEquals("No coinciden los sitios de la ciudad",ciudadTest.getSitios(),oraculo.get(0).getSitios());
     }
+
     @Test
     @InSequence(3)
-    public void listCiudadesTest() {
+    public void listCiudadTest() {
         Response response = target.path(ciudadPath)
                 .request().get();
 
-        Assert.assertEquals("No se encontró las ciudades", OK, response.getStatus());
-        List<CiudadDTO> listCiudadesTest = response.readEntity(new GenericType<List<CiudadDTO>>() {
+        List<CiudadDTO> listCiudadTest = response.readEntity(new GenericType<List<CiudadDTO>>() {
         });
-        Assert.assertEquals(1, listCiudadesTest.size());
+        Assert.assertEquals(OK, response.getStatus());
+        Assert.assertEquals(1, listCiudadTest.size());
     }
+
     @Test
     @InSequence(4)
     public void updateCiudadTest() {
-        CiudadDTO ciudad= oraculo.get(0);
-        CiudadDTO ciudadCambiado = factory.manufacturePojo(CiudadDTO.class);
-        ciudad.setNombre(ciudadCambiado.getNombre());
-        ciudad.setDetalles(ciudadCambiado.getDetalles());
-
-        Response response = target.path(ciudadPath).path(String.valueOf(ciudad.getId()))
+        CiudadDTO ciudad = oraculo.get(0);
+        CiudadDTO ciudadChanged = factory.manufacturePojo(CiudadDTO.class);
+       
+        ciudad.setNombre(ciudadChanged.getNombre());
+        ciudad.setDetalles(ciudadChanged.getDetalles());
+        ciudad.setImagen(ciudadChanged.getImagen());
+        ciudad.setEventos(ciudadChanged.getEventos());
+        ciudad.setSitios(ciudadChanged.getSitios());
+        
+        Response response = target.path(ciudadPath).path(ciudad.getId()+" ")
                 .request().put(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
-        Assert.assertEquals("No se actualizó la ciudad", OK, response.getStatus());
-        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);;
-        Assert.assertEquals(ciudad.getNombre(), ciudadTest.getNombre());
-        Assert.assertEquals(ciudad.getDetalles(), ciudadTest.getDetalles());
-
+        
+        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
+        Assert.assertEquals(OK, response.getStatus());
+        
+        Assert.assertNotNull("No hubo respuesta de ciudad creada ", ciudadTest);
+        Assert.assertEquals("No coincide el nombre de la ciudad",ciudad.getNombre(), ciudadTest.getNombre());
+        Assert.assertEquals("No coinciden los detalles de la ciudad",ciudad.getDetalles(), ciudadTest.getDetalles());
+        Assert.assertEquals("No coincide el id de la ciudad",ciudad.getId(), ciudadTest.getId());
+        Assert.assertEquals("No coincide la imagen de la ciudad",ciudad.getImagen(), ciudadTest.getImagen());
+        Assert.assertEquals("No coinciden los eventos de la ciudad",ciudad.getEventos(),ciudadTest.getEventos());
+        Assert.assertEquals("No coinciden los sitios de la ciudad",ciudad.getSitios(),ciudadTest.getSitios());
     }
+
+    @Test
+    @InSequence(9)
+    public void deleteCiudadTest() {
+        CiudadDTO ciudad = oraculo.get(0);
+        Response response = target.path(ciudadPath).path(ciudad.getId()+" ")
+                .request().delete();
+        Assert.assertEquals("No se borro la ciudad",NO_CONTENT, response.getStatus());
+    }
+
     @Test
     @InSequence(5)
-    public void deleteViajeroTest() {
+    public void addSitioTest() {
+
+        SitioDTO sitio = oraculoSitios.get(0);
         CiudadDTO ciudad = oraculo.get(0);
-        Response response = target.path(ciudadPath).path(String.valueOf(ciudad.getId()))
-                .request().delete();
-        Assert.assertEquals(NO_CONTENT, response.getStatus());
+
+        Response response = target.path(sitiosPath).request()
+                .post(Entity.entity(sitio, MediaType.APPLICATION_JSON));
+
+        SitioDTO sitiosTest = (SitioDTO) response.readEntity(SitioDTO.class);
+        Assert.assertEquals("No coincide el id del sitio",sitio.getId(), sitiosTest.getId());
+        Assert.assertEquals("No coincide el nombre del sitio",sitio.getNombre(), sitiosTest.getNombre());
+        Assert.assertEquals("No coinciden los detalles del sitio",sitio.getDetalles(), sitiosTest.getDetalles());
+        Assert.assertEquals("No coincide la imagen del sitio",sitio.getImagen(), sitiosTest.getImagen());
+        Assert.assertEquals("No se creo el sitio",CREATED, response.getStatus());
+
+        response = target.path(ciudadPath).path(ciudad.getId()+"")
+                .path(sitiosPath).path(sitio.getId()+"").request()
+                .post(Entity.entity(sitio, MediaType.APPLICATION_JSON));
+
+        ArrayList<SitioDTO> adicion = new ArrayList<SitioDTO>();
+        adicion.add(sitio);
+        ciudad.setSitios(adicion);
+        
+        
+        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
+        Assert.assertEquals("La respuesta del servidor no fue OK",OK, response.getStatus());
+        Assert.assertEquals("No hay el numero de sitios correcto",adicion.size(),ciudadTest.getSitios().size());
+       
     }
-//    @Test
-//    @InSequence(2)
-//    public void getBookById() {
-//        BookDTO bookTest = target.path(bookPath)
-//                .path(oraculo.get(0).getId().toString())
-//                .request().get(BookDTO.class);
-//        Assert.assertEquals(bookTest.getId(), oraculo.get(0).getId());
-//        Assert.assertEquals(bookTest.getName(), oraculo.get(0).getName());
-//        Assert.assertEquals(bookTest.getDescription(), oraculo.get(0).getDescription());
-//        Assert.assertEquals(bookTest.getIsbn(), oraculo.get(0).getIsbn());
-//        Assert.assertEquals(bookTest.getImage(), oraculo.get(0).getImage());
-//    }
-//
-//    @Test
-//    @InSequence(3)
-//    public void listBookTest() {
-//        Response response = target.path(bookPath)
-//                .request().get();
-//
-//        List<BookDTO> listBookTest = response.readEntity(new GenericType<List<BookDTO>>() {
-//        });
-//        Assert.assertEquals(OK, response.getStatus());
-//        Assert.assertEquals(1, listBookTest.size());
-//    }
-//
-//    @Test
-//    @InSequence(4)
-//    public void updateBookTest() {
-//        BookDTO book = oraculo.get(0);
-//        BookDTO bookChanged = factory.manufacturePojo(BookDTO.class);
-//        bookChanged.setPublishDate(getMaxDate());
-//        book.setName(bookChanged.getName());
-//        book.setDescription(bookChanged.getDescription());
-//        book.setIsbn(bookChanged.getIsbn());
-//        book.setImage(bookChanged.getImage());
-//        book.setPublishDate(bookChanged.getPublishDate());
-//        Response response = target.path(bookPath).path(book.getId().toString())
-//                .request().put(Entity.entity(book, MediaType.APPLICATION_JSON));
-//        BookDTO bookTest = (BookDTO) response.readEntity(BookDTO.class);
-//        Assert.assertEquals(OK, response.getStatus());
-//        Assert.assertEquals(book.getName(), bookTest.getName());
-//        Assert.assertEquals(book.getDescription(), bookTest.getDescription());
-//        Assert.assertEquals(book.getIsbn(), bookTest.getIsbn());
-//        Assert.assertEquals(book.getImage(), bookTest.getImage());
-//    }
-//
-//    @Test
-//    @InSequence(9)
-//    public void deleteBookTest() {
-//        BookDTO book = oraculo.get(0);
-//        Response response = target.path(bookPath).path(book.getId().toString())
-//                .request().delete();
-//        Assert.assertEquals(NO_CONTENT, response.getStatus());
-//    }
-//
-//    @Test
-//    @InSequence(5)
-//    public void addAuthorsTest() {
-//
-//        AuthorDTO authors = oraculoAuthors.get(0);
-//        BookDTO book = oraculo.get(0);
-//
-//        Response response = target.path("authors").request()
-//                .post(Entity.entity(authors, MediaType.APPLICATION_JSON));
-//
-//        AuthorDTO authorsTest = (AuthorDTO) response.readEntity(AuthorDTO.class);
-//        Assert.assertEquals(authors.getId(), authorsTest.getId());
-//        Assert.assertEquals(authors.getName(), authorsTest.getName());
-//        Assert.assertEquals(authors.getBirthDate(), authorsTest.getBirthDate());
-//        Assert.assertEquals(CREATED, response.getStatus());
-//
-//        response = target.path(bookPath).path(book.getId().toString())
-//                .path(authorsPath).path(authors.getId().toString()).request()
-//                .post(Entity.entity(authors, MediaType.APPLICATION_JSON));
-//
-//        authorsTest = (AuthorDTO) response.readEntity(AuthorDTO.class);
-//        Assert.assertEquals(OK, response.getStatus());
-//        Assert.assertEquals(authors.getId(), authorsTest.getId());
-//    }
-//
-//    @Test
-//    @InSequence(6)
-//    public void listAuthorsTest() {
-//        BookDTO book = oraculo.get(0);
-//
-//        Response response = target.path(bookPath)
-//                .path(book.getId().toString())
-//                .path(authorsPath)
-//                .request().get();
-//
-//        List<AuthorDTO> authorsListTest = response.readEntity(new GenericType<List<AuthorDTO>>() {
-//        });
-//        Assert.assertEquals(OK, response.getStatus());
-//        Assert.assertEquals(1, authorsListTest.size());
-//    }
+
+    @Test
+    @InSequence(6)
+    public void listSitiosTest() {
+        CiudadDTO ciudad = oraculo.get(0);
+
+        Response response = target.path(ciudadPath)
+                .path(ciudad.getId()+"")
+                .path(sitiosPath)
+                .request().get();
+        
+        Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
+
+        List<SitioDTO> sitiosListTest = response.readEntity(new GenericType<List<SitioDTO>>() {
+        });
+        
+        Assert.assertEquals("No hay el numero correcto de sitios",ciudad.getSitios().size() ,sitiosListTest.size());
+        Assert.assertEquals("No es el sitio correcto", ciudad.getSitios().get(0).getNombre(), sitiosListTest.get(0).getNombre());
+    }
+    
+    @Test
+    @InSequence(7)
+    public void addEventoTest() {
+
+        EventoDTO evento = oraculoEventos.get(0);
+        CiudadDTO ciudad = oraculo.get(0);
+
+        Response response = target.path(eventosPath).request()
+                .post(Entity.entity(evento, MediaType.APPLICATION_JSON));
+
+        EventoDTO eventosTest = (EventoDTO) response.readEntity(EventoDTO.class);
+        Assert.assertEquals("No coincide el id del evento",evento.getId(), eventosTest.getId());
+        Assert.assertEquals("No coincide el nombre del evento",evento.getNombre(), eventosTest.getNombre());
+        Assert.assertEquals("No coinciden los detalles del evento",evento.getDetalles(), eventosTest.getDetalles());
+        Assert.assertEquals("No coincide la imagen del evento",evento.getImagen(), eventosTest.getImagen());
+        Assert.assertEquals("No coincide la fecha del evento", evento.getFechaEvento(), eventosTest.getFechaEvento()); //hay que formatear la fecha?
+        Assert.assertEquals("No se creo el evento",CREATED, response.getStatus());
+
+        response = target.path(ciudadPath).path(ciudad.getId()+"")
+                .path(eventosPath).path(evento.getId()+"").request()
+                .post(Entity.entity(evento, MediaType.APPLICATION_JSON));
+
+        ArrayList<EventoDTO> adicion = new ArrayList<EventoDTO>();
+        adicion.add(evento);
+        ciudad.setEventos(adicion);
+        
+        
+        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
+        Assert.assertEquals("La respuesta del servidor no fue OK",OK, response.getStatus());
+        Assert.assertEquals("No hay el numero de eventos correcto",adicion.size(),ciudadTest.getEventos().size());
+       
+    }
+
+    @Test
+    @InSequence(8)
+    public void listEventosTest() {
+        CiudadDTO ciudad = oraculo.get(0);
+
+        Response response = target.path(ciudadPath)
+                .path(ciudad.getId()+"")
+                .path(eventosPath)
+                .request().get();
+        
+        Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
+
+        List<EventoDTO> eventosListTest = response.readEntity(new GenericType<List<EventoDTO>>() {
+        });
+        
+        Assert.assertEquals("No hay el numero correcto de eventos",ciudad.getEventos().size() ,eventosListTest.size());
+        Assert.assertEquals("No es el evento correcto", ciudad.getEventos().get(0).getNombre(), eventosListTest.get(0).getNombre());
+    }
 //
 //    @Test
 //    @InSequence(7)
