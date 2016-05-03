@@ -65,8 +65,6 @@ public abstract class EventoConverter {
     public static EventoDTO fullEntity2DTO(EventoEntity entity) {
         if (entity != null) {
             EventoDTO dto = basicEntity2DTO(entity);
-            //TODO Cuando se implementen calificaciones
-            //dto.setCalificaciones(EventoConverter.listEntity2DTO(entity.getCalificaciones)));
             return dto;
         } else {
             return null;
@@ -76,8 +74,6 @@ public abstract class EventoConverter {
     public static EventoEntity fullDTO2Entity(EventoDTO dto) {
         if (dto != null) {
             EventoEntity entity = basicDTO2Entity(dto);
-            //TODO Cuando se implementen calificaciones
-            //entity.setCalificaciones(SitioConverter.listDTO2Entity(dto.getCalificaciones()));
             return entity;
         } else {
             return null;
