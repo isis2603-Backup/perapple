@@ -157,6 +157,30 @@ public static WebArchive createDeployment() {
         });
         Assert.assertEquals(1, listCiudadesTest.size());
     }
+    @Test
+    @InSequence(4)
+    public void updateCiudadTest() {
+        CiudadDTO ciudad= oraculo.get(0);
+        CiudadDTO ciudadCambiado = factory.manufacturePojo(CiudadDTO.class);
+        ciudad.setNombre(ciudadCambiado.getNombre());
+        ciudad.setDetalles(ciudadCambiado.getDetalles());
+
+        Response response = target.path(ciudadPath).path(String.valueOf(ciudad.getId()))
+                .request().put(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
+        Assert.assertEquals("No se actualizó la ciudad", OK, response.getStatus());
+        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);;
+        Assert.assertEquals(ciudad.getNombre(), ciudadTest.getNombre());
+        Assert.assertEquals(ciudad.getDetalles(), ciudadTest.getDetalles());
+
+    }
+    @Test
+    @InSequence(5)
+    public void deleteViajeroTest() {
+        CiudadDTO ciudad = oraculo.get(0);
+        Response response = target.path(ciudadPath).path(String.valueOf(ciudad.getId()))
+                .request().delete();
+        Assert.assertEquals(NO_CONTENT, response.getStatus());
+    }
 //    @Test
 //    @InSequence(2)
 //    public void getBookById() {
