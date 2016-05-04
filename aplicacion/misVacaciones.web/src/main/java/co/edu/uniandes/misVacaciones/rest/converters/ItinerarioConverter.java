@@ -12,9 +12,9 @@ import java.util.List;
 public abstract class ItinerarioConverter {
 
     private ItinerarioConverter() {
-        
+
     }
-    
+
     public static ItinerarioDTO basicEntity2DTO(ItinerarioEntity entity) {
         if (entity != null) {
             ItinerarioDTO dto = new ItinerarioDTO();
@@ -22,13 +22,13 @@ public abstract class ItinerarioConverter {
             dto.setNombre(entity.getNombre());
             dto.setViajero(ViajeroConverter.basicEntity2DTO(entity.getViajero()));
             dto.setFechaInicio(entity.getFechaInicio());
-            dto.setFechaInicio(entity.getFechaInicio());
+            dto.setFechaFin(entity.getFechaFin());
             return dto;
         } else {
             return null;
         }
     }
-    
+
     public static ItinerarioEntity basicDTO2Entity(ItinerarioDTO dto) {
         if (dto != null) {
             ItinerarioEntity entity = new ItinerarioEntity();
@@ -36,7 +36,7 @@ public abstract class ItinerarioConverter {
             entity.setNombre(dto.getNombre());
             entity.setViajero(ViajeroConverter.basicDTO2Entity(dto.getViajero()));
             entity.setFechaInicio(dto.getFechaInicio());
-            entity.setFechaInicio(dto.getFechaInicio());
+            entity.setFechaFin(dto.getFechaFin());
             return entity;
         } else {
             return null;
@@ -52,7 +52,7 @@ public abstract class ItinerarioConverter {
         }
         return dtos;
     }
-    
+
     public static List<ItinerarioEntity> listDTO2Entity(List<ItinerarioDTO> dtos) {
         List<ItinerarioEntity> entities = new ArrayList<>();
         if (dtos != null) {
