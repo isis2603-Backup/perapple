@@ -12,18 +12,18 @@ import javax.persistence.Query;
 @Stateless
 public class ItinerarioPersistence {
 
-    private static final Logger logger = Logger.getLogger(ItinerarioPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ItinerarioPersistence.class.getName());
 
     @PersistenceContext(unitName = "MisVacacionesPU")
     protected EntityManager em;
 
     public ItinerarioEntity find(int id) {
-        logger.log(Level.INFO, "Consultando Itinerario con id={0}", id);
+        LOGGER.log(Level.INFO, "Consultando Itinerario con id={0}", id);
         return em.find(ItinerarioEntity.class, id);
     }
 
     public List<ItinerarioEntity> findAll() {
-        logger.info("Consultando todos los itinerarios");
+        LOGGER.info("Consultando todos los itinerarios");
         Query q = em.createQuery("select u from ItinerarioEntity u");
         return q.getResultList();
     }
@@ -37,19 +37,19 @@ public class ItinerarioPersistence {
     */
 
     public ItinerarioEntity create(ItinerarioEntity entity) {
-        
-        logger.info("Creando un itinerario nuevo");
+
+        LOGGER.info("Creando un itinerario nuevo");
         em.persist(entity);
         return entity;
     }
 
     public ItinerarioEntity update(ItinerarioEntity entity) {
-        logger.log(Level.INFO, "Actualizando itinerario con id={0}", entity.getId());
+        LOGGER.log(Level.INFO, "Actualizando itinerario con id={0}", entity.getId());
         return em.merge(entity);
     }
 
     public void delete(int id) {
-        logger.log(Level.INFO, "Borrando itinerario con id={0}", id);
+        LOGGER.log(Level.INFO, "Borrando itinerario con id={0}", id);
         ItinerarioEntity entity = em.find(ItinerarioEntity.class, id);
         em.remove(entity);
     }

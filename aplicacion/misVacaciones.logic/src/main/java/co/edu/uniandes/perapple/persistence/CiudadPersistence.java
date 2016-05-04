@@ -13,42 +13,42 @@ import javax.persistence.Query;
 @Stateless
 public class CiudadPersistence {
 
-    private static final Logger logger = Logger.getLogger(CiudadPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CiudadPersistence.class.getName());
 
     @PersistenceContext(unitName = "MisVacacionesPU")
     protected EntityManager em;
 
     public CiudadEntity create(CiudadEntity entity) {
-        logger.info("Creando una ciudad nueva");
+        LOGGER.info("Creando una ciudad nueva");
         em.persist(entity);
-        logger.info("Creando una ciudad nueva");
+        LOGGER.info("Creando una ciudad nueva");
         return entity;
     }
 
     public CiudadEntity update(CiudadEntity entity) {
-        logger.log(Level.INFO, "Actualizando ciudad con id={0}", entity.getId());
+        LOGGER.log(Level.INFO, "Actualizando ciudad con id={0}", entity.getId());
         return em.merge(entity);
     }
 
     public void delete(int id) {
-        logger.log(Level.INFO, "Borrando ciudad con id={0}", id);
+        LOGGER.log(Level.INFO, "Borrando ciudad con id={0}", id);
         CiudadEntity entity = em.find(CiudadEntity.class, id);
         em.remove(entity);
     }
 
     public CiudadEntity find(int id) {
-        logger.log(Level.INFO, "Consultando ciudad con id={0}", id);
+        LOGGER.log(Level.INFO, "Consultando ciudad con id={0}", id);
         return em.find(CiudadEntity.class, id);
     }
 
     public List<CiudadEntity> findAll() {
-        logger.info("Consultando todas las ciudades");
+        LOGGER.info("Consultando todas las ciudades");
         Query q = em.createQuery("select u from CiudadEntity u");
         return q.getResultList();
     }
-    
+
     public SitioEntity updateSitio(SitioEntity entity){
-        logger.log(Level.INFO, "Actualizando sitio con id={0}", entity.getId());
+        LOGGER.log(Level.INFO, "Actualizando sitio con id={0}", entity.getId());
         return em.merge(entity);
     }
 }
