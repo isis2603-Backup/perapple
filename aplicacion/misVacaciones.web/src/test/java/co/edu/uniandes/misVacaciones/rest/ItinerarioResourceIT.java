@@ -5,6 +5,7 @@ import co.edu.uniandes.misVacaciones.rest.converters.ItinerarioConverter;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.CiudadItinerarioDTO;
 import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
 import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
 import co.edu.uniandes.misVacaciones.rest.providers.CreatedFilter;
 import co.edu.uniandes.misVacaciones.rest.resources.ItinerarioResource;
@@ -51,7 +52,7 @@ public class ItinerarioResourceIT {
     private final static List<ItinerarioDTO> oraculo = new ArrayList<>();
     private final static List<CiudadItinerarioDTO> oraculoCiudadesItinerario = new ArrayList<>();
     private final static List<CiudadDTO> oraculoCiudadesDTO = new ArrayList<>();
-
+    private final static List<ViajeroDTO> oraculoViajeros = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "/api";
     private static PodamFactory factory = new PodamFactoryImpl();
@@ -93,6 +94,8 @@ public class ItinerarioResourceIT {
 
     public static void insertData() {
 
+
+            ViajeroDTO viajero = factory.manufacturePojo(ViajeroDTO.class);
         for (int i = 0; i < 5; i++) {
 
             CiudadDTO ciudad = factory.manufacturePojo(CiudadDTO.class);
@@ -104,7 +107,7 @@ public class ItinerarioResourceIT {
             //modificar dto con @podamExclude para poder poner las fechas, el viajero correctamente
             itinerario.setFechaInicio(getDate(0));
             itinerario.setFechaFin(getDate(1));
-            //itinerario.setViajero(null);
+            itinerario.setViajero(viajero);
 
             //itinerario.setId(i + 1L);
             List<CiudadItinerarioDTO> ciudadItinerarioList = new ArrayList<>();
@@ -126,6 +129,7 @@ public class ItinerarioResourceIT {
 
 
         }
+        oraculoViajeros.add(viajero);
     }
 
     @Test
