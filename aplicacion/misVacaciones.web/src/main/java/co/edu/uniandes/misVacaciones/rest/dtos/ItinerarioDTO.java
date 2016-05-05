@@ -6,8 +6,16 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 
@@ -15,6 +23,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  * Objeto de transferencia de datos de Itinerarios.
  * @author Asistente
  */
+@XmlRootElement
 public class ItinerarioDTO {
     private int id;
     private String nombre;
@@ -25,7 +34,7 @@ public class ItinerarioDTO {
     @PodamStrategyValue(DateStrategy.class)
     private Date fechaFin;
     private List<CiudadItinerarioDTO> ciudades;
-    
+
 	/**
      * @return the id
      */
@@ -53,7 +62,17 @@ public class ItinerarioDTO {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+//    public void setFechaInicio(String fechaInicio) {
+//        try {
+//            DateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
+//            this.fechaInicio = formato.parse(fechaInicio);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(ItinerarioDTO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+
+    public void setFechaInicio (Date fechaInicio)
+    {
         this.fechaInicio = fechaInicio;
     }
 
@@ -80,4 +99,43 @@ public class ItinerarioDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+//    /**
+//     * Convierte el objeto a una cadena
+//     * @return objeto
+//     */
+//    @Override
+//    public String toString() {
+//
+//        String objeto = " ";
+//        objeto = "{ id : " + id
+//                + ", nombre : \"" + nombre
+//                + "\" , fechaInicio: "+fechaInicio
+//                +" , fechaFin: "+fechaFin;
+//                if(viajero!=null)
+//                objeto +=", viajero: "+viajero.toString();
+//
+//                objeto +=" , ciudades: [";
+//        //for \(*0*)/
+//        if(ciudades!=null){
+//        for(int i = 0; i<ciudades.size();i++)
+//        {
+//            if(i<ciudades.size()-1)
+//            {
+//
+//                objeto += ciudades.get(i).toString()+" , ";
+//            }
+//            else
+//            {
+//                objeto += ciudades.get(i).toString();
+//            }
+//        }}
+//
+//         objeto +="]"
+//                + " }" ;
+//
+//        return objeto;
+//    }
+
 }
+

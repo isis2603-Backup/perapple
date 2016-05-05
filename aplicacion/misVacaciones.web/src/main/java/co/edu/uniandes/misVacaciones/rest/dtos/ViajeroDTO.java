@@ -6,11 +6,13 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Objeto de transferencia de datos de Viajeros.
  * @author Perapple
  */
+@XmlRootElement
 public class ViajeroDTO {
     private int id;
     private String name;
