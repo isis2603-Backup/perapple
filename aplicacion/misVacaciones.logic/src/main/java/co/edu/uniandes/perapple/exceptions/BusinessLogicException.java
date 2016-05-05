@@ -6,6 +6,7 @@ import javax.ejb.ApplicationException;
 public class BusinessLogicException extends Exception {
 
     public BusinessLogicException() {
+        //No hace nada para poder tener el constructor vacío
     }
 
     /**

@@ -1,9 +1,6 @@
 package co.edu.uniandes.perapple.entities;
 
-import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,36 +10,31 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
-import uk.co.jemos.podam.common.PodamStrategyValue;
 
 @Entity
 public class SitioEntity implements Serializable {
 
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-@Column
-private String nombre;
+    @Column
+    private String nombre;
 
-@Column
-private String detalles;
+    @Column
+    private String detalles;
 
-@Column
-private String imagen;
+    @Column
+    private String imagen;
 
+    @PodamExclude
+    @ManyToOne
+    private CiudadEntity ciudad;
 
-@PodamExclude
-@ManyToOne
-private CiudadEntity ciudad;
-
-@PodamExclude
-@OneToMany (mappedBy = "sitio", cascade = CascadeType.ALL, orphanRemoval = true)
-private List<SitioItinerarioEntity> sitiosItinerario;
-
+    @PodamExclude
+    @OneToMany(mappedBy = "sitio", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SitioItinerarioEntity> sitiosItinerario;
 
     public void setSitiosItinerario(List<SitioItinerarioEntity> sitiosItinerario) {
         this.sitiosItinerario = sitiosItinerario;
@@ -51,6 +43,7 @@ private List<SitioItinerarioEntity> sitiosItinerario;
     public List<SitioItinerarioEntity> getSitiosItinerario() {
         return sitiosItinerario;
     }
+
     public int getId() {
         return id;
     }
@@ -90,10 +83,4 @@ private List<SitioItinerarioEntity> sitiosItinerario;
     public void setCiudad(CiudadEntity ciudad) {
         this.ciudad = ciudad;
     }
-
-
-
-
-
-
 }

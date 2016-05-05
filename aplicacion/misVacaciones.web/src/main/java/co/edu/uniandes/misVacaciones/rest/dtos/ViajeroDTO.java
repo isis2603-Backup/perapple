@@ -6,17 +6,21 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Objeto de transferencia de datos de Viajeros.
  * @author Perapple
  */
+@XmlRootElement
 public class ViajeroDTO {
     private int id;
     private String name;
     private String email;
     private String password;
     private String image;
+    @PodamExclude
     private List<ItinerarioDTO> itinerarios;
 
     public void setItinerarios(List<ItinerarioDTO> itinerarios) {

@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.misVacaciones.rest.resources;
 
-
 import co.edu.uniandes.misVacaciones.rest.converters.ViajeroConverter;
 import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
 import co.edu.uniandes.misVacaciones.rest.exceptions.ViajeroLogicException;
@@ -32,10 +31,9 @@ import javax.ws.rs.core.Response;
 /**
  * Clase que implementa el recurso REST correspondiente a "viajeros".
  *
- * Note que la aplicación (definida en RestConfig.java) define la ruta
- * "/api" y este recurso tiene la ruta "viajeors".
- * Al ejecutar la aplicación, el recurse será accesibe a través de la
- * ruta "/api/viajeros"
+ * Note que la aplicación (definida en RestConfig.java) define la ruta "/api" y
+ * este recurso tiene la ruta "viajeors". Al ejecutar la aplicación, el recurse
+ * será accesibe a través de la ruta "/api/viajeros"
  *
  * @author Perapple
  */
@@ -44,7 +42,7 @@ import javax.ws.rs.core.Response;
 @RequestScoped
 public class ViajeroResource {
 
-    private static final Logger logger = Logger.getLogger(ViajeroResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ViajeroResource.class.getName());
 
     @Inject
     IViajeroLogic viajeroLogic;
@@ -61,6 +59,7 @@ public class ViajeroResource {
 
     /**
      * Obtiene un viajero
+     *
      * @param id identificador del viajero
      * @return viajero encontrado
      * @throws ViajeroLogicException cuando el viajero no existe
@@ -71,7 +70,7 @@ public class ViajeroResource {
         try {
             return ViajeroConverter.fullEntity2DTO(viajeroLogic.getViajero(id));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -89,17 +88,19 @@ public class ViajeroResource {
             return ViajeroConverter.fullEntity2DTO(viajeroLogic.createViajero(entity));
 
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
 
     /**
      * Actualiza los datos de un viajero
+     *
      * @param id identificador del viajero a modificar
      * @param viajero viajero a modificar
      * @return datos del viajero modificado
-     * @throws ViajeroLogicException cuando no existe un viajero con el id suministrado
+     * @throws ViajeroLogicException cuando no existe un viajero con el id
+     * suministrado
      */
     @PUT
     @Path("{id: \\d+}")
@@ -110,29 +111,31 @@ public class ViajeroResource {
             ViajeroEntity oldEntity = viajeroLogic.getViajero(id);
             // TODO
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, "El viajero no existe", ex);
+            LOGGER.log(Level.SEVERE, "El viajero no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
         try {
             return ViajeroConverter.fullEntity2DTO(viajeroLogic.updateViajero(entity));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
 
     /**
      * Elimina los datos de un viajero
+     *
      * @param id identificador del viajero a eliminar
-     * @throws ViajeroLogicException cuando no existe un viajero con el id suministrado
+     * @throws ViajeroLogicException cuando no existe un viajero con el id
+     * suministrado
      */
     @DELETE
     @Path("{id: \\d+}")
     public void deleteViajero(@PathParam("id") int id) throws ViajeroLogicException {
-    	try {
+        try {
             viajeroLogic.deleteViajero(id);
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }

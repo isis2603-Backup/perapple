@@ -56,7 +56,7 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ItinerarioResource {
-        
+
     private static final Logger logger = Logger.getLogger(CiudadResource.class.getName());
 
     @Inject
@@ -126,6 +126,8 @@ public class ItinerarioResource {
      */
     @POST
     public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) {
+
+        logger.info("itinerario a adicionar: "+itinerario.getNombre()+","+itinerario.getFechaInicio()+","+itinerario.getFechaFin()+","+itinerario.getViajero().toString());
         ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
         ItinerarioDTO iter = null;
             try {
@@ -147,10 +149,10 @@ public class ItinerarioResource {
     @PUT
     @Path("{id: \\d+}")
     public ItinerarioDTO updateItinerario(@PathParam("id") int id, ItinerarioDTO itinerario) {
-        
+
         ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
         entity.setId(id);
-        
+
         try {
             ItinerarioEntity oldEntity = itinerarioLogic.getItinerario(id);
             // TODO
@@ -159,9 +161,9 @@ public class ItinerarioResource {
             logger.log(Level.SEVERE, "El itinerario no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
-        
+
         ItinerarioDTO dto = null;
-        
+
         try {
             dto = ItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateItinerario(entity));
         } catch (BusinessLogicException ex) {
@@ -209,14 +211,14 @@ public class ItinerarioResource {
      * @param id identificador del itinerario a modificar
      * @param ciudad datos modificados de la ciudad
      * @param idciudad identificadot de la ciudad
-     * @return 
+     * @return
      * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
      */
     @PUT
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
     public CiudadItinerarioDTO updateCiudades(@PathParam("id") int id, CiudadItinerarioDTO ciudad, @PathParam("idciudad") int idciudad) {
         CiudadItinerarioEntity entity = CiudadItinerarioConverter.fullDTO2Entity(ciudad);
-        
+
         try {
             return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateCiudad(entity, idciudad));
         } catch (BusinessLogicException ex) {

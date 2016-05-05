@@ -10,7 +10,10 @@ import java.util.List;
  * @author camen
  */
 public abstract class EventoConverter {
-    
+
+    private EventoConverter() {
+    }
+
     public static EventoDTO basicEntity2DTO(EventoEntity entity) {
         if (entity != null) {
             EventoDTO dto = new EventoDTO();
@@ -24,7 +27,7 @@ public abstract class EventoConverter {
             return null;
         }
     }
-    
+
     private static EventoEntity basicDTO2Entity(EventoDTO dto) {
         if (dto != null) {
             EventoEntity entity = new EventoEntity();
@@ -48,7 +51,7 @@ public abstract class EventoConverter {
         }
         return dtos;
     }
-    
+
     public static List<EventoEntity> listDTO2Entity(List<EventoDTO> dtos) {
         List<EventoEntity> entities = new ArrayList<>();
         if (dtos != null) {
@@ -62,8 +65,6 @@ public abstract class EventoConverter {
     public static EventoDTO fullEntity2DTO(EventoEntity entity) {
         if (entity != null) {
             EventoDTO dto = basicEntity2DTO(entity);
-            //Cuando se implementen calificaciones
-            //dto.setCalificaciones(EventoConverter.listEntity2DTO(entity.getCalificaciones)));
             return dto;
         } else {
             return null;
@@ -73,12 +74,10 @@ public abstract class EventoConverter {
     public static EventoEntity fullDTO2Entity(EventoDTO dto) {
         if (dto != null) {
             EventoEntity entity = basicDTO2Entity(dto);
-            //Cuando se implementen calificaciones
-            //entity.setCalificaciones(SitioConverter.listDTO2Entity(dto.getCalificaciones()));
             return entity;
         } else {
             return null;
         }
     }
-    
+
 }
