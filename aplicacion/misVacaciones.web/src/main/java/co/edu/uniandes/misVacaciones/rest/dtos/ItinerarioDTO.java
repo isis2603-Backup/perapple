@@ -62,15 +62,6 @@ public class ItinerarioDTO {
         return fechaInicio;
     }
 
-//    public void setFechaInicio(String fechaInicio) {
-//        try {
-//            DateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
-//            this.fechaInicio = formato.parse(fechaInicio);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ItinerarioDTO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-
     public void setFechaInicio (Date fechaInicio)
     {
         this.fechaInicio = fechaInicio;
@@ -99,43 +90,6 @@ public class ItinerarioDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-//    /**
-//     * Convierte el objeto a una cadena
-//     * @return objeto
-//     */
-//    @Override
-//    public String toString() {
-//
-//        String objeto = " ";
-//        objeto = "{ id : " + id
-//                + ", nombre : \"" + nombre
-//                + "\" , fechaInicio: "+fechaInicio
-//                +" , fechaFin: "+fechaFin;
-//                if(viajero!=null)
-//                objeto +=", viajero: "+viajero.toString();
-//
-//                objeto +=" , ciudades: [";
-//        //for \(*0*)/
-//        if(ciudades!=null){
-//        for(int i = 0; i<ciudades.size();i++)
-//        {
-//            if(i<ciudades.size()-1)
-//            {
-//
-//                objeto += ciudades.get(i).toString()+" , ";
-//            }
-//            else
-//            {
-//                objeto += ciudades.get(i).toString();
-//            }
-//        }}
-//
-//         objeto +="]"
-//                + " }" ;
-//
-//        return objeto;
-//    }
 
 }
 

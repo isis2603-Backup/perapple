@@ -1,8 +1,8 @@
 <div id="itinerario" style="height:100%" >
 
     <div class="well" style="height:120px; ">
-        <h2 align="center">{{currentRecord.nombre}}</h2> <!--<h1>{{objectValue.data}}</h1>-->
-        <h4 align=center class="dl-horizontal"><strong>FECHA INICIO</strong>: {{currentRecord.fechaInicio|date}} - <strong>FECHA FIN:</strong> {{currentRecord.fechaFin|date}} </h4>
+        <h2 >{{currentRecord.nombre}}</h2> <!--<h1>{{objectValue.data}}</h1>-->
+        <h4 class="dl-horizontal"><strong>FECHA INICIO</strong>: {{currentRecord.fechaInicio|date}} - <strong>FECHA FIN:</strong> {{currentRecord.fechaFin|date}} </h4>
     </div>
 
     <div class="well" style="margin:5px; height:340px; ">
@@ -22,11 +22,11 @@
 
                 <table id="tabla" border="1" class="table table-bordered">
                     <tr>
-                        <td ALIGN=center> <b>Ciudades</b> </td>
-                        <td ALIGN=center> <b>Fecha Inicio</b></td>
-                        <td ALIGN=center> <b>Fecha Fin</b></td>
-                        <td ALIGN=center> <b>Detalles</b> </td>
-                        <td ALIGN=center> <b>Borrar</b> </td>
+                        <td> <strong>Ciudades</strong> </td>
+                        <td> <strong>Fecha Inicio</strong></td>
+                        <td> <strong>Fecha Fin</strong></td>
+                        <td> <strong>Detalles</strong> </td>
+                        <td> <strong>Borrar</strong> </td>
                     </tr>
                     <tr ng-repeat="nc in currentCiudadesMostrar">
                         <td>{{nc.nombre}}</td>
@@ -87,11 +87,11 @@
                 <br>
                 <table border="1" class= "table table-bordered">
                     <tr>
-                        <td ALIGN=center ><b>Mis Eventos</b></td>
-                        <td ALIGN=center ><b>Fecha</b></td>
-                        <td ALIGN="center" ><b>Detalles</b></td>
-                        <td ALIGN="center" ><b>Calificar</b></td>
-                        <td ALIGN="center" ><b>Borrar</b></td>
+                        <td><strong>Mis Eventos</strong></td>
+                        <td><strong>Fecha</strong></td>
+                        <td><strong>Detalles</strong></td>
+                        <td><strong>Calificar</strong></td>
+                        <td><strong>Borrar</strong></td>
                     </tr>
                     <tr ng-repeat="evento in currentEventosMostrar track by $index">
                         <td>{{evento.nombre}}</td>
@@ -113,11 +113,11 @@
                 <br>
                 <table border="1" class= "table table-bordered">
                     <tr>
-                        <td ALIGN=center><b>Mis Sitios</b></td>
-                        <td ALIGN=center ><b>Fecha</b></td>
-                        <td ALIGN="center" ><b>Detalles</b></td>
-                        <td ALIGN="center" ><b>Calificación</b></td>
-                        <td ALIGN="center" ><b>Borrar</b></td>
+                        <td><strong>Mis Sitios</strong></td>
+                        <td><strong>Fecha</strong></td>
+                        <td><strong>Detalles</strong></td>
+                        <td><strong>Calificación</strong></td>
+                        <td><strong>Borrar</strong></td>
                     <tr ng-repeat="nc in currentSitiosMostrar track by $index">
                         <td>{{nc.nombre}}</td>
                         <td>{{nc.fecha|date}}</td>
@@ -133,7 +133,7 @@
         </div>
     </div>
 
-    <p ALIGN="center"> <a href="javascript:window.scrollTo(0,500)" style="text-align:center; font-size: 120%;" id="volver" class="btn btn-success" > Volver Arriba </a> </p>
+    <p> <a href="javascript:window.scrollTo(0,500)" style="text-align:center; font-size: 120%;" id="volver" class="btn btn-success" > Volver Arriba </a> </p>
     <br>
     <br>
 
@@ -167,8 +167,8 @@
                             <div class="col-sm-10">
                                  <table border="1" class="table table-bordered" >
                                     <tr ng-repeat="cBD in ciudadesBD">
-                                      <td align="left">{{cBD.nombre}}</td>
-                                      <td align="center"><button type="button" name="{{cBD.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
+                                      <td >{{cBD.nombre}}</td>
+                                      <td ><button type="button" name="{{cBD.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarCiudad($event);"> Agregar Ciudad </button></td>
                                     </tr>
                                 </table>
                             </div>
@@ -207,8 +207,8 @@
                             <br>
                             <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="evento in eventosBD">
-                                    <td align="left">{{evento.nombre}}</td>
-                                    <td align="center"><button type="button" name="{{evento.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarEvento($event);"> Agregar Evento </button></td>
+                                    <td>{{evento.nombre}}</td>
+                                    <td><button type="button" name="{{evento.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarEvento($event);"> Agregar Evento </button></td>
                                 </tr>
                             </table>
                         </div>
@@ -248,8 +248,8 @@
                             <br>
                             <table border="1" class="table table-bordered" >
                                 <tr ng-repeat="sitio in sitiosBD">
-                                    <td align="left">{{sitio.nombre}}</td>
-                                    <td align="center"><button type="button" name="{{sitio.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarSitio($event);"> Agregar Sitio </button></td>
+                                    <td>{{sitio.nombre}}</td>
+                                    <td><button type="button" name="{{sitio.id}}" class="btn btn-success " data-dismiss="modal" ng-click="ctrl.agregarSitio($event);"> Agregar Sitio </button></td>
                                 </tr>
                             </table>
                         </div>

@@ -10,7 +10,12 @@ import java.util.List;
  * @author camen
  */
 public abstract class EventoItinerarioConverter {
-        public static EventoItinerarioEntity refDTOEntity(EventoItinerarioDTO dto){
+
+    private EventoItinerarioConverter() {
+    }
+
+
+    public static EventoItinerarioEntity refDTOEntity(EventoItinerarioDTO dto){
         if(dto != null){
             EventoItinerarioEntity entity = new EventoItinerarioEntity();
             entity.setId(dto.getId());
@@ -19,7 +24,7 @@ public abstract class EventoItinerarioConverter {
             return null;
         }
     }
-    
+
     public static EventoItinerarioDTO refEntity2DTO(EventoItinerarioEntity entity){
         if(entity != null){
             EventoItinerarioDTO dto = new EventoItinerarioDTO();
@@ -31,7 +36,7 @@ public abstract class EventoItinerarioConverter {
             return null;
         }
     }
-    
+
     private static EventoItinerarioEntity basicDTO2Entity(EventoItinerarioDTO dto){
         if(dto != null){
             EventoItinerarioEntity entity = new EventoItinerarioEntity();
@@ -45,7 +50,7 @@ public abstract class EventoItinerarioConverter {
             return null;
         }
     }
-    
+
     private static EventoItinerarioDTO basicEntity2DTO(EventoItinerarioEntity entity){
         if(entity != null){
             EventoItinerarioDTO dto = new EventoItinerarioDTO();
@@ -59,7 +64,7 @@ public abstract class EventoItinerarioConverter {
             return null;
         }
     }
-    
+
     public static List<EventoItinerarioEntity> listDTO2Entity(List<EventoItinerarioDTO> dtos){
         List<EventoItinerarioEntity> entities = new ArrayList<>();
         if(dtos != null){
@@ -69,7 +74,7 @@ public abstract class EventoItinerarioConverter {
         }
         return entities;
     }
-    
+
     public static List<EventoItinerarioDTO> listEntity2DTO(List<EventoItinerarioEntity> entities) {
         List<EventoItinerarioDTO> dtos = new ArrayList<>();
         if (entities != null) {
@@ -87,13 +92,13 @@ public abstract class EventoItinerarioConverter {
             return null;
         }
     }
-    
+
     public static EventoItinerarioDTO fullEntity2DTO(EventoItinerarioEntity entity) {
         if(entity != null){
             EventoItinerarioDTO dto = basicEntity2DTO(entity);
             return dto;
         } else {
             return null;
-        }    
+        }
     }
 }
