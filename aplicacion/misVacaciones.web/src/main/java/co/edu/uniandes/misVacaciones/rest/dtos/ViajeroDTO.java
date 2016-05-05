@@ -32,29 +32,6 @@ public class ViajeroDTO {
     }
 
     /**
-     * Constructor por defecto
-     */
-    public ViajeroDTO() {
-	}
-
-    /**
-     * Constructor con parámetros.
-     * @param id identificador del viajero
-     * @param name nombre del viajero
-     * @param email email del viajero
-     * @param password contraseña del viajero
-     * @param image imagen de perfil del viajero
-     */
-    public ViajeroDTO(int id, String name, String email, String password, String image) {
-		super();
-		this.id = id;
-		this.name = name;
-                this.email = email;
-                this.password = password;
-                this.image = image;
-	}
-
-    /**
      * Retorna el id del viajero
      * @return el id del viajero
      */

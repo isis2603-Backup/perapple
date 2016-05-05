@@ -130,6 +130,7 @@ public class ItinerarioResourceIT {
 
         }
         oraculoViajeros.add(viajero);
+        viajero.setItinerarios(oraculo);
     }
 
     @Test
