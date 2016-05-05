@@ -64,8 +64,8 @@ public abstract class EventoConverter {
 
     public static EventoDTO fullEntity2DTO(EventoEntity entity) {
         if (entity != null) {
-            EventoDTO dto = basicEntity2DTO(entity);
-            return dto;
+             
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -73,8 +73,8 @@ public abstract class EventoConverter {
 
     public static EventoEntity fullDTO2Entity(EventoDTO dto) {
         if (dto != null) {
-            EventoEntity entity = basicDTO2Entity(dto);
-            return entity;
+            
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }
