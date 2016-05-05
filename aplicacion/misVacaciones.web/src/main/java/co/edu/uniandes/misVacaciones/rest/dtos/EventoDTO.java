@@ -7,13 +7,13 @@ package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.Date;
 
-
-
 /**
  * Objeto de transferencia de datos de Eventos.
+ *
  * @author Perapple
  */
 public class EventoDTO {
+
     private int id;
     private String nombre;
     private String detalles;
@@ -24,7 +24,7 @@ public class EventoDTO {
      * Constructor por defecto
      */
     public EventoDTO() {
-	
+        // Constructor por defecto
     }
 
     public EventoDTO(int id, String nombre, String detalles, String imagen, Date fechaEvento) {
@@ -80,10 +80,10 @@ public class EventoDTO {
      */
     @Override
     public String toString() {
-    	return "{ id : " + id
+        return "{ id : " + id
                 + ", nombre : \"" + nombre + "\" "
-                + ", descripcion: \""+ detalles+"\" "
-                + ", fechaEvento: \""+ fechaEvento+"\" "
-                + ", imagen : \""+imagen+"\"}" ;
+                + ", descripcion: \"" + detalles + "\" "
+                + ", fechaEvento: \"" + fechaEvento + "\" "
+                + ", imagen : \"" + imagen + "\"}";
     }
 }
