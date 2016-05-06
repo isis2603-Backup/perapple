@@ -6,8 +6,8 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Date;
+
+
 
 
 /**
@@ -22,29 +22,7 @@ public class CiudadDTO {
     private List<EventoDTO> eventos;
     private String imagen;
 
-    /**
-     * Constructor por defecto
-     */
-    public CiudadDTO() {
-
-    }
-
-    /**
-     * Constructor con parámetros.
-     * @param id identificador de la ciudad
-     * @param nombre nombre de la ciudad
-     * @param detalles detalles de la ciudad
-     * @param imagen imagen respresentativa de la ciudad
-     */
-    public CiudadDTO(int id, String nombre, String detalles, String imagen) {
-        super();
-        this.id = id;
-        this.nombre = nombre;
-        this.detalles=detalles;
-        this.imagen=imagen;
-        this.eventos= new ArrayList<>();
-        this.sitios= new ArrayList<>();
-    }
+     
 
     /**
      * @return El id de la ciudad
