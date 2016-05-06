@@ -1,6 +1,5 @@
 body {
     background: url("resources/imagenes/playa_1.jpg") no-repeat fixed center center;
-    -webkit-background-size: cover;
     background-size: cover;
     font-family: Montserrat;
 }
@@ -9,7 +8,7 @@ input,
 button{
     margin: 10px;
 }
-#login{
+login{
 
     background-color: rgba(221,221,221,1);
     margin-top: 100px;
@@ -24,6 +23,7 @@ button{
 }
 
 .login-block {
+    box-sizing:border-box;
     width: 350px;
     padding: 20px;
     background: #fff;
@@ -109,6 +109,7 @@ button{
     cursor: pointer;
 }
 .login-with{
+    box-sizing: border-box;
     width: 320px;
     padding: 20px;
     background: #fff;
