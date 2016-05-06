@@ -10,7 +10,8 @@ import java.util.List;
  * @author camen
  */
 public abstract class SitioConverter {
-
+    
+    
     public static SitioDTO basicEntity2DTO(SitioEntity entity) {
         if (entity != null) {
             SitioDTO dto = new SitioDTO();
@@ -61,10 +62,8 @@ public abstract class SitioConverter {
 
     public static SitioDTO fullEntity2DTO(SitioEntity entity) {
         if (entity != null) {
-            SitioDTO dto = basicEntity2DTO(entity);
-            //Cuando se implementen calificaciones
-            //dto.setCalificaciones(SitioConverter.listEntity2DTO(entity.getCalificaciones)));
-            return dto;
+           
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -72,10 +71,8 @@ public abstract class SitioConverter {
 
     public static SitioEntity fullDTO2Entity(SitioDTO dto) {
         if (dto != null) {
-            SitioEntity entity = basicDTO2Entity(dto);
-            //Cuando se implementen calificaciones
-            //entity.setCalificaciones(SitioConverter.listDTO2Entity(dto.getCalificaciones()));
-            return entity;
+           
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }
