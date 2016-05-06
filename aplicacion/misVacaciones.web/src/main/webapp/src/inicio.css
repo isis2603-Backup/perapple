@@ -1,4 +1,4 @@
-#body
+body
 {
     background-image: url(../resources/imagenes/playa_blanco.png);
 
@@ -28,10 +28,11 @@
 
     color: #0000CC;
     -webkit-border-radius: 1px;
+    transition:color 0.8s;
     -webkit-transition: color 0.8s;
      -moz-transition: color 0.8s;
-    -o-transition: color 0.8s;
-    -ms-transition: color 0.8s;
+  
+  
 
 
 
@@ -66,11 +67,10 @@
      background-repeat: no-repeat;
     background-size: 20%;
     background-position: bottom;
+    transition: color 0.8s;
     -webkit-transition: color 0.8s;
     -moz-transition: color 0.8s;
-    -o-transition: color 0.8s;
-    -ms-transition: color 0.8s;
-        margin:auto;
+     margin:auto;
         border-top: 2px solid #005ab3;
 
 
@@ -83,7 +83,7 @@
 
 }
 
-#barra ul
+barra ul
 {
     padding:0;
     list-style: none;
