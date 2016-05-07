@@ -6,6 +6,7 @@
 package co.edu.uniandes.misVacaciones.rest.dtos;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Objeto de transferencia de datos de Ciudades.
  * @author Perappple
  */
+@XmlRootElement
 public class CiudadDTO {
     private int id;
     private String nombre;
@@ -22,7 +24,7 @@ public class CiudadDTO {
     private List<EventoDTO> eventos;
     private String imagen;
 
-     
+
 
     /**
      * @return El id de la ciudad

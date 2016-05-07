@@ -27,12 +27,10 @@ body
 {
 
     color: #0000CC;
-    -webkit-border-radius: 1px;
+
     transition:color 0.8s;
-    -webkit-transition: color 0.8s;
-     -moz-transition: color 0.8s;
-  
-  
+   
+
 
 
 
@@ -68,8 +66,7 @@ body
     background-size: 20%;
     background-position: bottom;
     transition: color 0.8s;
-    -webkit-transition: color 0.8s;
-    -moz-transition: color 0.8s;
+
      margin:auto;
         border-top: 2px solid #005ab3;
 
