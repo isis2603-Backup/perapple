@@ -48,11 +48,12 @@ public class ItinerarioResourceIT {
 
     private final String itinerarioPath = "itinerarios";
     private final String ciudadesPath = "ciudades";
+    private final String viajeroPath = "viajeros";
 
     private final static List<ItinerarioDTO> oraculo = new ArrayList<>();
     private final static List<CiudadItinerarioDTO> oraculoCiudadesItinerario = new ArrayList<>();
     private final static List<CiudadDTO> oraculoCiudadesDTO = new ArrayList<>();
-    private final static List<ViajeroDTO> oraculoViajeros = new ArrayList<>();
+    private static ViajeroDTO oraculoViajero = new ViajeroDTO();
     private WebTarget target;
     private final String apiPath = "/api";
     private static PodamFactory factory = new PodamFactoryImpl();
@@ -129,23 +130,25 @@ public class ItinerarioResourceIT {
 
 
         }
-        oraculoViajeros.add(viajero);
+        oraculoViajero = viajero;
         viajero.setItinerarios(oraculo);
     }
 
     @Test
     @InSequence(1)
     public void createItinerarioTest() {
+
+        //Crea el viajero
+        Response responseV = target.path(viajeroPath).request().post(Entity.entity(oraculoViajero, MediaType.APPLICATION_JSON));
+        Assert.assertEquals("No se creo el viajero", OK, responseV.getStatus());
         ItinerarioDTO itinerario = oraculo.get(0);
 
         //Prueba itinerario con fechas correctas
-
-        System.out.println(Entity.entity(itinerario, MediaType.APPLICATION_JSON).toString());
-        Response response = target.path(itinerarioPath).request()
+       Response response = target.path(itinerarioPath).request()
                 .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
 
 
-        Assert.assertEquals("No se creo el itinerario", CREATED, response.getStatus());
+        Assert.assertEquals("No se creo el itinerario", OK, response.getStatus());
         ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
 
         Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);

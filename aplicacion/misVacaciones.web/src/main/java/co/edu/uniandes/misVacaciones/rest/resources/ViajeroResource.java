@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -26,6 +27,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -38,8 +40,8 @@ import javax.ws.rs.core.Response;
  * @author Perapple
  */
 @Path("viajeros")
-@Produces("application/json")
-@RequestScoped
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ViajeroResource {
 
     private static final Logger LOGGER = Logger.getLogger(ViajeroResource.class.getName());
@@ -83,9 +85,13 @@ public class ViajeroResource {
      */
     @POST
     public ViajeroDTO createViajero(ViajeroDTO viajero) {
+
+        LOGGER.info("Viajero: "+viajero.getName()+", "+viajero.getId()+", "+viajero.getPassword());
         ViajeroEntity entity = ViajeroConverter.fullDTO2Entity(viajero);
+        LOGGER.info("ViajeroEntity: "+entity.getName()+", "+entity.getId()+", "+entity.getPassword());
         try {
-            return ViajeroConverter.fullEntity2DTO(viajeroLogic.createViajero(entity));
+           ViajeroDTO via = ViajeroConverter.fullEntity2DTO(viajeroLogic.createViajero(entity));
+            return via;
 
         } catch (BusinessLogicException ex) {
             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);

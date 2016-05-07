@@ -109,12 +109,12 @@ public class ViajeroDTO {
         this.image = image;
     }
 
-    /**
-     * Convierte el objeto a una cadena
-     * @return el objeto como una cadena JSON.
-     */
-    @Override
-    public String toString() {
-    	return "{ id : " + getId() + ", name : \"" + getName() + "\", email: \"" + getEmail() + "\", password: \"" + getPassword() + "\", image: \"" + getImage() + "\" }" ;
-    }
+//    /**
+//     * Convierte el objeto a una cadena
+//     * @return el objeto como una cadena JSON.
+//     */
+//    @Override
+//    public String toString() {
+//    	return "{ id : " + getId() + ", name : \"" + getName() + "\", email: \"" + getEmail() + "\", password: \"" + getPassword() + "\", image: \"" + getImage() + "\" }" ;
+//    }
 }
