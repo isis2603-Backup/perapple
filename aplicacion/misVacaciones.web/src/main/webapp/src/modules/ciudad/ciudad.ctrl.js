@@ -202,8 +202,7 @@
             var info = $event.currentTarget.name.split("-");
             var ciudadid = parseInt(info[0]);
             var hotelid = parseInt(info[1]);
-            console.log("ciudad id:  "+ciudadid+" hotelid "+ hotelid);
-            return svc.deleteHotel(ciudadid, hotelid).then(function () {
+             return svc.deleteHotel(ciudadid, hotelid).then(function () {
                 self.fetchHoteles(ciudadid);
             }, responseError);
         };
