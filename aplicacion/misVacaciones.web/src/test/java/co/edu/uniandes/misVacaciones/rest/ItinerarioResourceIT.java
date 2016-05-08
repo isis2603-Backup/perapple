@@ -167,6 +167,14 @@ public class ItinerarioResourceIT {
         Assert.assertEquals("No coincide la fecha inicio del itinerario",itinerario.getFechaInicio(), itinerarioTest.getFechaInicio());
         Assert.assertEquals("No coincide el id del itinerario",itinerario.getId(), itinerarioTest.getId());
         Assert.assertEquals("No coinciden las ciudades del itinerario",itinerario.getCiudades(), itinerarioTest.getCiudades());
+        Assert.assertNotNull("No tiene asociado un viajero", itinerarioTest.getViajero());
+
+        ViajeroDTO viajeroTest = itinerarioTest.getViajero();
+
+        Assert.assertEquals("No coincide el nombre del viajero", oraculoViajero.getName(), viajeroTest.getName());
+        Assert.assertEquals("No coincide la imagen del viajero", oraculoViajero.getImage(), viajeroTest.getImage());
+        Assert.assertEquals("No coincide el id del viajero",oraculoViajero.getId(), viajeroTest.getId());
+
 
         //oraculoViajero.setItinerarios(itinerarios);
 
