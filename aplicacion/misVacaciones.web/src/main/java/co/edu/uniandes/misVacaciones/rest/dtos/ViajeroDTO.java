@@ -20,6 +20,7 @@ public class ViajeroDTO {
     private String email;
     private String password;
     private String image;
+
     @PodamExclude
     private List<ItinerarioDTO> itinerarios;
 

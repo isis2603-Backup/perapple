@@ -12,6 +12,7 @@ import co.edu.uniandes.perapple.api.IItinerarioLogic;
 import co.edu.uniandes.perapple.entities.CiudadItinerarioEntity;
 import co.edu.uniandes.perapple.entities.EventoItinerarioEntity;
 import co.edu.uniandes.perapple.entities.SitioItinerarioEntity;
+import co.edu.uniandes.perapple.persistence.ViajeroPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -24,6 +25,9 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
     @Inject
     private ItinerarioPersistence persistence;
+
+    @Inject
+    private ViajeroPersistence viajeroPersistence;
 
     //Posibilidad de inyectar mas instancias de las otras persistencias de ser necesario
 
@@ -93,6 +97,10 @@ public class ItinerarioLogic implements IItinerarioLogic {
         int idViajero = entity.getViajero().getId();
         String nombreItinerario = entity.getNombre();
 
+        if(!validacionViajero(idViajero))
+        {
+            throw new BusinessLogicException("El viajero asociado al itinerario recibido no existe");
+        }
         if(!validacionNombreUnico(idViajero, nombreItinerario))
         {
             throw new BusinessLogicException("El viajero ya cuenta con un itinerario con el nombre dado");
@@ -553,13 +561,14 @@ public class ItinerarioLogic implements IItinerarioLogic {
         List<ItinerarioEntity> itinerarios = getItinerariosViajero(idViajero);
         boolean respuesta = true;
 
-        for(int i = 0; i< itinerarios.size() && !respuesta; i++)
+        for(int i = 0; i< itinerarios.size() && respuesta; i++)
         {
             ItinerarioEntity iti = itinerarios.get(i);
             if(iti.getNombre().equals(nombreItinerario))
             {
                 respuesta  = false;
-                break;
+                //break;
+
             }
         }
         return respuesta;
@@ -651,5 +660,18 @@ public class ItinerarioLogic implements IItinerarioLogic {
             }
         }
         return false;
+    }
+
+    private boolean validacionViajero(int idViajero) {
+    boolean existe = false;
+
+    ViajeroEntity viajero = viajeroPersistence.find(idViajero);
+
+    if(viajero!=null)
+    {
+        existe = true;
+    }
+    return existe;
+
     }
 }

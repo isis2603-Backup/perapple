@@ -33,6 +33,7 @@ public class ItinerarioDTO {
     private Date fechaInicio;
     @PodamStrategyValue(DateStrategy.class)
     private Date fechaFin;
+    @PodamExclude
     private List<CiudadItinerarioDTO> ciudades;
 
 	/**
