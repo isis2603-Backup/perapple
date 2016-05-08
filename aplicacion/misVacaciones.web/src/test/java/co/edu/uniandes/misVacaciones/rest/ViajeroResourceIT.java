@@ -1,10 +1,10 @@
 package co.edu.uniandes.misVacaciones.rest;
 
-import co.edu.uniandes.misVacaciones.rest.converters.ViajeroConverter;
-import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
-import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
-import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
-import co.edu.uniandes.misVacaciones.rest.resources.ViajeroResource;
+import co.edu.uniandes.misvacaciones.rest.converters.ViajeroConverter;
+import co.edu.uniandes.misvacaciones.rest.dtos.ItinerarioDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.ViajeroDTO;
+import co.edu.uniandes.misvacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misvacaciones.rest.resources.ViajeroResource;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;

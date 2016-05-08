@@ -19,9 +19,14 @@ import java.util.logging.Level;
 
 @Stateless
 public class ItinerarioLogic implements IItinerarioLogic {
-//TODO Implementar los métodos correspondientes, identificar necesidad de otros métodos
 
     private static final Logger LOGGER = Logger.getLogger(ItinerarioLogic.class.getName());
+
+    private static final String ITINERARIO_NO_EXISTE = "El itinerario con el id suministrado no existe";
+
+    private static final String CIUDAD_YA_EXISTE = "Ya existe esa misma ciudad en el itinerario.";
+
+    private static final String CIUDAD_BORRADO_NO_EXISTE = "La ciudad que se quiere borrar no existe en ese itinerario.";
 
     @Inject
     private ItinerarioPersistence persistence;
@@ -116,7 +121,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
         if(!validarExistenciaItinerario(entity.getId()))
         {
-            throw new BusinessLogicException("El itinerario con el id suministrado no existe");
+            throw new BusinessLogicException(ITINERARIO_NO_EXISTE);
         }
         persistence.update(entity);
         return entity;
@@ -127,7 +132,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
         if(!validarExistenciaItinerario(id))
         {
-            throw new BusinessLogicException("El itinerario con el id suministrado no existe");
+            throw new BusinessLogicException(ITINERARIO_NO_EXISTE);
         }
         persistence.delete(id);
     }
@@ -136,7 +141,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
     public ViajeroEntity getViajero(int itinerarioId) throws BusinessLogicException {
         if(!validarExistenciaItinerario(itinerarioId))
         {
-            throw new BusinessLogicException("El itinerario con el id suministrado no existe");
+            throw new BusinessLogicException(ITINERARIO_NO_EXISTE);
         }
         return persistence.find(itinerarioId).getViajero();
     }
@@ -166,7 +171,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
 
         if (validarCiudadExisteEnItinerario(itinerario, ciudad.getId())){
-            throw new BusinessLogicException("Ya existe esa misma ciudad en el itinerario.");
+            throw new BusinessLogicException(CIUDAD_YA_EXISTE);
         }
 
         List<CiudadItinerarioEntity> ciudades = itinerario.getCiudades();
@@ -202,7 +207,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
 
         if (!encontro){
-            throw new BusinessLogicException("La ciudad que se quiere borrar no existe en ese itinerario.");
+            throw new BusinessLogicException(CIUDAD_BORRADO_NO_EXISTE);
         }
 
         ciudades.remove(indice);
@@ -278,7 +283,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
             }
         }
 
-        throw new BusinessLogicException("La ciudad que se quiere borrar no existe en ese itinerario.");
+        throw new BusinessLogicException(CIUDAD_BORRADO_NO_EXISTE);
     }
 
     @Override
@@ -330,7 +335,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
 
         if (validarSitioExisteEnCiudad(ciudad, sitio.getId())){
-            throw new BusinessLogicException("Ya existe esa misma ciudad en el itinerario.");
+            throw new BusinessLogicException(CIUDAD_YA_EXISTE);
         }
 
         List<SitioItinerarioEntity> sitios = ciudad.getSitios();
@@ -392,7 +397,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
 
         if (!encontro){
-            throw new BusinessLogicException("La ciudad que se quiere borrar no existe en ese itinerario.");
+            throw new BusinessLogicException(CIUDAD_BORRADO_NO_EXISTE);
         }
 
         sitios.remove(indice);
@@ -439,7 +444,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
 
         if (validarEventoExisteEnCiudad(ciudad, evento.getId())){
-            throw new BusinessLogicException("Ya existe esa misma ciudad en el itinerario.");
+            throw new BusinessLogicException(CIUDAD_YA_EXISTE);
         }
 
         List<EventoItinerarioEntity> eventos = ciudad.getEventos();
@@ -501,7 +506,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         }
 
         if (!encontro){
-            throw new BusinessLogicException("La ciudad que se quiere borrar no existe en ese itinerario.");
+            throw new BusinessLogicException(CIUDAD_BORRADO_NO_EXISTE);
         }
 
         eventos.remove(indice);

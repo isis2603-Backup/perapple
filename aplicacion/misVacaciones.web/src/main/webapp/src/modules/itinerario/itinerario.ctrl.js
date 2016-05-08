@@ -5,15 +5,24 @@
     mod.controller("itinerarioCtrl", ["$scope","itinerarioService","ciudadService",function ($scope, svc, svcCiudad) {
 
         //Variables current
-        $scope.currentUser = 1; //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
-        $scope.records=[]; //itinerarios a mostrar según el currentUser
-        $scope.currentRecord = {}; //itinerario del que se muestra todo
-        $scope.currentCiudadesMostrar = []; //ciudades que se muestran en la lista
-        $scope.currentCiudadMostrar = {}; //ciudad actual de la que se muestran detalles
-        $scope.currentSitiosMostrar = []; //sitios a mostrar según la ciudad mostrada en detalles
-        $scope.currentSitioMostrar={}; //Sitio del cual se muestran detalles
-        $scope.currentEventosMostrar = []; //eventos a mostrar según la ciudad mostrada en detalles
-        $scope.currentEventoMostrar={}; //Sitio del cual se muestran detalles
+        //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
+        $scope.currentUser = 1;
+        //itinerarios a mostrar según el currentUser
+        $scope.records=[];
+        //itinerario del que se muestra todo
+        $scope.currentRecord = {};
+        //ciudades que se muestran en la lista
+        $scope.currentCiudadesMostrar = [];
+        //ciudad actual de la que se muestran detalles
+        $scope.currentCiudadMostrar = {};
+        //sitios a mostrar según la ciudad mostrada en detalles
+        $scope.currentSitiosMostrar = [];
+        //Sitio del cual se muestran detalles
+        $scope.currentSitioMostrar={};
+        //eventos a mostrar según la ciudad mostrada en detalles
+        $scope.currentEventosMostrar = [];
+        //Sitio del cual se muestran detalles
+        $scope.currentEventoMostrar={};
 
         //Variables para agregar ciudad
         $scope.ciudadesBD = [];
@@ -21,12 +30,16 @@
         $scope.fechaFin = new Date ();
 
         //Variables para agregar sitio
-        $scope.sitiosBD = []; //sitios disponibles para agregar
-        $scope.fechaSitio = new Date(); //fecha visita del sitio
+        //sitios disponibles para agregar
+        $scope.sitiosBD = [];
+        //fecha visita del sitio
+        $scope.fechaSitio = new Date();
 
         //Variables para agregar evento
-        $scope.eventosBD = []; //eventos disponibles para agregar
-        $scope.fechaEvento = new Date(); //fecha evento del sitio
+        //eventos disponibles para agregar
+        $scope.eventosBD = [];
+        //fecha evento del sitio
+        $scope.fechaEvento = new Date();
 
         //Otras variables
         $scope.nombreNuevoItinerario = "Verano 2017";
@@ -100,7 +113,7 @@
         this.itinerarioActual = function($event){
 
             var idItinerario = parseInt($event.currentTarget.name);
-            
+
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
@@ -272,7 +285,7 @@
             var eventoBD;
             var nEvento;
             var idEvento = parseInt($event.currentTarget.name);
-            
+
             return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
                     .then(function (response) {
                         eventoBD = response.data;

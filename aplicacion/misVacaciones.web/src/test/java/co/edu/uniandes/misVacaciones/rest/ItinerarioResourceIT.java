@@ -1,14 +1,14 @@
 package co.edu.uniandes.misVacaciones.rest;
 
-import co.edu.uniandes.misVacaciones.rest.adapters.DateAdapter;
-import co.edu.uniandes.misVacaciones.rest.converters.ItinerarioConverter;
-import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
-import co.edu.uniandes.misVacaciones.rest.dtos.CiudadItinerarioDTO;
-import co.edu.uniandes.misVacaciones.rest.dtos.ItinerarioDTO;
-import co.edu.uniandes.misVacaciones.rest.dtos.ViajeroDTO;
-import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
-import co.edu.uniandes.misVacaciones.rest.providers.CreatedFilter;
-import co.edu.uniandes.misVacaciones.rest.resources.ItinerarioResource;
+import co.edu.uniandes.misvacaciones.rest.adapters.DateAdapter;
+import co.edu.uniandes.misvacaciones.rest.converters.ItinerarioConverter;
+import co.edu.uniandes.misvacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.CiudadItinerarioDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.ItinerarioDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.ViajeroDTO;
+import co.edu.uniandes.misvacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misvacaciones.rest.providers.CreatedFilter;
+import co.edu.uniandes.misvacaciones.rest.resources.ItinerarioResource;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
