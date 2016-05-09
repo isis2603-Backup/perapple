@@ -4,7 +4,9 @@ import co.edu.uniandes.misvacaciones.rest.adapters.DateAdapter;
 import co.edu.uniandes.misvacaciones.rest.converters.ItinerarioConverter;
 import co.edu.uniandes.misvacaciones.rest.dtos.CiudadDTO;
 import co.edu.uniandes.misvacaciones.rest.dtos.CiudadItinerarioDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.EventoDTO;
 import co.edu.uniandes.misvacaciones.rest.dtos.ItinerarioDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.SitioDTO;
 import co.edu.uniandes.misvacaciones.rest.dtos.ViajeroDTO;
 import co.edu.uniandes.misvacaciones.rest.mappers.EJBExceptionMapper;
 import co.edu.uniandes.misvacaciones.rest.providers.CreatedFilter;
@@ -300,105 +302,102 @@ public class ItinerarioResourceIT {
 
     }
 
-//    @Test
-//    @InSequence(6)
-//    public void addCiudadTest() {
-//        CiudadDTO ciudadDTO = oraculoCiudadesDTO.get(0);
-//        CiudadItinerarioDTO ciudadItinerario = oraculoCiudadesItinerario.get(0);
-//        ItinerarioDTO itinerario = oraculo.get(0);
-//
-//        //Creacion de una ciudad
-//        Response response = target.path("ciudades").request()
-//                .post(Entity.entity(ciudadDTO, MediaType.APPLICATION_JSON));
-//
-//        Assert.assertEquals("No se creo la ciudad",CREATED, response.getStatus());
-//
-//        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
-//        Assert.assertEquals("la ciudad no tiene el mismo id ",ciudadDTO.getId(), ciudadTest.getId());
-//        Assert.assertEquals("la ciudad no tiene los mismos detalles",ciudadDTO.getDetalles(), ciudadTest.getDetalles());
-//        Assert.assertEquals("la ciudad no tiene los mismos eventos",ciudadDTO.getEventos(), ciudadTest.getEventos());
-//        Assert.assertEquals("la ciudad no tiene los mismos sitios",ciudadDTO.getSitios(), ciudadTest.getSitios());
-//        Assert.assertEquals("la ciudad no tiene la misma imagen",ciudadDTO.getImagen(), ciudadTest.getImagen());
-//        Assert.assertEquals("la ciudad no tiene el mismo nombre",ciudadDTO.getNombre(), ciudadTest.getNombre());
-//
-//        //creacion del itinerario
-//        response = target.path("itinerarios").request()
-//                .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
-//
-//
-//        Assert.assertEquals("No se creo el itinerario",CREATED, response.getStatus());
-//
-//        //adiciona a ciudadItinerario la ciudad creada
-//        ciudadItinerario.setCiudad(ciudadDTO);
-//
-//        //operacion de adicion de la ciudadItinerario
-//        response = target.path(itinerarioPath).path(itinerario.getId()+"")
-//                .path(ciudadesPath).request()
-//                .post(Entity.entity(ciudadItinerario, MediaType.APPLICATION_JSON));
-//
-//
-//        //Crea una lista con la ciudad Itinerario con ciudad inicial
-//        ArrayList<CiudadItinerarioDTO> adicion = new ArrayList<CiudadItinerarioDTO>();
-//        //Adiciona la ciudadItinerario a la lista de ciudadesItinerario
-//        adicion.add(ciudadItinerario);
-//        //adiciona la lista de ciudadesItinerario al itinerario
-//        itinerario.setCiudades(adicion);
-//
-//        //itinerario de respuesta
-//        ItinerarioDTO itinerarioTest = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
-//
-//        Assert.assertEquals("Respuesta del servidor no fue OK",OK, response.getStatus());
-//        Assert.assertEquals("No hay el numero de ciudadItinerario correcto",  adicion.size(), itinerarioTest.getCiudades().size() );
-//        Assert.assertEquals("No se agrego la ciudad correctamente",ciudadItinerario.getCiudad(), itinerarioTest.getCiudades().get(0).getCiudad());
-//
-//    }
-//
-//    @Test
-//    @InSequence(7)
-//    public void listCiudadesTest() {
-//        ItinerarioDTO itinerario = oraculo.get(0);
-//
-//        Response response = target.path(itinerarioPath)
-//                .path(itinerario.getId()+"")
-//                .path(ciudadesPath)
-//                .request().get();
-//
-//        Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
-//
-//        List<CiudadItinerarioDTO> ciudadItinerarioListTest = response.readEntity(new GenericType<List<CiudadItinerarioDTO>>() {
-//        });
-//        Assert.assertEquals("No hay el numero correcto de ciudadesitinerarios",itinerario.getCiudades().size(), ciudadItinerarioListTest.size());
-//        Assert.assertEquals("No es la ciudad correcta", itinerario.getCiudades().get(0).getCiudad() , ciudadItinerarioListTest.get(0).getCiudad());
-//    }
+    @Test
+    @InSequence(6)
+    public void addCiudadTest() {
+        CiudadDTO ciudadDTO = oraculoCiudadesDTO.get(0);
+        ciudadDTO.setId(1);
 
-//    @Test
-//    @InSequence(8)
-//    public void getAuthorsTest() {
-//        AuthorDTO authors = oraculoAuthors.get(0);
-//        BookDTO book = oraculo.get(0);
-//
-//        AuthorDTO authorsTest = target.path(bookPath)
-//                .path(book.getId().toString()).path(authorsPath)
-//                .path(authors.getId().toString())
-//                .request().get(AuthorDTO.class);
-//
-//        Assert.assertEquals(authors.getId(), authorsTest.getId());
-//        Assert.assertEquals(authors.getName(), authorsTest.getName());
-//        Assert.assertEquals(authors.getBirthDate(), authorsTest.getBirthDate());
-//    }
-//
-//    @Test
-//    @InSequence(9)
-//    public void removeAuthorsTest() {
-//        AuthorDTO authors = oraculoAuthors.get(0);
-//        BookDTO book = oraculo.get(0);
-//
-//        Response response = target.path(bookPath).path(book.getId().toString())
-//                .path(authorsPath).path(authors.getId().toString())
-//                .request().delete();
-//        Assert.assertEquals(NO_CONTENT, response.getStatus());
-//    }
-//
+        for(int i = 0; i<ciudadDTO.getEventos().size();i++)
+        {
+            EventoDTO act = ciudadDTO.getEventos().get(i);
+            act.setId(i+1);
+        }
+
+        for(int i = 0; i<ciudadDTO.getSitios().size();i++)
+        {
+            SitioDTO act = ciudadDTO.getSitios().get(i);
+            act.setId(i+1);
+        }
+
+        CiudadItinerarioDTO ciudadItinerario = oraculoCiudadesItinerario.get(0);
+        ItinerarioDTO itinerario = oraculo.get(0);
+
+        //Creacion de una ciudad
+        Response response = target.path("ciudades").request()
+                .post(Entity.entity(ciudadDTO, MediaType.APPLICATION_JSON));
+
+        Assert.assertEquals("No se creo la ciudad",OK, response.getStatus());
+
+        CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
+        Assert.assertEquals("la ciudad no tiene el mismo id ",ciudadDTO.getId(), ciudadTest.getId());
+        Assert.assertEquals("la ciudad no tiene los mismos detalles",ciudadDTO.getDetalles(), ciudadTest.getDetalles());
+        Assert.assertEquals("la ciudad no tiene la misma cantidad de eventos",ciudadDTO.getEventos().size(), ciudadTest.getEventos().size());
+        Assert.assertEquals("la ciudad no tiene la misma cantidad de sitios",ciudadDTO.getSitios().size(), ciudadTest.getSitios().size());
+        Assert.assertEquals("la ciudad no tiene la misma imagen",ciudadDTO.getImagen(), ciudadTest.getImagen());
+        Assert.assertEquals("la ciudad no tiene el mismo nombre",ciudadDTO.getNombre(), ciudadTest.getNombre());
+
+        //creacion del itinerario
+        response = target.path("itinerarios").request()
+                .post(Entity.entity(itinerario, MediaType.APPLICATION_JSON));
+
+
+        Assert.assertEquals("No se creo el itinerario",OK, response.getStatus());
+        itinerario = (ItinerarioDTO) response.readEntity(ItinerarioDTO.class);
+        //adiciona a ciudadItinerario la ciudad creada
+        ciudadDTO.setEventos(new ArrayList<EventoDTO>());
+        ciudadDTO.setSitios(new ArrayList<SitioDTO>());
+        ciudadItinerario.setCiudad(ciudadDTO);
+        ciudadItinerario.setItinerario(itinerario);
+
+        oraculo.get(0).setId(itinerario.getId());
+        //operacion de adicion de la ciudadItinerario
+        response = target.path(itinerarioPath).path(itinerario.getId()+"")
+                .path(ciudadesPath).request()
+                .post(Entity.entity(ciudadItinerario, MediaType.APPLICATION_JSON));
+
+        Assert.assertEquals("No se realizo la adicion de ciudadItinerario de manera correcta", OK, response.getStatus());
+        //Crea una lista con la ciudad Itinerario con ciudad inicial
+        ArrayList<CiudadItinerarioDTO> adicion = new ArrayList<CiudadItinerarioDTO>();
+        //Adiciona la ciudadItinerario a la lista de ciudadesItinerario
+        adicion.add(ciudadItinerario);
+        //adiciona la lista de ciudadesItinerario al itinerario
+        itinerario.setCiudades(adicion);
+
+        //CiudadItinerario de respuesta
+        CiudadItinerarioDTO ciudadItinerarioTest = (CiudadItinerarioDTO) response.readEntity(CiudadItinerarioDTO.class);
+
+        Assert.assertEquals("Respuesta del servidor no fue OK",OK, response.getStatus());
+        //itinerario
+        Assert.assertEquals("No es el id de itinerario al que se iba agregar la ciudadItinerario correcto", itinerario.getId() , ciudadItinerarioTest.getItinerario().getId());
+        //ciudad
+        Assert.assertEquals("la ciudad no tiene los mismos detalles",ciudadItinerario.getCiudad().getDetalles(), ciudadItinerarioTest.getCiudad().getDetalles());
+        Assert.assertEquals("la ciudad no tiene la misma imagen",ciudadItinerario.getCiudad().getImagen(), ciudadItinerarioTest.getCiudad().getImagen());
+        Assert.assertEquals("la ciudad no tiene el mismo nombre",ciudadItinerario.getCiudad().getNombre(), ciudadItinerarioTest.getCiudad().getNombre());
+
+    }
+
+    @Test
+    @InSequence(7)
+    public void listCiudadesTest() {
+        ItinerarioDTO itinerario = oraculo.get(0);
+        CiudadItinerarioDTO ciudadItinerario = oraculoCiudadesItinerario.get(0);
+        Response response = target.path(itinerarioPath)
+                .path(itinerario.getId()+"")
+                .path(ciudadesPath)
+                .request().get();
+
+        Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
+
+        List<CiudadItinerarioDTO> ciudadItinerarioListTest = response.readEntity(new GenericType<List<CiudadItinerarioDTO>>() {
+        });
+        Assert.assertEquals("No hay el numero correcto de ciudadesitinerarios",1, ciudadItinerarioListTest.size());
+        Assert.assertEquals("la ciudad no tiene los mismos detalles",ciudadItinerario.getCiudad().getDetalles(), ciudadItinerarioListTest.get(0).getCiudad().getDetalles());
+        Assert.assertEquals("la ciudad no tiene la misma imagen",ciudadItinerario.getCiudad().getImagen(), ciudadItinerarioListTest.get(0).getCiudad().getImagen());
+        Assert.assertEquals("la ciudad no tiene el mismo nombre",ciudadItinerario.getCiudad().getNombre(), ciudadItinerarioListTest.get(0).getCiudad().getNombre());
+
+    }
+
     private static Date getDate( int type) {
         Calendar c = Calendar.getInstance();
         if(type == 0){
