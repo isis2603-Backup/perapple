@@ -236,7 +236,7 @@ public class ItinerarioResource {
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
     public void deleteCiudad(@PathParam("id") int id,@PathParam("idciudad") int idciudad) {
         try {
-            itinerarioLogic.deleteCiudad(id, idciudad);
+            itinerarioLogic.deleteCiudad(idciudad,id);
         } catch (BusinessLogicException ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
