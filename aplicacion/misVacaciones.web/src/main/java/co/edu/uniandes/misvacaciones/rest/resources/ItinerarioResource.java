@@ -446,4 +446,5 @@ public class ItinerarioResource {
     public List<ItinerarioDTO> getItinerariosViajero(@PathParam("idviajero") int id){
     	return ItinerarioConverter.listEntity2DTO(itinerarioLogic.getItinerariosViajero(id));
     }
+
 }
