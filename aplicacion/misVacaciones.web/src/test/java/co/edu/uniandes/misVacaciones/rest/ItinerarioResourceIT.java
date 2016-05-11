@@ -96,9 +96,7 @@ public class ItinerarioResourceIT {
     }
 
     public static void insertData() {
-
-
-            ViajeroDTO viajero = factory.manufacturePojo(ViajeroDTO.class);
+        ViajeroDTO viajero = factory.manufacturePojo(ViajeroDTO.class);
         for (int i = 0; i < 5; i++) {
 
             CiudadDTO ciudad = factory.manufacturePojo(CiudadDTO.class);
@@ -111,7 +109,7 @@ public class ItinerarioResourceIT {
             itinerario.setFechaInicio(getDate(0));
             itinerario.setFechaFin(getDate(1));
             itinerario.setViajero(viajero);
-            itinerario.setId(i+1);
+            itinerario.setId(i + 1);
             //itinerario.setId(i + 1L);
             List<CiudadItinerarioDTO> ciudadItinerarioList = new ArrayList<>();
             for (int j = 0; j < 5; j++) {
@@ -120,13 +118,11 @@ public class ItinerarioResourceIT {
                 ciudadItinerario.setFechaIni(getDate(2016, Calendar.APRIL, Calendar.MONDAY));
                 ciudadItinerario.setFechaIni(getDate(2016, Calendar.APRIL, Calendar.FRIDAY));
 
-
                 ciudadItinerarioList.add(ciudadItinerario);
                 oraculoCiudadesItinerario.add(ciudadItinerario);
             }
-            if(i > 1 )
-            {
-            itinerario.setCiudades(ciudadItinerarioList);
+            if (i > 1) {
+                itinerario.setCiudades(ciudadItinerarioList);
             }
             oraculo.add(itinerario);
             itinerario.setCiudades(new ArrayList<CiudadItinerarioDTO>());
@@ -217,9 +213,6 @@ public class ItinerarioResourceIT {
         ItinerarioDTO itinerarioTest = target.path(itinerarioPath)
                 .path(oraculo.get(0).getId()+"")
                 .request().get(ItinerarioDTO.class);
-
-
-
 
         Assert.assertNotNull("No hubo respuesta de itinerario creado", itinerarioTest);
         Assert.assertEquals("No coincide el nombre del itinerario",oraculo.get(0).getNombre(), itinerarioTest.getNombre());

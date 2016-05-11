@@ -85,9 +85,9 @@ public class ViajeroResource {
     @POST
     public ViajeroDTO createViajero(ViajeroDTO viajero) {
 
-        LOGGER.info("Viajero: " + viajero.getName() + ", " + viajero.getId() + ", " + viajero.getPassword());
+        LOGGER.log(Level.INFO, "Viajero: {0}, {1}, {2}", new Object[]{viajero.getName(), viajero.getId(), viajero.getPassword()});
         ViajeroEntity entity = ViajeroConverter.fullDTO2Entity(viajero);
-        LOGGER.info("ViajeroEntity: " + entity.getName() + ", " + entity.getId() + ", " + entity.getPassword());
+        LOGGER.log(Level.INFO, "ViajeroEntity: {0}, {1}, {2}", new Object[]{entity.getName(), entity.getId(), entity.getPassword()});
         try {
             return ViajeroConverter.fullEntity2DTO(viajeroLogic.createViajero(entity));
 

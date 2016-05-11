@@ -127,16 +127,16 @@ public class ItinerarioResource {
     @POST
     public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) {
 
-        logger.info("itinerario a adicionar: "+itinerario.getNombre()+","+itinerario.getFechaInicio()+","+itinerario.getFechaFin()+","+itinerario.getViajero().toString());
+        logger.info("itinerario a adicionar: " + itinerario.getNombre() + "," + itinerario.getFechaInicio() + "," + itinerario.getFechaFin() + "," + itinerario.getViajero().toString());
         ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
         ItinerarioDTO iter = null;
-            try {
-                iter = ItinerarioConverter.fullEntity2DTO(itinerarioLogic.createItinerario(entity));
-            } catch (BusinessLogicException ex) {
-                logger.log(Level.SEVERE, ex.getMessage(), ex);
-                throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
-            }
-    return iter;
+        try {
+            iter = ItinerarioConverter.fullEntity2DTO(itinerarioLogic.createItinerario(entity));
+        } catch (BusinessLogicException ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
+        }
+        return iter;
     }
 
     /**
