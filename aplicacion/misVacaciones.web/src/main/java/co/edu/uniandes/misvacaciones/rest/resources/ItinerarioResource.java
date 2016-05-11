@@ -1,7 +1,7 @@
 /*
- * CityResource.java
- * Clase que representa el recurso "/cities"
- * Implementa varios métodos para manipular las ciudades
+ * ItinerarioResource.java
+ * Clase que representa el recurso "/viajeros"
+ * Implementa varios métodos para manipular los itinerarios
  */
 package co.edu.uniandes.misvacaciones.rest.resources;
 
@@ -57,7 +57,7 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class ItinerarioResource {
 
-    private static final Logger logger = Logger.getLogger(CiudadResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CiudadResource.class.getName());
 
     @Inject
     IItinerarioLogic itinerarioLogic;
@@ -74,7 +74,7 @@ public class ItinerarioResource {
         try {
             return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.getCurrentItinerario(idViajero));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -86,16 +86,16 @@ public class ItinerarioResource {
         try {
             return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.setCurrentItinerario(idViajero, entity.getId()));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
 
-	/**
-	 * Obtiene el listado de Itinerarios.
-	 * @return lista de itinerarios
-	 * @throws ItinerarioLogicException excepción retornada por la lógica
-	 */
+   /**
+    * Obtiene el listado de Itinerarios.
+    * @return lista de itinerarios
+    * @throws ItinerarioLogicException excepción retornada por la lógica
+    */
     @GET
     public List<ItinerarioDTO> getItinerarios() {
         return ItinerarioConverter.listEntity2DTO(itinerarioLogic.getItinerarios());
@@ -113,7 +113,7 @@ public class ItinerarioResource {
         try {
             return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.getItinerario(id));
         } catch (Exception ex){
-            logger.log(Level.SEVERE, "La ciudad no existe", ex);
+            LOGGER.log(Level.SEVERE, "La ciudad no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -127,13 +127,13 @@ public class ItinerarioResource {
     @POST
     public ItinerarioDTO createItinerario(ItinerarioDTO itinerario) {
 
-        logger.info("itinerario a adicionar: " + itinerario.getNombre() + "," + itinerario.getFechaInicio() + "," + itinerario.getFechaFin() + "," + itinerario.getViajero().toString());
+        LOGGER.info("itinerario a adicionar: " + itinerario.getNombre() + "," + itinerario.getFechaInicio() + "," + itinerario.getFechaFin() + "," + itinerario.getViajero().toString());
         ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(itinerario);
         ItinerarioDTO iter = null;
         try {
             iter = ItinerarioConverter.fullEntity2DTO(itinerarioLogic.createItinerario(entity));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
         return iter;
@@ -154,11 +154,9 @@ public class ItinerarioResource {
         entity.setId(id);
 
         try {
-            ItinerarioEntity oldEntity = itinerarioLogic.getItinerario(id);
-            // TODO
-            //entity.setCiudades(oldEntity.getCiudades());
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, "El itinerario no existe", ex);
+             itinerarioLogic.getItinerario(id);
+            } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "El itinerario no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
 
@@ -167,7 +165,7 @@ public class ItinerarioResource {
         try {
             dto = ItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateItinerario(entity));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
 
@@ -185,7 +183,7 @@ public class ItinerarioResource {
         try {
             itinerarioLogic.deleteItinerario(id);
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -202,7 +200,7 @@ public class ItinerarioResource {
         try {
             return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.addCiudad(entity, id));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -211,18 +209,17 @@ public class ItinerarioResource {
      * @param id identificador del itinerario a modificar
      * @param ciudad datos modificados de la ciudad
      * @param idciudad identificadot de la ciudad
-     * @return
-     * @throws ItinerarioLogicException cuando no existe un itinerario con el id suministrado
+     * @return CiudadItinerario modificada
      */
     @PUT
     @Path("{id: \\d+}/ciudades/{idciudad: \\d+}")
     public CiudadItinerarioDTO updateCiudades(@PathParam("id") int id, CiudadItinerarioDTO ciudad, @PathParam("idciudad") int idciudad) {
         CiudadItinerarioEntity entity = CiudadItinerarioConverter.fullDTO2Entity(ciudad);
-
+        LOGGER.log(Level.INFO, "Modificando ciudadItinerario con id: {0}", idciudad);
         try {
-            return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateCiudad(entity, idciudad));
+            return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.updateCiudad(entity, id));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -238,7 +235,7 @@ public class ItinerarioResource {
         try {
             itinerarioLogic.deleteCiudad(idciudad,id);
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -255,7 +252,7 @@ public class ItinerarioResource {
         try {
             return CiudadItinerarioConverter.listEntity2DTO(itinerarioLogic.getCiudades(id));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -274,7 +271,7 @@ public class ItinerarioResource {
         try {
             return CiudadItinerarioConverter.fullEntity2DTO(itinerarioLogic.getCiudad(id, idciudad));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -293,7 +290,7 @@ public class ItinerarioResource {
         try {
             return SitioItinerarioConverter.fullEntity2DTO(itinerarioLogic.createSitio(id, idciudad, entity));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -310,7 +307,7 @@ public class ItinerarioResource {
         try {
             itinerarioLogic.deleteSitio(id, idciudad, idsitio);
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -329,7 +326,7 @@ public class ItinerarioResource {
         try {
             return SitioItinerarioConverter.listEntity2DTO(itinerarioLogic.getSitios(id, idciudad));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -350,7 +347,7 @@ public class ItinerarioResource {
         try {
             return SitioItinerarioConverter.fullEntity2DTO(itinerarioLogic.getSitio(id, idciudad, idsitio));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -371,7 +368,7 @@ public class ItinerarioResource {
         try {
             return EventoItinerarioConverter.fullEntity2DTO(itinerarioLogic.createEvento(id, idciudad, entity));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -391,7 +388,7 @@ public class ItinerarioResource {
         try {
             itinerarioLogic.deleteEvento(id, idciudad, idevento);
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -410,7 +407,7 @@ public class ItinerarioResource {
         try {
             return EventoItinerarioConverter.listEntity2DTO(itinerarioLogic.getEventos(id, idciudad));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }
@@ -431,7 +428,7 @@ public class ItinerarioResource {
         try {
             return EventoItinerarioConverter.fullEntity2DTO(itinerarioLogic.getEvento(id, idciudad, idevento));
         } catch (BusinessLogicException ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
         }
     }

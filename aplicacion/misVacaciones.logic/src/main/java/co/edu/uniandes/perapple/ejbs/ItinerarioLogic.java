@@ -572,8 +572,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
             if(iti.getNombre().equals(nombreItinerario))
             {
                 respuesta  = false;
-                //break;
-
+                
             }
         }
         return respuesta;
