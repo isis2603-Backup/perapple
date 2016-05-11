@@ -19,7 +19,7 @@ public class ViajeroPersistence {
 
     public ViajeroEntity create(ViajeroEntity entity) {
         LOGGER.info("Creando un viajero nuevo");
-         LOGGER.info("ViajeroEntity: "+entity.getName()+", "+entity.getId()+", "+entity.getPassword());
+         LOGGER.log(Level.INFO, "ViajeroEntity: {0}, {1}, {2}", new Object[]{entity.getName(), entity.getId(), entity.getPassword()});
         em.persist(entity);
         LOGGER.info("Viajero creado");
         return entity;

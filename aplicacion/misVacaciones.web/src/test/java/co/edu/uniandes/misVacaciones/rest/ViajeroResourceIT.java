@@ -1,9 +1,11 @@
 package co.edu.uniandes.misVacaciones.rest;
 
+import co.edu.uniandes.misvacaciones.rest.adapters.DateAdapter;
 import co.edu.uniandes.misvacaciones.rest.converters.ViajeroConverter;
 import co.edu.uniandes.misvacaciones.rest.dtos.ItinerarioDTO;
 import co.edu.uniandes.misvacaciones.rest.dtos.ViajeroDTO;
 import co.edu.uniandes.misvacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misvacaciones.rest.providers.CreatedFilter;
 import co.edu.uniandes.misvacaciones.rest.resources.ViajeroResource;
 import java.io.File;
 import java.net.URL;
@@ -49,7 +51,7 @@ public class ViajeroResourceIT {
     private final static List<ViajeroDTO> oraculo = new ArrayList<>();
 
     private WebTarget target;
-    private final String apiPath = "api";
+    private final String apiPath = "/api";
     private static PodamFactory factory = new PodamFactoryImpl();
 
     @ArquillianResource
@@ -71,6 +73,8 @@ public class ViajeroResourceIT {
                 .addPackage(ViajeroDTO.class.getPackage())
                 .addPackage(ViajeroConverter.class.getPackage())
                 .addPackage(EJBExceptionMapper.class.getPackage())
+                .addPackage(DateAdapter.class.getPackage())
+                .addPackage(CreatedFilter.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 // El archivo beans.xml es necesario para injeccion de dependencias.
@@ -92,19 +96,8 @@ public class ViajeroResourceIT {
     public static void insertData() {
         for (int i = 0; i < 5; i++) {
             ViajeroDTO viajero = factory.manufacturePojo(ViajeroDTO.class);
-            viajero.setId(i + 1);
-            List<ItinerarioDTO> itinerarios = new ArrayList<>();
-            for (int j = 0; j < 5; j++) {
-                ItinerarioDTO itinerario = factory.manufacturePojo(ItinerarioDTO.class);
-                itinerario.setId(i + 1);
-                itinerario.setFechaFin(FECHA_FIN);
-                itinerario.setFechaInicio(FECHA_INI);
-                itinerarios.add(itinerario);
-            }
-            viajero.setItinerarios(itinerarios);
-           
+            viajero.setId(i + 1);           
             oraculo.add(viajero);
-
         }
     }
 
@@ -115,7 +108,7 @@ public class ViajeroResourceIT {
         Response response = target.path(viajeroPath).request()
                 .post(Entity.entity(viajero, MediaType.APPLICATION_JSON));
 
-        Assert.assertEquals("No se creo el viajero", CREATED, response.getStatus());
+        Assert.assertEquals("No se creo el viajero", OK, response.getStatus());
         ViajeroDTO viajeroTest = (ViajeroDTO) response.readEntity(ViajeroDTO.class);
 
         Assert.assertEquals(viajero.getName(), viajeroTest.getName());

@@ -81,13 +81,6 @@ public class ViajeroLogic implements IViajeroLogic {
     }
 
     private boolean validateViajeroExiste(int viajeroId) {
-
-        ViajeroEntity ciudad = persistence.find(viajeroId);
-
-        if (ciudad == null) {
-            return false;
-        }
-
-        return true;
+        return persistence.find(viajeroId) != null;
     }
 }
