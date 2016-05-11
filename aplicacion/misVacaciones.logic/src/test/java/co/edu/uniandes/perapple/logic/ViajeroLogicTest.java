@@ -27,7 +27,9 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -38,6 +40,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class ViajeroLogicTest {
+    
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Generador de info aleatoria
@@ -152,9 +157,15 @@ public class ViajeroLogicTest {
             Assert.assertEquals(expected.getEmail(), result.getEmail());
             Assert.assertEquals(expected.getImage(), result.getImage());
             Assert.assertEquals(expected.getPassword(), result.getPassword());
-        } catch (BusinessLogicException be){
+        } catch (BusinessLogicException be) {
             Assert.fail(be.getMessage());
         }
+    }
+
+    @Test
+    public void getViajeroTest2() throws BusinessLogicException {
+        exception.expect(BusinessLogicException.class);
+        viajeroLogic.getViajero(-1);
     }
 
     @Test
@@ -211,4 +222,5 @@ public class ViajeroLogicTest {
             Assert.fail(be.getMessage());
         }
     }
+
 }
