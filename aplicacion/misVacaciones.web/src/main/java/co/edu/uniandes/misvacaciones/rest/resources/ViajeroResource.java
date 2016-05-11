@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -86,12 +85,11 @@ public class ViajeroResource {
     @POST
     public ViajeroDTO createViajero(ViajeroDTO viajero) {
 
-        LOGGER.info("Viajero: "+viajero.getName()+", "+viajero.getId()+", "+viajero.getPassword());
+        LOGGER.info("Viajero: " + viajero.getName() + ", " + viajero.getId() + ", " + viajero.getPassword());
         ViajeroEntity entity = ViajeroConverter.fullDTO2Entity(viajero);
-        LOGGER.info("ViajeroEntity: "+entity.getName()+", "+entity.getId()+", "+entity.getPassword());
+        LOGGER.info("ViajeroEntity: " + entity.getName() + ", " + entity.getId() + ", " + entity.getPassword());
         try {
-           ViajeroDTO via = ViajeroConverter.fullEntity2DTO(viajeroLogic.createViajero(entity));
-            return via;
+            return ViajeroConverter.fullEntity2DTO(viajeroLogic.createViajero(entity));
 
         } catch (BusinessLogicException ex) {
             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
@@ -115,7 +113,7 @@ public class ViajeroResource {
         entity.setId(id);
         try {
             ViajeroEntity oldEntity = viajeroLogic.getViajero(id);
-            // TODO
+            entity.setItinerarios(oldEntity.getItinerarios());
         } catch (BusinessLogicException ex) {
             LOGGER.log(Level.SEVERE, "El viajero no existe", ex);
             throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
