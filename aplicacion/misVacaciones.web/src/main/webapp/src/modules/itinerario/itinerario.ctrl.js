@@ -4,6 +4,11 @@
 
     mod.controller("itinerarioCtrl", ["$scope","itinerarioService","ciudadService",function ($scope, svc, svcCiudad) {
 
+        //Variables para el controlador
+        var self = this;
+        this.readOnly = false;
+        this.editMode = false;
+            
         //Variables current
         $scope.mostrarDetallesCiudad = false;
         //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
@@ -72,11 +77,6 @@
             var idviajero = $scope.currentUser.id;
             self.fetchRecordsViajero(idviajero);
         });
-
-        //Variables para el controlador
-        var self = this;
-        this.readOnly = false;
-        this.editMode = false;
 
         //Message/Error/Alerts
         function showMessage(msg, type) {
