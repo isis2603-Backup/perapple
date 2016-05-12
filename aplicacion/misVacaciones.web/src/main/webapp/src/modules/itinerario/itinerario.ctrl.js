@@ -8,7 +8,7 @@
         var self = this;
         this.readOnly = false;
         this.editMode = false;
-            
+
         //Variables current
         $scope.mostrarDetallesCiudad = false;
         //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
@@ -283,8 +283,8 @@
                             nombre:sitioBD.nombre,
                             detalles:sitioBD.detalles,
                             imagen:sitioBD.imagen},
-                            fechaSitioIni:$scope.fechaSitioIni,
-                            fechaSitioFin:$scope.fechaSitioFin,
+                            fechaIni:$scope.fechaSitioIni,
+                            fechaFin:$scope.fechaSitioFin,
                             ciudad: $scope.currentCiudadMostrar
                         };
                         svc.saveSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nSitio);
@@ -311,8 +311,8 @@
                             detalles:eventoBD.detalles,
                             imagen:eventoBD.imagen,
                             fechaEvento:eventoBD.fechaEvento},
-                            fechaEventoIni:$scope.fechaEventoIni,
-                            fechaEventoFin:$scope.fechaEventoFin,
+                            fechaIni:$scope.fechaEventoIni,
+                            fechaFin:$scope.fechaEventoFin,
                             ciudad: $scope.currentCiudadMostrar
                         };
                         svc.saveEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nEvento);
