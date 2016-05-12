@@ -6,7 +6,13 @@
 
         //Variables current
         //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
-        $scope.currentUser = 1;
+        $scope.currentUser = {
+                                email: "p@erapple",
+                                id: 1,
+                                image: "https://s-media-cache-ak0.pinimg.com/736x/01/c1/3e/01c13e690b87d69a89fe6633c21cd7a5.jpg",
+                                name: "perapple",
+                                password: "1234"
+                              };
         //itinerarios a mostrar según el currentUser
         $scope.records=[];
         //itinerario del que se muestra todo
@@ -33,13 +39,15 @@
         //sitios disponibles para agregar
         $scope.sitiosBD = [];
         //fecha visita del sitio
-        $scope.fechaSitio = new Date();
+        $scope.fechaSitioIni = new Date();
+        $scope.fechaSitioFin = new Date ();
 
         //Variables para agregar evento
         //eventos disponibles para agregar
         $scope.eventosBD = [];
         //fecha evento del sitio
-        $scope.fechaEvento = new Date();
+        $scope.fechaEventoIni = new Date();
+        $scope.fechaEventoFin = new Date();
 
         //Otras variables
         $scope.nombreNuevoItinerario = "Verano 2017";
@@ -60,7 +68,8 @@
         };
 
         $scope.$on('fetchRecordsItinerario', function() {
-            self.fetchRecordsViajero($scope.currentUser);
+            var idviajero = $scope.currentUser.id;
+            self.fetchRecordsViajero(idviajero);
         });
 
         //Variables para el controlador
@@ -97,14 +106,20 @@
         this.fetchRecordsViajero = function (idViajero) {
             return svc.fetchItinerariosViajero(idViajero).then(function (response) {
                 $scope.records = response.data;
-                $scope.currentUser = idViajero;
+                $scope.currentUser = {
+                                        email: "p@erapple",
+                                        id: 1,
+                                        image: "https://s-media-cache-ak0.pinimg.com/736x/01/c1/3e/01c13e690b87d69a89fe6633c21cd7a5.jpg",
+                                        name: "perapple",
+                                        password: "1234"
+                                      };
                 self.editMode = false;
                 return response;
             }, responseError);
         };
 
         this.fetchCurrentRecord = function () {
-            return svc.fetchCurrentItinerario($scope.currentUser).then(function (response) {
+            return svc.fetchCurrentItinerario($scope.currentUser.id).then(function (response) {
                 $scope.currentRecord = response.data;
                 return response;
             }, responseError);
@@ -119,7 +134,7 @@
                         $scope.currentRecord = response.data;
                     }, responseError)
                     .then(function(){
-                        svc.saveCurrentItinerario($scope.currentUser, $scope.currentRecord);
+                        svc.saveCurrentItinerario($scope.currentUser.id, $scope.currentRecord);
                     }, responseError)
                     .then(function(){
                         self.fetchCurrents();
@@ -133,14 +148,12 @@
                                     nombre: nombre ,
                                     fechaInicio: fechaI ,
                                     fechaFin: fechaF,
-                                    ciudades: [],
-                                    sitios:[],
-                                    eventos: []
+                                    ciudades: []
                                    };
 
             return svc.saveItinerario($scope.currentRecord)
                     .then(function () {
-                        self.fetchRecordsViajero($scope.currentUser);
+                        self.fetchRecordsViajero($scope.currentUser.id);
                     }, responseError);
         };
 
@@ -148,7 +161,7 @@
             var idItinerario = parseInt($event.currentTarget.name);
             return svc.deleteItinerario(idItinerario)
                     .then(function () {
-                        self.fetchRecordsViajero($scope.currentUser);
+                        self.fetchRecordsViajero($scope.currentUser.id);
                     }, responseError);
         };
 
@@ -236,14 +249,15 @@
                     }, responseError)
                     .then(function () {
                         nCiudad = {
-                            id:ciudadBD.id,
+                            ciudad: {id:ciudadBD.id,
                             nombre:ciudadBD.nombre,
                             detalles:ciudadBD.detalles,
-                            imagen:ciudadBD.imagen,
-                            fechaInicio: $scope.fechaIni,
+                            imagen:ciudadBD.imagen},
+                            fechaIni: $scope.fechaIni,
                             fechaFin: $scope.fechaFin,
                             sitios: [],
-                            eventos: []
+                            eventos: [],
+                            itinerario: $scope.currentRecord
                           };
                     }, responseError)
                     .then(function () {
@@ -260,18 +274,21 @@
             var nSitio;
             var idSitio = parseInt($event.currentTarget.name);
 
-            return svcCiudad.fetchSitio($scope.currentCiudadMostrar.id, idSitio)
+            return svcCiudad.fetchSitio($scope.currentCiudadMostrar.ciudad.id, idSitio)
                     .then(function (response) {
                         sitioBD = response.data;
                         return response;
                     }, responseError)
                     .then(function () {
                         nSitio = {
-                            id:sitioBD.id,
+                            //podria ser sitio : sitioBD ?
+                            sitio:{id:sitioBD.id,
                             nombre:sitioBD.nombre,
                             detalles:sitioBD.detalles,
-                            imagen:sitioBD.imagen,
-                            fechaSitio:$scope.fechaSitio
+                            imagen:sitioBD.imagen},
+                            fechaSitioIni:$scope.fechaSitioIni,
+                            fechaSitioFin:$scope.fechaSitioFin,
+                            ciudad: $scope.currentCiudadMostrar
                         };
                         svc.saveSitio($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nSitio);
                     }, responseError)
@@ -286,17 +303,20 @@
             var nEvento;
             var idEvento = parseInt($event.currentTarget.name);
 
-            return svcCiudad.fetchEvento($scope.currentCiudadMostrar.id, idEvento)
+            return svcCiudad.fetchEvento($scope.currentCiudadMostrar.ciudad.id, idEvento)
                     .then(function (response) {
                         eventoBD = response.data;
                     }, responseError)
                     .then(function () {
                         nEvento = {
-                            id:eventoBD.id,
+                           evento:{ id:eventoBD.id,
                             nombre:eventoBD.nombre,
                             detalles:eventoBD.detalles,
                             imagen:eventoBD.imagen,
-                            fechaEvento:$scope.fechaEvento
+                            fechaEvento:eventoBD.fechaEvento},
+                            fechaEventoIni:$scope.fechaEventoIni,
+                            fechaEventoFin:$scope.fechaEventoFin,
+                            ciudad: $scope.currentCiudadMostrar
                         };
                         svc.saveEvento($scope.currentRecord.id, $scope.currentCiudadMostrar.id, nEvento);
                     }, responseError)
@@ -360,7 +380,7 @@
                         self.fetchCurrentEventos();
                     })
                     .then(function (){
-                        self.fetchSitiosBD(idCiudad);
+                        self.fetchSitiosBD($scope.currentCiudadMostrar.ciudad.id);
                     });
         };
 
@@ -386,7 +406,7 @@
 
         // al cargar cualquiera de las plantillas se
         // ejecutan estos
-        this.fetchRecordsViajero($scope.currentUser)
+        this.fetchRecordsViajero($scope.currentUser.id)
                 .then(function(){
                     self.fetchCurrents();
                 });

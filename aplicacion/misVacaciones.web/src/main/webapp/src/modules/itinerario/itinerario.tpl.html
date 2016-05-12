@@ -29,8 +29,8 @@
                         <td> <strong>Borrar</strong> </td>
                     </tr>
                     <tr ng-repeat="nc in currentCiudadesMostrar">
-                        <td>{{nc.nombre}}</td>
-                        <td>{{nc.fechaInicio|date}}</td>
+                        <td>{{nc.ciudad.nombre}}</td>
+                        <td>{{nc.fechaIni|date}}</td>
                         <td>{{nc.fechaFin|date}}</td>
                         <td><a href="javascript:window.scrollTo(0,1100)"><button  id="detalles" type="button" class="btn btn-success" name="{{nc.id}}"  ng-click="ctrl.detallesCiudad($event); " > Detalles </button></a></td>
                         <td><button id="borrar" type="button" class="btn btn-success" name="{{nc.id}}"  ng-click="ctrl.borrarCiudad($event); " > Borrar </button></td>
@@ -73,11 +73,11 @@
         <div class="col-sm-12 well" style="overflow: auto; ">
             <div style="display:flex; justify-content: center; background-color:#FFFF00; border-radius: 8px">
                 <div style = "margin:0 auto;">
-                    <h2 style="text-align: center"> {{currentCiudadMostrar.nombre}} </h2>
-                    <p>{{currentCiudadMostrar.detalles}}</p>
+                    <h2 style="text-align: center"> {{currentCiudadMostrar.ciudad.nombre}} </h2>
+                    <p>{{currentCiudadMostrar.ciudad.detalles}}</p>
                 </div>
                 <div class="img-circle" id="image" style="justify-content: center;margin:0 auto;">
-                    <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.imagen}}" alt="" />
+                    <img class="img-rounded" style="height: 200px; margin:-5px; " src="{{currentCiudadMostrar.ciudad.imagen}}" alt="" />
                 </div>
             </div>
 
@@ -88,14 +88,16 @@
                 <table border="1" class= "table table-bordered">
                     <tr>
                         <td><strong>Mis Eventos</strong></td>
-                        <td><strong>Fecha</strong></td>
+                        <td><strong>Fecha Inicial</strong></td>
+                        <td><strong>Fecha Final</strong></td>
                         <td><strong>Detalles</strong></td>
                         <td><strong>Calificar</strong></td>
                         <td><strong>Borrar</strong></td>
                     </tr>
                     <tr ng-repeat="evento in currentEventosMostrar track by $index">
-                        <td>{{evento.nombre}}</td>
-                        <td>{{evento.fecha|date}}</td>
+                        <td>{{evento.evento.nombre}}</td>
+                        <td>{{evento.fechaIni|date}}</td>
+                        <td>{{evento.fechaFin|date}}</td>
                         <td><button id="button_detalles_evento" type="button" class="btn btn-success " name="{{evento.id}}" data-toggle="modal" ng-click="ctrl.detallesEvento($event)" data-target="#popDetallesEvento"> Detalles </button></td>
                         <td><button id="button_calificar_evento" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarEvento"> Calificar </button></td>
                         <td><button id="button_borrar_evento" type="button" class="btn btn-success" name="{{evento.id}}" ng-click="ctrl.borrarEvento($event);" > Borrar </button></td>
@@ -104,7 +106,7 @@
                 </table>
 
                 <div class="row">
-                    <button id="button_agregar_evento" type="button" class="btn btn-success" data-toggle="modal" data-target="#popEvento" ng-click="ctrl.fetchEventosBD(currentCiudadMostrar.id);"> Agregar Evento </button>
+                    <button id="button_agregar_evento" type="button" class="btn btn-success" data-toggle="modal" data-target="#popEvento" ng-click="ctrl.fetchEventosBD(currentCiudadMostrar.ciudad.id);"> Agregar Evento </button>
                 </div>
               </div>
 
@@ -114,20 +116,22 @@
                 <table border="1" class= "table table-bordered">
                     <tr>
                         <td><strong>Mis Sitios</strong></td>
-                        <td><strong>Fecha</strong></td>
+                        <td><strong>Fecha Inicial</strong></td>
+                        <td><strong>Fecha Final</strong></td>
                         <td><strong>Detalles</strong></td>
                         <td><strong>Calificación</strong></td>
                         <td><strong>Borrar</strong></td>
                     <tr ng-repeat="nc in currentSitiosMostrar track by $index">
-                        <td>{{nc.nombre}}</td>
-                        <td>{{nc.fecha|date}}</td>
+                        <td>{{nc.sitio.nombre}}</td>
+                        <td>{{nc.fechaIni|date}}</td>
+                        <td>{{nc.fechaFin|date}}</td>
                         <td><button id="button_detalles_sitio" type="button" class="btn btn-success " name="{{nc.id}}" data-toggle="modal" ng-click="ctrl.detallesSitio($event)" data-target="#popDetallesSitio"> Detalles </button></td>
                         <td><button id="button_calificar_sitio" type="button" class="btn btn-success " data-toggle="modal" data-target="#popCalificarSitio"> Calificar </button></td>
                         <td><button id="button_borrar_sitio" type="button" class="btn btn-success" name="{{nc.id}}" ng-click="ctrl.borrarSitio($event)"> Borrar </button></td>
                     </tr>
                 </table>
                 <div class="row">
-                    <button id="button_agregar_sitio" type="button" class="btn btn-success" data-toggle="modal" data-target="#popSitio" ng-click="ctrl.fetchSitiosBD(currentCiudadMostrar.id);"> Agregar Sitio </button>
+                    <button id="button_agregar_sitio" type="button" class="btn btn-success" data-toggle="modal" data-target="#popSitio" ng-click="ctrl.fetchSitiosBD(currentCiudadMostrar.ciudad.id);"> Agregar Sitio </button>
                 </div>
             </div>
         </div>
@@ -196,7 +200,13 @@
                                 <p>Ingrese fecha en la que irá al evento:</p>
                             </div>
                             <div class="col-sm-4">
-                                <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaEvento" name="eve"  max="2020-12-31"></p>
+                                <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaEventoIni" name="eve"  max="2020-12-31"></p>
+                            </div>
+                        <div class="col-sm-6">
+                                <p>Ingrese fecha en la que se irá del evento:</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaEventoFin" name="eve"  max="2020-12-31"></p>
                             </div>
                         <div class="col-sm-1"></div>
                     </div>
@@ -237,7 +247,13 @@
                             <p>Ingrese fecha en la que irá al sitio:</p>
                         </div>
                         <div class="col-sm-4">
-                            <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaSitio" name="sit"  max="2020-12-31"></p>
+                            <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaSitioIni" name="sit"  max="2020-12-31"></p>
+                        </div>
+                     <div class="col-sm-6">
+                            <p>Ingrese fecha en la que se irá al sitio:</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p><input type="date" class="form-control" title="Fecha" ng-model = "fechaSitioFin" name="sit"  max="2020-12-31"></p>
                         </div>
                     <div class="col-sm-1"></div>
                 </div>
@@ -344,25 +360,25 @@
                     <div class="well" style="display:flex; justify-content: center;">
                         <fieldset>
                             <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:yellow;">
-                                <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentEventoMostrar.imagen}}' alt="">
+                                <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentEventoMostrar.evento.imagen}}' alt="">
                             </div>
                             <br>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Nombre</label>
                                 <div class="col-md-8" style="margin: 5 px; ">
-                                    <p>{{currentEventoMostrar.nombre}} </p>
+                                    <p>{{currentEventoMostrar.evento.nombre}} </p>
                                 </div>
                             </div>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Fecha</label>
                                 <div class="col-md-8">
-                                    <p>{{currentEventoMostrar.fecha|date}}</p>
+                                    <p>{{currentEventoMostrar.evento.fechaEvento|date}}</p>
                                 </div>
                             </div>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Detalles</label>
                                 <div class="col-md-8">
-                                    <p>{{currentEventoMostrar.detalles}}</p>
+                                    <p>{{currentEventoMostrar.evento.detalles}}</p>
                                 </div>
                             </div>
                             <!--
@@ -400,25 +416,19 @@
                     <div class="well" style="display:flex; justify-content: center;">
                         <fieldset>
                             <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:yellow;">
-                                <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentSitioMostrar.imagen}}' alt="">
+                                <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{currentSitioMostrar.sitio.imagen}}' alt="">
                             </div>
                             <br>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Nombre</label>
                                 <div class="col-md-8" style="margin: 5 px; ">
-                                    <p>{{currentSitioMostrar.nombre}} </p>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-11">
-                                <label for="name" class="col-md-4 control-label">Fecha</label>
-                                <div class="col-md-8" style="margin: 5 px; ">
-                                    <p>{{currentSitioMostrar.fecha|date}} </p>
+                                    <p>{{currentSitioMostrar.sitio.nombre}} </p>
                                 </div>
                             </div>
                             <div class="form-group col-md-11">
                                 <label for="name" class="col-md-4 control-label">Descripción</label>
                                 <div class="col-md-8">
-                                    <p>{{currentSitioMostrar.detalles}}</p>
+                                    <p>{{currentSitioMostrar.sitio.detalles}}</p>
                                 </div>
                             </div>
 

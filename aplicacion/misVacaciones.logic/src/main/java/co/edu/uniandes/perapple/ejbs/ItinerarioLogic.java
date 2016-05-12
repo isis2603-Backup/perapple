@@ -283,7 +283,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
             }
         }
 
-        throw new BusinessLogicException(CIUDAD_BORRADO_NO_EXISTE);
+        throw new BusinessLogicException("La ciudad que se quiere obtener no existe en el itinerario");
     }
 
     @Override
@@ -572,7 +572,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
             if(iti.getNombre().equals(nombreItinerario))
             {
                 respuesta  = false;
-                
+
             }
         }
         return respuesta;
