@@ -30,7 +30,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -146,17 +145,18 @@ public class ItinerarioLogicTest {
             ItinerarioEntity entity = factory.manufacturePojo(ItinerarioEntity.class);
             System.out.println("Nombre Itinerario: "+entity.getNombre());
 
-            Date fecha = new Date();
+             Date fecha = new Date();
             long hoy = fecha.getTime();
             int unDia = (1000 * 60 * 60 * 24);
-
+            
             //2 itinerarios iguales con diferente viajero (i==0 e i==1)
             //2 itinerarios diferente con igual viajero (i==1 e i==2)
             if (i==0){
-
                 entity.setViajero(viajerosData.get(0));
+                fecha = new Date();
                 fecha.setTime(hoy);
                 entity.setFechaInicio(fecha);
+                fecha = new Date();
                 fecha.setTime(hoy+30*unDia);
                 entity.setFechaFin(fecha);
 
@@ -167,8 +167,10 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(0));
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + unDia);
                 cIE.setFechaIni(fecha);
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
                 cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
@@ -176,8 +178,10 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(1));
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 5*unDia);
                 cIE.setFechaIni(fecha);
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 10*unDia);
                 cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
@@ -187,8 +191,10 @@ public class ItinerarioLogicTest {
             else if(i==1){
                 entity.setViajero(viajerosData.get(1));
 
+                fecha = new Date();
                 fecha.setTime(hoy);
                 entity.setFechaInicio(fecha);
+                fecha = new Date();
                 fecha.setTime(hoy+30*unDia);
                 entity.setFechaFin(fecha);
 
@@ -199,8 +205,10 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(0));
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + unDia);
                 cIE.setFechaIni(fecha);
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
                 cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
@@ -208,8 +216,10 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(1));
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 5*unDia);
                 cIE.setFechaIni(fecha);
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 10*unDia);
                 cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
@@ -219,8 +229,10 @@ public class ItinerarioLogicTest {
             else{
                 entity.setViajero(viajerosData.get(0));
 
+                fecha = new Date();
                 fecha.setTime(hoy+2*unDia);
                 entity.setFechaInicio(fecha);
+                fecha = new Date();
                 fecha.setTime(hoy+20*unDia);
                 entity.setFechaFin(fecha);
 
@@ -231,8 +243,10 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(1));
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + unDia);
                 cIE.setFechaIni(fecha);
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 3*unDia);
                 cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
@@ -240,8 +254,10 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(2));
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
                 cIE.setFechaIni(fecha);
+                fecha = new Date();
                 fecha.setTime(entity.getFechaInicio().getTime() + 8*unDia);
                 cIE.setFechaFin(fecha);
                 ciudadesI.add(cIE);
@@ -386,6 +402,42 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void getCiudadesTest(){
+        try{
+            ItinerarioEntity itinerarioABuscarCiudades = itinerariosData.get(0);
+            
+            List<CiudadItinerarioEntity> lista = itinerarioLogic.getCiudades(itinerarioABuscarCiudades.getId());
+
+            assertEquals(2, lista.size());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void getCiudadTest(){
+        try{
+            ItinerarioEntity itinerarioABuscarCiudad = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity real = itinerarioABuscarCiudad.getCiudades().get(0);
+            
+            CiudadItinerarioEntity encontrada = itinerarioLogic.getCiudad(itinerarioABuscarCiudad.getId(), real.getId());
+
+            assertEquals(real.getId(), encontrada.getId());
+            assertEquals(real.getSitios().size(), encontrada.getSitios().size());
+            assertEquals(real.getCiudad().getNombre(), encontrada.getCiudad().getNombre());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void addCiudadTest(){
         try{
             ItinerarioEntity iti = itinerariosData.get(0);
@@ -393,20 +445,22 @@ public class ItinerarioLogicTest {
             
             CiudadItinerarioEntity ciud = new CiudadItinerarioEntity();
             
-            Date fecha = new Date();
-            long hoy = fecha.getTime();
+            Date fecha1 = new Date();
+            Date fecha2 = new Date();
             int unDia = (1000 * 60 * 60 * 24);
             
             ciud.setItinerario(iti);
             ciud.setCiudad(ciu);
-            fecha.setTime(iti.getFechaInicio().getTime() + 11*unDia);
-            ciud.setFechaIni(fecha);
-            fecha.setTime(iti.getFechaInicio().getTime() + 15*unDia);
-            ciud.setFechaFin(fecha);
-                    
+            fecha1.setTime(iti.getFechaInicio().getTime() + 11*unDia);
+            ciud.setFechaIni(fecha1);
+            fecha2.setTime(iti.getFechaInicio().getTime() + 15*unDia);
+            ciud.setFechaFin(fecha2);
+            
             itinerarioLogic.addCiudad(ciud, iti.getId());
             
-            CiudadItinerarioEntity encontrada = itinerarioLogic.getCiudad(iti.getId(), ciu.getId());
+            System.out.println("antes del error");
+            
+            CiudadItinerarioEntity encontrada = itinerarioLogic.getCiudad(iti.getId(), ciud.getId());
 
             assertEquals(ciud.getId(), encontrada.getId());
             assertEquals(ciud.getCiudad().getNombre(), encontrada.getCiudad().getNombre());

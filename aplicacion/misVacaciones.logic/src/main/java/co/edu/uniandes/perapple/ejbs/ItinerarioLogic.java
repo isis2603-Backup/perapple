@@ -557,10 +557,16 @@ public class ItinerarioLogic implements IItinerarioLogic {
 
         Date fI = ciudad.getFechaIni();
         Date fF = ciudad.getFechaFin();
-
+        
         for (int i=0; i<ciudades.size(); i++){
             CiudadItinerarioEntity cIti = ciudades.get(i);
-            if(cIti.getFechaFin().after(fI) || cIti.getFechaIni().before(fF)){
+            if(cIti.getFechaIni().before(fI) && cIti.getFechaIni().before(fF) && cIti.getFechaFin().after(fI) && cIti.getFechaFin().before(fF)){
+                return false;
+            }
+            else if(cIti.getFechaIni().after(fI) && cIti.getFechaIni().before(fF) && cIti.getFechaFin().after(fI) && cIti.getFechaFin().after(fF)){
+                return false;
+            }
+            else if(cIti.getFechaIni().before(fI) && cIti.getFechaIni().before(fF) && cIti.getFechaFin().after(fI) && cIti.getFechaFin().after(fF)){
                 return false;
             }
         }
