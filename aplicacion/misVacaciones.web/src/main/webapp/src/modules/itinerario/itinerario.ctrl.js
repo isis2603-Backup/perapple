@@ -59,14 +59,14 @@
             $scope.opened = true;
         };
 
-        $scope.$on('fetchRecordsItinerario', function() {
-            self.fetchRecordsViajero($scope.currentUser);
-        });
-
         //Variables para el controlador
         var self = this;
         this.readOnly = false;
         this.editMode = false;
+
+        $scope.$on('fetchRecordsItinerario', function() {
+            self.fetchRecordsViajero($scope.currentUser);
+        });
 
         //Message/Error/Alerts
         function showMessage(msg, type) {

@@ -14,7 +14,6 @@ import co.edu.uniandes.perapple.entities.SitioEntity;
 
 @Stateless
 public class CiudadLogic implements ICiudadLogic {
-//TODO Implementar los métodos correspondientes, identificar necesidad de otros métodos
 
     private static final Logger LOGGER=  Logger.getLogger(CiudadLogic.class.getName());
 
