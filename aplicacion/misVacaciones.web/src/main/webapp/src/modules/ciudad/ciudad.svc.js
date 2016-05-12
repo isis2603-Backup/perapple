@@ -1,8 +1,7 @@
 (function (ng) {
     var mod = ng.module("moduloCiudad");
-
+    
     mod.service("ciudadService", ["$http", "ciudadContext", function ($http, context) {
-        
         /**
          * Obtener la lista de ciudades.
          * Hace una petición GET con $http a /ciudades para obtener la lista

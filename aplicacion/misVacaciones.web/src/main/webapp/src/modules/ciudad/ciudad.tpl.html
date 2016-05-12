@@ -12,10 +12,10 @@
 
             <table id="tabla" border="1" class="table table-bordered">
                 <tr>
-                    <td ALIGN=center> <b>Ciudad</b> </td>
-                    <td ALIGN=center> <b>Descripcion</b></td>
-                    <td ALIGN=center> <b>Sitios</b></td>
-                    <td ALIGN=center> <b>Eventos</b></td>
+                    <td > <strong>Ciudad</strong> </td>
+                    <td > <strong>Descripcion</strong></td>
+                    <td > <strong>Sitios</strong></td>
+                    <td > <strong>Eventos</strong></td>
                 </tr>
                 <tr ng-repeat="nc in ciudades">
                     <td>{{nc.nombre}}</td>
@@ -45,8 +45,8 @@
 
             <table id="tabla" border="1" class="table table-bordered">
                 <tr>
-                    <td ALIGN=center> <b>Evento</b> </td>
-                    <td ALIGN=center> <b>Descripcion</b></td>
+                    <td > <strong>Evento</strong> </td>
+                    <td > <strong>Descripcion</strong></td>
 
                 </tr>
                 <tr ng-repeat="nc in currentCiudad.eventos">
@@ -76,8 +76,8 @@
 
             <table id="tabla" border="1" class="table table-bordered">
                 <tr>
-                    <td ALIGN=center> <b>sitio</b> </td>
-                    <td ALIGN=center> <b>Descripcion</b></td>
+                    <td ALIGN=center> <strong>sitio</strong> </td>
+                    <td ALIGN=center> <strong>Descripcion</strong></td>
 
                 </tr>
                 <tr ng-repeat="nc in currentCiudad.sitios">
@@ -106,10 +106,10 @@
 
             <table id="tabla" border="1" class="table table-bordered">
                 <tr>
-                    <td ALIGN=center> <b>Email</b> </td>
-                    <td ALIGN=center> <b>Imagen</b></td>
-                    <td ALIGN=center> <b>Contrasena</b></td>
-                    <td ALIGN=center> <b>Borrar</b></td>
+                    <td ALIGN=center> <strong>Email</strong> </td>
+                    <td ALIGN=center> <strong>Imagen</strong></td>
+                    <td ALIGN=center> <strong>Contrasena</strong></td>
+                    <td ALIGN=center> <strong>Borrar</strong></td>
                 </tr>
                 <tr ng-repeat="nc in ctrl.fetchViajeros()">
                     <td>{{nc.nombre}}</td>

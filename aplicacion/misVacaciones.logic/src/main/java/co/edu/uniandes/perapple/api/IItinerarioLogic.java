@@ -55,8 +55,4 @@ public interface IItinerarioLogic {
     public void deleteEvento(int itinerarioId, int ciudadId, int eventoId) throws BusinessLogicException;
 
     public EventoItinerarioEntity updateEvento (int itinerarioId, int ciudadId, EventoItinerarioEntity evento) throws BusinessLogicException;
-
-    public ItinerarioEntity getCurrentItinerario(int idViajero) throws BusinessLogicException;
-
-    public ItinerarioEntity setCurrentItinerario(int idViajero, int idItinerario) throws BusinessLogicException;
 }

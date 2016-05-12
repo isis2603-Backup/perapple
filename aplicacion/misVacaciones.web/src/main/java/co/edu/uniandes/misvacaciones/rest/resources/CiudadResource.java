@@ -217,17 +217,9 @@ public class CiudadResource {
     @PUT
     @Path("{id: \\d+}")
     public CiudadDTO actualizarCiudad(@PathParam("id") int id, CiudadDTO ciudad) {
+        
         CiudadEntity entity = CiudadConverter.fullDTO2Entity(ciudad);
-        entity.setId(id);
-        try {
-            CiudadEntity oldEntity = ciudadLogic.getCiudad(id);
-            // TODO
-            //entity.setEventos(oldEntity.getEventos());
-            //entity.setSitios(oldEntity.getSitios());
-        } catch (BusinessLogicException ex) {
-            LOGGER.log(Level.SEVERE, "La ciudad no existe", ex);
-            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
-        }
+
         try {
             return CiudadConverter.fullEntity2DTO(ciudadLogic.updateCiudad(entity));
         } catch (BusinessLogicException ex) {
