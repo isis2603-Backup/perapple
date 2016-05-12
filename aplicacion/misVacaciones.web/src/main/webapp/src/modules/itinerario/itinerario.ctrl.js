@@ -5,6 +5,7 @@
     mod.controller("itinerarioCtrl", ["$scope","itinerarioService","ciudadService",function ($scope, svc, svcCiudad) {
 
         //Variables current
+        $scope.mostrarDetallesCiudad = false;
         //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
         $scope.currentUser = {
                                 email: "p@erapple",
@@ -188,13 +189,14 @@
         };
 
         this.fetchCurrents = function (){
-            
+
             self.fetchCurrentRecord();
-            
+
             if($scope.currentRecord.id){
                 self.fetchCurrentCiudades()
                 .then(function(){
                             if($scope.currentCiudadMostrar.id){
+                                $scope.mostrarDetallesCiudad = true;
                                 self.fetchCurrentSitios();
                                 self.fetchCurrentEventos();
                             }
@@ -376,6 +378,9 @@
                     })
                     .then(function (){
                         self.fetchSitiosBD($scope.currentCiudadMostrar.ciudad.id);
+                    })
+                    .then(function (){
+                        self.fetchCurrents();
                     });
         };
 
