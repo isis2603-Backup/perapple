@@ -28,9 +28,6 @@ public class ItinerarioEntity implements Serializable {
 
     private String nombre;
 
-    private boolean esCurrent;
-
-
     @PodamExclude
     @OneToMany (mappedBy = "itinerario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CiudadItinerarioEntity> ciudades = new ArrayList<>();
@@ -55,10 +52,6 @@ public class ItinerarioEntity implements Serializable {
         this.nombre = nombre;
     }
 
-    public void setEsCurrent(boolean esCurrent) {
-        this.esCurrent = esCurrent;
-    }
-
     public void setCiudades(List<CiudadItinerarioEntity> ciudades) {
         this.ciudades = ciudades;
     }
@@ -81,10 +74,6 @@ public class ItinerarioEntity implements Serializable {
 
     public String getNombre() {
         return nombre;
-    }
-
-    public boolean getEsCurrent() {
-        return esCurrent;
     }
 
     public List<CiudadItinerarioEntity> getCiudades() {

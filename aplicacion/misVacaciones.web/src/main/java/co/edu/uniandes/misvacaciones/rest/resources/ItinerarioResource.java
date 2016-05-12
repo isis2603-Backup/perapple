@@ -62,35 +62,6 @@ public class ItinerarioResource {
     @Inject
     IItinerarioLogic itinerarioLogic;
 
-    /**
-    * El itinerario que actualmente se este manejando
-    * @param idViajero
-    * @return el itinerario que actualmente se esta manejando
-    * @throws ItinerarioLogicException
-    */
-    @GET
-    @Path("current/{idViajero: \\d+}")
-    public ItinerarioDTO getCurrentItinerario(@PathParam("idViajero") int idViajero){
-        try {
-            return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.getCurrentItinerario(idViajero));
-        } catch (BusinessLogicException ex) {
-            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
-        }
-    }
-
-    @PUT
-    @Path("current/{idViajero: \\d+}")
-    public ItinerarioDTO setCurrentItinerario(ItinerarioDTO nuevoCurrent, @PathParam("idViajero") int idViajero){
-        ItinerarioEntity entity = ItinerarioConverter.fullDTO2Entity(nuevoCurrent);
-        try {
-            return ItinerarioConverter.fullEntity2DTO(itinerarioLogic.setCurrentItinerario(idViajero, entity.getId()));
-        } catch (BusinessLogicException ex) {
-            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new WebApplicationException(ex.getLocalizedMessage(), ex, Response.Status.NOT_FOUND);
-        }
-    }
-
    /**
     * Obtiene el listado de Itinerarios.
     * @return lista de itinerarios

@@ -103,13 +103,6 @@
             }, responseError);
         };
 
-        this.fetchCurrentRecord = function () {
-            return svc.fetchCurrentItinerario($scope.currentUser).then(function (response) {
-                $scope.currentRecord = response.data;
-                return response;
-            }, responseError);
-        };
-
         this.itinerarioActual = function($event){
 
             var idItinerario = parseInt($event.currentTarget.name);
@@ -117,9 +110,6 @@
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
-                    }, responseError)
-                    .then(function(){
-                        svc.saveCurrentItinerario($scope.currentUser, $scope.currentRecord);
                     }, responseError)
                     .then(function(){
                         self.fetchCurrents();
@@ -138,10 +128,7 @@
                                     eventos: []
                                    };
 
-            return svc.saveItinerario($scope.currentRecord)
-                    .then(function () {
-                        self.fetchRecordsViajero($scope.currentUser);
-                    }, responseError);
+            return self.fetchRecordsViajero($scope.currentUser);
         };
 
         this.borrarItinerario = function ($event){
@@ -180,13 +167,7 @@
         };
 
         this.fetchCurrents = function (){
-            self.fetchCurrentRecord()
-                    .then(function(){
-                            if($scope.currentRecord.id){
-                                self.fetchCurrentCiudades();
-                            }
-                        }, responseError
-                    )
+            self.fetchCurrentCiudades()
                     .then(function(){
                             if($scope.currentCiudadMostrar.id){
                                 self.fetchCurrentSitios();

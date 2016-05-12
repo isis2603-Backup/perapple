@@ -516,49 +516,6 @@ public class ItinerarioLogic implements IItinerarioLogic {
         updateCiudad(ciudad, itinerarioId);
     }
 
-    @Override
-    public ItinerarioEntity getCurrentItinerario(int idViajero) throws BusinessLogicException {
-
-        List<ItinerarioEntity> itinerarios = getItinerariosViajero(idViajero);
-
-        for (int i=0; i<itinerarios.size(); i++){
-            ItinerarioEntity itinerario = itinerarios.get(i);
-            if(itinerario.getEsCurrent()){
-                return itinerario;
-            }
-        }
-
-        throw new BusinessLogicException("No se ha establecido un itinerario current aun.");
-    }
-
-    @Override
-    public ItinerarioEntity setCurrentItinerario(int idViajero, int idItinerario) throws BusinessLogicException {
-
-        List<ItinerarioEntity> itinerarios = getItinerariosViajero(idViajero);
-        ItinerarioEntity current = null;
-        boolean encontro = false;
-
-        for (int i=0; i<itinerarios.size(); i++){
-            ItinerarioEntity itinerario = itinerarios.get(i);
-            if(itinerario.getEsCurrent()){
-                itinerario.setEsCurrent(false);
-                persistence.update(itinerario);
-            }
-            if(itinerario.getId()==idItinerario){
-                encontro = true;
-                itinerario.setEsCurrent(true);
-                current = itinerario;
-                persistence.update(current);
-            }
-        }
-
-        if(!encontro){
-            throw new BusinessLogicException("No existe itinerario con ese id para ser establecido como current.");
-        }
-
-        return current;
-    }
-
     /** Validaciones */
 
     private boolean validacionNombreUnico(int idViajero, String nombreItinerario) {

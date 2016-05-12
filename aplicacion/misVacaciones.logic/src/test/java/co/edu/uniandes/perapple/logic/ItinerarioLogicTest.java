@@ -30,6 +30,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,7 +40,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author camen, dalthviz
+ * @author camen, dalthviz, mcrg
  */
 @RunWith(Arquillian.class)
 public class ItinerarioLogicTest {
@@ -84,12 +85,9 @@ public class ItinerarioLogicTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
-    //TODO definir que estrutura vamos a seguir @Before @Test @After o @Before con utx y metodos privados para crear y borrar
-    public ItinerarioLogicTest() {
-    }
-
+    
     @Before
-    public void configTest() {
+    public void beforeTest() {
         try {
             utx.begin();
             clearData();
@@ -104,7 +102,23 @@ public class ItinerarioLogicTest {
             }
         }
     }
-
+    
+    @After
+    public void afterTest() {
+        try {
+            utx.begin();
+            clearData();
+            utx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                utx.rollback();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+    
     private void clearData() {
         em.createQuery("delete from ItinerarioEntity").executeUpdate();
         em.createQuery("delete from CiudadItinerarioEntity").executeUpdate();
@@ -256,7 +270,48 @@ public class ItinerarioLogicTest {
             itinerariosData.add(entity);
         }
     }
+    
+    @Test
+    public void getItinerariosTest(){
+        
+        List<ItinerarioEntity> lista = itinerarioLogic.getItinerarios();
+        
+        assertEquals(lista.size(), itinerariosData.size());
+    }
+    
+    @Test
+    public void getItinerariosViajeroTest(){
+        int idViajero = viajerosData.get(0).getId();
+            
+        List<ItinerarioEntity> lista = itinerarioLogic.getItinerariosViajero(idViajero);
 
+        for(int i=0; i<lista.size(); i++){
+            ItinerarioEntity ie = lista.get(i);
+
+            assertEquals(ie.getViajero().getId(), idViajero);
+        }
+    }
+
+    @Test
+    public void getItinerario(){
+        try{
+            ItinerarioEntity itinerarioABuscar = itinerariosData.get(0);
+            
+            ItinerarioEntity itinerarioEncontrado = itinerarioLogic.getItinerario(itinerarioABuscar.getId());
+
+            assertEquals(itinerarioEncontrado.getId(), itinerarioABuscar.getId());
+            assertEquals(itinerarioEncontrado.getNombre(), itinerarioABuscar.getNombre());
+            assertEquals(itinerarioEncontrado.getViajero().getId(), itinerarioABuscar.getViajero().getId());
+            assertEquals(itinerarioEncontrado.getFechaInicio(), itinerarioABuscar.getFechaInicio());
+            assertEquals(itinerarioEncontrado.getFechaFin(), itinerarioABuscar.getFechaFin());
+            assertEquals(itinerarioEncontrado.getCiudades().size(), itinerarioABuscar.getCiudades().size());
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
     @Test
     public void createItinerarioTest(){
         try{
@@ -275,14 +330,9 @@ public class ItinerarioLogicTest {
             System.out.println("fI expected "+expected.getFechaInicio().toString());
             System.out.println("fI expected "+expected.getNombre());
 
-            // utx.begin();
             ItinerarioEntity created = itinerarioLogic.createItinerario(expected);
-            // utx.commit();
 
-            // utx.begin();
             ItinerarioEntity result = em.find(ItinerarioEntity.class, created.getId());
-            // em.refresh(result);
-            // utx.commit();
 
             System.out.println("fI result "+result.getFechaInicio().toString());
             System.out.println("fI result "+result.getNombre());
@@ -307,5 +357,4 @@ public class ItinerarioLogicTest {
             fail(ex.getLocalizedMessage());
         }
     }
-
 }

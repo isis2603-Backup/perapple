@@ -61,17 +61,6 @@
         //FUNCIONES PARA OBTENER OBJETOS (GET)
 
         /**
-         * Obtener el itinerario actual.
-         * Hace una petición GET con $http a /itinerario/current para obtener el itinerario actual
-         * @param {object} idViajero id del current del viajero
-         * @returns {promise} promise para leer la respuesta del servidor.
-         * Se recibe un objeto de itinerario
-         */
-        this.fetchCurrentItinerario = function (idViajero) {
-            return $http.get(context+"/current/"+idViajero);
-        };
-
-        /**
          * Obtener un registro de itinerario especifico.
          * Hace una petición GET a /itinerario/:idItinerario para obtener
          * el objeto de un registro especifico de itinerarios
@@ -127,19 +116,6 @@
 
 
         //FUNCIONES PARA AGREGAR/ACTUALIZAR (POST/PUT)
-
-        /**
-         * Guardar un registro de itinerario.
-         * Se hace un PUT a /itinerario/current/ con los
-         * nuevos datos de la instancia de itinerario.
-         * @param {object} idViajero id del current del viajero
-         * @param {object} nItinerario instancia de itineraio a guardar/actualizar
-         * @returns {promise} promise para leer la respuesta del servidor.
-         * Se recibe un objeto de itinerario con su nuevo viajero
-         */
-        this.saveCurrentItinerario = function (idViajero, nItinerario) {
-            return $http.put(context + "/current/"+idViajero, nItinerario);
-        };
 
         /**
          * Guardar un registro de itinerario.
