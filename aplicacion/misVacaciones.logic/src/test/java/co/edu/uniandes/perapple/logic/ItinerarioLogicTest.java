@@ -84,10 +84,9 @@ public class ItinerarioLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-
     
     @Before
-    public void beforeTest() {
+    public void configTest() {
         try {
             utx.begin();
             clearData();
@@ -103,31 +102,15 @@ public class ItinerarioLogicTest {
         }
     }
     
-    @After
-    public void afterTest() {
-        try {
-            utx.begin();
-            clearData();
-            utx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            try {
-                utx.rollback();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
-    
     private void clearData() {
-        em.createQuery("delete from ItinerarioEntity").executeUpdate();
-        em.createQuery("delete from CiudadItinerarioEntity").executeUpdate();
         em.createQuery("delete from SitioItinerarioEntity").executeUpdate();
         em.createQuery("delete from EventoItinerarioEntity").executeUpdate();
-        em.createQuery("delete from ViajeroEntity").executeUpdate();
-        em.createQuery("delete from CiudadEntity").executeUpdate();
+        em.createQuery("delete from CiudadItinerarioEntity").executeUpdate();
         em.createQuery("delete from SitioEntity").executeUpdate();
         em.createQuery("delete from EventoEntity").executeUpdate();
+        em.createQuery("delete from CiudadEntity").executeUpdate();
+        em.createQuery("delete from ItinerarioEntity").executeUpdate();
+        em.createQuery("delete from ViajeroEntity").executeUpdate();
     }
 
     private void insertData() {
@@ -279,39 +262,7 @@ public class ItinerarioLogicTest {
         assertEquals(lista.size(), itinerariosData.size());
     }
     
-    @Test
-    public void getItinerariosViajeroTest(){
-        int idViajero = viajerosData.get(0).getId();
-            
-        List<ItinerarioEntity> lista = itinerarioLogic.getItinerariosViajero(idViajero);
-
-        for(int i=0; i<lista.size(); i++){
-            ItinerarioEntity ie = lista.get(i);
-
-            assertEquals(ie.getViajero().getId(), idViajero);
-        }
-    }
-
-    @Test
-    public void getItinerario(){
-        try{
-            ItinerarioEntity itinerarioABuscar = itinerariosData.get(0);
-            
-            ItinerarioEntity itinerarioEncontrado = itinerarioLogic.getItinerario(itinerarioABuscar.getId());
-
-            assertEquals(itinerarioEncontrado.getId(), itinerarioABuscar.getId());
-            assertEquals(itinerarioEncontrado.getNombre(), itinerarioABuscar.getNombre());
-            assertEquals(itinerarioEncontrado.getViajero().getId(), itinerarioABuscar.getViajero().getId());
-            assertEquals(itinerarioEncontrado.getFechaInicio(), itinerarioABuscar.getFechaInicio());
-            assertEquals(itinerarioEncontrado.getFechaFin(), itinerarioABuscar.getFechaFin());
-            assertEquals(itinerarioEncontrado.getCiudades().size(), itinerarioABuscar.getCiudades().size());
-        }catch (BusinessLogicException ex) {
-            fail(ex.getLocalizedMessage());
-        } catch (Exception ex ){
-            fail(ex.getLocalizedMessage());
-        }
-    }
-    
+    //sirve
     @Test
     public void createItinerarioTest(){
         try{
@@ -351,6 +302,118 @@ public class ItinerarioLogicTest {
             assertEquals(expectedFI, resultFI);
             assertEquals(expectedFF, resultFF);
 
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    //sirve
+    @Test
+    public void getItinerariosViajeroTest(){
+        int idViajero = viajerosData.get(0).getId();
+            
+        List<ItinerarioEntity> lista = itinerarioLogic.getItinerariosViajero(idViajero);
+
+        for(int i=0; i<lista.size(); i++){
+            ItinerarioEntity ie = lista.get(i);
+
+            assertEquals(ie.getViajero().getId(), idViajero);
+        }
+    }
+
+    //sirve
+    @Test
+    public void getItinerarioTest(){
+        try{
+            ItinerarioEntity itinerarioABuscar = itinerariosData.get(0);
+            
+            ItinerarioEntity itinerarioEncontrado = itinerarioLogic.getItinerario(itinerarioABuscar.getId());
+
+            assertEquals(itinerarioEncontrado.getId(), itinerarioABuscar.getId());
+            assertEquals(itinerarioEncontrado.getNombre(), itinerarioABuscar.getNombre());
+            assertEquals(itinerarioEncontrado.getViajero().getId(), itinerarioABuscar.getViajero().getId());
+            assertEquals(itinerarioEncontrado.getCiudades().size(), itinerarioABuscar.getCiudades().size());
+            
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String itinerarioEncontradoFI = df.format(itinerarioEncontrado.getFechaInicio());
+            String itinerarioEncontradoFF = df.format(itinerarioEncontrado.getFechaFin());
+            String itinerarioABuscarFI = df.format(itinerarioABuscar.getFechaInicio());
+            String itinerarioABuscarFF = df.format(itinerarioABuscar.getFechaFin());
+            
+            assertEquals(itinerarioEncontradoFI, itinerarioABuscarFI);
+            assertEquals(itinerarioEncontradoFF, itinerarioABuscarFF);
+
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void deleteItinerarioTest(){
+        try{
+            ItinerarioEntity itinerarioAEliminar = itinerariosData.get(0);
+            
+            itinerarioLogic.deleteItinerario(itinerarioAEliminar.getId());
+
+            assertEquals(itinerariosData.size()-1, itinerarioLogic.getItinerarios().size());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    //sirve
+    @Test
+    public void getViajeroTest(){
+        try{
+            ItinerarioEntity itinerarioABuscarViajero = itinerariosData.get(0);
+            
+            ViajeroEntity v = itinerarioLogic.getViajero(itinerarioABuscarViajero.getId());
+
+            assertEquals(itinerarioABuscarViajero.getViajero().getId(), v.getId());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void addCiudadTest(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            CiudadEntity ciu = ciudadesData.get(3);
+            
+            CiudadItinerarioEntity ciud = new CiudadItinerarioEntity();
+            
+            Date fecha = new Date();
+            long hoy = fecha.getTime();
+            int unDia = (1000 * 60 * 60 * 24);
+            
+            ciud.setItinerario(iti);
+            ciud.setCiudad(ciu);
+            fecha.setTime(iti.getFechaInicio().getTime() + 11*unDia);
+            ciud.setFechaIni(fecha);
+            fecha.setTime(iti.getFechaInicio().getTime() + 15*unDia);
+            ciud.setFechaFin(fecha);
+                    
+            itinerarioLogic.addCiudad(ciud, iti.getId());
+            
+            CiudadItinerarioEntity encontrada = itinerarioLogic.getCiudad(iti.getId(), ciu.getId());
+
+            assertEquals(ciud.getId(), encontrada.getId());
+            assertEquals(ciud.getCiudad().getNombre(), encontrada.getCiudad().getNombre());
+            assertEquals(ciud.getFechaIni(), encontrada.getFechaIni());
+            assertEquals(0, encontrada.getSitios().size());
+            assertEquals(iti.getCiudades().size()+1, itinerarioLogic.getCiudades(iti.getId()).size());
+            
         }catch (BusinessLogicException ex) {
             fail(ex.getLocalizedMessage());
         } catch (Exception ex ){
