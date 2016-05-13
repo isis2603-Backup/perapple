@@ -1,11 +1,11 @@
 package co.edu.uniandes.misVacaciones.rest;
 
-import co.edu.uniandes.misvacaciones.rest.converters.CiudadConverter;
-import co.edu.uniandes.misvacaciones.rest.dtos.CiudadDTO;
-import co.edu.uniandes.misvacaciones.rest.dtos.EventoDTO;
-import co.edu.uniandes.misvacaciones.rest.dtos.SitioDTO;
-import co.edu.uniandes.misvacaciones.rest.mappers.EJBExceptionMapper;
-import co.edu.uniandes.misvacaciones.rest.resources.CiudadResource;
+import co.edu.uniandes.misVacaciones.rest.converters.CiudadConverter;
+import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
+import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
+import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misVacaciones.rest.resources.CiudadResource;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class CiudadResourceIT {
     private final static List<CiudadDTO> oraculo = new ArrayList<>();
     private final static List<SitioDTO> oraculoSitios = new ArrayList<>();
     private final static List<EventoDTO> oraculoEventos= new ArrayList<>();
- 
+
     private WebTarget target;
     private final String apiPath = "api";
     private static PodamFactory factory = new PodamFactoryImpl();
@@ -98,12 +98,12 @@ public class CiudadResourceIT {
                 SitioDTO sitios = factory.manufacturePojo(SitioDTO.class);
                 sitios.setId(i);
                 sitiosList.add(sitios);
-                
+
                 EventoDTO eventos = factory.manufacturePojo(EventoDTO.class);
                 eventos.setId(i);
                 eventosList.add(eventos);
              }
-           
+
 
             ciudad.setSitios(sitiosList);
             ciudad.setEventos(eventosList);
@@ -112,7 +112,7 @@ public class CiudadResourceIT {
 
         }
     }
-    
+
     @Test
     @InSequence(1)
     public void ciudadTest() {
@@ -131,7 +131,7 @@ public class CiudadResourceIT {
         Assert.assertEquals("No coincide el id de la ciudad",ciudad.getId(), ciudadTest.getId());
         Assert.assertEquals("No coinciden los eventos de la ciudad",ciudad.getEventos(), ciudadTest.getEventos());
         Assert.assertEquals("No coinciden los sitios de la ciudad",ciudad.getSitios(), ciudadTest.getSitios());
-        
+
     }
 
     @Test
@@ -140,7 +140,7 @@ public class CiudadResourceIT {
         CiudadDTO ciudadTest = target.path(ciudadPath)
                 .path(oraculo.get(0).getId()+" ")
                 .request().get(CiudadDTO.class);
-        
+
         Assert.assertNotNull("No hubo respuesta de ciudad creada", ciudadTest );
         Assert.assertEquals("No coincide el id de la ciudad ",ciudadTest.getId(), oraculo.get(0).getId());
         Assert.assertEquals("No coicide el nombre de la ciudad",ciudadTest.getNombre(), oraculo.get(0).getNombre());
@@ -167,19 +167,19 @@ public class CiudadResourceIT {
     public void updateCiudadTest() {
         CiudadDTO ciudad = oraculo.get(0);
         CiudadDTO ciudadChanged = factory.manufacturePojo(CiudadDTO.class);
-       
+
         ciudad.setNombre(ciudadChanged.getNombre());
         ciudad.setDetalles(ciudadChanged.getDetalles());
         ciudad.setImagen(ciudadChanged.getImagen());
         ciudad.setEventos(ciudadChanged.getEventos());
         ciudad.setSitios(ciudadChanged.getSitios());
-        
+
         Response response = target.path(ciudadPath).path(ciudad.getId()+" ")
                 .request().put(Entity.entity(ciudad, MediaType.APPLICATION_JSON));
-        
+
         CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
         Assert.assertEquals(OK, response.getStatus());
-        
+
         Assert.assertNotNull("No hubo respuesta de ciudad creada ", ciudadTest);
         Assert.assertEquals("No coincide el nombre de la ciudad",ciudad.getNombre(), ciudadTest.getNombre());
         Assert.assertEquals("No coinciden los detalles de la ciudad",ciudad.getDetalles(), ciudadTest.getDetalles());
@@ -222,12 +222,12 @@ public class CiudadResourceIT {
         ArrayList<SitioDTO> adicion = new ArrayList<SitioDTO>();
         adicion.add(sitio);
         ciudad.setSitios(adicion);
-        
-        
+
+
         CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
         Assert.assertEquals("La respuesta del servidor no fue OK",OK, response.getStatus());
         Assert.assertEquals("No hay el numero de sitios correcto",adicion.size(),ciudadTest.getSitios().size());
-       
+
     }
 
     @Test
@@ -239,16 +239,16 @@ public class CiudadResourceIT {
                 .path(ciudad.getId()+"")
                 .path(sitiosPath)
                 .request().get();
-        
+
         Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
 
         List<SitioDTO> sitiosListTest = response.readEntity(new GenericType<List<SitioDTO>>() {
         });
-        
+
         Assert.assertEquals("No hay el numero correcto de sitios",ciudad.getSitios().size() ,sitiosListTest.size());
         Assert.assertEquals("No es el sitio correcto", ciudad.getSitios().get(0).getNombre(), sitiosListTest.get(0).getNombre());
     }
-    
+
     @Test
     @InSequence(7)
     public void addEventoTest() {
@@ -274,12 +274,12 @@ public class CiudadResourceIT {
         ArrayList<EventoDTO> adicion = new ArrayList<EventoDTO>();
         adicion.add(evento);
         ciudad.setEventos(adicion);
-        
-        
+
+
         CiudadDTO ciudadTest = (CiudadDTO) response.readEntity(CiudadDTO.class);
         Assert.assertEquals("La respuesta del servidor no fue OK",OK, response.getStatus());
         Assert.assertEquals("No hay el numero de eventos correcto",adicion.size(),ciudadTest.getEventos().size());
-       
+
     }
 
     @Test
@@ -291,14 +291,50 @@ public class CiudadResourceIT {
                 .path(ciudad.getId()+"")
                 .path(eventosPath)
                 .request().get();
-        
+
         Assert.assertEquals("La respuesta a la solicitud no fue OK", OK, response.getStatus());
 
         List<EventoDTO> eventosListTest = response.readEntity(new GenericType<List<EventoDTO>>() {
         });
-        
+
         Assert.assertEquals("No hay el numero correcto de eventos",ciudad.getEventos().size() ,eventosListTest.size());
         Assert.assertEquals("No es el evento correcto", ciudad.getEventos().get(0).getNombre(), eventosListTest.get(0).getNombre());
+    }
+    @Test
+    @InSequence(9)
+    public void deleteEventoTest() {
+
+        EventoDTO evento = oraculoEventos.get(0);
+        CiudadDTO ciudad = oraculo.get(0);
+        // target.path(ciudadPath).path(ciudad.getId()+" ")
+             //   .request().delete();
+         Response response = target.path(ciudadPath).path(ciudad.getId()+"")
+                .path(eventosPath).path(evento.getId()+"").request()
+                .delete();
+
+        Assert.assertEquals("No se borro el evento",NO_CONTENT, response.getStatus());
+
+
+
+
+    }
+    @Test
+    @InSequence(10)
+    public void deleteSitioTest() {
+
+        SitioDTO sitio = oraculoSitios.get(0);
+        CiudadDTO ciudad = oraculo.get(0);
+        // target.path(ciudadPath).path(ciudad.getId()+" ")
+             //   .request().delete();
+         Response response = target.path(ciudadPath).path(ciudad.getId()+"")
+                .path(sitiosPath).path(sitio.getId()+"").request()
+                .delete();
+
+        Assert.assertEquals("No se borro elsitio",NO_CONTENT, response.getStatus());
+
+
+
+
     }
 //
 //    @Test
