@@ -70,7 +70,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         ItinerarioEntity itinerario = persistence.find(id);
         if (itinerario == null) {
             LOGGER.log(Level.SEVERE, "El itinerario con el id {0} no existe", id);
-            throw new IllegalArgumentException("El itinerario solicitado no existe");
+            throw new BusinessLogicException("El itinerario solicitado no existe");
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar itinerario con id={0}", id);
         return itinerario;
@@ -91,7 +91,7 @@ public class ItinerarioLogic implements IItinerarioLogic {
         {
             throw new BusinessLogicException("Las fechas no son inválidas, fechas nulas");
         }
-        if (entity.getFechaInicio().compareTo(entity.getFechaFin())>0) {
+        if (entity.getFechaInicio().after(entity.getFechaFin())) {
             throw new BusinessLogicException("Las fechas no son inválidas, fecha de inicio posterior a la fecha finalización");
         }
         if( "".equals(entity.getNombre()) || entity.getNombre() == null)

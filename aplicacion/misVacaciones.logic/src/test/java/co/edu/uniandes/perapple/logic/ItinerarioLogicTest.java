@@ -18,6 +18,7 @@ import co.edu.uniandes.perapple.entities.ViajeroEntity;
 import co.edu.uniandes.perapple.exceptions.BusinessLogicException;
 import co.edu.uniandes.perapple.persistence.ItinerarioPersistence;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -145,20 +146,12 @@ public class ItinerarioLogicTest {
             ItinerarioEntity entity = factory.manufacturePojo(ItinerarioEntity.class);
             System.out.println("Nombre Itinerario: "+entity.getNombre());
 
-            Date fecha = new Date();
-            long hoy = fecha.getTime();
-            int unDia = (1000 * 60 * 60 * 24);
-            
             //2 itinerarios iguales con diferente viajero (i==0 e i==1)
             //2 itinerarios diferente con igual viajero (i==1 e i==2)
             if (i==0){
                 entity.setViajero(viajerosData.get(0));
-                fecha = new Date();
-                fecha.setTime(hoy);
-                entity.setFechaInicio(fecha);
-                fecha = new Date();
-                fecha.setTime(hoy+30*unDia);
-                entity.setFechaFin(fecha);
+                entity.setFechaInicio(parseDate("2016-05-01"));
+                entity.setFechaFin(parseDate("2016-06-01"));
 
                 List<CiudadItinerarioEntity> ciudadesI = new ArrayList<>();
 
@@ -167,23 +160,15 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(0));
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + unDia);
-                cIE.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
-                cIE.setFechaFin(fecha);
+                cIE.setFechaIni(parseDate("2016-05-02"));
+                cIE.setFechaFin(parseDate("2016-05-08"));
                 List<SitioItinerarioEntity> sitios = new ArrayList<>();
                 SitioItinerarioEntity sitio = new SitioItinerarioEntity();
                 sitio.setId(sitiosData.get(0).getId());
                 sitio.setSitio(sitiosData.get(0));
                 sitio.setCiudad(cIE);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + unDia);
-                sitio.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 2*unDia);
-                sitio.setFechaFin(fecha);
+                sitio.setFechaIni(parseDate("2016-05-02"));
+                sitio.setFechaFin(parseDate("2016-05-03"));
                 sitios.add(sitio);
                 cIE.setSitios(sitios);
                 List<EventoItinerarioEntity> eventos = new ArrayList<>();
@@ -191,12 +176,8 @@ public class ItinerarioLogicTest {
                 evento.setId(eventosData.get(0).getId());
                 evento.setEvento(eventosData.get(0));
                 evento.setCiudad(cIE);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + unDia);
-                evento.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 2*unDia);
-                evento.setFechaFin(fecha);
+                evento.setFechaIni(parseDate("2016-05-04"));
+                evento.setFechaFin(parseDate("2016-05-05"));
                 eventos.add(evento);
                 cIE.setEventos(eventos);
                 ciudadesI.add(cIE);
@@ -204,25 +185,16 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(1));
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 5*unDia);
-                cIE.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 10*unDia);
-                cIE.setFechaFin(fecha);
+                cIE.setFechaIni(parseDate("2016-05-09"));
+                cIE.setFechaFin(parseDate("2016-05-13"));
                 ciudadesI.add(cIE);
 
 		entity.setCiudades(ciudadesI);
             }
             else if(i==1){
                 entity.setViajero(viajerosData.get(1));
-
-                fecha = new Date();
-                fecha.setTime(hoy);
-                entity.setFechaInicio(fecha);
-                fecha = new Date();
-                fecha.setTime(hoy+30*unDia);
-                entity.setFechaFin(fecha);
+                entity.setFechaInicio(parseDate("2016-05-01"));
+                entity.setFechaFin(parseDate("2016-06-01"));
 
                 List<CiudadItinerarioEntity> ciudadesI = new ArrayList<>();
 
@@ -231,36 +203,23 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(0));
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + unDia);
-                cIE.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
-                cIE.setFechaFin(fecha);
+                cIE.setFechaIni(parseDate("2016-05-02"));
+                cIE.setFechaFin(parseDate("2016-05-08"));
                 ciudadesI.add(cIE);
 
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(1));
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 5*unDia);
-                cIE.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 10*unDia);
-                cIE.setFechaFin(fecha);
+                cIE.setFechaIni(parseDate("2016-05-09"));
+                cIE.setFechaFin(parseDate("2016-05-13"));
                 ciudadesI.add(cIE);
 
 		entity.setCiudades(ciudadesI);
             }
             else{
                 entity.setViajero(viajerosData.get(0));
-
-                fecha = new Date();
-                fecha.setTime(hoy+2*unDia);
-                entity.setFechaInicio(fecha);
-                fecha = new Date();
-                fecha.setTime(hoy+20*unDia);
-                entity.setFechaFin(fecha);
+                entity.setFechaInicio(parseDate("2016-07-01"));
+                entity.setFechaFin(parseDate("2016-09-01"));
 
                 List<CiudadItinerarioEntity> ciudadesI = new ArrayList<>();
 
@@ -269,23 +228,15 @@ public class ItinerarioLogicTest {
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(1));
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + unDia);
-                cIE.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 3*unDia);
-                cIE.setFechaFin(fecha);
+                cIE.setFechaIni(parseDate("2016-07-09"));
+                cIE.setFechaFin(parseDate("2016-07-13"));
                 ciudadesI.add(cIE);
 
                 cIE= new CiudadItinerarioEntity();
                 cIE.setItinerario(entity);
                 cIE.setCiudad(ciudadesData.get(2));
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 4*unDia);
-                cIE.setFechaIni(fecha);
-                fecha = new Date();
-                fecha.setTime(entity.getFechaInicio().getTime() + 8*unDia);
-                cIE.setFechaFin(fecha);
+                cIE.setFechaIni(parseDate("2016-07-19"));
+                cIE.setFechaFin(parseDate("2016-07-23"));
                 ciudadesI.add(cIE);
 
 		entity.setCiudades(ciudadesI);
@@ -309,25 +260,13 @@ public class ItinerarioLogicTest {
         try{
             ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
 
-            Date fecha = new Date();
-            long hoy = fecha.getTime();
-            int unDia = (1000 * 60 * 60 * 24);
-
             expected.setViajero(viajerosData.get(1));
-            fecha.setTime(hoy);
-            expected.setFechaInicio(fecha);
-            fecha.setTime(hoy+30*unDia);
-            expected.setFechaFin(fecha);
-
-            System.out.println("fI expected "+expected.getFechaInicio().toString());
-            System.out.println("fI expected "+expected.getNombre());
+            expected.setFechaInicio(parseDate("2016-05-12"));
+            expected.setFechaFin(parseDate("2016-06-12"));
 
             ItinerarioEntity created = itinerarioLogic.createItinerario(expected);
 
             ItinerarioEntity result = em.find(ItinerarioEntity.class, created.getId());
-
-            System.out.println("fI result "+result.getFechaInicio().toString());
-            System.out.println("fI result "+result.getNombre());
 
             assertNotNull(result);
             assertNotNull(expected);
@@ -345,6 +284,113 @@ public class ItinerarioLogicTest {
 
         }catch (BusinessLogicException ex) {
             fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createItinerarioTest2(){
+        try{
+            ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
+
+            expected.setViajero(viajerosData.get(1));
+            expected.setFechaInicio(null);
+            expected.setFechaFin(null);
+
+            itinerarioLogic.createItinerario(expected);
+
+            fail("No deberia avanzar más de acá");
+
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createItinerarioTest3(){
+        try{
+            ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
+
+            expected.setViajero(viajerosData.get(1));
+            expected.setFechaInicio(parseDate("2016-05-12"));
+            expected.setFechaFin(parseDate("2016-04-12"));
+
+            itinerarioLogic.createItinerario(expected);
+
+            fail("No deberia avanzar más de acá");
+
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createItinerarioTest4(){
+        try{
+            ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
+            
+            expected.setNombre(null);
+            
+            expected.setViajero(viajerosData.get(1));
+            expected.setFechaInicio(parseDate("2016-04-12"));
+            expected.setFechaFin(parseDate("2016-05-12"));
+
+            itinerarioLogic.createItinerario(expected);
+
+            fail("No deberia avanzar más de acá");
+
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createItinerarioTest5(){
+        try{
+            ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
+            
+            ViajeroEntity v = viajerosData.get(1);
+            v.setId(9479);
+
+            expected.setViajero(v);
+            expected.setFechaInicio(parseDate("2016-04-12"));
+            expected.setFechaFin(parseDate("2016-05-12"));
+
+            itinerarioLogic.createItinerario(expected);
+
+            fail("No deberia avanzar más de acá");
+
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createItinerarioTest6(){
+        try{
+            ItinerarioEntity expected = factory.manufacturePojo(ItinerarioEntity.class);
+            
+            expected.setNombre(itinerariosData.get(0).getNombre());
+            
+            expected.setViajero(viajerosData.get(0));
+            expected.setFechaInicio(parseDate("2016-04-12"));
+            expected.setFechaFin(parseDate("2016-05-12"));
+
+            itinerarioLogic.createItinerario(expected);
+
+            fail("No deberia avanzar más de acá");
+
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
         } catch (Exception ex ){
             fail(ex.getLocalizedMessage());
         }
@@ -392,6 +438,19 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void getItinerarioTest2(){
+        try{
+            itinerarioLogic.getItinerario(3764);
+            fail("No deberia avanzar más de acá");
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            System.out.println("erorrr: "+ex.getMessage());
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void deleteItinerarioTest(){
         try{
             ItinerarioEntity itinerarioAEliminar = itinerariosData.get(0);
@@ -407,7 +466,64 @@ public class ItinerarioLogicTest {
         }
     }
     
-    //sirve
+    @Test
+    public void deleteItinerarioTest2(){
+        try{
+            ItinerarioEntity itinerarioAEliminar = itinerariosData.get(0);
+            
+            itinerarioAEliminar.setId(3455);
+            
+            itinerarioLogic.deleteItinerario(itinerarioAEliminar.getId());
+
+            fail("No debería pasar de acá");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void updateItinerarioTest(){
+        try{
+            //TODO
+            ItinerarioEntity iti = itinerarioLogic.getItinerarios().get(0);
+            
+            String nNombre = "itiiii";
+            
+            iti.setNombre(nNombre);
+            
+            itinerarioLogic.updateItinerario(iti);
+            
+            ItinerarioEntity actualizado = itinerarioLogic.getItinerario(iti.getId());
+            
+            assertEquals(nNombre, actualizado.getNombre());
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void updateItinerarioTest2(){
+        try{
+            //TODO
+            ItinerarioEntity iti = itinerarioLogic.getItinerarios().get(0);
+            
+            iti.setId(1224);
+            
+            itinerarioLogic.updateItinerario(iti);
+            
+            fail("No debería pasar de acá");
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+
     @Test
     public void getViajeroTest(){
         try{
@@ -468,16 +584,10 @@ public class ItinerarioLogicTest {
             
             CiudadItinerarioEntity ciud = new CiudadItinerarioEntity();
             
-            Date fecha1 = new Date();
-            Date fecha2 = new Date();
-            int unDia = (1000 * 60 * 60 * 24);
-            
             ciud.setItinerario(iti);
             ciud.setCiudad(ciu);
-            fecha1.setTime(iti.getFechaInicio().getTime() + 11*unDia);
-            ciud.setFechaIni(fecha1);
-            fecha2.setTime(iti.getFechaInicio().getTime() + 15*unDia);
-            ciud.setFechaFin(fecha2);
+            ciud.setFechaIni(parseDate("2016-05-14"));
+            ciud.setFechaFin(parseDate("2016-05-15"));
             
             itinerarioLogic.addCiudad(ciud, iti.getId());
             
@@ -802,4 +912,12 @@ public class ItinerarioLogicTest {
             fail(ex.getLocalizedMessage());
         }
     }
+    
+    public static Date parseDate(String date) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+  }
 }
