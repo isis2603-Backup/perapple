@@ -674,4 +674,132 @@ public class ItinerarioLogicTest {
             fail(ex.getLocalizedMessage());
         }
     }
+    
+    @Test
+    public void createEventoTest(){
+        try{
+            Date fecha;
+            int unDia = (1000 * 60 * 60 * 24);
+            
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            EventoItinerarioEntity evento = new EventoItinerarioEntity();
+            evento.setId(eventosData.get(1).getId());
+            evento.setEvento(eventosData.get(1));
+            evento.setCiudad(ciu);
+            fecha = new Date();
+            fecha.setTime(iti.getFechaInicio().getTime() + 2*unDia);
+            evento.setFechaIni(fecha);
+            fecha = new Date();
+            fecha.setTime(iti.getFechaInicio().getTime() + 3*unDia);
+            evento.setFechaFin(fecha);
+            
+            itinerarioLogic.createEvento(iti.getId(), ciu.getId(), evento);
+
+            assertEquals(ciu.getEventos().size()+1, itinerarioLogic.getEventos(iti.getId(), ciu.getId()).size());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void deleteSitioTest(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            List<SitioItinerarioEntity> sitiosAntes = ciu.getSitios();
+            
+            itinerarioLogic.deleteSitio(iti.getId(), ciu.getId(), sitiosAntes.get(0).getId());
+            
+            List<SitioItinerarioEntity> sitios = itinerarioLogic.getSitios(iti.getId(), ciu.getId());
+
+            assertEquals(sitiosAntes.size()-1, sitios.size());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void deleteEventoTest(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            List<EventoItinerarioEntity> eventosAntes = ciu.getEventos();
+            
+            itinerarioLogic.deleteEvento(iti.getId(), ciu.getId(), eventosAntes.get(0).getId());
+            
+            List<EventoItinerarioEntity> eventos = itinerarioLogic.getEventos(iti.getId(), ciu.getId());
+
+            assertEquals(eventosAntes.size()-1, eventos.size());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void updateSitioTest(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            SitioItinerarioEntity sitioAActualizar = ciu.getSitios().get(0);
+            
+            SitioEntity nuevo = sitiosData.get(1);
+            
+            sitioAActualizar.setSitio(nuevo);
+            
+            itinerarioLogic.updateSitio(iti.getId(), ciu.getId(), sitioAActualizar);
+            
+            SitioItinerarioEntity sitioActualizado = itinerarioLogic.getSitio(iti.getId(), ciu.getId(), sitioAActualizar.getId());
+            
+            assertEquals(nuevo.getNombre(), sitioActualizado.getSitio().getNombre());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void updateEventoTest(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            EventoItinerarioEntity eventoAActualizar = ciu.getEventos().get(0);
+            
+            EventoEntity nuevo = eventosData.get(1);
+            
+            eventoAActualizar.setEvento(nuevo);
+            
+            itinerarioLogic.updateEvento(iti.getId(), ciu.getId(), eventoAActualizar);
+            
+            EventoItinerarioEntity eventoActualizado = itinerarioLogic.getEvento(iti.getId(), ciu.getId(), eventoAActualizar.getId());
+            
+            assertEquals(nuevo.getNombre(), eventoActualizado.getEvento().getNombre());
+            
+        }catch (BusinessLogicException ex) {
+            fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
 }
