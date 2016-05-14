@@ -6,7 +6,7 @@
 
             //viajero actual
             $scope.currentViajero = {};
-            
+
             //Variables para agregar nuevo viajero
             $scope.nombreNuevoViajero = "Perapple2";
             $scope.emailNuevoViajero = "p2@erapple";
@@ -125,7 +125,7 @@
                     return response;
                 }, responseError);
             };
-            
+
             this.fetchViajeros = function () {
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
@@ -154,7 +154,7 @@
                     self.fetchViajeros();
                 }, responseError);
             };
-            
+
             this.agregarViajero = function () {
 
                 var nViajero = {
@@ -169,7 +169,7 @@
                             return response;
                         }, responseError);
             };
-            
+
             /*
              * Funcion deleteRecord hace un llamado al servicio svc.deleteRecord con el fin
              * de eliminar el registro asociado.
