@@ -297,8 +297,6 @@ public class ItinerarioLogic implements IItinerarioLogic {
         return itinerario.getCiudades();
     }
 
-
-
     @Override
     public List<SitioItinerarioEntity> getSitios(int itinerarioId, int ciudadId) throws BusinessLogicException {
         CiudadItinerarioEntity ciudad = getCiudad(itinerarioId, ciudadId);
@@ -595,7 +593,10 @@ public class ItinerarioLogic implements IItinerarioLogic {
         if(sitio.getFechaIni().after(sitio.getFechaFin())){
             return false;
         }
-        if(sitio.getFechaIni().before(ciudad.getFechaIni()) && sitio.getFechaFin().after(ciudad.getFechaFin())){
+        else if(sitio.getFechaIni().before(ciudad.getFechaIni())){
+            return false;
+        }
+        else if(sitio.getFechaFin().after(ciudad.getFechaFin())){
             return false;
         }
         return true;
@@ -617,7 +618,13 @@ public class ItinerarioLogic implements IItinerarioLogic {
         if(evento.getFechaIni().after(evento.getFechaFin())){
             return false;
         }
-        return !(evento.getFechaIni().before(ciudad.getFechaIni()) && evento.getFechaFin().after(ciudad.getFechaFin()));
+        else if(evento.getFechaIni().before(ciudad.getFechaIni())){
+            return false;
+        }
+        else if(evento.getFechaFin().after(ciudad.getFechaFin())){
+            return false;
+        }
+        return true;
     }
 
     private boolean validarEventoExisteEnCiudad(CiudadItinerarioEntity ciudad, int eventoId) {

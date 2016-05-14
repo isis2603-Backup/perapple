@@ -571,6 +571,20 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void getCiudadesTest2(){
+        try{
+            itinerarioLogic.getCiudades(5899);
+
+            fail("No debería pasar de acá porque el id del itinerario no existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void getCiudadTest(){
         try{
             ItinerarioEntity itinerarioABuscarCiudad = itinerariosData.get(0);
@@ -585,6 +599,40 @@ public class ItinerarioLogicTest {
             
         }catch (BusinessLogicException ex) {
             fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void getCiudadTest2(){
+        try{
+            ItinerarioEntity itinerarioABuscarCiudad = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity real = itinerarioABuscarCiudad.getCiudades().get(0);
+            
+            itinerarioLogic.getCiudad(57898, real.getId());
+
+            fail("No debería pasar de aqui porque el id del itinerario no existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void getCiudadTest3(){
+        try{
+            ItinerarioEntity itinerarioABuscarCiudad = itinerariosData.get(0);
+            
+            itinerarioLogic.getCiudad(itinerarioABuscarCiudad.getId(), 59966);
+
+            fail("No debería pasar de aqui porque el id del itinerario no existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
         } catch (Exception ex ){
             fail(ex.getLocalizedMessage());
         }
@@ -938,6 +986,24 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void getSitioTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            SitioItinerarioEntity sitioEncontrado = itinerarioLogic.getSitio(iti.getId(), ciu.getId(), 356);
+
+            fail("No debería pasar de acá porque el id del sitio no existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void getEventoTest(){
         try{
             ItinerarioEntity iti = itinerariosData.get(0);
@@ -957,11 +1023,26 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void getEventoTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            EventoItinerarioEntity eventoEncontrado = itinerarioLogic.getEvento(iti.getId(), ciu.getId(), 4068);
+
+            fail("No debería pasar de acá porque el id del evento no existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void createSitioTest(){
         try{
-            Date fecha;
-            int unDia = (1000 * 60 * 60 * 24);
-            
             ItinerarioEntity iti = itinerariosData.get(0);
             
             CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
@@ -970,12 +1051,8 @@ public class ItinerarioLogicTest {
             sitio.setId(sitiosData.get(1).getId());
             sitio.setSitio(sitiosData.get(1));
             sitio.setCiudad(ciu);
-            fecha = new Date();
-            fecha.setTime(iti.getFechaInicio().getTime() + 2*unDia);
-            sitio.setFechaIni(fecha);
-            fecha = new Date();
-            fecha.setTime(iti.getFechaInicio().getTime() + 3*unDia);
-            sitio.setFechaFin(fecha);
+            sitio.setFechaIni(parseDate("2016-05-04"));
+            sitio.setFechaFin(parseDate("2016-05-05"));
             
             itinerarioLogic.createSitio(iti.getId(), ciu.getId(), sitio);
 
@@ -989,11 +1066,55 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void createSitioTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            SitioItinerarioEntity sitio = new SitioItinerarioEntity();
+            sitio.setId(sitiosData.get(1).getId());
+            sitio.setSitio(sitiosData.get(1));
+            sitio.setCiudad(ciu);
+            sitio.setFechaIni(parseDate("2016-04-01"));
+            sitio.setFechaFin(parseDate("2016-05-02"));
+            
+            itinerarioLogic.createSitio(iti.getId(), ciu.getId(), sitio);
+
+            fail("No debería pasar de acá porque el sitio no concuerda con las fechas de ciudad");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createSitioTest3(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            SitioItinerarioEntity sitio = ciu.getSitios().get(0);
+            sitio.setFechaIni(parseDate("2016-05-04"));
+            sitio.setFechaFin(parseDate("2016-05-05"));
+            
+            itinerarioLogic.createSitio(iti.getId(), ciu.getId(), sitio);
+
+            fail("No debería pasar de acá porque el sitio que se queire agregar ya existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void createEventoTest(){
         try{
-            Date fecha;
-            int unDia = (1000 * 60 * 60 * 24);
-            
             ItinerarioEntity iti = itinerariosData.get(0);
             
             CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
@@ -1002,12 +1123,8 @@ public class ItinerarioLogicTest {
             evento.setId(eventosData.get(1).getId());
             evento.setEvento(eventosData.get(1));
             evento.setCiudad(ciu);
-            fecha = new Date();
-            fecha.setTime(iti.getFechaInicio().getTime() + 2*unDia);
-            evento.setFechaIni(fecha);
-            fecha = new Date();
-            fecha.setTime(iti.getFechaInicio().getTime() + 3*unDia);
-            evento.setFechaFin(fecha);
+            evento.setFechaIni(parseDate("2016-05-04"));
+            evento.setFechaFin(parseDate("2016-05-05"));
             
             itinerarioLogic.createEvento(iti.getId(), ciu.getId(), evento);
 
@@ -1015,6 +1132,53 @@ public class ItinerarioLogicTest {
             
         }catch (BusinessLogicException ex) {
             fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createEventoTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            EventoItinerarioEntity evento = new EventoItinerarioEntity();
+            evento.setId(eventosData.get(1).getId());
+            evento.setEvento(eventosData.get(1));
+            evento.setCiudad(ciu);
+            evento.setFechaIni(parseDate("2016-05-02"));
+            evento.setFechaFin(parseDate("2016-06-02"));
+            
+            itinerarioLogic.createEvento(iti.getId(), ciu.getId(), evento);
+
+            fail("No debería pasar de acá porque el evento no concuerda con las fechas de ciudad");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void createEventoTest3(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            EventoItinerarioEntity evento = ciu.getEventos().get(0);
+            evento.setFechaIni(parseDate("2016-05-04"));
+            evento.setFechaFin(parseDate("2016-05-05"));
+            
+            itinerarioLogic.createEvento(iti.getId(), ciu.getId(), evento);
+
+            fail("No debería pasar de acá porque el evento ya existe en esa ciudad");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
         } catch (Exception ex ){
             fail(ex.getLocalizedMessage());
         }
@@ -1043,6 +1207,24 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void deleteSitioTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            itinerarioLogic.deleteSitio(iti.getId(), ciu.getId(), 466);
+            
+            fail("No debería pasar de acá porque el sitio no existe en esa ciudad");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void deleteEventoTest(){
         try{
             ItinerarioEntity iti = itinerariosData.get(0);
@@ -1059,6 +1241,23 @@ public class ItinerarioLogicTest {
             
         }catch (BusinessLogicException ex) {
             fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void deleteEventoTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            itinerarioLogic.deleteEvento(iti.getId(), ciu.getId(), 566);
+            
+            fail("No debería pasar de acá porque el evento no existe en esa ciudad");
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
         } catch (Exception ex ){
             fail(ex.getLocalizedMessage());
         }
@@ -1091,6 +1290,28 @@ public class ItinerarioLogicTest {
     }
     
     @Test
+    public void updateSitioTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            SitioItinerarioEntity sitioAActualizar = ciu.getSitios().get(0);
+            
+            sitioAActualizar.setId(5645);
+                    
+            itinerarioLogic.updateSitio(iti.getId(), ciu.getId(), sitioAActualizar);
+            
+            fail("No debería pasar de acá porque el id del sitio no existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
     public void updateEventoTest(){
         try{
             ItinerarioEntity iti = itinerariosData.get(0);
@@ -1111,6 +1332,28 @@ public class ItinerarioLogicTest {
             
         }catch (BusinessLogicException ex) {
             fail(ex.getLocalizedMessage());
+        } catch (Exception ex ){
+            fail(ex.getLocalizedMessage());
+        }
+    }
+    
+    @Test
+    public void updateEventoTest2(){
+        try{
+            ItinerarioEntity iti = itinerariosData.get(0);
+            
+            CiudadItinerarioEntity ciu = iti.getCiudades().get(0);
+            
+            EventoItinerarioEntity eventoAActualizar = ciu.getEventos().get(0);
+            
+            eventoAActualizar.setId(49300);
+            
+            itinerarioLogic.updateEvento(iti.getId(), ciu.getId(), eventoAActualizar);
+            
+            fail("No debería pasar de acá porque el id del evento no existe");
+            
+        }catch (BusinessLogicException ex) {
+            assertTrue(true);
         } catch (Exception ex ){
             fail(ex.getLocalizedMessage());
         }
