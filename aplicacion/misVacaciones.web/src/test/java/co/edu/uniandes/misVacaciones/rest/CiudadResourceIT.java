@@ -1,11 +1,11 @@
 package co.edu.uniandes.misVacaciones.rest;
 
-import co.edu.uniandes.misVacaciones.rest.converters.CiudadConverter;
-import co.edu.uniandes.misVacaciones.rest.dtos.CiudadDTO;
-import co.edu.uniandes.misVacaciones.rest.dtos.EventoDTO;
-import co.edu.uniandes.misVacaciones.rest.dtos.SitioDTO;
-import co.edu.uniandes.misVacaciones.rest.mappers.EJBExceptionMapper;
-import co.edu.uniandes.misVacaciones.rest.resources.CiudadResource;
+import co.edu.uniandes.misvacaciones.rest.converters.CiudadConverter;
+import co.edu.uniandes.misvacaciones.rest.dtos.CiudadDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.EventoDTO;
+import co.edu.uniandes.misvacaciones.rest.dtos.SitioDTO;
+import co.edu.uniandes.misvacaciones.rest.mappers.EJBExceptionMapper;
+import co.edu.uniandes.misvacaciones.rest.resources.CiudadResource;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
