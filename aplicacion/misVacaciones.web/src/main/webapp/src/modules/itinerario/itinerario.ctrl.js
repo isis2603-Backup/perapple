@@ -9,6 +9,17 @@
         this.readOnly = false;
         this.editMode = false;
 
+        $scope.events = [{
+    badgeClass: 'info',
+    badgeIconClass: 'glyphicon-check',
+    title: 'First heading',
+    content: 'Some awesome content.'
+  }, {
+    badgeClass: 'warning',
+    badgeIconClass: 'glyphicon-credit-card',
+    title: 'Second heading',
+    content: 'More awesome content.'
+  }];
         //Variables current
         $scope.mostrarDetallesCiudad = false;
         //id del viajero actual (ojo esto se obtiene de cuando el viajero inicia sesión
@@ -130,6 +141,7 @@
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
+                        console.log($scope.currentRecord);
                     }, responseError)
                     .then(function(){
                         svc.saveCurrentItinerario($scope.currentRecord);

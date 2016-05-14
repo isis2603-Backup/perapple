@@ -5,8 +5,39 @@
         <h4 class="dl-horizontal"><strong>FECHA INICIO</strong>: {{currentRecord.fechaInicio|date}} - <strong>FECHA FIN:</strong> {{currentRecord.fechaFin|date}} </h4>
     </div>
 
-    <div class="well" style="margin:5px; height:450px; ">
-        <img src="http://images.nationalgeographic.com/wpf/media-live/richmedia/0/565/project/timeline_water_exploration_v26/images/timeline_main.png" alt="Timeline" style="width:100%">
+    <div class="well" style="margin:5px; ">
+
+   <timeline>
+    <timeline-event ng-repeat="nc in currentCiudadesMostrar" side="alternate">
+      <timeline-badge class="info">
+        <i class="glyphicon glyphicon-check"></i>
+      </timeline-badge>
+      <timeline-panel class="info">
+        <timeline-heading>
+          <h4>{{nc.ciudad.nombre}}</h4>
+        </timeline-heading>
+         <div class="well" style="height: 200px; display: flex; justify-content:center; background-color:yellow;">
+                                <img class="img-rounded" style="height: 200px; margin:-5px; " src='{{nc.ciudad.imagen}}' alt="">
+                            </div>
+        <p>Del {{nc.fechaIni|date}} al {{nc.fechaFin|date}} </p>
+      </timeline-panel>
+    </timeline-event>
+  </timeline>
+<!--<timeline>
+    <timeline-event ng-repeat="event in events" side="alternate">
+      <timeline-badge class="{{event.badgeClass}}">
+        <i class="glyphicon {{event.badgeIconClass}}"></i>
+      </timeline-badge>
+      <timeline-panel class="{{event.badgeClass}}">
+        <timeline-heading>
+          <h4>{{event.title}}</h4>
+        </timeline-heading>
+        <p>{{event.content}}</p>
+      </timeline-panel>
+    </timeline-event>
+  </timeline>-->
+
+
     </div>
 
     <br>
