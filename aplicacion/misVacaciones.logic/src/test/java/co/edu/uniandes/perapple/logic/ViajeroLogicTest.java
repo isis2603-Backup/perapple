@@ -222,5 +222,28 @@ public class ViajeroLogicTest {
             Assert.fail(be.getMessage());
         }
     }
+    /*@Test
+    public void createViajeroTest() {
+        try {
+            ViajeroEntity expected = factory.manufacturePojo(ViajeroEntity.class);
+            ViajeroEntity created = viajeroLogic.createViajero(expected);
 
+            ViajeroEntity result = em.find(ViajeroEntity.class, created.getId());
+            try{
+                ViajeroEntity failed = viajeroLogic.createViajero(expected);
+            }
+            catch{
+                Assert.fail(be.getMessage());
+
+            }
+            Assert.assertNotNull(result);
+            Assert.assertEquals(expected.getId(), result.getId());
+            Assert.assertEquals(expected.getName(), result.getName());
+            Assert.assertEquals(expected.getEmail(), result.getEmail());
+            Assert.assertEquals(expected.getImage(), result.getImage());
+            Assert.assertEquals(expected.getPassword(), result.getPassword());
+        } catch (BusinessLogicException be) {
+            Assert.fail(be.getMessage());
+        }
+    }*/
 }
