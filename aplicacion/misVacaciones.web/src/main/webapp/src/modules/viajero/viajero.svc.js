@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-(function(ng){
+(function (ng) {
 
     var mod = ng.module("viajeroModule");
 
-     mod.service("viajeroService", ["$http", "viajeroContext", function ($http, context) {
+    mod.service("viajeroService", ["$http", "viajeroContext", function ($http, context) {
         /**
          * GET
          * Obtener la lista de viajero.
@@ -17,7 +17,7 @@
          * Devuelve una lista de objetos de viajeros con sus atributos
          */
         this.fetchViajeros = function () {
-            return $http.get(context+"/"+"viajeros");
+            return $http.get(context + "/" + "viajeros");
         };
 
         /**
@@ -29,8 +29,8 @@
          * @returns {promise} promise para leer la respuesta del servidor
          * Devuelve un objeto de viajero con sus atributos
          */
-        this.fetchViajero= function (idViajero) {
-            return $http.get(context + "/" +"viajeros"+"/"+idViajero);
+        this.fetchViajero = function (idViajero) {
+            return $http.get(context + "/" + "viajeros" + "/" + idViajero);
         };
 
         /**
@@ -45,9 +45,7 @@
          * Devuelve un objeto de viajero con sus datos incluyendo el id si es creado
          */
         this.saveViajero = function (currentViajero) {
-
-                return $http.put(context + "/" + currentViajero.id, currentViajero);
-
+            return $http.put(context + "/" + currentViajero.id, currentViajero);
         };
 
         /**
@@ -61,7 +59,5 @@
             return $http.delete(context + "/" + idViajero);
         };
     }]);
-
-
 })(window.angular);
 
