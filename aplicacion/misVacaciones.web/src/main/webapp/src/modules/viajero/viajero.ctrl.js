@@ -157,7 +157,7 @@
 
             return svcViajero.fetchViajero($scope.currentViajeroMostrar.id, idViajero)
                     .then(function (response) {
-                        viajeroBD = response.data;
+                        var viajeroBD = response.data;
                         console.log("ctrl agregar viajero viajeroBD: "+viajeroBD.id);
                         return response;
                     }, responseError)
@@ -208,7 +208,7 @@
             $scope.viajeros.push(viajero);
              $scope.viajero = "";};
 
-          //  this.fetchRecords();
+          
 
         }]);
 

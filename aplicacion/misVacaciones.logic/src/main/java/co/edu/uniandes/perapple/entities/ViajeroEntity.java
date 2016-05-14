@@ -13,7 +13,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ViajeroEntity implements Serializable {
 
-    //TODO  -- agregar relaciones con otras entidades utilizando anotaciones
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
