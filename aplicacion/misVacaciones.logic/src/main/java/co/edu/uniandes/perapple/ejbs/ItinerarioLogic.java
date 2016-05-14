@@ -545,7 +545,10 @@ public class ItinerarioLogic implements IItinerarioLogic {
         if(ciudad.getFechaIni().after(ciudad.getFechaFin())){
             return false;
         }
-        if(ciudad.getFechaIni().before(itinerario.getFechaInicio()) && ciudad.getFechaFin().after(itinerario.getFechaFin())){
+        else if(ciudad.getFechaIni().before(itinerario.getFechaInicio())){
+            return false;
+        }
+        else if(ciudad.getFechaFin().after(itinerario.getFechaFin())){
             return false;
         }
         return true;
