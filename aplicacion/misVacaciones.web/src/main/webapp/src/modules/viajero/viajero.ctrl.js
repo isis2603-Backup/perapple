@@ -1,17 +1,21 @@
-
-
 (function (ng) {
 
     var mod = ng.module("viajeroModule");
 
-    mod.controller("viajeroCtrl", ["$scope", "viajeroService", function ($scope, svc,svcViajero) {
+    mod.controller("viajeroCtrl", ["$scope", "viajeroService", function ($scope, svc, svcViajero) {
 
             //viajero actual
             $scope.currentViajero = {};
+            
+            //Variables para agregar nuevo viajero
+            $scope.nombreNuevoViajero = "Perapple2";
+            $scope.emailNuevoViajero = "p2@erapple";
+            $scope.contrasenaNuevoViajero = "****";
+            $scope.imagenNuevoViajero = "https://s-media-cache-ak0.pinimg.com/736x/01/c1/3e/01c13e690b87d69a89fe6633c21cd7a5.jpg";
 
             //Viajeros
             $scope.viajeros = [];
-            $scope.currentViajeroMostrar= {};
+            $scope.currentViajeroMostrar = {};
             //Se almacenan todas las alertas
             $scope.alerts = [];
             $scope.currentRecord = {};
@@ -71,7 +75,7 @@
             };
 
             //Ejemplo alerta
-            showMessage("Bienvenido!, Esto es un ejemplo para mostrar un mensaje de información","info");
+            showMessage("Bienvenido!, Esto es un ejemplo para mostrar un mensaje de información", "info");
 
 
             /*
@@ -114,13 +118,14 @@
              * Muestra el template de la lista de records.
              */
 
-             this.fetchViajero = function (idViajero) {
+            this.fetchViajero = function (idViajero) {
                 return svc.fetchViajeros(idViajero).then(function (response) {
                     $scope.currentViajero = response.data;
                     self.editMode = false;
                     return response;
                 }, responseError);
             };
+            
             this.fetchViajeros = function () {
                 return svc.fetchRecords().then(function (response) {
                     $scope.records = response.data;
@@ -131,13 +136,13 @@
             };
 
             this.fetchViajerosBD = function (idViajero) {
-            return svcViajero.fetchEventos(idViajero).then(function (response) {
-                $scope.viajerosBD = response.data;
-                $scope.currentViajero = {};
-                self.editMode = false;
-                return response;
-            }, responseError);
-        };
+                return svcViajero.fetchEventos(idViajero).then(function (response) {
+                    $scope.viajerosBD = response.data;
+                    $scope.currentViajero = {};
+                    self.editMode = false;
+                    return response;
+                }, responseError);
+            };
 
             /*
              * Funcion saveRecord hace un llamado al servicio svc.saveRecord con el fin de
@@ -145,35 +150,26 @@
              * Muestra el template de la lista de records al finalizar la operación saveRecord
              */
             this.saveViajero = function () {
-                    return svc.saveViajero($scope.currentViajero).then(function () {
-                        self.fetchViajeros();
-                    }, responseError);
+                return svc.saveViajero($scope.currentViajero).then(function () {
+                    self.fetchViajeros();
+                }, responseError);
             };
-            this.agregarEvento = function($event){
+            
+            this.agregarViajero = function () {
 
-            var idEvento = parseInt($event.currentTarget.name);
-            console.log("ctrl agregar evento idEve: "+idEvento);
-            var eventoBD = {};
+                var nViajero = {
+                    nombre: $scope.nombreNuevoViajero,
+                    email: $scope.emailNuevoViajero,
+                    contrasena: $scope.contrasenaNuevoViajero
+                };
 
-            return svcViajero.fetchViajero($scope.currentViajeroMostrar.id, idViajero)
-                    .then(function (response) {
-                        var viajeroBD = response.data;
-                        console.log("ctrl agregar viajero viajeroBD: "+viajeroBD.id);
-                        return response;
-                    }, responseError)
-                    .then(function () {
-                        var nViajero = {
-                            id:viajeroBD.id,
-                            nombre:viajeroBD.nombre,
-                            email:viajeroBD.email,
-                            contrasena:viajeroBD.contrasena
-                          };
-                        svc.saveViajero($scope.currentRecord.id, nViajero);
-                    }, responseError)
-                    .then(function () {
-                        self.fetchCurrentEventos();
-                    }, responseError);
-        };
+                return svcViajero.saveViajero(nViajero)
+                        .then(function (response) {
+                            nViajero = response.data;
+                            return response;
+                        }, responseError);
+            };
+            
             /*
              * Funcion deleteRecord hace un llamado al servicio svc.deleteRecord con el fin
              * de eliminar el registro asociado.
@@ -184,32 +180,29 @@
                     self.fetchViajeros();
                 }, responseError);
             };
-            this.borrarViajero = function ($event){
+            this.borrarViajero = function ($event) {
 
-            var idViajero = parseInt($event.currentTarget.id);
+                var idViajero = parseInt($event.currentTarget.id);
 
-            return svc.deleteViajero(idViajero)
-                    .then(function (){
-                        self.fetchCurrentViajeros();
-                    });
-        };
+                return svc.deleteViajero(idViajero)
+                        .then(function () {
+                            self.fetchCurrentViajeros();
+                        });
+            };
 
             /*
              * Funcion fetchRecords consulta todos los registros del módulo book en base de datos
              * para desplegarlo en el template de la lista.
              */
-            $scope.viajero= "Perapple";
+            $scope.viajero = "Perapple";
             $scope.contrasena = "Perapple";
             $scope.correo = "perapple@gmail.com";
             $scope.itinerario = "";
             $scope.itinerarios = [];
 
-            this.agregarViajero = function(viajero){
-            $scope.viajeros.push(viajero);
-             $scope.viajero = "";};
-
-          
-
+            this.agregarViajero = function (viajero) {
+                $scope.viajeros.push(viajero);
+                $scope.viajero = "";
+            };
         }]);
-
 })(window.angular);
