@@ -4,18 +4,18 @@
     mod.service("itinerarioService", ["$http", "itinerarioContext", function ($http, context) {
 
         //Context: context = api/itinerarios
-        
+
         var currentItinerario = {};
 
         //FUNCIONES PARA GUARDAR Y OBTENER CURRENT ITINERARIO
-        
+
         /**
          * Obtener el itinerario actual.
          */
         this.fetchCurrentItinerario = function () {
             return currentItinerario;
         };
-        
+
         /**
          * Guardar un registro de itinerario.
          */
@@ -23,9 +23,9 @@
             currentItinerario = nItinerario;
             return currentItinerario;
         };
-        
+
         //FUNCIONES PARA OBTENER LISTAS (GET)
-        
+
         /**
          * Obtener la lista de itinerarios asociados a cierto viajero.
          * Hace una petición GET con $http a /itinerario/viajero/:idViajero
