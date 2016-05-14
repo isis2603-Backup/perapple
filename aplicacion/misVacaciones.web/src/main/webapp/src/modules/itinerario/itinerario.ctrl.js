@@ -141,7 +141,6 @@
             return svc.fetchItinerario(idItinerario)
                     .then(function(response){
                         $scope.currentRecord = response.data;
-                        console.log($scope.currentRecord);
                     }, responseError)
                     .then(function(){
                         svc.saveCurrentItinerario($scope.currentRecord);
